@@ -15,7 +15,18 @@ $(document).ready(function() {
         "fnServerData": function (sSource, aoData, fnCallback) {
             /* Add some extra data to the sender */
             //aoData.push({ "name": "minPayments", "value": $("#numPaymentsSlider").slider("value") });
-            $.getJSON(sSource, aoData, function (json) { fnCallback(json) });
+            $.getJSON(sSource, aoData, function (json) {
+                fnCallback(json)
+            });
+        },
+        "sDom": '<"H"rf>t<"F"lip>',
+        "oLanguage": {
+            "sLengthMenu": "Show _MENU_ classes",
+            "sZeroRecords": "Nothing found - sorry",
+            "sInfo": "Showing _START_ to _END_ of _TOTAL_ classes",
+            "sInfoEmpty": "Showing no classes",
+            "sInfoFiltered": "(filtered from _MAX_ total classes)",
+            "sSearch":"Search for anything:"
         }
     });
 });

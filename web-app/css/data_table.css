@@ -23,7 +23,7 @@
  *     ensure that you either have "example_alt_pagination" as a body class name, or better yet,
  *     modify that selector.
  *   Note that the path used for Images is relative. All images are by default located in
- *     ../images/ - relative to this CSS file.
+ *     dataTables_img/ - relative to this CSS file.
  */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -59,10 +59,24 @@
 	float: left;
 }
 
+.dataTables_length select {
+    width: 50px;
+}
+
 .dataTables_filter {
-	width: 50%;
-	float: right;
-	text-align: right;
+	width: 800px;
+	float: left;
+    margin-bottom: 10px;
+}
+.dataTables_filter label {
+    font-weight: bold;
+    float: none;
+    font-size: 14px;
+}
+
+.dataTables_filter input {
+    width: 150px;
+    margin-left: 4px;
 }
 
 .dataTables_info {
@@ -86,19 +100,19 @@
 }
 
 .paginate_disabled_previous {
-	background-image: url('../images/back_disabled.jpg');
+	background-image: url('dataTables_img/back_disabled.jpg');
 }
 
 .paginate_enabled_previous {
-	background-image: url('../images/back_enabled.jpg');
+	background-image: url('dataTables_img/back_enabled.jpg');
 }
 
 .paginate_disabled_next {
-	background-image: url('../images/forward_disabled.jpg');
+	background-image: url('dataTables_img/forward_disabled.jpg');
 }
 
 .paginate_enabled_next {
-	background-image: url('../images/forward_enabled.jpg');
+	background-image: url('dataTables_img/forward_enabled.jpg');
 }
 
 
@@ -144,35 +158,6 @@ table.display td {
 table.display td.center {
 	text-align: center;
 }
-
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * DataTables sorting
- */
-
-.sorting_asc {
-	background: url('../images/sort_asc.png') no-repeat center right;
-}
-
-.sorting_desc {
-	background: url('../images/sort_desc.png') no-repeat center right;
-}
-
-.sorting {
-	background: url('../images/sort_both.png') no-repeat center right;
-}
-
-.sorting_asc_disabled {
-	background: url('../images/sort_asc_disabled.png') no-repeat center right;
-}
-
-.sorting_desc_disabled {
-	background: url('../images/sort_desc_disabled.png') no-repeat center right;
-}
-
-
-
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -530,3 +515,7 @@ div.box {
 	border: 1px solid #8080FF;
 	background-color: #E5E5FF;
 }
+
+
+
+/* [PC] */
