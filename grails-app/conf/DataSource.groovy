@@ -3,6 +3,8 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     username = "coursesearch"
     password = "sz7v8YTVGsV2qvaW"
+    loggingSql = true
+    validationQuery = "SELECT 1"
 }
 hibernate {
     cache.use_second_level_cache = true
