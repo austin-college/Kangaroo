@@ -52,7 +52,7 @@ class CourseListParseService {
                             course.courseNumber = (courseNumber as Integer);
 
                         course.section = (row.td[7].toString().split('\\*')[2] as Character);
-                        course.instructor = row.td[9].toString();
+                        course.instructor = row.td[9].div.input.@value
                         course.room = row.td[10].toString();
                         course.schedule = row.td[11].toString();
                         course.comments = row.td[12].toString();
