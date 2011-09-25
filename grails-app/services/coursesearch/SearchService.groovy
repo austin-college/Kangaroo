@@ -6,23 +6,14 @@ class SearchService {
 
     static transactional = false
 
-    def getCoursesForTable(params) {
-
-        def classes;
-        if (params.s) {
-            classes = Course.withCriteria {
-                ilike("name", "%${params.s}%")
-            }
-        }
-        else
-            classes = Course.list()
-
-        def formattedResults = formatForTable(classes);
-        return ["sEcho": 0, "iTotalRecords": formattedResults.size(), "iTotalDisplayRecords": formattedResults.size(), "aaData": formattedResults]
+    def getCoursesTableJSON() {
+        return getCoursesForTable() as JSON;
     }
 
-    def formatForTable(List<Course> notes) {
-        notes.collect { note -> formatClass(note) }
+    def getCoursesForTable() {
+        def courses = Course.list()
+        def formattedResults = courses.collect { course -> formatClass(course) }
+        return ["sEcho": 0, "iTotalRecords": formattedResults.size(), "iTotalDisplayRecords": formattedResults.size(), "aaData": formattedResults]
     }
 
     def formatClass(Course course) {

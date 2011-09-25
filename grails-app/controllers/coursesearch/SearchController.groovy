@@ -14,13 +14,8 @@ class SearchController {
 
         def start = System.currentTimeMillis()
 
-        def rendered = redisService.memoize("courses") { Jedis redis ->
-            println "Re-generating...."
-            def ret = (searchService.getCoursesForTable(params) as JSON)
-            return ret;
-        }
-
-        render(rendered);
+        String results = redisService.memoize("courses") { Jedis redis -> searchService.coursesTableJSON };
+        render(contentType: "application/json", text: results);
         println "done in ${(System.currentTimeMillis() - start) / 1000.0} seconds"
     }
 }
