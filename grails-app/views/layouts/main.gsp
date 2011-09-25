@@ -5,8 +5,14 @@
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'app.css')}"/>
+
+
+    %{-- Set some global javascript variables while we still have access to the grails closures. --}%
+    <script type="text/javascript">
+        var contextPath = "${request.contextPath}";
+    </script>
+
     <g:layoutHead/>
-    <g:javascript library="application"/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -14,7 +20,6 @@
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../1.3.0/bootstrap.css" rel="stylesheet">
     <style type="text/css">
         /* Override some defaults */
     html, body {
