@@ -1,12 +1,8 @@
 package coursesearch
 
-import grails.converters.JSON
-import redis.clients.jedis.Jedis
-
 class SearchController {
 
     def searchService
-    def redisService
 
     def index = { }
 
@@ -14,7 +10,7 @@ class SearchController {
 
         def start = System.currentTimeMillis()
 
-        String results = redisService.memoize("courses") { Jedis redis -> searchService.coursesTableJSON };
+        String results = searchService.coursesTableCached
         render(contentType: "application/json", text: results);
         println "done in ${(System.currentTimeMillis() - start) / 1000.0} seconds"
     }

@@ -6,17 +6,10 @@ $(document).ready(function() {
 
     $('#classTable').dataTable({
         "bProcessing": true,
+        "aaData": $.parseJSON($("#tableJson").text()).aaData,
         "aaSorting": [
             [1,'asc'] // Sort by YTM.
         ],
-        "sAjaxSource": contextPath + "/search/getClassesForTable",
-        "fnServerData": function (sSource, aoData, fnCallback) {
-            /* Add some extra data to the sender */
-            //aoData.push({ "name": "minPayments", "value": $("#numPaymentsSlider").slider("value") });
-            $.getJSON(sSource, aoData, function (json) {
-                fnCallback(json)
-            });
-        },
         "sDom": '<"H"rf>t<"F"lip>',
         "oLanguage": {
             "sLengthMenu": "Show _MENU_ classes",
@@ -29,5 +22,6 @@ $(document).ready(function() {
         "iDisplayLength": 15
     });
 
+    $("#tableJson").text('');
     $("#classTable_filter input").focus();
 });
