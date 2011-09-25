@@ -1,7 +1,19 @@
-$(document).ready(function() {
-    $("#courseSearch").focus();
-    $("#courseSearch").keyup(runSearch);
+var table;
 
+
+$(document).ready(function() {
+    table = $('#classTable').dataTable({
+        "bProcessing": true,
+        "aaSorting": [
+            [0,'asc'] // Sort by YTM.
+        ],
+        "sAjaxSource": contextPath + "/search/getClassesForTable",
+        "fnServerData": function (sSource, aoData, fnCallback) {
+            /* Add some extra data to the sender */
+            //aoData.push({ "name": "minPayments", "value": $("#numPaymentsSlider").slider("value") });
+            $.getJSON(sSource, aoData, function (json) { fnCallback(json) });
+        }
+    });
 });
 
 /*
@@ -9,7 +21,7 @@ $(document).ready(function() {
  */
 function runSearch() {
     $.ajax({
-        url: contextPath + "/search/getClassesAjax",
+        url: contextPath + "/search/getClassesForTable",
         dataType: 'json',
         data: { s: $("#courseSearch").val() },
         success: function(response) {
