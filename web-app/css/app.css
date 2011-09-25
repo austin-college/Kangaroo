@@ -1,0 +1,17 @@
+#searchArea {
+
+}
+
+#searchArea label {
+    font-size: 32px;
+    font-weight: bold;
+    width: auto;
+    margin-right: 15px;
+    padding-top: -3px;
+
+}
+
+#courseSearch {
+    font-size: 18px;
+    margin-top: 3px;
+}
