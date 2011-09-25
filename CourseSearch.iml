@@ -41,6 +41,7 @@
       <library name="Grails User Library (CourseSearch)">
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/redis.clients/jedis/jars/jedis-2.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
