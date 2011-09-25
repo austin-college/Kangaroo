@@ -1,7 +1,11 @@
 var table;
 
+$.fn.dataTableExt.oStdClasses.sSortAsc = "headerSortDown";
+$.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
 $(document).ready(function() {
+
+
     table = $('#classTable').dataTable({
         "bProcessing": true,
         "aaSorting": [
