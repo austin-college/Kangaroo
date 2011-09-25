@@ -16,7 +16,6 @@ class Course {
     char section // A
     boolean isLab = false
 
-    String instructor;
     String name;
     String room;
     String schedule;

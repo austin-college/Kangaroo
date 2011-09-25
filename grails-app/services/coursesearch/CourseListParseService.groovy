@@ -10,6 +10,7 @@ class CourseListParseService {
 
     def parseScrape() {
 
+        Teaching.list().each { it.delete(flush: true);}
         Course.list().each { it.delete(flush: true);}
 
         int totalSaved = 0;
@@ -52,7 +53,21 @@ class CourseListParseService {
                             course.courseNumber = (courseNumber as Integer);
 
                         course.section = (row.td[7].toString().split('\\*')[2] as Character);
-                        course.instructor = row.td[9].div.input.@value
+                        def instructors = row.td[9].div.input.@value.toString()
+
+                        def enrollments = [];
+                        instructors.split('<BR>').each { name ->
+                            def professor = Professor.findByName(name.trim());
+
+                            if (!professor) {
+                                professor = new Professor(name: name.trim());
+                                professor.save()
+                                println professor.errors
+                            }
+                            enrollments << new Teaching(course: course, professor: professor);
+                        }
+
+
                         course.room = row.td[10].toString();
                         course.schedule = row.td[11].toString();
                         course.comments = row.td[12].toString();
@@ -60,13 +75,15 @@ class CourseListParseService {
                             println "ERROR in saving ${course}..."
                             course.errors.each { error -> println "\t${error}"}
                         }
+                        enrollments.each { it.save(); }
                         numSaved++;
                         totalSaved++;
                     }
                     catch (Exception e) {
-                        println "Error during course conversion of '${course}'(line ${rowNum - 1})...";
+                        println "Error during course conversion of '${course}' (table row #${rowNum - 1})...";
                         println e;
-                        //  e.printStackTrace();
+                        e.printStackTrace()
+                        throw e;
                         totalErrors++;
                         return "ERROR"
                     }
@@ -75,7 +92,7 @@ class CourseListParseService {
             println "${numSaved} saved"
         }
 
-        "\nDONE!\n${totalSaved} saved; ${totalErrors} errors."
+        "\nDONE!\n${totalSaved} saved (${Teaching.count()} enrollments); ${totalErrors} errors."
     }
 
     GPathResult readAndConvertToXml(String filename) {
