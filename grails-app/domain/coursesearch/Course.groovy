@@ -25,10 +25,12 @@ class Course {
     }
 
     String toString() {
-        return courseListParseService.courseToString(this)
+        return name
     }
 
     String sectionString() {
         return department + ' ' + courseNumber + ' ' + section;
     }
+
+    List<Professor> getInstructors() { Teaching.findAllByCourse(this)*.professor; }
 }

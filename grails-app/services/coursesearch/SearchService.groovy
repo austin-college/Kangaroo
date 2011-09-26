@@ -27,9 +27,10 @@ class SearchService {
 
         def row = []
 
-        row << course.name
+        def g = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib()
+        row << "<a href='${g.createLink(controller:'course', action:'show', id: course.zap, absolute:true)}'>${course}</a>"
         row << course.department.name
-        row << Teaching.findAllByCourse(course)*.professor*.name.join(' & ')
+        row << course.instructors.collect { "<a href='${g.createLink(controller:'professor', action:'show', id: it.id, absolute:true)}'>${it}</a>"}.join(' & ')
         row << course.department.code + ' ' + course.courseNumber + course.section
         row << course.capacity - course.seatsUsed
         row << course.schedule.trim()
