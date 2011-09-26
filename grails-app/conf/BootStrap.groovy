@@ -6,6 +6,7 @@ import redis.clients.jedis.Jedis
 class BootStrap {
 
     def courseListParseService
+    def facultyFetcherService
     def redisService
 
     def init = { servletContext ->
@@ -72,6 +73,7 @@ class BootStrap {
                 new Department(code: mapping.key, name: mapping.value).save();
         }
 
+        facultyFetcherService.downloadFaculty()
         redisService.withRedis { Jedis redis -> redis.del("courses")}
     }
 

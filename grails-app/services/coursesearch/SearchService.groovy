@@ -10,6 +10,7 @@ class SearchService {
     static transactional = false
 
     String getCoursesTableCached() {
+        //coursesTableJSON
         redisService.memoize("courses") { Jedis redis -> coursesTableJSON };
     }
 
