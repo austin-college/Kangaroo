@@ -16,10 +16,12 @@
     <li class="active">${professor}</li>
 </ul>
 
-
-<g:if test="${professor.matched}">
+<div>
     <div class="details-block professor-block">
-        <img src="${professor.photoUrl}" alt="${professor}" title="${professor}">
+
+        <g:if test="${professor.photoUrl}">
+            <img src="${professor.photoUrl}" alt="${professor}" title="${professor}">
+        </g:if>
 
         <div class="info">
             <h1>${professor}</h1>
@@ -37,12 +39,27 @@
             <g:if test="${professor.phone}">
                 <div><b>Phone:</b> ${professor.phone}</div>
             </g:if>
-
-            <div>Teaching ${classLinks}.</div>
-
         </div>
     </div>
-</g:if>
+</div>
 
+<div class="details-block courses-block">
+
+    <g:if test="${professor.coursesTeaching.size() > 0}">
+        <div>
+            <h3>${professor} is teaching:</h3>
+
+            <ul>
+                <g:each in="${professor.coursesTeaching}" var="course">
+                    <li><g:link controller="course" action="show"
+                                id="${course.zap}">${course}</g:link> (${course.sectionString()})</li>
+                </g:each>
+            </ul>
+        </div>
+    </g:if>
+    <g:else>
+        <div><i>Not teaching any classes this semester.</i></div>
+    </g:else>
+</div>
 </body>
 </html>

@@ -2,7 +2,7 @@
     background-color: #f9f9fa;
     border: 1px solid #ccc;
     display: inline-block;
-    margin: 0 10px;
+    margin: 0 10px 20px 10px;
     font-size: 16px;
     padding: 5px 20px;
     min-width: 300px;
@@ -37,6 +37,12 @@
 
 .professor-block .info {
     float: right;
+    max-width: 600px;
     margin-top: 20px;
     margin-left: 20px;
+}
+
+.courses-block {
+    clear: both;
+    padding: 8px 18px 5px 20px;
 }
