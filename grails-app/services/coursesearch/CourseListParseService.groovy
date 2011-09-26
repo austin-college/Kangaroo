@@ -10,6 +10,7 @@ class CourseListParseService {
 
     def parseScrape() {
 
+        println "Parsing courses from WebHopper scrape..."
         Teaching.list().each { it.delete(flush: true);}
         Course.list().each { it.delete(flush: true);}
 
@@ -41,7 +42,9 @@ class CourseListParseService {
                         course.instructorConsentRequired = (row.td[4] == 'Y');
                         course.reqCode = (row.td[5])
                         course.zap = row.td[6].toString().length() > 0 ? Integer.parseInt(row.td[6].toString().trim()) : 0;
-                        course.department = row.td[7].toString().split('\\*')[0];
+
+                        def departmentString = row.td[7].toString().split('\\*')[0];
+                        course.department = Department.findByCode(departmentString) ?: new Department(code: departmentString, name: departmentString).save();
                         def courseNumber = row.td[7].toString().split('\\*')[1].toString();
 
                         // Some courses are labs

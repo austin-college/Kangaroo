@@ -28,9 +28,9 @@ class SearchService {
         def row = []
 
         row << course.name
-        row << course.department
+        row << course.department.name
         row << Teaching.findAllByCourse(course)*.professor*.name.join(' & ')
-        row << course.department + ' ' + course.courseNumber + course.section
+        row << course.department.code + ' ' + course.courseNumber + course.section
         row << course.capacity - course.seatsUsed
         row << course.schedule.trim()
 

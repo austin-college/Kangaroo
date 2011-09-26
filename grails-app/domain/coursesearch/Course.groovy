@@ -11,7 +11,7 @@ class Course {
     String reqCode;
     int zap;
 
-    String department // BIO
+    Department department // BIO
     int courseNumber // 652
     char section // A
     boolean isLab = false
