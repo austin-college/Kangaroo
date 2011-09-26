@@ -22,7 +22,10 @@
 }
 
 .professor-block {
-    min-width: 500px;
+}
+
+.professor-block .photo {
+    margin-left: 0;
 }
 
 .professor-block img {
@@ -36,10 +39,7 @@
 }
 
 .professor-block .info {
-    float: right;
-    max-width: 600px;
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 15px;
 }
 
 .courses-block {

@@ -20,10 +20,12 @@
     <div class="details-block professor-block">
 
         <g:if test="${professor.photoUrl}">
-            <img src="${professor.photoUrl}" alt="${professor}" title="${professor}">
+            <div class="span3 photo">
+                <img src="${professor.photoUrl}" alt="${professor}" title="${professor}">
+            </div>
         </g:if>
 
-        <div class="info">
+        <div class="span8 info">
             <h1>${professor}</h1>
 
             <h3>${professor.title}</h3>
