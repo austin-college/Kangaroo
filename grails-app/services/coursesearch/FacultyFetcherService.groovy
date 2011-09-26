@@ -19,8 +19,8 @@ class FacultyFetcherService {
             map.name = it.h3;
             map.photoUrl = it.h3.a.img.@src
             map.title = it.div[0]
-            map.division = it.div[1]
-            map.location = it.div[2]
+            map.department = it.div[1]
+            map.office = it.div[2]
             map.phone = it.div[3]
             map.email = it.div[4]
             map
@@ -59,6 +59,12 @@ class FacultyFetcherService {
 
             if (prof) {
                 prof.matched = true;
+                prof.photoUrl = s.photoUrl
+                prof.title = s.title
+                prof.department = s.department
+                prof.office = s.office
+                prof.email = s.email
+                prof.phone = s.phone
                 prof.save();
                 numMatched++;
             }

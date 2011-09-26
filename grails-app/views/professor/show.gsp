@@ -12,14 +12,37 @@
 <body>
 
 <ul class="breadcrumb">
-  <li><g:link controller="home">Professors</g:link> <span class="divider">/</span></li>
-  <li class="active">${professor}</li>
+    <li><g:link controller="home">Professors</g:link> <span class="divider">/</span></li>
+    <li class="active">${professor}</li>
 </ul>
 
-<h1>${professor}</h1>
-<div>Teaching ${classLinks}.</div>
 
+<g:if test="${professor.matched}">
+    <div class="details-block professor-block">
+        <img src="${professor.photoUrl}" alt="${professor}" title="${professor}">
 
+        <div class="info">
+            <h1>${professor}</h1>
+
+            <h3>${professor.title}</h3>
+
+            <g:if test="${professor.email}">
+                <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
+            </g:if>
+
+            <g:if test="${professor.office}">
+                <div><b>Office:</b> ${professor.office}</div>
+            </g:if>
+
+            <g:if test="${professor.phone}">
+                <div><b>Phone:</b> ${professor.phone}</div>
+            </g:if>
+
+            <div>Teaching ${classLinks}.</div>
+
+        </div>
+    </div>
+</g:if>
 
 </body>
 </html>
