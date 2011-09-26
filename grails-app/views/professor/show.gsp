@@ -11,6 +11,11 @@
 
 <body>
 
+<ul class="breadcrumb">
+  <li><g:link controller="home">Professors</g:link> <span class="divider">/</span></li>
+  <li class="active">${professor}</li>
+</ul>
+
 <h1>${professor}</h1>
 <div>Teaching ${classLinks}.</div>
 

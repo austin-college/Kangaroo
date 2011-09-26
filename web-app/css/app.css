@@ -1,17 +1,22 @@
-#searchArea {
-
+.details-block {
+    background-color: #f9f9fa;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 16px;
+    padding: 5px 20px;
+    min-width: 300px;
+    line-height: 150%;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
 }
 
-#searchArea label {
-    font-size: 32px;
-    font-weight: bold;
-    width: auto;
-    margin-right: 15px;
-    padding-top: -3px;
-
+.details-block .details {
+    margin: 5px 0 0 14px;
+    font-size: 14px;
 }
 
-#courseSearch {
-    font-size: 18px;
-    margin-top: 3px;
+.details-block .details b {
+    color: #555;
 }

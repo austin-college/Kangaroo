@@ -29,7 +29,7 @@ class Course {
     }
 
     String sectionString() {
-        return department + ' ' + courseNumber + ' ' + section;
+        return department.code + ' ' + courseNumber + ' ' + section;
     }
 
     List<Professor> getInstructors() { Teaching.findAllByCourse(this)*.professor; }

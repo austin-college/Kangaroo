@@ -11,10 +11,32 @@
 
 <body>
 
+<ul class="breadcrumb">
+    <li><g:link controller="home">Courses</g:link> <span class="divider">/</span></li>
+    <li class="active">${course}</li>
+</ul>
+
 <h1>${course}</h1>
-<div>Taught by ${profLinks}.</div>
 
+<div class="details-block">
+    <div>Taught by ${profLinks} in the ${course.department.name} department.</div>
 
+    <div class="details">
+        <div><b>Meets:</b> ${course.schedule}</div>
+        <div><b>Room:</b> ${course.room}</div>
+
+        <div><b>Section:</b> ${course.sectionString()} (ZAP ${course.zap})</div>
+        <g:if test="${course.instructorConsentRequired}">
+            <div class="alert-message block-message info">
+                This course requires instructor permission to register.
+            </div>
+        </g:if>
+        <g:if test="${course.comments}">
+            <div><b>Comments:</b> ${course.comments}</div>
+        </g:if>
+    </div>
+
+</div>
 
 </body>
 </html>
