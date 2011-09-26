@@ -34,6 +34,6 @@
     </tfoot>
 </table>
 
-<div id="tableJson" style="display: none;">${tableJson}</div>
+<div id="tableJson" style="display: none;">${tableJson.encodeAsHTML()}</div>
 </body>
 </html>

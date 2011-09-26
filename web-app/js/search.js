@@ -3,7 +3,6 @@ $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
 $(document).ready(function() {
 
-
     $('#classTable').dataTable({
         "bProcessing": true,
         "aaData": $.parseJSON($("#tableJson").text()).aaData,
