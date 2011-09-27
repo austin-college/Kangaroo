@@ -23,5 +23,29 @@ class Professor {
 
     String toString() { name }
 
+
+    List<Professor> getColleagues() {
+
+        // EXPENSIVE AND HACKY QUERY
+        Set<Professor> colleagues = [];
+        activeDepartments.each { dept ->
+            Course.findAllByDepartment(dept).each { course ->
+                course.instructors.each { instr ->
+                    colleagues << instr
+                }
+            }
+        }
+
+        colleagues.remove(this);
+        (colleagues as List).sort()
+    }
+
+    List<Department> getActiveDepartments() {
+        def depts = (coursesTeaching*.department as Set);
+        depts.remove(Department.findByCode("CI"));
+
+        (depts as List).sort({a, b -> return a.name.compareTo(b.name)});
+    }
+
     List<Course> getCoursesTeaching() { return Teaching.findAllByProfessor(this)*.course }
 }

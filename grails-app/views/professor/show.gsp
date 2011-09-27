@@ -60,7 +60,27 @@
         </div>
     </g:if>
     <g:else>
-        <div><i>Not teaching any classes this semester.</i></div>
+        <div><h3>${professor} is not teaching any classes</h3></div>
+    </g:else>
+</div>
+
+
+<div class="details-block colleagues-block">
+
+    <g:if test="${professor.colleagues.size() > 0}">
+        <div>
+            <h3>Colleagues:</h3>
+
+            <ul>
+                <g:each in="${professor.colleagues}" var="colleague">
+                    <li><g:link controller="professor" action="show"
+                                id="${colleague.id}">${colleague}</g:link> (${colleague.activeDepartments.join(", ")})</li>
+                </g:each>
+            </ul>
+        </div>
+    </g:if>
+    <g:else>
+        <div><h3>${professor} has no colleagues</h3></div>
     </g:else>
 </div>
 </body>

@@ -8,4 +8,6 @@ class Department {
 
     static constraints = {
     }
+
+    String toString() { name }
 }
