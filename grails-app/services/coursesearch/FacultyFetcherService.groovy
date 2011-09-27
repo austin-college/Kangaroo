@@ -11,7 +11,7 @@ class FacultyFetcherService {
     def downloadFaculty() {
 
         println 'Fetching page HTML...'
-        def facultyPage = readAndConvertToXml('faculty.htm')
+        def facultyPage = readAndConvertToXml('http://www.austincollege.edu/academics/faculty/')
         def facultyTable = facultyPage.depthFirst().collect { it }.find { it.name() == "ul" && it.@class == 'staffList' }
 
         def scraped = facultyTable.depthFirst().collect { it }.findAll { it.name() == "li" }.collect {
@@ -90,10 +90,10 @@ class FacultyFetcherService {
         //        facultyPage
     }
 
-    GPathResult readAndConvertToXml(String filename) {
+    GPathResult readAndConvertToXml(String url) {
         // Clean any messy HTML
         def cleaner = new HtmlCleaner()
-        def node = cleaner.clean(new File(filename).text)
+        def node = cleaner.clean(new URL(url).text)
 
         // Convert from HTML to XML
         def props = cleaner.getProperties()
