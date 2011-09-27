@@ -38,6 +38,10 @@
     margin-bottom: 6px;
 }
 
+.details-block li {
+    margin: 3px 0;
+}
+
 .professor-block  h3 {
     line-height: 130%;
     padding-top: 3px;
