@@ -37,7 +37,7 @@ class Professor {
         }
 
         colleagues.remove(this);
-        (colleagues as List).sort()
+        (colleagues as List).sort({a, b -> return a.name.compareTo(b.name)})
     }
 
     List<Department> getActiveDepartments() {

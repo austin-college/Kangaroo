@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="details-block courses-block">
+<div class="details-block courses-block span5">
 
     <g:if test="${professor.coursesTeaching.size() > 0}">
         <div>
@@ -65,7 +65,7 @@
 </div>
 
 
-<div class="details-block colleagues-block">
+<div class="details-block courses-block">
 
     <g:if test="${professor.colleagues.size() > 0}">
         <div>
