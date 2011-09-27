@@ -38,6 +38,12 @@
     margin-bottom: 6px;
 }
 
+.professor-block  h3 {
+    line-height: 130%;
+    padding-top: 3px;
+    margin-bottom: 10px;
+}
+
 .professor-block .info {
     margin-top: 15px;
 }
