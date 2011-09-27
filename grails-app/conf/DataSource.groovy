@@ -3,7 +3,7 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     username = "coursesearch"
     password = "sz7v8YTVGsV2qvaW"
-    loggingSql = true
+    loggingSql = false
     validationQuery = "SELECT 1"
 }
 hibernate {
