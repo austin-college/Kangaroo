@@ -18,24 +18,40 @@
 
 <h1>${course}</h1>
 
-<div class="details-block">
-    <div>Taught by ${profLinks} in the ${course.department.name} department.</div>
+<div>
+    <div class="details-block">
+        <div>Taught by ${profLinks} in the ${course.department.name} department.</div>
+    </div>
+</div>
 
-    <div class="details">
-        <div><b>Meets:</b> ${course.schedule}</div>
+<div class="details-block courses-block span6">
+    <h3>Registration info</h3>
+
+    <g:if test="${course.instructorConsentRequired}">
+        <div class="alert-message block-message info">
+            This course requires instructor permission to register.
+        </div>
+    </g:if>
+
+    <div><b>Section:</b> ${course.sectionString()}</div>
+
+    <div><b>ZAP:</b> ${course.zap}</div>
+
+    <g:if test="${course.comments}">
+        <div><b>Requirements:</b> ${course.comments}</div>
+    </g:if>
+</div>
+
+<div class="details-block courses-block">
+
+    <div>
+        <h3>Meeting info</h3>
+
+        <div><b>Schedule:</b> ${course.schedule}</div>
+
         <div><b>Room:</b> ${course.room}</div>
 
-        <div><b>Section:</b> ${course.sectionString()} (ZAP ${course.zap})</div>
-        <g:if test="${course.instructorConsentRequired}">
-            <div class="alert-message block-message info">
-                This course requires instructor permission to register.
-            </div>
-        </g:if>
-        <g:if test="${course.comments}">
-            <div><b>Comments:</b> ${course.comments}</div>
-        </g:if>
     </div>
-
 </div>
 
 </body>
