@@ -1,16 +1,17 @@
 package coursesearch
 
 import grails.converters.JSON
+import redis.clients.jedis.Jedis
 
 class SearchService {
 
-   // def redisService
+    def redisService
 
     static transactional = false
 
     String getCoursesTableCached() {
-        coursesTableJSON
-        //redisService.memoize("courses") { Jedis redis -> coursesTableJSON };
+        // coursesTableJSON
+        redisService.memoize("courses") { Jedis redis -> coursesTableJSON };
     }
 
     def getCoursesTableJSON() {

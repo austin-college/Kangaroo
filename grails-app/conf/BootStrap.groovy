@@ -1,13 +1,13 @@
 import coursesearch.Course
 import coursesearch.Department
 import grails.converters.JSON
-//import redis.clients.jedis.Jedis
+import redis.clients.jedis.Jedis
 
 class BootStrap {
 
     def courseListParseService
     def facultyFetcherService
-   // def redisService
+    def redisService
 
     def init = { servletContext ->
         // Customize how objects are formatted to JSON.
@@ -74,7 +74,7 @@ class BootStrap {
         }
 
         facultyFetcherService.downloadFaculty()
-       // redisService.withRedis { Jedis redis -> redis.del("courses")}
+        redisService.withRedis { Jedis redis -> redis.del("courses")}
     }
 
     def destroy = {
