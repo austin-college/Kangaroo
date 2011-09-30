@@ -17,7 +17,7 @@
         <th width="1%" class="yellow header">Department</th>
         <th width="3%" class="green header">Professor</th>
         <th width="1%" class="header">Section</th>
-        <th width="1%" class="header">Available</th>
+        <th width="1%" class="header">Spots</th>
         <th width="5%" class="header">Schedule</th>
     </tr>
     </thead>
@@ -28,7 +28,7 @@
         <th width="1%">Department</th>
         <th width="3%">Professor</th>
         <th width="1%">Section</th>
-        <th width="1%">Available</th>
+        <th width="1%">Spots</th>
         <th width="5%">Schedule</th>
     </tr>
     </tfoot>
