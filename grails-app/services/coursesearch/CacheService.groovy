@@ -16,6 +16,8 @@ class CacheService {
 
         println "Pre-caching data..."
         dataTablesService.getTableCached()
+
+        Professor.list().each { prof -> prof.getColleagues() }
     }
 
     def clearCache() {
