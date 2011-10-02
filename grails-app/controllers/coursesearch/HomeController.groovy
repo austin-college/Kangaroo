@@ -2,9 +2,9 @@ package coursesearch
 
 class HomeController {
 
-    def searchService
+    def dataTablesService
 
     def index = {
-       [tableJson: searchService.coursesTableCached]
+       [tableJson: dataTablesService.getTableCached()]
     }
 }

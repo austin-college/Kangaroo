@@ -3,28 +3,32 @@ package coursesearch
 import grails.converters.JSON
 import redis.clients.jedis.Jedis
 
-class SearchService {
-
-    def redisService
+/**
+ * Returns data formatted for the client-side DataTables.
+ */
+class DataTablesService {
 
     static transactional = false
 
-    String getCoursesTableCached() {
-        // coursesTableJSON
-        redisService.memoize("courses") { Jedis redis -> coursesTableJSON };
+    def redisService
+
+    /**
+     * Formats all of the courses into a table.
+     */
+    def getTable() {
+        def rows = Course.list().collect { course -> toRow(course) }
+        return (["sEcho": 0, "iTotalRecords": rows.size(), "iTotalDisplayRecords": rows.size(), "aaData": rows] as JSON)
     }
 
-    def getCoursesTableJSON() {
-        return getCoursesForTable() as JSON;
-    }
+    /**
+     * Returns a redis-cached version of the table.
+     */
+    String getTableCached() { redisService.memoize("courses") { Jedis redis -> getTable() } }
 
-    def getCoursesForTable() {
-        def courses = Course.list()
-        def formattedResults = courses.collect { course -> formatClass(course) }
-        return ["sEcho": 0, "iTotalRecords": formattedResults.size(), "iTotalDisplayRecords": formattedResults.size(), "aaData": formattedResults]
-    }
-
-    def formatClass(Course course) {
+    /**
+     * Formats a given course to fit in a table row.
+     */
+    def toRow(Course course) {
 
         def row = []
 
@@ -36,6 +40,6 @@ class SearchService {
         row << course.capacity - course.seatsUsed
         row << course.schedule.trim()
 
-        return row
+        return row;
     }
 }
