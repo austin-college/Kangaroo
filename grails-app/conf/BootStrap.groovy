@@ -8,8 +8,7 @@ class BootStrap {
     def departmentDataService
     def courseDataService
     def facultyDataService
-
-    def redisService
+    def cacheService
 
     def init = { servletContext ->
 
@@ -21,10 +20,10 @@ class BootStrap {
         departmentDataService.setUpDepartments()
         if (Course.count() == 0)
             courseDataService.downloadAndProcess();
-
-
         facultyDataService.fetchAndMatch()
-        redisService.withRedis { Jedis redis -> redis.del("courses")}
+
+        // Pre-cache as much information as we can.
+        cacheService.initializeCache();
     }
 
     def destroy = {
