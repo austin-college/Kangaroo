@@ -1,6 +1,7 @@
 package coursesearch
 
 import grails.converters.JSON
+import grails.util.Environment
 import redis.clients.jedis.Jedis
 
 /**
@@ -32,14 +33,19 @@ class DataTablesService {
 
         def row = []
 
-        def g = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib()
-        row << "<a href='${g.createLink(controller: 'course', action: 'show', id: course.zap)}'>${course}</a>"
+        row << "<a href='${createLink('course', 'show', course.zap)}'>${course}</a>"
         row << course.department.name
-        row << course.instructors.collect { "<a href='${g.createLink(controller: 'professor', action: 'show', id: it.id)}'>${it}</a>"}.join(' & ')
+        row << course.instructors.collect { "<a href='${createLink('professor', 'show', it.id)}'>${it}</a>"}.join(' & ')
         row << course.sectionString()
         row << course.capacity - course.seatsUsed
         row << course.schedule.trim()
 
         return row;
+    }
+
+    String createLink(controller, action, id) {
+
+        def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/courses" : "http://localhost:8080/CourseSearch";
+        return "${prefix}/${controller}/${action}/${id}";
     }
 }
