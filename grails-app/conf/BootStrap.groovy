@@ -1,6 +1,6 @@
 import coursesearch.Course
+import coursesearch.Professor
 import grails.converters.JSON
-import redis.clients.jedis.Jedis
 
 class BootStrap {
 
@@ -15,6 +15,9 @@ class BootStrap {
         // Customize how objects are formatted to JSON.
         JSON.registerObjectMarshaller(Course) {
             return [id: it.id, name: it.name, items: it.items];
+        }
+        JSON.registerObjectMarshaller(Professor) {
+            return [id: it.id];
         }
 
         departmentDataService.setUpDepartments()
