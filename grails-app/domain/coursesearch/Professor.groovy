@@ -1,7 +1,5 @@
 package coursesearch
 
-import grails.converters.JSON
-
 class Professor {
 
     def redisService
@@ -30,7 +28,8 @@ class Professor {
 
     List<Professor> getColleagues() {
 
-        String json = redisService.memoize("professor/${this.id}/colleagues") { def redis ->
+        def ids = (List<Long>) redisService.memoizeDomainIdList(Professor, "professor/${this.id}/colleagues") { def redis ->
+
             // EXPENSIVE AND HACKY QUERY
             Set<Professor> colleagues = [];
             activeDepartments.each { dept ->
@@ -42,10 +41,10 @@ class Professor {
             }
 
             colleagues.remove(this);
-            return ((colleagues as List).sort({a, b -> return a.name.compareTo(b.name)}) as JSON)
+            return ((colleagues as List).sort({a, b -> return a.name.compareTo(b.name)}));
         }
 
-        return (JSON.parse(json) as List).collect { Professor.get(it.id) }
+        ids.collect { id -> Professor.get(id)}
     }
 
     List<Department> getActiveDepartments() {

@@ -16,9 +16,6 @@ class BootStrap {
         JSON.registerObjectMarshaller(Course) {
             return [id: it.id, name: it.name, items: it.items];
         }
-        JSON.registerObjectMarshaller(Professor) {
-            return [id: it.id];
-        }
 
         departmentDataService.setUpDepartments()
         if (Course.count() == 0)
