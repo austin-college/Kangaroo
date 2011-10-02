@@ -8,7 +8,7 @@ import org.htmlcleaner.SimpleXmlSerializer
 /**
  * Downloads the faculty page from austincollege.edu, and uses it to augment teacher profiles.
  */
-class FacultyFetcherService {
+class FacultyDataService {
 
     static transactional = true
 

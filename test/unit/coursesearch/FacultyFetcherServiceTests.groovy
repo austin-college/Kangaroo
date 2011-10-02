@@ -4,11 +4,11 @@ import grails.test.GrailsUnitTestCase
 
 class FacultyFetcherServiceTests extends GrailsUnitTestCase {
 
-    def facultyFetcherService
+    def facultyDataService
 
     void testSomething() {
 
-        facultyFetcherService.fetchAndMatch()
+        facultyDataService.fetchAndMatch()
 
 
     }

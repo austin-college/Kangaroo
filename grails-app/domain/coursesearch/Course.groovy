@@ -2,7 +2,7 @@ package coursesearch
 
 class Course {
 
-    def courseListParseService
+    def courseDataService
 
     boolean open;
     int capacity;

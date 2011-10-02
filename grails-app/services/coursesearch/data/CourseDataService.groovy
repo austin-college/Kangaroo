@@ -8,11 +8,11 @@ import groovy.util.slurpersupport.GPathResult
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
 
-class CourseListParseService {
+class CourseDataService {
 
     static transactional = true
 
-    def parseScrape() {
+    def downloadAndProcess() {
 
         println "Parsing courses from WebHopper scrape..."
         Teaching.list().each { it.delete(flush: true);}

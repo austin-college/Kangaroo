@@ -4,9 +4,11 @@ import redis.clients.jedis.Jedis
 
 class BootStrap {
 
+    // Services to initialize our data.
     def departmentDataService
-    def courseListParseService
-    def facultyFetcherService
+    def courseDataService
+    def facultyDataService
+
     def redisService
 
     def init = { servletContext ->
@@ -18,10 +20,10 @@ class BootStrap {
 
         departmentDataService.setUpDepartments()
         if (Course.count() == 0)
-            courseListParseService.parseScrape();
+            courseDataService.downloadAndProcess();
 
 
-        facultyFetcherService.fetchAndMatch()
+        facultyDataService.fetchAndMatch()
         redisService.withRedis { Jedis redis -> redis.del("courses")}
     }
 
