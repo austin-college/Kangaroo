@@ -18,7 +18,7 @@ class CourseDataService {
 
     def downloadAndProcess() {
 
-        println "Parsing courses from WebHopper..."
+        print "Parsing courses from WebHopper..."
 
         // Clear existing data.
         Teaching.list().each { it.delete(flush: true);}
@@ -43,6 +43,7 @@ class CourseDataService {
                 def results = parseScrapeFile(file, f.name);
                 totalSaved += results.numSaved;
                 totalErrors += results.numErrors;
+                print "..${totalSaved}.."
             }
         }
 
@@ -72,8 +73,6 @@ class CourseDataService {
 
     def parseScrapeFile(file, name) {
 
-        print "Parsing ${name}..."
-
         // Iterate through all the rows in the table.
         int rowNum = 0;
         int numSaved = 0;
@@ -84,11 +83,10 @@ class CourseDataService {
                 if (parseRow(row))
                     numSaved++;
                 else
-                    totalErrors++;
+                    numErrors++;
             }
         }
 
-        println "...${numSaved} saved!"
         [numSaved: numSaved, numErrors: numErrors]
     }
 
