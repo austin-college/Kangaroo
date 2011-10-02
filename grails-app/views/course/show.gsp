@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${course}</title>
@@ -51,6 +51,16 @@
 
         <div><b>Room:</b> ${course.room}</div>
 
+    </div>
+</div>
+
+<div class="details-block courses-block span6">
+    <div>
+        <h3>Size</h3>
+
+        <div><b>${course.seatsUsed}</b> students out of a possible <b>${course.capacity}</b> <span
+                style="color: ${fullPercentageColor}">(${fullPercentage}% full)</span>
+        </div>
     </div>
 </div>
 
