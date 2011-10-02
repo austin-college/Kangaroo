@@ -47,7 +47,9 @@
     <div>
         <h3>Meeting info</h3>
 
-        <div><b>Schedule:</b> ${course.schedule}</div>
+        <g:if test="${course.schedule}">
+            <div><b>Schedule:</b> <g:link action="bySchedule" id="${course.schedule}">${course.schedule}</g:link></div>
+        </g:if>
 
         <div><b>Room:</b> ${course.room}</div>
 

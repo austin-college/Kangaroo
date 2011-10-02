@@ -6,6 +6,12 @@ class CourseController {
         redirect(controller: 'home')
     }
 
+    def bySchedule = {
+        if (params.id) {
+            [courses: Course.findAllBySchedule(params.id), schedule: params.id]
+        }
+    }
+
     def show = {
         def course = Course.findByZap(params.id)
         if (course) {
