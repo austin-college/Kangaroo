@@ -14,10 +14,17 @@ class CacheService {
     def initializeCache() {
         clearCache();
 
-        println "Pre-caching data..."
+        println "Pre-caching table..."
         dataTablesService.getTableCached()
 
-        Professor.list().each { prof -> prof.getColleagues() }
+        print "Pre-caching colleagues..."
+        def i = 0;
+        Professor.list().each {
+            prof -> prof.getColleagues();
+            if ( i++ % 4 == 0 )
+            print ".${i}.."
+        }
+        println "CACHED!"
     }
 
     def clearCache() {
