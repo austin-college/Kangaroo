@@ -73,7 +73,7 @@ class BootStrap {
                 new Department(code: mapping.key, name: mapping.value).save();
         }
 
-        facultyFetcherService.downloadFaculty()
+        facultyFetcherService.fetchAndMatch()
         redisService.withRedis { Jedis redis -> redis.del("courses")}
     }
 

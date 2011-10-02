@@ -1,6 +1,6 @@
 package coursesearch
 
-import grails.test.*
+import grails.test.GrailsUnitTestCase
 
 class FacultyFetcherServiceTests extends GrailsUnitTestCase {
 
@@ -8,8 +8,7 @@ class FacultyFetcherServiceTests extends GrailsUnitTestCase {
 
     void testSomething() {
 
-        facultyFetcherService.downloadFaculty()
-
+        facultyFetcherService.fetchAndMatch()
 
 
     }

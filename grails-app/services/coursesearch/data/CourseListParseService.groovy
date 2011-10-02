@@ -1,5 +1,9 @@
-package coursesearch
+package coursesearch.data
 
+import coursesearch.Course
+import coursesearch.Department
+import coursesearch.Professor
+import coursesearch.Teaching
 import groovy.util.slurpersupport.GPathResult
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
@@ -34,7 +38,7 @@ class CourseListParseService {
 
                 int rowNum = 0;
                 int numSaved = 0;
-                println "Parsing file ${zip.name}..."
+                print "Parsing ${zip.name}..."
                 table.tbody.tr.each { row ->
 
                     if (rowNum++ > 2) {
@@ -101,7 +105,7 @@ class CourseListParseService {
                         }
                     }
                 }
-                println "${numSaved} saved"
+                println "...${numSaved} saved!"
             }
         }
 
