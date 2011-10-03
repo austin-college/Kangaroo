@@ -1,4 +1,4 @@
-<%@ page import="java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${schedule}</title>
@@ -19,14 +19,22 @@
 <h2>Courses taught at ${schedule}</h2>
 
 <br/>
-<g:each in="${courses}" var="course">
-    <span class="details-block courses-block span6">
-        <div><g:link action="show" id="${course.zap}">${course}</g:link> (${course.department})</div>
-        <div>
-            Taught by ${course.instructors.join(' & ')}
-        </div>
 
-    </span>
+<g:each in="${courses.keySet()}" var="department">
+
+    <div><h3>${department}</h3>
+        <g:each in="${courses[department]}" var="course">
+            <span class="details-block courses-block">
+                <div><g:link action="show" id="${course.zap}">${course}</g:link></div>
+
+                <div>
+                    Taught by ${CourseUtils.getProfessorLinksForClass(course)}
+                </div>
+
+            </span>
+        </g:each>
+    </div>
 </g:each>
+
 </body>
 </html>

@@ -33,9 +33,9 @@ class DataTablesService {
 
         def row = []
 
-        row << "<a href='${createLink('course', 'show', course.zap)}'>${course}</a>"
+        row << "<a href='${CourseUtils.createLink('course', 'show', course.zap)}'>${course}</a>"
         row << course.department.name
-        row << course.instructors.collect { "<a href='${createLink('professor', 'show', it.id)}'>${it}</a>"}.join(' & ')
+        row << CourseUtils.getProfessorLinksForClass(course);
         row << course.sectionString()
         row << course.capacity - course.seatsUsed
         row << course.schedule.trim()
@@ -43,9 +43,4 @@ class DataTablesService {
         return row;
     }
 
-    String createLink(controller, action, id) {
-
-        def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/courses" : "http://localhost:8080/CourseSearch";
-        return "${prefix}/${controller}/${action}/${id}";
-    }
 }

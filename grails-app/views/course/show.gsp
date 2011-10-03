@@ -1,4 +1,4 @@
-<%@ page import="java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${course}</title>
@@ -20,7 +20,7 @@
 
 <div>
     <div class="details-block">
-        <div>Taught by ${profLinks} in the ${course.department.name} department.</div>
+        <div>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")} in the ${course.department.name} department.</div>
     </div>
 </div>
 

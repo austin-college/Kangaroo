@@ -8,17 +8,25 @@ class CourseController {
 
     def bySchedule = {
         if (params.id) {
-            [courses: Course.findAllBySchedule(params.id), schedule: params.id]
+
+            Map courses = [:]
+
+            // Find all courses at this time by department.
+            Department.list().each { dept ->
+                def coursesFound = Course.findAllByScheduleAndDepartment(params.id, dept);
+                if (coursesFound)
+                    courses.put(dept, coursesFound)
+            }
+
+            [courses: courses, schedule: params.id]
         }
     }
 
     def show = {
         def course = Course.findByZap(params.id)
         if (course) {
-            def profLinks = course.instructors.collect { "<a href=\"${g.createLink(controller: 'professor', action: 'show', id: it.id)}\">${it}</a>"}.join(" and ");
-
             def fullPercentage = (int) ((double) (course.seatsUsed / course.capacity * 100.0)).round();
-            [course: course, profLinks: profLinks, fullPercentage: fullPercentage, fullPercentageColor: getColorForPercent(fullPercentage)]
+            [course: course, fullPercentage: fullPercentage, fullPercentageColor: getColorForPercent(fullPercentage)]
         }
     }
 
