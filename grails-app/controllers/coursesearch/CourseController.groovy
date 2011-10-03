@@ -22,6 +22,22 @@ class CourseController {
         }
     }
 
+    def byRoom = {
+         if (params.id) {
+
+            Map courses = [:]
+
+            // Find all courses at this time by department.
+            Department.list().each { dept ->
+                def coursesFound = Course.findAllByRoomAndDepartment(params.id, dept);
+                if (coursesFound)
+                    courses.put(dept, coursesFound)
+            }
+
+            [courses: courses, room: params.id]
+        }
+    }
+
     def show = {
         def course = Course.findByZap(params.id)
         if (course) {
