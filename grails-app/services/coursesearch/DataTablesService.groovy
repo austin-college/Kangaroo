@@ -38,7 +38,7 @@ class DataTablesService {
         row << CourseUtils.getProfessorLinksForClass(course);
         row << course.sectionString()
         row << course.capacity - course.seatsUsed
-        row << course.schedule.trim()
+        row << "<a href='${CourseUtils.createLink('course', 'bySchedule', course.schedule)}'>${course.schedule.trim()}</a>"
 
         return row;
     }
