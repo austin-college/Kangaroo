@@ -140,7 +140,7 @@ class CourseDataService {
                 enrollments << new Teaching(course: course, professor: professor);
             }
 
-            course.room = row.td[10].toString();
+            course.room = row.td[10].toString().trim();
             course.schedule = row.td[11].toString();
             course.comments = row.td[12].toString();
             if (!course.save()) {

@@ -54,5 +54,15 @@ class Professor {
         (depts as List).sort({a, b -> return a.name.compareTo(b.name)});
     }
 
+    List<String> getActiveRooms() {
+        def rooms = (coursesTeaching*.room as Set);
+        rooms.remove("");
+        (rooms as List).sort({a, b -> return a.compareTo(b)});
+    }
+
+    List<Course> getCoursesForRoom(String room) {
+        coursesTeaching.findAll { course -> course.room == room };
+    }
+
     List<Course> getCoursesTeaching() { return Teaching.findAllByProfessor(this)*.course }
 }
