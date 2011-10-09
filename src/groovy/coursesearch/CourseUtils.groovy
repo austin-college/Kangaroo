@@ -15,9 +15,9 @@ public class CourseUtils {
         // Remove trailing whitespace and "Dr.".
         def processed = name.trim().replaceAll("Dr\\. ", "").trim();
 
-        // Remove all but the first and last words.
+        // Remove any middle initials.
         def words = processed.split(" ");
-        if (words.size() >= 2)
+        if (words.size() == 3 && words[2].length() == 2)
             return words[0] + " " + words[-1];
         else
             processed
