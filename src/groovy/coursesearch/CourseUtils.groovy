@@ -13,7 +13,7 @@ public class CourseUtils {
     static String cleanFacultyName(String name) {
 
         // Remove trailing whitespace and "Dr.".
-        def processed = name.trim().replaceAll("Dr.", "").trim();
+        def processed = name.trim().replaceAll("Dr\\. ", "").trim();
 
         // Remove all but the first and last words.
         def words = processed.split(" ");
