@@ -17,7 +17,7 @@ public class CourseUtils {
 
         // Remove any middle initials.
         def words = processed.split(" ");
-        if (words.size() == 3 && words[2].length() == 2)
+        if (words.size() == 3 && words[1].length() == 2)
             return words[0] + " " + words[-1];
         else
             processed
