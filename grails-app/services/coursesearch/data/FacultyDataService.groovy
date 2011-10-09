@@ -38,7 +38,7 @@ class FacultyDataService {
 
         // Download and extract the faculty list.
         println 'Fetching faculty page...'
-        def facultyPage = readAndConvertToXml('http://www.austincollege.edu/academics/faculty/')
+        def facultyPage = readAndConvertToXml('http://www.austincollege.edu/faculty-staff/directory/')
         def facultyTable = facultyPage.depthFirst().collect { it }.find { it.name() == "ul" && it.@class == 'staffList' }
 
         // Extract the professor data.
