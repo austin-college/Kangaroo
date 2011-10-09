@@ -68,5 +68,12 @@
     </div>
 </div>
 
+<div class="details-block courses-block span6">
+    <div>
+        <h3>Textbooks</h3>
+        <a href="http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=A&bookstore_id-1=239&term_id-1=11FA&div-1=&dept-1=${course.department.code}&course-1=${course.courseNumber}">Click here to look up this course's textbooks</a>
+    </div>
+</div>
+
 </body>
 </html>
