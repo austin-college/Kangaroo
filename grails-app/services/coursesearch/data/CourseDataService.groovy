@@ -129,7 +129,7 @@ class CourseDataService {
             def enrollments = [];
             row.td[9].div.input.@value.toString().split('<BR>').each { name ->
 
-                def processedName = CourseUtils.extractFirstAndLast(name.trim())
+                def processedName = CourseUtils.cleanFacultyName(name)
 
                 def professor = Professor.findByName(processedName);
                 if (!professor) {

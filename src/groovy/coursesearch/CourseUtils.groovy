@@ -10,8 +10,17 @@ public class CourseUtils {
     /**
      * Removes all but someone's first and last name.
      */
-    static String extractFirstAndLast(String name) {
-        return name.split(" ")[0] + " " + name.split(" ")[-1];
+    static String cleanFacultyName(String name) {
+
+        // Remove trailing whitespace and "Dr.".
+        def processed = name.trim().replaceAll("Dr.", "").trim();
+
+        // Remove all but the first and last words.
+        def words = processed.split(" ");
+        if (words.size() >= 2)
+            return words[0] + " " + words[-1];
+        else
+            processed
     }
 
     static String getProfessorLinksForClass(Course course, String connector = ' & ') {

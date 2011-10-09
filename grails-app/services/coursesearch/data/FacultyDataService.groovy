@@ -88,7 +88,7 @@ class FacultyDataService {
 
             // Not found - try removing their middle name.
             if (!prof) {
-                def firstLast = CourseUtils.extractFirstAndLast(cleanName);
+                def firstLast = CourseUtils.cleanFacultyName(cleanName);
 
                 if (firstLast != cleanName && Professor.findByName(firstLast))
                     prof = Professor.findByName(firstLast);
