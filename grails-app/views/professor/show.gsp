@@ -34,10 +34,6 @@
                 <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
             </g:if>
 
-            <g:if test="${professor.activeRooms}">
-                <div><b>Teaches In:</b> ${CourseUtils.getRoomLinksForProfessor(professor)}</div>
-            </g:if>
-
             <g:if test="${professor.office}">
                 <div><b>Office:</b> ${professor.office}</div>
             </g:if>
