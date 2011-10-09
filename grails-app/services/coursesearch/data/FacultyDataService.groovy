@@ -4,6 +4,7 @@ import coursesearch.Professor
 import groovy.util.slurpersupport.GPathResult
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
+import coursesearch.CourseUtils
 
 /**
  * Downloads the faculty page from austincollege.edu, and uses it to augment teacher profiles.
@@ -15,14 +16,14 @@ class FacultyDataService {
     // These are faculty that have different names on the faculty page (left) than WebHopper (right).
     static def synonyms = [
             "Robert Cape": "Bob Cape",
-            "Renee Countryman": "Renee A. Countryman",
-            "Peter A. DeLisle": "Peter DeLisle",
+//            "Renee Countryman": "Renee A. Countryman",
+            //            "Peter A. DeLisle": "Peter DeLisle",
             "Daniel Dominick": "Dan Dominick",
-            "Kirk Everist": "Kirk A. Everist",
+//            "Kirk Everist": "Kirk A. Everist",
             "Steven Goldsmith": "Steve Goldsmith",
             "Henry Gorman": "Hank Gorman",
-            "Matthew Hanley": "Matthew A. Hanley",
-            "Jennifer Johnson": "Jennifer T. Johnson",
+//            "Matthew Hanley": "Matthew A. Hanley",
+            //            "Jennifer Johnson": "Jennifer T. Johnson",
             "Gregory Kinzer": "Greg Kinzer",
             "Jacqueline Moore": "Jackie Moore",
             "Stephen Ramsey": "Steve Ramsey",
@@ -82,9 +83,18 @@ class FacultyDataService {
         int entriedUsed = 0;
         int entriedUnused = 0;
         scraped.each { s ->
-            def cleanName = s.name.toString().replaceAll("Dr. ", "");
+            def cleanName =  s.name.toString().replaceAll("Dr. ", "");
             def prof = Professor.findByName(cleanName);
 
+            // Not found - try removing their middle name.
+            if (!prof) {
+                def firstLast = CourseUtils.extractFirstAndLast(cleanName);
+
+                if (firstLast != cleanName && Professor.findByName(firstLast))
+                    prof = Professor.findByName(firstLast);
+            }
+
+            // Not found - use the synonyms table.
             if (!prof && synonyms.containsKey(cleanName))
                 prof = Professor.findByName(synonyms[cleanName]);
 

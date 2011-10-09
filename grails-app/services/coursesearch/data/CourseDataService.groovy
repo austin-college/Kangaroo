@@ -1,13 +1,10 @@
 package coursesearch.data
 
-import coursesearch.Course
-import coursesearch.Department
-import coursesearch.Professor
-import coursesearch.Teaching
 import groovy.util.slurpersupport.GPathResult
 import java.util.zip.ZipFile
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
+import coursesearch.*
 
 /**
  * Extracts information about courses from saved WebHopper pages.
@@ -131,10 +128,12 @@ class CourseDataService {
             // Process the professors (sometimes there are multiple ones).
             def enrollments = [];
             row.td[9].div.input.@value.toString().split('<BR>').each { name ->
-                def professor = Professor.findByName(name.trim());
 
+                def processedName = CourseUtils.extractFirstAndLast(name.trim())
+
+                def professor = Professor.findByName(processedName);
                 if (!professor) {
-                    professor = new Professor(name: name.trim());
+                    professor = new Professor(name: processedName);
                     professor.save()
                 }
                 enrollments << new Teaching(course: course, professor: professor);

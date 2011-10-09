@@ -7,12 +7,19 @@ import grails.util.Environment
  */
 public class CourseUtils {
 
+    /**
+     * Removes all but someone's first and last name.
+     */
+    static String extractFirstAndLast(String name) {
+        return name.split(" ")[0] + " " + name.split(" ")[-1];
+    }
+
     static String getProfessorLinksForClass(Course course, String connector = ' & ') {
         course.instructors.collect { "<a href='${createLink('professor', 'show', it.id)}'>${it}</a>"}.join(connector)
     }
 
     static String getRoomLinksForProfessor(Professor professor, String connector = ', ') {
-        professor.activeRooms.collect { room-> "<a href='${createLink('course', 'byRoom', room)}'>${room.trim()}</a>"}.join(connector)
+        professor.activeRooms.collect { room -> "<a href='${createLink('course', 'byRoom', room)}'>${room.trim()}</a>"}.join(connector)
     }
 
     static String createLink(controller, action, id) {
