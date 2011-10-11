@@ -24,9 +24,9 @@ class Course {
     static constraints = {
     }
 
-    String toString() {
-        return name
-    }
+    String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=A&bookstore_id-1=239&term_id-1=11FA&div-1=&dept-1=${department.code}&course-1=${courseNumber}"}
+
+    String toString() { name }
 
     String sectionString() { department.code + ' ' + courseNumber + section; }
 
