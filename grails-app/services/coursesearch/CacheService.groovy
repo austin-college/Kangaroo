@@ -1,5 +1,7 @@
 package coursesearch
 
+import grails.util.Environment
+
 /**
  * Stores information in the super-fast, memory-only redis cache. This is a great way to speed up slow, unchanging queries.
  */
@@ -17,12 +19,16 @@ class CacheService {
         println "Pre-caching table..."
         dataTablesService.getTableCached()
 
-        print "Pre-caching colleagues..."
-        def i = 0;
-        Professor.list().each {
-            prof -> prof.getColleagues();
-            if ( i++ % 4 == 0 )
-            print ".${i}.."
+        // Pre-cache the colleagues list, an expensive operation.
+        if (Environment.current == Environment.PRODUCTION) {
+            print "Pre-caching colleagues..."
+            def i = 0;
+            Professor.list().each {
+                prof ->
+                prof.getColleagues();
+                if (i++ % 4 == 0)
+                    print ".${i}.."
+            }
         }
         println "CACHED!"
     }
