@@ -1,6 +1,9 @@
 package coursesearch
 
 import grails.util.Environment
+import org.htmlcleaner.SimpleXmlSerializer
+import org.htmlcleaner.HtmlCleaner
+import groovy.util.slurpersupport.GPathResult
 
 /**
  * Useful stuff.
@@ -21,6 +24,27 @@ public class CourseUtils {
             return words[0] + " " + words[-1];
         else
             processed
+    }
+
+    /**
+     * Converts the given HTML page into a Groovy-compatible XML tree.
+     */
+    static GPathResult cleanAndConvertToXml(String html) {
+
+        if (html?.length() == 0)
+            return;
+
+        // Clean any messy HTML
+        def cleaner = new HtmlCleaner()
+        def node = cleaner.clean(html)
+
+        // Convert from HTML to XML
+        def props = cleaner.getProperties()
+        def serializer = new SimpleXmlSerializer(props)
+        def xml = serializer.getXmlAsString(node)
+
+        // Parse the XML into a document we can work with
+        return new XmlSlurper(false, false).parseText(xml)
     }
 
     static String getProfessorLinksForClass(Course course, String connector = ' & ') {

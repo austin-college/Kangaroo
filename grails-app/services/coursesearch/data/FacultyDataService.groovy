@@ -39,7 +39,7 @@ class FacultyDataService {
 
         // Download and extract the faculty list.
         println 'Fetching faculty page...'
-        def facultyPage = readAndConvertToXml('http://www.austincollege.edu/faculty-staff/directory/')
+        def facultyPage = coursesearch.CourseUtils.cleanAndConvertToXml(new URL('http://www.austincollege.edu/faculty-staff/directory/').text);
         def facultyTable = facultyPage.depthFirst().collect { it }.find { it.name() == "ul" && it.@class == 'staffList' }
 
         // Extract the professor data.
@@ -47,20 +47,6 @@ class FacultyDataService {
 
         // Match what's found to professors already in the system.
         matchScrapedFaculty(scraped)
-    }
-
-    GPathResult readAndConvertToXml(String url) {
-        // Clean any messy HTML
-        def cleaner = new HtmlCleaner()
-        def node = cleaner.clean(new URL(url).text)
-
-        // Convert from HTML to XML
-        def props = cleaner.getProperties()
-        def serializer = new SimpleXmlSerializer(props)
-        def xml = serializer.getXmlAsString(node)
-
-        // Parse the XML into a document we can work with
-        return new XmlSlurper(false, false).parseText(xml)
     }
 
     List<Map> scrapeFaculty(table) {
@@ -83,7 +69,7 @@ class FacultyDataService {
         int entriedUsed = 0;
         int entriedUnused = 0;
         scraped.each { s ->
-            def cleanName =  s.name.toString().replaceAll("Dr. ", "");
+            def cleanName = s.name.toString().replaceAll("Dr. ", "");
             def prof = Professor.findByName(cleanName);
 
             // Not found - try removing their middle name.

@@ -35,7 +35,7 @@ class CourseDataService {
         zip.entries().each { f ->
 
             // Parse each file for HTML.
-            def file = readAndConvertToXml(zip.getInputStream(f)?.text);
+            def file = coursesearch.CourseUtils.cleanAndConvertToXml(zip.getInputStream(f)?.text);
             if (file) {
                 def results = parseScrapeFile(file, f.name);
                 totalSaved += results.numSaved;
@@ -48,24 +48,6 @@ class CourseDataService {
         zip.close()
         temporaryFile.delete();
         println "COURSES PARSED!\n${totalSaved} saved (${Teaching.count()} enrollments); ${totalErrors} errors."
-    }
-
-    GPathResult readAndConvertToXml(String text) {
-
-        if (text?.length() == 0)
-            return;
-
-        // Clean any messy HTML
-        def cleaner = new HtmlCleaner()
-        def node = cleaner.clean(text)
-
-        // Convert from HTML to XML
-        def props = cleaner.getProperties()
-        def serializer = new SimpleXmlSerializer(props)
-        def xml = serializer.getXmlAsString(node)
-
-        // Parse the XML into a document we can work with
-        return new XmlSlurper(false, false).parseText(xml)
     }
 
     def parseScrapeFile(file, name) {
