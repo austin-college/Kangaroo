@@ -1,9 +1,8 @@
 dataSource {
     pooled = true
-    driverClassName = "org.hsqldb.jdbcDriver"
-    username = "sa"
-    password = ""
-
+    driverClassName = "com.mysql.jdbc.Driver"
+    username = "coursesearch"
+    password = "sz7v8YTVGsV2qvaW"
     loggingSql = false
     validationQuery = "SELECT 1"
 }
@@ -18,6 +17,9 @@ environments {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
             url = "jdbc:hsqldb:mem:devDB"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "sa"
+            password = ""
         }
     }
     test {
@@ -30,9 +32,6 @@ environments {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
             url = "jdbc:mysql://localhost:3306/course_search?useUnicode=true&amp;characterEncoding=utf8"
-            driverClassName = "com.mysql.jdbc.Driver"
-            username = "coursesearch"
-            password = "sz7v8YTVGsV2qvaW"
         }
     }
 }
