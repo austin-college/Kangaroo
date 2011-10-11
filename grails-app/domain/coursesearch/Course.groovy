@@ -2,6 +2,8 @@ package coursesearch
 
 class Course {
 
+    static hasMany = [textbooks: Textbook]
+
     def courseDataService
 
     boolean open;
