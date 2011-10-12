@@ -71,7 +71,15 @@
 <div class="details-block courses-block span6">
     <div>
         <h3>Textbooks</h3>
-        <a href="${course.textbookPageUrl()}">Click here to look up this course's textbooks</a>
+
+        <ul>
+            <g:each in="${course.textbooks}" var="textbook">
+                <li>${textbook.title} ($${textbook.bookstoreNewPrice})</li>
+            </g:each>
+        </ul>
+
+        <b>Total: $${(course.textbooks*.bookstoreNewPrice.sum() as Double).round(2)}</b> &middot;
+        <a href="${course.textbookPageUrl()}">see all</a>
     </div>
 </div>
 
