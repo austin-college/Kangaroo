@@ -2,3 +2,9 @@
 target/
 .idea/workspace.xml
 .DS_Store
+
+development.hsqldb.properties
+
+development.hsqldb.log
+
+development.hsqldb.script
