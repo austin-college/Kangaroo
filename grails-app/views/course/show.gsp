@@ -70,24 +70,29 @@
 
 <div class="details-block courses-block span6">
     <div>
-        <g:if test="${course.textbooks.size() > 0}">
+        <g:if test="${course.textbooksParsed}">
+            <g:if test="${course.textbooks.size() > 0}">
 
-            <h3>Textbooks</h3>
-            <ul>
-                <g:each in="${course.textbooks}" var="textbook">
-                    <li><a href="http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=${textbook.isbn}&x=0&y=0">${textbook.title}</a>
-                        ($${textbook.bookstoreNewPrice})</li>
-                </g:each>
-            </ul>
+                <h3>Textbooks</h3>
+                <ul>
+                    <g:each in="${course.textbooks}" var="textbook">
+                        <li><a href="http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=${textbook.isbn}&x=0&y=0">${textbook.title}</a>
+                            ($${textbook.bookstoreNewPrice})</li>
+                    </g:each>
+                </ul>
 
-            <b>Total: $${(course.textbooks*.bookstoreNewPrice.sum() as Double).round(2)}</b> &middot;
-            <a href="${course.textbookPageUrl()}">see all</a>
+                <b>Total: $${(course.textbooks*.bookstoreNewPrice.sum() as Double).round(2)}</b> &middot;
+                <a href="${course.textbookPageUrl()}">see all</a>
 
+            </g:if>
+            <g:else>
+
+                <h3>This course has no textbooks.</h3>
+
+            </g:else>
         </g:if>
         <g:else>
-
-            <h3>This course has no textbooks.</h3>
-
+            <h3><a href="${course.textbookPageUrl()}">View this course's textbooks</a></h3>
         </g:else>
     </div>
 </div>

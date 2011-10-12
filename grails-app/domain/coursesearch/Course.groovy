@@ -23,6 +23,8 @@ class Course {
     String schedule;
     String comments;
 
+    boolean textbooksParsed
+
     static constraints = {
     }
 

@@ -8,23 +8,26 @@ class TextbookDataService {
     static transactional = true
 
     def lookupTextbooksForAllCourses() {
-        Course.list().each { course ->
-            lookupTextbookInfo(course);
-        }
-    }
 
+        println "Fetching detailed textbook data from bkstr.com..."
+        Course.list().eachWithIndex { course, i ->
+            lookupTextbookInfo(course);
+            if ( i % 20 == 0 ) println "...${i}..."
+        }
+        println "....done!";
+    }
 
     def lookupTextbookInfo(Course course) {
 
         // Download and extract the list of textbooks.
-        println "Fetching textbook page for ${course}..."
         Textbook.findAllByCourse(course).each { it.delete() }
+        course.textbooksParsed = false;
 
         def page = coursesearch.CourseUtils.cleanAndConvertToXml(new URL(course.textbookPageUrl()).text);
         def list = page.depthFirst().collect { it }.find { it.name() == "div" && it.@class.toString().contains("results") }
 
+        int failures = 0;
         list.depthFirst().collect { it }.findAll { it.name() == "ul" }.collect {
-
 
             def textbook = new Textbook(course: course);
 
@@ -37,16 +40,25 @@ class TextbookDataService {
                 if (parts.size() >= 2) {
                     def key = parts[0].trim().toUpperCase();
                     def value = parts[1..-1].join(":").trim(); // Join any colons in the value field together.
-
-                    //                    println "${key}---->${value}"
                     parseTextbookDetail(textbook, key, value);
                 }
             }
 
-//            println "${textbook.title} by ${textbook.author}"
             textbook.save();
-            if (textbook.hasErrors()) println textbook.errors.toString()
+            if (textbook.hasErrors()) {
+                println textbook.errors.toString()
+                failures++;
+            }
         }
+
+        if (failures) {
+            course.textbooksParsed = false;
+            println "Failed to save ${failures} books for ${course}..."
+        }
+        else
+            course.textbooksParsed = true;
+
+        course.save();
     }
 
     def parseTextbookDetail(Textbook textbook, key, value) {
