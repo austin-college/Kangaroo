@@ -1,5 +1,5 @@
 import coursesearch.Course
-import coursesearch.Professor
+import coursesearch.Textbook
 import grails.converters.JSON
 
 class BootStrap {
@@ -8,6 +8,7 @@ class BootStrap {
     def departmentDataService
     def courseDataService
     def facultyDataService
+    def textbookDataService
     def cacheService
 
     def init = { servletContext ->
@@ -20,6 +21,8 @@ class BootStrap {
         departmentDataService.setUpDepartments()
         if (Course.count() == 0)
             courseDataService.downloadAndProcess();
+        if (Textbook.count() == 0)
+            textbookDataService.lookupTextbooksForAllCourses();
         facultyDataService.fetchAndMatch()
 
         // Pre-cache as much information as we can.

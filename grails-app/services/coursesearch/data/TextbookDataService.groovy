@@ -1,14 +1,18 @@
 package coursesearch.data
 
 import coursesearch.Course
-import org.htmlcleaner.SimpleXmlSerializer
-import org.htmlcleaner.HtmlCleaner
-import groovy.util.slurpersupport.GPathResult
 import coursesearch.Textbook
 
 class TextbookDataService {
 
     static transactional = true
+
+    def lookupTextbooksForAllCourses() {
+        Course.list().each { course ->
+            lookupTextbookInfo(course);
+        }
+    }
+
 
     def lookupTextbookInfo(Course course) {
 
