@@ -11,7 +11,17 @@ class Textbook {
 
     String author
 
+    String edition
+
+    String publisher
+
+    String format
+
     int copyrightYear
+
+    boolean required
+
+    boolean isDigital
 
     double bookstoreNewPrice
 
@@ -20,5 +30,9 @@ class Textbook {
     double bookstoreRentalPrice
 
     static constraints = {
+        isbn(nullable: true)
+        edition(nullable: true)
+        publisher(nullable: true)
+        format(nullable: true)
     }
 }
