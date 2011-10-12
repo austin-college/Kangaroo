@@ -26,6 +26,15 @@ public class CourseUtils {
             processed
     }
 
+    static void runAndTime(String log, Closure toRun) {
+        def startTime = System.currentTimeMillis()
+        toRun();
+        def elapsedTime = (System.currentTimeMillis() - startTime)
+        def timeInSeconds = ((double)(elapsedTime / 1000.0)).round(2);
+
+        println "${log} in ${timeInSeconds} seconds."
+    }
+
     /**
      * Converts the given HTML page into a Groovy-compatible XML tree.
      */

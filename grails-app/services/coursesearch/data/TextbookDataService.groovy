@@ -2,63 +2,102 @@ package coursesearch.data
 
 import coursesearch.Course
 import coursesearch.Textbook
+import groovyx.gpars.GParsPool
+import org.hibernate.Hibernate
+import org.hibernate.SessionFactory
+import coursesearch.CourseUtils
 
 class TextbookDataService {
 
-    static transactional = true
+    static transactional = false
+
+    SessionFactory sessionFactory
 
     def lookupTextbooksForAllCourses() {
 
         println "Fetching detailed textbook data from bkstr.com..."
-        Course.list().eachWithIndex { course, i ->
-            lookupTextbookInfo(course);
-            if ( i % 20 == 0 ) println "...${i}..."
+//
+        CourseUtils.runAndTime("Textbooks fetched") {
+            GParsPool.withPool(100) {
+                def courses = Course.list();
+                courses.eachParallel { course ->
+                    println "[${Thread.currentThread().id}] Looking up course #${course.id} (${course})..."
+                    lookupTextbookInfo(course)
+                }
+            }
         }
+
+        sessionFactory.currentSession.flush()
+        sessionFactory.currentSession.clear()
+
+//
+        //        def numThreads = 5;
+        //        numThreads.times { offset ->
+        //            Thread.start {
+        //                for (int i = offset; i < Course.count(); i += numThreads) {
+        //                    println "Looking up course ${i} (${Course.get(i)})..."
+        //                    lookupTextbookInfo(Course.get(i));
+        //                }
+        //            }
+        //        }
+
+//        CourseUtils.runAndTime("Textbooks fetched linearly") {
+//            def startTime = System.currentTimeMillis()
+//            Course.list().eachWithIndex { course, i ->
+//                lookupTextbookInfo(course);
+//                if (i % 20 == 0) println "...${i}..."
+//            }
+//        }
         println "....done!";
     }
 
     def lookupTextbookInfo(Course course) {
 
-        // Download and extract the list of textbooks.
-        Textbook.findAllByCourse(course).each { it.delete() }
-        course.textbooksParsed = false;
+        Course.withTransaction {
+            // Download and extract the list of textbooks.
+            Textbook.findAllByCourse(course).each { it.delete() }
 
-        def page = coursesearch.CourseUtils.cleanAndConvertToXml(new URL(course.textbookPageUrl()).text);
-        def list = page.depthFirst().collect { it }.find { it.name() == "div" && it.@class.toString().contains("results") }
+            course.textbooksParsed = false;
 
-        int failures = 0;
-        list.depthFirst().collect { it }.findAll { it.name() == "ul" }.collect {
+            def page = coursesearch.CourseUtils.cleanAndConvertToXml(new URL(course.textbookPageUrl()).text);
+            def list = page.depthFirst().collect { it }.find { it.name() == "div" && it.@class.toString().contains("results") }
 
-            def textbook = new Textbook(course: course);
+            int failures = 0;
+            list.depthFirst().collect { it }.findAll { it.name() == "ul" }.collect {
 
-            it.li.each { detail ->
+                def textbook = new Textbook(course: course);
 
-                def line = detail.toString().trim();
+                it.li.each { detail ->
 
-                // Information about the textbooks is presented as "TYPE:<data>".
-                def parts = line.split(":");
-                if (parts.size() >= 2) {
-                    def key = parts[0].trim().toUpperCase();
-                    def value = parts[1..-1].join(":").trim(); // Join any colons in the value field together.
-                    parseTextbookDetail(textbook, key, value);
+                    def line = detail.toString().trim();
+
+                    // Information about the textbooks is presented as "TYPE:<data>".
+                    def parts = line.split(":");
+                    if (parts.size() >= 2) {
+                        def key = parts[0].trim().toUpperCase();
+                        def value = parts[1..-1].join(":").trim(); // Join any colons in the value field together.
+                        parseTextbookDetail(textbook, key, value);
+                    }
+                }
+
+                textbook.save();
+                if (textbook.hasErrors()) {
+                    println textbook.errors.toString()
+                    failures++;
                 }
             }
 
-            textbook.save();
-            if (textbook.hasErrors()) {
-                println textbook.errors.toString()
-                failures++;
+            if (failures) {
+                course.textbooksParsed = false;
+                println "Failed to save ${failures} books for ${course}..."
             }
-        }
+            else
+                course.textbooksParsed = true;
 
-        if (failures) {
-            course.textbooksParsed = false;
-            println "Failed to save ${failures} books for ${course}..."
+            course.merge()
+//            sessionFactory.currentSession.flush()
+//            sessionFactory.currentSession.clear()
         }
-        else
-            course.textbooksParsed = true;
-
-        course.save();
     }
 
     def parseTextbookDetail(Textbook textbook, key, value) {
