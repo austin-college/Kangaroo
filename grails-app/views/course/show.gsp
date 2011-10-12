@@ -76,7 +76,7 @@
                 <h3>Textbooks</h3>
                 <ul>
                     <g:each in="${course.textbooks}" var="textbook">
-                        <li><a href="http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=${textbook.isbn}&x=0&y=0">${textbook.title}</a>
+                        <li><a href="${textbook.amazonLink}">${textbook.title}</a>
                             ($${textbook.bookstoreNewPrice})</li>
                     </g:each>
                 </ul>
