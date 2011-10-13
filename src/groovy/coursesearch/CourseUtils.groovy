@@ -1,9 +1,9 @@
 package coursesearch
 
 import grails.util.Environment
-import org.htmlcleaner.SimpleXmlSerializer
-import org.htmlcleaner.HtmlCleaner
 import groovy.util.slurpersupport.GPathResult
+import org.htmlcleaner.HtmlCleaner
+import org.htmlcleaner.SimpleXmlSerializer
 
 /**
  * Useful stuff.
@@ -26,11 +26,17 @@ public class CourseUtils {
             processed
     }
 
+    // Our cheap&easy way to parse currency.
+    static double parseCurrency(amount) {
+        Double.parseDouble(amount[1..-1]);
+    }
+
+
     static void runAndTime(String log, Closure toRun) {
         def startTime = System.currentTimeMillis()
         toRun();
         def elapsedTime = (System.currentTimeMillis() - startTime)
-        def timeInSeconds = ((double)(elapsedTime / 1000.0)).round(2);
+        def timeInSeconds = ((double) (elapsedTime / 1000.0)).round(2);
 
         println "${log} in ${timeInSeconds} seconds."
     }

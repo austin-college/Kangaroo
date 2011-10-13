@@ -66,12 +66,8 @@ class TextbookDataService {
                 }
             }
 
-            if (failures)
-                course.textbooksParsed = true;
-            else
-                course.textbooksParsed = false
-
-            course.save()
+            course.textbooksParsed = !failures;
+            course.save(flush:true)
             cleanUpGorm()
         }
     }
@@ -118,28 +114,23 @@ class TextbookDataService {
 
         // Pricing details...
             case 'NEW':
-                textbook.bookstoreNewPrice = parseCurrency(value);
+                textbook.bookstoreNewPrice = CourseUtils.parseCurrency(value);
                 break;
             case 'USED':
-                textbook.bookstoreRentalPrice = parseCurrency(value);
+                textbook.bookstoreRentalPrice = CourseUtils.parseCurrency(value);
                 break;
             case 'RENTAL':
-                textbook.bookstoreRentalPrice = parseCurrency(value);
+                textbook.bookstoreRentalPrice = CourseUtils.parseCurrency(value);
                 break;
             case 'DIGITAL':
                 textbook.isDigital = true;
-                textbook.bookstoreNewPrice = parseCurrency(value);
+                textbook.bookstoreNewPrice = CourseUtils.parseCurrency(value);
                 break;
 
             default:
                 println "Unused: ${key} (${value})"
         }
 
-    }
-
-    // Our cheap&easy way to parse currency.
-    def parseCurrency(amount) {
-        Double.parseDouble(amount[1..-1]);
     }
 
     /**
