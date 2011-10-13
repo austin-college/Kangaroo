@@ -6,58 +6,37 @@ import groovyx.gpars.GParsPool
 import org.hibernate.Hibernate
 import org.hibernate.SessionFactory
 import coursesearch.CourseUtils
+import java.util.concurrent.ConcurrentLinkedQueue
 
 class TextbookDataService {
 
     static transactional = false
 
-    SessionFactory sessionFactory
+    def sessionFactory
+    def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
+
 
     def lookupTextbooksForAllCourses() {
 
         println "Fetching detailed textbook data from bkstr.com..."
-//
+
+        Textbook.list().each { it.delete() };
+        cleanUpGorm()
         CourseUtils.runAndTime("Textbooks fetched") {
-            GParsPool.withPool(100) {
-                def courses = Course.list();
-                courses.eachParallel { course ->
-                    println "[${Thread.currentThread().id}] Looking up course #${course.id} (${course})..."
+            GParsPool.withPool(20) {
+                Course.list().eachParallel { course ->
                     lookupTextbookInfo(course)
                 }
             }
         }
-
-        sessionFactory.currentSession.flush()
-        sessionFactory.currentSession.clear()
-
-//
-        //        def numThreads = 5;
-        //        numThreads.times { offset ->
-        //            Thread.start {
-        //                for (int i = offset; i < Course.count(); i += numThreads) {
-        //                    println "Looking up course ${i} (${Course.get(i)})..."
-        //                    lookupTextbookInfo(Course.get(i));
-        //                }
-        //            }
-        //        }
-
-//        CourseUtils.runAndTime("Textbooks fetched linearly") {
-//            def startTime = System.currentTimeMillis()
-//            Course.list().eachWithIndex { course, i ->
-//                lookupTextbookInfo(course);
-//                if (i % 20 == 0) println "...${i}..."
-//            }
-//        }
-        println "....done!";
     }
 
     def lookupTextbookInfo(Course course) {
 
+        // Download and extract the list of textbooks.
         Course.withTransaction {
-            // Download and extract the list of textbooks.
-            Textbook.findAllByCourse(course).each { it.delete() }
 
-            course.textbooksParsed = false;
+            course = course.merge()
 
             def page = coursesearch.CourseUtils.cleanAndConvertToXml(new URL(course.textbookPageUrl()).text);
             def list = page.depthFirst().collect { it }.find { it.name() == "div" && it.@class.toString().contains("results") }
@@ -83,21 +62,25 @@ class TextbookDataService {
                 textbook.save();
                 if (textbook.hasErrors()) {
                     println textbook.errors.toString()
-                    failures++;
+                    failures++
                 }
             }
 
-            if (failures) {
-                course.textbooksParsed = false;
-                println "Failed to save ${failures} books for ${course}..."
-            }
-            else
+            if (failures)
                 course.textbooksParsed = true;
+            else
+                course.textbooksParsed = false
 
-            course.merge()
-//            sessionFactory.currentSession.flush()
-//            sessionFactory.currentSession.clear()
+            course.save()
+            cleanUpGorm()
         }
+    }
+
+    def cleanUpGorm() {
+        def session = sessionFactory.currentSession
+        session.flush()
+        session.clear()
+        propertyInstanceMap.get().clear()
     }
 
     def parseTextbookDetail(Textbook textbook, key, value) {
