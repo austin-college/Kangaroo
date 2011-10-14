@@ -42,7 +42,7 @@ class Textbook {
         imageUrl(nullable: true)
     }
 
-    // String toString() { title }
+    String toString() { title }
 
     String getIsbn10Digit() { IsbnConverter.convertTo10Digit(isbn) }
 
