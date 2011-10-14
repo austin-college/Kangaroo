@@ -38,15 +38,17 @@ class FacultyDataService {
     def fetchAndMatch() {
 
         // Download and extract the faculty list.
-        println 'Fetching faculty page...'
-        def facultyPage = coursesearch.CourseUtils.cleanAndConvertToXml(new URL('http://www.austincollege.edu/faculty-staff/directory/').text);
-        def facultyTable = facultyPage.depthFirst().collect { it }.find { it.name() == "ul" && it.@class == 'staffList' }
+        CourseUtils.runAndTime("Faculty fetched and matched") {
+            println 'Fetching faculty page...'
+            def facultyPage = coursesearch.CourseUtils.cleanAndConvertToXml(new URL('http://www.austincollege.edu/faculty-staff/directory/').text);
+            def facultyTable = facultyPage.depthFirst().collect { it }.find { it.name() == "ul" && it.@class == 'staffList' }
 
-        // Extract the professor data.
-        def scraped = scrapeFaculty(facultyTable);
+            // Extract the professor data.
+            def scraped = scrapeFaculty(facultyTable);
 
-        // Match what's found to professors already in the system.
-        matchScrapedFaculty(scraped)
+            // Match what's found to professors already in the system.
+            matchScrapedFaculty(scraped)
+        }
     }
 
     List<Map> scrapeFaculty(table) {

@@ -1,0 +1,11 @@
+.importBar {
+    padding: 20px;
+    font-size: 18px;
+    background-color: #efe;
+    border: 2px solid #cdc;
+    margin-bottom: 15px;
+}
+
+.importBar .actionLinks {
+    float: right;
+}
