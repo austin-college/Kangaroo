@@ -31,8 +31,8 @@ class TextbookDataService {
 
         println "Fetching detailed textbook data from amazon.com..."
         CourseUtils.runAndTime("Amazon details fetched") {
-            GParsPool.withPool(5) {
-                Textbook.list().eachParallel { textbook -> amazonDataService.lookupTextbookInfo(textbook) }
+            GParsPool.withPool(20) {
+                Textbook.findAllByMatchedOnAmazon(false).eachParallel { textbook -> amazonDataService.lookupTextbookInfo(textbook) }
             }
         }
     }
