@@ -6,6 +6,13 @@
     margin-bottom: 15px;
 }
 
+.importBar .status .time {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #999;
+
+}
+
 .importBar .actionLinks {
     float: right;
 }

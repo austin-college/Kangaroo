@@ -14,7 +14,7 @@
                 $.ajax({
                     url: contextPath + "/batchControl/rematchFaculty",
                     success: function(response) {
-                        setStatusMessage("#facultyImport", response.details.numFaculty + " imported; " + response.details.numMatched + " matched (" + response.details.percentMatched + "%)");
+                        setCompletionStatus("#facultyImport", response, response.details.numFaculty + " imported; " + response.details.numMatched + " matched (" + response.details.percentMatched + "%)");
                     }
                 });
 
@@ -27,6 +27,12 @@
             $(section + " .status").hide();
             $(section + " .status").html(html);
             $(section + " .status").fadeIn(100);
+        }
+
+        function setCompletionStatus(section, response, body) {
+
+            var html = body + "<span class='time'>in " + response.time + "s</span>";
+            setStatusMessage(section, html);
         }
     </script>
 </head>

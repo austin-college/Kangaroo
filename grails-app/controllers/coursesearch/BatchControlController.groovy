@@ -12,13 +12,13 @@ class BatchControlController {
 
     def rematchFaculty = {
 
-        facultyDataService.fetchAndMatch();
-
-        render([success: true, details: getFacultyDetails()] as JSON)
+        def time = CourseUtils.time { facultyDataService.fetchAndMatch(); }
+        render([success: true, time: time, details: getFacultyDetails()] as JSON)
     }
 
     def getFacultyDetails() {
         def percentFacultyMatched = (double) (100 * Professor.countByMatched(true) / Professor.count());
+
         [numFaculty: Professor.count(), numMatched: Professor.countByMatched(true), percentMatched: percentFacultyMatched.round()]
     }
 }
