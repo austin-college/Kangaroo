@@ -1,20 +1,18 @@
 package coursesearch.data
 
 import coursesearch.Course
+import coursesearch.CourseUtils
 import coursesearch.Textbook
 import groovyx.gpars.GParsPool
-import org.hibernate.Hibernate
-import org.hibernate.SessionFactory
-import coursesearch.CourseUtils
-import java.util.concurrent.ConcurrentLinkedQueue
 
 class TextbookDataService {
 
     static transactional = false
 
+    def amazonDataService
+
     def sessionFactory
     def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
-
 
     def lookupTextbooksForAllCourses() {
 
@@ -27,6 +25,14 @@ class TextbookDataService {
                 Course.list().eachParallel { course ->
                     lookupTextbookInfo(course)
                 }
+            }
+        }
+        cleanUpGorm()
+
+        println "Fetching detailed textbook data from amazon.com..."
+        CourseUtils.runAndTime("Amazon details fetched") {
+            GParsPool.withPool(5) {
+                Textbook.list().eachParallel { textbook -> amazonDataService.lookupTextbookInfo(textbook) }
             }
         }
     }
@@ -67,7 +73,7 @@ class TextbookDataService {
             }
 
             course.textbooksParsed = !failures;
-            course.save(flush:true)
+            course.save(flush: true)
             cleanUpGorm()
         }
     }

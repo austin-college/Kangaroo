@@ -42,6 +42,8 @@ class Textbook {
         imageUrl(nullable: true)
     }
 
+    // String toString() { title }
+
     String getIsbn10Digit() { IsbnConverter.convertTo10Digit(isbn) }
 
     String getAmazonLink() { "http://www.amazon.com/gp/product/${isbn10Digit}" }
