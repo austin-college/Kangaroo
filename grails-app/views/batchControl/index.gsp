@@ -8,15 +8,24 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            $("a#rematchFaculty").click(function() {
-
-                runJob("#facultyImport", "rematchFaculty", function(response) {
-                    setCompletionStatus("#facultyImport", response, response.details.numFaculty + " imported; " + response.details.numMatched + " matched (" + response.details.percentMatched + "%)");
-                });
-                return false;
-            });
+            $("a#reimportClasses").click(runCourseImport);
+            $("a#rematchFaculty").click(runFacultyImport);
 
         });
+
+         function runCourseImport() {
+            runJob("#courseImport", "reimportCourses", function(response) {
+                setCompletionStatus("#courseImport", response, response.details.numCourses + " classes");
+            });
+            return false;
+        }
+
+        function runFacultyImport() {
+            runJob("#facultyImport", "rematchFaculty", function(response) {
+                setCompletionStatus("#facultyImport", response, response.details.numFaculty + " imported; " + response.details.numMatched + " matched (" + response.details.percentMatched + "%)");
+            });
+            return false;
+        }
 
         /**
          *
@@ -25,10 +34,10 @@
          * @param successResponse
          */
         function runJob(section, action, successResponse) {
-            setStatusMessage("#facultyImport", "<i>Working...</i>");
+            setStatusMessage(section, "<i>Working...</i>");
 
             $.ajax({
-                url: contextPath + "/batchControl/rematchFaculty",
+                url: contextPath + "/batchControl/" + action,
                 success: function(response) {
                     if (response.success)
                         successResponse(response);
