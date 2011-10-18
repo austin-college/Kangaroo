@@ -37,9 +37,11 @@ class BatchControlController {
     }
 
     def getTextbookDetails() {
-        def percentCourses = toPercent(Course.countByTextbooksParsed(true) / Course.count());
-        def percentAmazonDetails = toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count());
-        [numTextbooks: Textbook.count(), percentCoursesWithBooks: percentCourses, percentLookedUp: percentAmazonDetails]
+        def percentCourses = Course.count() == 0 ? 0 : toPercent(Course.countByTextbooksParsed(true) / Course.count());
+        def percentAmazonDetails = Textbook.count() == 0 ? 0 : toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count());
+        [numTextbooks: Textbook.count(), numLookedUp: Textbook.countByMatchedOnAmazon(true),
+                percentCoursesWithBooks: percentCourses, percentLookedUp: percentAmazonDetails]
+
 
     }
 

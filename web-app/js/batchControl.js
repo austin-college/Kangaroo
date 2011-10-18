@@ -9,6 +9,8 @@ $(document).ready(function() {
 
     $("a#reimportClasses").click(runCourseImport);
     $("a#rematchFaculty").click(runFacultyImport);
+    $("a#fetchTextbooks").click(runFacultyImport);
+
 });
 
 function runCourseImport() {
@@ -20,6 +22,20 @@ function runCourseImport() {
 
 function runFacultyImport() {
     runJob("#facultyImport", "rematchFaculty", function(response) {
+        setCompletionStatus("#facultyImport", response, response.details.numFaculty + " imported; " + response.details.numMatched + " matched (" + response.details.percentMatched + "%)");
+    });
+    return false;
+}
+
+function runTextbookImport() {
+  runJob("#textbookImport", "textbookImport", function(response) {
+        setCompletionStatus("#facultyImport", response, response.details.numFaculty + " imported; " + response.details.numMatched + " matched (" + response.details.percentMatched + "%)");
+    });
+    return false;
+}
+
+function runAmazonImport() {
+  runJob("#amazonImport", "amazonImport", function(response) {
         setCompletionStatus("#facultyImport", response, response.details.numFaculty + " imported; " + response.details.numMatched + " matched (" + response.details.percentMatched + "%)");
     });
     return false;

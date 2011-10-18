@@ -44,20 +44,24 @@
 </div>
 
 <div id="textbookImport" class="importBar">
-
-    <b>Textbooks:</b>
-
-    <span class="status">${textbookDetails.percentCoursesWithBooks}% courses have books. ${textbookDetails.percentLookedUp}% books have Amazon details</span>
-
+    <b>bkstr.com:</b>
+    <span class="status">${textbookDetails.numTextbooks} textbooks; ${textbookDetails.percentCoursesWithBooks}% courses have books.</span>
     <div class="actionLinks">
-
-        <a href="#" id="fetchTextbooks">Fetch books</a> &middot;
-
-        <a href="#" id="fetchAmazonDetails">Fetch details</a>
-
+        <a href="#" id="fetchTextbooks">Re-fetch books</a>
     </div>
-
 </div>
+
+
+<div id="amazonImport" class="importBar">
+    <b>amazon.com:</b>
+    <span class="status">${textbookDetails.numLookedUp} books have Amazon details (${textbookDetails.percentLookedUp}%)
+    <div class="actionLinks">
+        <a href="#" id="fetchAmazonDetails">Re-fetch details</a>
+    </div>
+</div>
+
+
+
 
 </body>
 </html>
