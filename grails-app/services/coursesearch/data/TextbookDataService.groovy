@@ -28,13 +28,6 @@ class TextbookDataService {
             }
         }
         cleanUpGorm()
-
-        println "Fetching detailed textbook data from amazon.com..."
-        CourseUtils.runAndTime("Amazon details fetched") {
-            GParsPool.withPool(20) {
-                Textbook.findAllByMatchedOnAmazon(false).eachParallel { textbook -> amazonDataService.lookupTextbookInfo(textbook) }
-            }
-        }
     }
 
     def lookupTextbookInfo(Course course) {
@@ -79,7 +72,7 @@ class TextbookDataService {
     }
 
     def cleanUpGorm() {
-        def session = sessionFactory.currentSession
+        def session =  sessionFactory.currentSession
         session.flush()
         session.clear()
         propertyInstanceMap.get().clear()
