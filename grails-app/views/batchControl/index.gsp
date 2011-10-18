@@ -101,5 +101,22 @@
 
 </div>
 
+<div id="textbookImport" class="importBar">
+
+    <b>Textbooks:</b>
+
+    <span class="status">${textbookDetails.percentCoursesWithBooks}% courses have books. ${textbookDetails.percentLookedUp}% books have Amazon details</span>
+
+    <div class="actionLinks">
+
+        <a href="#" id="fetchTextbooks">Fetch books</a> &middot;
+
+        <a href="#" id="fetchAmazonDetails">Fetch details</a>
+
+
+    </div>
+
+</div>
+
 </body>
 </html>

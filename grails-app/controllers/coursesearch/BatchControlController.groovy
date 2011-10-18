@@ -8,7 +8,7 @@ class BatchControlController {
     def facultyDataService
 
     def index = {
-        [facultyDetails: getFacultyDetails(), classDetails: getCourseDetails()]
+        [facultyDetails: getFacultyDetails(), classDetails: getCourseDetails(), textbookDetails: getTextbookDetails()]
     }
 
     def reimportCourses = {
@@ -23,6 +23,10 @@ class BatchControlController {
         render([success: true, time: time, details: getFacultyDetails()] as JSON)
     }
 
+    def fetchTextbooks = {
+
+    }
+
     def getFacultyDetails() {
         def percentFacultyMatched = (double) (100 * Professor.countByMatched(true) / Professor.count());
         [numFaculty: Professor.count(), numMatched: Professor.countByMatched(true), percentMatched: percentFacultyMatched.round()]
@@ -30,5 +34,16 @@ class BatchControlController {
 
     def getCourseDetails() {
         [numCourses: Course.count()]
+    }
+
+    def getTextbookDetails() {
+        def percentCourses = toPercent(Course.countByTextbooksParsed(true) / Course.count());
+        def percentAmazonDetails = toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count());
+        [numTextbooks: Textbook.count(), percentCoursesWithBooks: percentCourses, percentLookedUp: percentAmazonDetails]
+
+    }
+
+    int toPercent(value) {
+        (int) ((100.0 * (double) value).round())
     }
 }
