@@ -15,39 +15,27 @@
     <li class="active">Import management</li>
 </ul>
 
-
 <div id="courseImport" class="importBar">
-
     <b>Classes:</b>
-
     <span class="status">${Course.count()} imported</span>
-
     <div class="actionLinks">
-
-        <a href="#" id="reimportClasses">Re-import</a>
-
+        <a href="#" id="reimportClasses">Run</a>
     </div>
 </div>
 
 <div id="facultyImport" class="importBar">
-
     <b>Faculty:</b>
-
     <span class="status">${facultyDetails.numFaculty} imported; ${facultyDetails.numMatched} matched (${facultyDetails.percentMatched}%)</span>
-
     <div class="actionLinks">
-
-        <a href="#" id="rematchFaculty">Re-match</a>
-
+        <a href="#" id="rematchFaculty">Run</a>
     </div>
-
 </div>
 
 <div id="textbookImport" class="importBar">
     <b>bkstr.com:</b>
     <span class="status">${textbookDetails.numTextbooks} textbooks; ${textbookDetails.percentCoursesWithBooks}% courses have books.</span>
     <div class="actionLinks">
-        <a href="#" id="fetchTextbooks">Re-fetch books</a>
+        <a href="#" id="fetchTextbooks">Run</a>
     </div>
 </div>
 
@@ -56,7 +44,7 @@
     <b>amazon.com:</b>
     <span class="status">${textbookDetails.numLookedUp} books have Amazon details (${textbookDetails.percentLookedUp}%)
     <div class="actionLinks">
-        <a href="#" id="fetchAmazonDetails">Re-fetch details</a>
+        <a href="#" id="fetchAmazonDetails">Run</a>
     </div>
 </div>
 

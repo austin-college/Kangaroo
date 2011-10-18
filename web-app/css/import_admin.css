@@ -1,9 +1,12 @@
 .importBar {
     padding: 20px;
     font-size: 18px;
-    background-color: #efe;
-    border: 2px solid #cdc;
+    background-color: #f0faf9;
+    border: 2px solid #ccd4d4;
     margin-bottom: 15px;
+     -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .importBar .status .time {
