@@ -16,7 +16,7 @@ class AmazonDataService {
         CourseUtils.runAndTime("Amazon details fetched") {
             GParsPool.withPool(20) {
                 Textbook.findAllByMatchedOnAmazon(false).eachParallel { textbook ->
-                    amazonDataService.lookupTextbookInfo(textbook)
+                    lookupTextbookInfo(textbook)
                     cleanUpGorm()
                 }
             }
