@@ -8,67 +8,54 @@ class BatchControlController {
     def facultyDataService
     def textbookDataService
 
-    static def jobs = ["courses", "faculty", "textbooks"]///, "amazon"]
+    // Define all the batch jobs here.
+    def jobs = [
+
+            "courses": [
+                    id:"courses",
+                    name: "Courses",
+                    run: { courseDataService.downloadAndProcess() },
+                    status: {"${Course.count()} imported"}
+            ],
+            "faculty": [
+                    id:"faculty",
+                    name: "Faculty",
+                    run: { facultyDataService.fetchAndMatch() },
+                    status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
+            ],
+            "textbooks": [
+                    id:"textbooks",
+                    name: "Textbooks",
+                    run: { textbookDataService.lookupTextbooksForAllCourses() },
+                    status: {"${Textbook.count()} textbooks; ${toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"}
+            ],
+    ]
 
     def index = {}
 
     def getJobs = {
         def data = [:]
-        jobs.each { job -> data[job] = getDetailsAndHtml(job) }
+        jobs.each { job -> data[job.key] = jobToJson(job.value) }
         render(data as JSON)
     }
 
     def runJob = {
-        def results
-        def time = CourseUtils.time {
-            switch (params.job) {
-
-                case "courses":
-                    results = courseDataService.downloadAndProcess()
-                    break
-
-                case "faculty":
-                    results = facultyDataService.fetchAndMatch()
-                    break
-
-                case "textbooks":
-                    results = textbookDataService.lookupTextbooksForAllCourses()
-                    break
-
-                default:
-                    render([error: "InvalidJob"] as JSON)
-                    return;
-            }
+        def job = jobs[params.job];
+        println job
+        if (job) {
+            def results
+            def time = CourseUtils.time { results = job.run(); }
+            render([success: true, time: time, details: jobToJson(job)] as JSON)
         }
-
-        render([success: true, time: time, details: getDetailsAndHtml(params.job)] as JSON)
+        else
+            render([error: "InvalidJob"] as JSON)
     }
 
-    def getDetails = {
-        render(getDetailsAndHtml(params.job) as JSON)
+    def jobToJson(job) {
+        [id: job.id, name: job.name, status: job.status(), html: g.render(template: "job", model: [job: job])]
     }
 
-    def getDetails(job) {
-        switch (job) {
-            case "courses":
-                return [name: "Courses", status: "${Course.count()} imported"];
-
-            case "faculty":
-                return [name: "Faculty", status: "${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${toPercent(Professor.countByMatched(true) / Professor.count())}%)"]
-
-            case "textbooks":
-                return [name: "Textbooks", status:"${Textbook.count()} textbooks; ${toPercent(Course.countByTextbooksParsed(true)/Course.count())}% of courses have books"]
-        }
-    }
-
-    def getDetailsAndHtml(job) {
-        def details = getDetails(job)
-        details.id = job;
-        details.html = g.render(template: "job", model: [job: details]);
-        details;
-    }
-
-    int toPercent(value) {
+    static int toPercent(value) {
         (int) ((100.0 * (double) value).round())
     }
 }
