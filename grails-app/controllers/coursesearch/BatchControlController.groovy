@@ -6,8 +6,9 @@ class BatchControlController {
 
     def courseDataService
     def facultyDataService
+    def textbookDataService
 
-    static def jobs = ["courses", "faculty"]//, "textbooks", "amazon"]
+    static def jobs = ["courses", "faculty", "textbooks"]///, "amazon"]
 
     def index = {}
 
@@ -30,6 +31,10 @@ class BatchControlController {
                     results = facultyDataService.fetchAndMatch()
                     break
 
+                case "textbooks":
+                    results = textbookDataService.lookupTextbooksForAllCourses()
+                    break
+
                 default:
                     render([error: "InvalidJob"] as JSON)
                     return;
@@ -50,6 +55,9 @@ class BatchControlController {
 
             case "faculty":
                 return [name: "Faculty", status: "${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${toPercent(Professor.countByMatched(true) / Professor.count())}%)"]
+
+            case "textbooks":
+                return [name: "Textbooks", status:"${Textbook.count()} textbooks; ${toPercent(Course.countByTextbooksParsed(true)/Course.count())}% of courses have books"]
         }
     }
 
@@ -58,15 +66,6 @@ class BatchControlController {
         details.id = job;
         details.html = g.render(template: "job", model: [job: details]);
         details;
-    }
-
-    def getTextbookDetails() {
-        def percentCourses = Course.count() == 0 ? 0 : toPercent(Course.countByTextbooksParsed(true) / Course.count());
-        def percentAmazonDetails = Textbook.count() == 0 ? 0 : toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count());
-        [numTextbooks: Textbook.count(), numLookedUp: Textbook.countByMatchedOnAmazon(true),
-                percentCoursesWithBooks: percentCourses, percentLookedUp: percentAmazonDetails]
-
-
     }
 
     int toPercent(value) {
