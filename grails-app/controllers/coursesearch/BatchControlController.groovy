@@ -7,33 +7,57 @@ class BatchControlController {
     def courseDataService
     def facultyDataService
 
-    def index = {
-        [facultyDetails: getFacultyDetails(), classDetails: getCourseDetails(), textbookDetails: getTextbookDetails()]
+    static def jobs = ["courses", "faculty"]//, "textbooks", "amazon"]
+
+    def index = {}
+
+    def getJobs = {
+        def data = [:]
+        jobs.each { job -> data[job] = getDetailsAndHtml(job) }
+        render(data as JSON)
     }
 
-    def reimportCourses = {
+    def runJob = {
+        def results
+        def time = CourseUtils.time {
+            switch (params.job) {
 
-        def time = CourseUtils.time { courseDataService.downloadAndProcess() }
-        render([success: true, time: time, details: getCourseDetails()] as JSON)
+                case "courses":
+                    results = courseDataService.downloadAndProcess()
+                    break
+
+                case "faculty":
+                    results = facultyDataService.fetchAndMatch()
+                    break
+
+                default:
+                    render([error: "InvalidJob"] as JSON)
+                    return;
+            }
+        }
+
+        render([success: true, time: time, details: getDetailsAndHtml(params.job)] as JSON)
     }
 
-    def rematchFaculty = {
-
-        def time = CourseUtils.time { facultyDataService.fetchAndMatch(); }
-        render([success: true, time: time, details: getFacultyDetails()] as JSON)
+    def getDetails = {
+        render(getDetailsAndHtml(params.job) as JSON)
     }
 
-    def fetchTextbooks = {
+    def getDetails(job) {
+        switch (job) {
+            case "courses":
+                return [name: "Courses", status: "${Course.count()} imported"];
 
+            case "faculty":
+                return [name: "Faculty", status: "${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${toPercent(Professor.countByMatched(true) / Professor.count())}%)"]
+        }
     }
 
-    def getFacultyDetails() {
-        def percentFacultyMatched = (double) (100 * Professor.countByMatched(true) / Professor.count());
-        [numFaculty: Professor.count(), numMatched: Professor.countByMatched(true), percentMatched: percentFacultyMatched.round()]
-    }
-
-    def getCourseDetails() {
-        [numCourses: Course.count()]
+    def getDetailsAndHtml(job) {
+        def details = getDetails(job)
+        details.id = job;
+        details.html = g.render(template: "job", model: [job: details]);
+        details;
     }
 
     def getTextbookDetails() {
