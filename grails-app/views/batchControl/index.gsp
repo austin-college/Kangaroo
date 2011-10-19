@@ -16,6 +16,7 @@
 </ul>
 
 <div id="importBars">
+</div>
 
 </body>
 </html>

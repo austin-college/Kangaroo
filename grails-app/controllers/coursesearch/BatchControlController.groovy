@@ -7,27 +7,39 @@ class BatchControlController {
     def courseDataService
     def facultyDataService
     def textbookDataService
+    def amazonDataService
 
     // Define all the batch jobs here.
     def jobs = [
 
             "courses": [
-                    id:"courses",
+                    id: "courses",
                     name: "Courses",
                     run: { courseDataService.downloadAndProcess() },
                     status: {"${Course.count()} imported"}
             ],
             "faculty": [
-                    id:"faculty",
+                    id: "faculty",
                     name: "Faculty",
                     run: { facultyDataService.fetchAndMatch() },
                     status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
             ],
             "textbooks": [
-                    id:"textbooks",
+                    id: "textbooks",
                     name: "Textbooks",
                     run: { textbookDataService.lookupTextbooksForAllCourses() },
                     status: {"${Textbook.count()} textbooks; ${toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"}
+            ],
+            "amazon": [
+                    id: "amazon",
+                    name: "Amazon",
+                    run: { amazonDataService.lookupAllTextbooks() },
+                    status: {
+                        if ( Textbook.count() > 0)
+                            "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (${toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count())}%)"
+                        else
+                            "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (0%)"
+                    }
             ],
     ]
 
