@@ -22,13 +22,13 @@ class BatchControlController {
                     id: "faculty",
                     name: "Faculty",
                     run: { facultyDataService.fetchAndMatch() },
-                    status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
+                    status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${CourseUtils.toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
             ],
             "textbooks": [
                     id: "textbooks",
                     name: "Textbooks",
                     run: { textbookDataService.lookupTextbooksForAllCourses() },
-                    status: {"${Textbook.count()} textbooks; ${toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"}
+                    status: {"${Textbook.count()} textbooks; ${CourseUtils.toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"}
             ],
             "amazon": [
                     id: "amazon",
@@ -36,7 +36,7 @@ class BatchControlController {
                     run: { amazonDataService.lookupAllTextbooks() },
                     status: {
                         if ( Textbook.count() > 0)
-                            "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (${toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count())}%)"
+                            "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (${CourseUtils.toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count())}%)"
                         else
                             "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (0%)"
                     }
@@ -65,9 +65,5 @@ class BatchControlController {
 
     def jobToJson(job) {
         [id: job.id, name: job.name, status: job.status(), html: g.render(template: "job", model: [job: job])]
-    }
-
-    static int toPercent(value) {
-        (int) ((100.0 * (double) value).round())
     }
 }

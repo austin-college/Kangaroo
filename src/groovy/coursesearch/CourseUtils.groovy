@@ -31,6 +31,9 @@ public class CourseUtils {
         Double.parseDouble(amount[1..-1]);
     }
 
+    static int toPercent(value) {
+        (int) ((100.0 * (double) value).round())
+    }
 
     static void runAndTime(String log, Closure toRun) {
         def startTime = System.currentTimeMillis()
