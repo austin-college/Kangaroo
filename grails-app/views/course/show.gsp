@@ -68,22 +68,19 @@
     </div>
 </div>
 
-<div class="details-block courses-block span6">
+<div class="details-block courses-block span12">
     <div>
         <g:if test="${course.textbooksParsed}">
             <g:if test="${course.textbooks.size() > 0}">
 
                 <h3>Textbooks</h3>
-                <ul>
-                    <g:each in="${course.textbooks}" var="textbook">
-                        <li><a href="${textbook.amazonLink}">${textbook.title}</a>
-                            ($${textbook.bookstoreNewPrice})</li>
-                    </g:each>
-                </ul>
 
-                <b>Total: $${(course.textbooks*.bookstoreNewPrice.sum() as Double).round(2)}</b> &middot;
-                <a href="${course.textbookPageUrl()}">see all</a>
+                <g:render collection="${course.textbooks}" var="textbook" template="textbook"/>
 
+                <div style="clear: both; padding-top: 10px">
+                    <b>Total: $${(course.textbooks*.bookstoreNewPrice.sum() as Double).round(2)}</b> &middot;
+                    <a href="${course.textbookPageUrl()}">see all</a>
+                </div>
             </g:if>
             <g:else>
 
