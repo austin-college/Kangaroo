@@ -25,6 +25,10 @@ class Course {
 
     boolean textbooksParsed
 
+    static mapping = {
+        textbooks(sort: "title", order: "asc")
+    }
+
     static constraints = {
     }
 
