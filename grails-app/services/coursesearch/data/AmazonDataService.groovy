@@ -3,7 +3,6 @@ package coursesearch.data
 import coursesearch.CourseUtils
 import coursesearch.Textbook
 import groovyx.gpars.GParsPool
-import coursesearch.Course
 
 /**
  * Pulls in data from Amazon.com about textbooks.
@@ -28,10 +27,10 @@ class AmazonDataService {
 
     def lookupTextbookInfo(Textbook textbook) {
 
-        try {
-            Textbook.withTransaction {
+        Textbook.withTransaction {
+            try {
                 textbook = textbook.merge()
-                println "Looking up Amazon.com details for ${textbook}..."
+                println "Looking up Amazon.com details for ${textbook} (${textbook.id})..."
                 def page = CourseUtils.cleanAndConvertToXml(new URL(textbook.amazonLink).text)
 
                 textbook.matchedOnAmazon = true;
@@ -40,8 +39,8 @@ class AmazonDataService {
                 textbook.save(flush: true);
                 cleanUpGorm()
             }
+            catch (Exception e) { println "Failed (${e})" }
         }
-        catch (Exception e) { println "Failed (${e})"}
     }
 
     def findInNode(node, c) { node.depthFirst().collect { it }.find(c)}
