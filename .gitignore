@@ -8,3 +8,7 @@ development.hsqldb.properties
 development.hsqldb.log
 
 development.hsqldb.script
+
+.hgignore
+
+.hg
