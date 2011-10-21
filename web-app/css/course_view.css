@@ -1,0 +1,23 @@
+/*================ TEXTBOOKS ==============*/
+
+.textbook {
+    clear: both;
+    min-height: 75px;
+    margin: 3px 0 16px 0;
+}
+
+.textbook .photo {
+    float: left;
+    margin-bottom: 5px;
+}
+
+.textbook .title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.textbook .oldPrice {
+    text-decoration: line-through;
+    color: #999;
+    font-weight: bold;
+}

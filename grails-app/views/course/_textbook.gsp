@@ -13,9 +13,10 @@
 
         <div class="price">
             <g:if test="${textbook.matchedOnAmazon && textbook.amazonPrice < textbook.bookstoreNewPrice}">
-                <div><span
-                        style="text-decoration: line-through; color: #999"><b>$${textbook.bookstoreNewPrice}</b>
-                </span> <b>$${textbook.amazonPrice}</b> (amazon)</div>
+                <div>
+                    <span class="oldPrice">$${textbook.bookstoreNewPrice}</span>
+                    <b>$${textbook.amazonPrice}</b>
+                </div>
             </g:if>
             <g:else>
                 <div><b>$${textbook.bookstoreNewPrice}</b></div>
