@@ -5,7 +5,7 @@ class Textbook {
 
     static belongsTo = [course: Course]
 
-    static transients = ['amazonLink', 'isbn10Digit']
+    static transients = ['amazonLink', 'amazonSearchUrl', 'isbn10Digit']
 
     String isbn
 
@@ -47,4 +47,13 @@ class Textbook {
     String getIsbn10Digit() { IsbnConverter.convertTo10Digit(isbn) }
 
     String getAmazonLink() { "http://www.amazon.com/gp/product/${isbn10Digit}" }
+
+    String getAmazonSearchUrl() { "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${title.encodeAsURL()}&x=0&y=0"}
+
+    String toLink() {
+        if (matchedOnAmazon)
+            return amazonLink;
+        else
+            return amazonSearchUrl;
+    }
 }

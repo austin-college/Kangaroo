@@ -2,7 +2,7 @@
 
     <div class="photo">
         <g:if test="${textbook.imageUrl}">
-            <a href="${textbook.amazonLink}"><img src="${textbook.imageUrl}" height="90px"/></a>
+            <a href="${textbook.toLink()}"><img src="${textbook.imageUrl}" height="90px"/></a>
         </g:if>
         <g:else>
             <span class="noBookImage"></span>
