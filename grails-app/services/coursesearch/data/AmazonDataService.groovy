@@ -36,6 +36,8 @@ class AmazonDataService {
                 textbook.matchedOnAmazon = true;
                 textbook.amazonPrice = CourseUtils.parseCurrency(findInNode(page) { it.@id == "actualPriceValue" }.b.toString());
                 textbook.imageUrl = findInNode(page) { node -> node.@id == "prodImageCell" }.a.img.@src;
+                if (!textbook.imageUrl)
+                    textbook.imageUrl = findInNode(page) { node -> node.@id == "prodImageCell" }.img.@src;
                 textbook.save(flush: true);
                 cleanUpGorm()
             }
