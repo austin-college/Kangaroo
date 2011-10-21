@@ -21,3 +21,13 @@
     color: #999;
     font-weight: bold;
 }
+
+.textbook .noBookImage {
+    background-color: #e6e6ef;
+    border: 1px solid #ddd;
+    display: inline-block;
+    width: 60px;
+    height: 70px;
+    margin-left: 15px;
+    margin-top: 10px;
+}

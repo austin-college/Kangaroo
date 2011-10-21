@@ -1,7 +1,13 @@
 <div class="textbook">
 
     <div class="photo">
-        <a href="${textbook.amazonLink}"><img src="${textbook.imageUrl}" height="90px"/></a>
+        <g:if test="${textbook.imageUrl}">
+            <a href="${textbook.amazonLink}"><img src="${textbook.imageUrl}" height="90px"/></a>
+        </g:if>
+        <g:else>
+            <span class="noBookImage"></span>
+
+        </g:else>
     </div>
 
     <div style="margin-left: 100px; padding-top: 10px;">
