@@ -78,7 +78,7 @@ public class CourseUtils {
     }
 
     static String getScheduleLinksForClass(Course course, String connector = ' & ') {
-        course.meetingTimes.collect { "<a href='${createLink('course', 'bySchedule', it.id)}'>${it}</a>"}.join(connector)
+        course.meetingTimes.collect { "<a href='${createLink('course', 'bySchedule')}?days=${it.days.encodeAsURL()}&startTime=${it.startTime.encodeAsURL()}&endTime=${it.endTime.encodeAsURL()}'>${it}</a>"}.join(connector)
     }
 
     static String getRoomLinksForProfessor(Professor professor, String connector = ', ') {
@@ -89,5 +89,11 @@ public class CourseUtils {
 
         def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/courses" : "http://localhost:8080/CourseSearch";
         return "${prefix}/${controller}/${action}/${id}";
+    }
+
+    static String createLink(controller, action) {
+
+        def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/courses" : "http://localhost:8080/CourseSearch";
+        return "${prefix}/${controller}/${action}";
     }
 }

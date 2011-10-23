@@ -123,12 +123,7 @@ class CourseDataService {
             course.room = row.td[10].toString().trim();
 
             // Process meeting times.
-            def meetingTimes = []
-            row.td[11].div.input.@value.toString().split('<BR>').each { composite ->
-
-                if (!composite.contains("TBA"))
-                    meetingTimes << MeetingTime.findOrCreate(composite);
-            }
+            def meetingTimes = row.td[11].div.input.@value.toString().split('<BR>').collect { convertMeetingTime(it) }
 
             course.comments = row.td[12].toString();
 
@@ -147,5 +142,18 @@ class CourseDataService {
             println "Error during course conversion of '${course}'...";
             println e;
         }
+    }
+
+    static MeetingTime convertMeetingTime(String composite) {
+
+        if (composite.contains("TBA"))
+            return null;
+
+        def days = composite[0..5].trim();
+        def time = composite[6..-1].trim()
+        def startTime = time.split(" ")[0];
+        def endTime = time.split(" ")[1];
+
+        return new MeetingTime(days: days, startTime: startTime, endTime: endTime);
     }
 }

@@ -19,27 +19,23 @@ class MeetingTime implements Serializable {
     static MeetingTime findOrCreate(MeetingTime properties) {
 
         // See if this exact meeting time already exists.
-        def existing = MeetingTime.withCriteria {
-            eq("days", properties.days)
-            eq("startTime", properties.startTime)
-            eq("endTime", properties.endTime)
-        }
+        def existing = find(properties.days, properties.startTime, properties.endTime);
 
         if (existing)
-            return existing[0];
+            return existing;
         else
             return new MeetingTime(days: properties.days, startTime: properties.startTime, endTime: properties.endTime).save();
     }
 
-    static MeetingTime findOrCreate(String composite) { return findOrCreate(convertFrom(composite)) }
+    static MeetingTime find(days, startTime, endTime) {
+        def list = MeetingTime.withCriteria {
+            eq("days", days)
+            eq("startTime", startTime)
+            eq("endTime", endTime)
+        }
 
-    static MeetingTime convertFrom(String composite) {
-        def days = composite[0..5].trim();
-        def time = composite[6..-1].trim()
-        def startTime = time.split(" ")[0];
-        def endTime = time.split(" ")[1];
-
-        return new MeetingTime(days: days, startTime: startTime, endTime: endTime);
+        if (list)
+            return list[0];
     }
 
     String toString() {

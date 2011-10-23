@@ -32,7 +32,7 @@
                 </div>
 
                 <div style="color: #777">
-                     ${course.schedule}
+                     ${CourseUtils.getScheduleLinksForClass(course)}
                 </div>
 
 
