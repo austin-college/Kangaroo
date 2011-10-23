@@ -77,6 +77,10 @@ public class CourseUtils {
         course.instructors.collect { "<a href='${createLink('professor', 'show', it.id)}'>${it}</a>"}.join(connector)
     }
 
+    static String getScheduleLinksForClass(Course course, String connector = ' & ') {
+        course.meetingTimes.collect { "<a href='${createLink('course', 'bySchedule', it.id)}'>${it}</a>"}.join(connector)
+    }
+
     static String getRoomLinksForProfessor(Professor professor, String connector = ', ') {
         professor.activeRooms.collect { room -> "<a href='${createLink('course', 'byRoom', room)}'>${room.trim()}</a>"}.join(connector)
     }

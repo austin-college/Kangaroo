@@ -123,6 +123,7 @@ class CourseDataService {
             course.room = row.td[10].toString().trim();
 
             // Process meeting times.
+            def meetingTimes = []
             row.td[11].div.input.@value.toString().split('<BR>').each { composite ->
 
                 if (!composite.contains("TBA")) {
@@ -131,18 +132,21 @@ class CourseDataService {
                     def time = composite[6..-1].trim()
                     def startTime = time.split(" ")[0];
                     def endTime = time.split(" ")[1];
-                    def mt = MeetingTime.findOrCreate(days, startTime, endTime);
-
-                    course.schedule = composite;
+                    meetingTimes << MeetingTime.findOrCreate(days, startTime, endTime);
                 }
             }
 
             course.comments = row.td[12].toString();
+
+            if (!course.validate())
+                println course.errors.allErrors.join("\n");
+
             if (!course.save()) {
                 println "ERROR in saving ${course}..."
                 course.errors.each { error -> println "\t${error}"}
             }
             enrollments.each { it.save(); }
+            meetingTimes.each { course.addToMeetingTimes(it)}
             [result: course]
         }
         catch (Exception e) {

@@ -9,7 +9,7 @@ class MeetingTime implements Serializable {
     String endTime
 
     static mapping = {
-        id(composite: ['days', 'startTime', 'endTime'])
+//        id(composite: ['days', 'startTime', 'endTime'])
         version(false)
     }
 
@@ -29,6 +29,10 @@ class MeetingTime implements Serializable {
             return existing[0];
         else
             return new MeetingTime(days: days, startTime: startTime, endTime: endTime).save();
+    }
+
+    static MeetingTime convertFrom(String composite) {
+
     }
 
     String toString() {

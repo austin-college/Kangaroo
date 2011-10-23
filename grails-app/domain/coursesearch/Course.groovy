@@ -2,7 +2,7 @@ package coursesearch
 
 class Course {
 
-    static hasMany = [textbooks: Textbook]
+    static hasMany = [textbooks: Textbook, meetingTimes: MeetingTime]
 
     def courseDataService
 
@@ -20,7 +20,6 @@ class Course {
 
     String name;
     String room;
-    String schedule;
     String comments;
 
     boolean textbooksParsed
