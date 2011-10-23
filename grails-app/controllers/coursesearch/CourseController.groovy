@@ -11,19 +11,22 @@ class CourseController {
 
             Map courses = [:]
 
+            def composite = params?.id?.toString()?.trim()
+            def meetingTime = MeetingTime.findOrCreate(composite)
+
             // Find all courses at this time by department.
             Department.list().each { dept ->
-                def coursesFound = Course.findAllByScheduleAndDepartment(params.id, dept);
+                def coursesFound = Course.findAllByMeetingTimes([meetingTime]);
                 if (coursesFound)
                     courses.put(dept, coursesFound)
             }
 
-            [courses: courses, schedule: params.id]
+            [courses: courses, schedule: composite]
         }
     }
 
     def byRoom = {
-         if (params.id) {
+        if (params.id) {
 
             Map courses = [:]
 

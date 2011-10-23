@@ -126,14 +126,8 @@ class CourseDataService {
             def meetingTimes = []
             row.td[11].div.input.@value.toString().split('<BR>').each { composite ->
 
-                if (!composite.contains("TBA")) {
-
-                    def days = composite[0..5].trim();
-                    def time = composite[6..-1].trim()
-                    def startTime = time.split(" ")[0];
-                    def endTime = time.split(" ")[1];
-                    meetingTimes << MeetingTime.findOrCreate(days, startTime, endTime);
-                }
+                if (!composite.contains("TBA"))
+                    meetingTimes << MeetingTime.findOrCreate(composite);
             }
 
             course.comments = row.td[12].toString();

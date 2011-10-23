@@ -16,23 +16,30 @@ class MeetingTime implements Serializable {
     static constraints = {
     }
 
-    static MeetingTime findOrCreate(days, startTime, endTime) {
+    static MeetingTime findOrCreate(MeetingTime properties) {
 
         // See if this exact meeting time already exists.
         def existing = MeetingTime.withCriteria {
-            eq("days", days)
-            eq("startTime", startTime)
-            eq("endTime", endTime)
+            eq("days", properties.days)
+            eq("startTime", properties.startTime)
+            eq("endTime", properties.endTime)
         }
 
         if (existing)
             return existing[0];
         else
-            return new MeetingTime(days: days, startTime: startTime, endTime: endTime).save();
+            return new MeetingTime(days: properties.days, startTime: properties.startTime, endTime: properties.endTime).save();
     }
 
-    static MeetingTime convertFrom(String composite) {
+    static MeetingTime findOrCreate(String composite) { return findOrCreate(convertFrom(composite)) }
 
+    static MeetingTime convertFrom(String composite) {
+        def days = composite[0..5].trim();
+        def time = composite[6..-1].trim()
+        def startTime = time.split(" ")[0];
+        def endTime = time.split(" ")[1];
+
+        return new MeetingTime(days: days, startTime: startTime, endTime: endTime);
     }
 
     String toString() {
