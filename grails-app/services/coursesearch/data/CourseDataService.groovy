@@ -129,7 +129,9 @@ class CourseDataService {
 
                     def days = composite[0..5].trim();
                     def time = composite[6..-1].trim()
-                    def mt = MeetingTime.findOrCreate(days, time);
+                    def startTime = time.split(" ")[0];
+                    def endTime = time.split(" ")[1];
+                    def mt = MeetingTime.findOrCreate(days, startTime, endTime);
 
                     course.schedule = composite;
                 }
