@@ -1,5 +1,7 @@
 package coursesearch
 
+import coursesearch.mn.Teaching
+
 class Professor {
 
     def redisService

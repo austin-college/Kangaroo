@@ -1,4 +1,7 @@
-package coursesearch
+package coursesearch.mn
+
+import coursesearch.Professor
+import coursesearch.Course
 
 class Teaching implements Serializable {
 

@@ -103,7 +103,7 @@ class FacultyDataService {
 
         // Professor.findAllByMatched(false).each { println "Not Matched: ${it}"}
         def matched = Professor.countByMatched(true);
-        def percent = ((double) ((matched / Professor.count()) * 100)).round();
+        def percent = (Professor.count() > 0 ) ? ((double) ((matched / Professor.count()) * 100)).round() : 0;
         println "...done! ${matched} matched of ${Professor.count()} (${percent}%)."
     }
 }

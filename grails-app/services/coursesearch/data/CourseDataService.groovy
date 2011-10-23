@@ -1,8 +1,9 @@
 package coursesearch.data
 
+import coursesearch.mn.CourseMeetingTime
+import coursesearch.mn.Teaching
 import groovy.util.slurpersupport.GPathResult
 import java.util.zip.ZipFile
-
 import coursesearch.*
 
 /**
@@ -123,7 +124,12 @@ class CourseDataService {
             course.room = row.td[10].toString().trim();
 
             // Process meeting times.
-            def meetingTimes = row.td[11].div.input.@value.toString().split('<BR>').collect { convertMeetingTime(it) }
+            List<MeetingTime> meetingTimes = []
+            row.td[11].div.input.@value.toString().split('<BR>').each {
+                def time = convertMeetingTime(it)
+                if (time)
+                    meetingTimes << new CourseMeetingTime(course: course, meetingTime: time)
+            }
 
             course.comments = row.td[12].toString();
 
@@ -135,7 +141,7 @@ class CourseDataService {
                 course.errors.each { error -> println "\t${error}"}
             }
             enrollments.each { it.save(); }
-            meetingTimes.each { course.addToMeetingTimes(it)}
+            meetingTimes.each { it.save(); }
             [result: course]
         }
         catch (Exception e) {
@@ -154,6 +160,6 @@ class CourseDataService {
         def startTime = time.split(" ")[0];
         def endTime = time.split(" ")[1];
 
-        return new MeetingTime(days: days, startTime: startTime, endTime: endTime);
+        return MeetingTime.findOrCreate(new MeetingTime(days: days, startTime: startTime, endTime: endTime));
     }
 }

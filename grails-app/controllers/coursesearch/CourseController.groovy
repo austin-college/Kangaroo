@@ -10,16 +10,19 @@ class CourseController {
 
         Map courses = [:]
 
-        def meetingTime = MeetingTime.find(params.day, params.startTime, params.endTime)
+        def meetingTime = MeetingTime.get(params.id)
 
-        // Find all courses at this time by department.
-        Department.list().each { dept ->
-            def coursesFound = Course.findAllByMeetingTimes([meetingTime]);
-            if (coursesFound)
-                courses.put(dept, coursesFound)
+        if (meetingTime) {
+
+            // Find all courses at this time by department.
+            Department.list().each { dept ->
+                def coursesFound = Course.findAllByMeetingTimes([meetingTime]);
+                if (coursesFound)
+                    courses.put(dept, coursesFound)
+            }
+
+            [courses: courses, schedule: meetingTime.toString()]
         }
-
-        [courses: courses, schedule: meetingTime.toString()]
     }
 
     def byRoom = {

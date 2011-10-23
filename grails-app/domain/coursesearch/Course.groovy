@@ -1,8 +1,11 @@
 package coursesearch
 
+import coursesearch.mn.CourseMeetingTime
+import coursesearch.mn.Teaching
+
 class Course {
 
-    static hasMany = [textbooks: Textbook, meetingTimes: MeetingTime]
+    static hasMany = [textbooks: Textbook]
 
     def courseDataService
 
@@ -38,4 +41,6 @@ class Course {
     String sectionString() { department.code + ' ' + courseNumber + section; }
 
     List<Professor> getInstructors() { Teaching.findAllByCourse(this)*.professor; }
+
+    List<MeetingTime> getMeetingTimes() { CourseMeetingTime.findAllByCourse(this)*.meetingTime }
 }

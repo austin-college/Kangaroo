@@ -1,5 +1,7 @@
 package coursesearch
 
+import coursesearch.mn.CourseMeetingTime
+
 class MeetingTime implements Serializable {
 
     String days
@@ -7,11 +9,6 @@ class MeetingTime implements Serializable {
     String startTime
 
     String endTime
-
-    static mapping = {
-//        id(composite: ['days', 'startTime', 'endTime'])
-        version(false)
-    }
 
     static constraints = {
     }
@@ -41,6 +38,8 @@ class MeetingTime implements Serializable {
     String toString() {
         return "${days} ${startTime} ${endTime}"
     }
+
+    List<Course> getCourses() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
 
     boolean equals(other) {
         if (!(other instanceof MeetingTime)) return false
