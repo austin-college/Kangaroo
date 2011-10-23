@@ -2,8 +2,7 @@ package coursesearch.data
 
 import groovy.util.slurpersupport.GPathResult
 import java.util.zip.ZipFile
-import org.htmlcleaner.HtmlCleaner
-import org.htmlcleaner.SimpleXmlSerializer
+
 import coursesearch.*
 
 /**
@@ -122,7 +121,20 @@ class CourseDataService {
             }
 
             course.room = row.td[10].toString().trim();
-            course.schedule = row.td[11].toString();
+
+            // Process meeting times.
+            row.td[11].div.input.@value.toString().split('<BR>').each { composite ->
+
+                if (!composite.contains("TBA")) {
+
+                    def days = composite[0..5].trim();
+                    def time = composite[6..-1].trim()
+                    def mt = MeetingTime.findOrCreate(days, time);
+
+                    course.schedule = composite;
+                }
+            }
+
             course.comments = row.td[12].toString();
             if (!course.save()) {
                 println "ERROR in saving ${course}..."
