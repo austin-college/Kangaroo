@@ -90,7 +90,7 @@
         <div>
             <h3>Schedule:</h3>
 
-            <g:each in="${days}" var="day">
+            <g:each in="${schedule.keySet()}" var="day">
                 <b>${day}</b>
                 <ul>
                     <g:each in="${schedule[day]}" var="scheduleItem">
