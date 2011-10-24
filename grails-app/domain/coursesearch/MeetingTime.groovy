@@ -4,6 +4,10 @@ import coursesearch.mn.CourseMeetingTime
 
 class MeetingTime implements Serializable {
 
+    static codesToWords = ["M": "Monday", "T": "Tuesday", "W": "Wednesday", "TH": "Thursday", "F": "Friday"]
+
+    static transients = ['daysAsCodes', 'daysAsWords']
+
     boolean meetsMonday, meetsTuesday, meetsWednesday, meetsThursday, meetsFriday;
 
     String startTime
@@ -28,20 +32,24 @@ class MeetingTime implements Serializable {
         }
     }
 
-    String daysString() {
-        def string = "";
+    String daysString() { getDaysAsCodes().join("") }
+
+    List<String> getDaysAsCodes() {
+        List<String> days = [];
         if (meetsMonday)
-            string += "M";
+            days << "M";
         if (meetsTuesday)
-            string += "T";
+            days << "T";
         if (meetsWednesday)
-            string += "W";
+            days << "W";
         if (meetsThursday)
-            string += "TH";
+            days << "TH";
         if (meetsMonday)
-            string += "F";
-        string
+            days << "F";
+        days;
     }
+
+    List<String> getDaysAsWords() { getDaysAsCodes().collect { code -> codesToWords[code] } }
 
     String toString() {
         return "${daysString()} ${startTime} ${endTime}"
