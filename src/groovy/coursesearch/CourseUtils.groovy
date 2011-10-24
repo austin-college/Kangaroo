@@ -39,9 +39,9 @@ public class CourseUtils {
         def startTime = System.currentTimeMillis()
         toRun();
         def elapsedTime = (System.currentTimeMillis() - startTime)
-        def timeInSeconds = ((double) (elapsedTime / 1000.0)).round(2);
+        def timeInSeconds = ((double) (elapsedTime / 1000.0)).round(6);
 
-        println "${log} in ${timeInSeconds} seconds."
+        println "${log}\t in ${timeInSeconds} seconds."
     }
 
     static double time(Closure toRun) {
