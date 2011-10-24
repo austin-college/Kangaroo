@@ -155,11 +155,27 @@ class CourseDataService {
         if (composite.contains("TBA"))
             return null;
 
-        def days = composite[0..5].trim();
+        def days = composite[0..5];
         def time = composite[6..-1].trim()
         def startTime = time.split(" ")[0];
         def endTime = time.split(" ")[1];
 
-        return MeetingTime.findOrCreate(new MeetingTime(days: days, startTime: startTime, endTime: endTime));
+        def properties = new MeetingTime(startTime: startTime, endTime: endTime)
+
+        // Check "TH" first and remove it so "T" does not match.
+        if (days.contains("TH"))
+            properties.meetsThursday = true;
+        days = days.replaceAll("TH", "")
+
+        if (days.contains('M'))
+            properties.meetsMonday = true;
+        if (days.contains('T'))
+            properties.meetsTuesday = true;
+        if (days.contains('W'))
+            properties.meetsWednesday = true;
+        if (days.contains('F'))
+            properties.meetsFriday = true;
+
+        return MeetingTime.findOrCreate(properties);
     }
 }

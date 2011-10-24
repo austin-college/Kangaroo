@@ -4,7 +4,7 @@ import coursesearch.mn.CourseMeetingTime
 
 class MeetingTime implements Serializable {
 
-    String days
+    boolean meetsMonday, meetsTuesday, meetsWednesday, meetsThursday, meetsFriday;
 
     String startTime
 
@@ -16,34 +16,36 @@ class MeetingTime implements Serializable {
     static MeetingTime findOrCreate(MeetingTime properties) {
 
         // See if this exact meeting time already exists.
-        def existing = find(properties.days, properties.startTime, properties.endTime);
+        if (MeetingTime.find(properties))
+            return MeetingTime.find(properties);
+        else {
+            def mt = new MeetingTime(meetsMonday: properties.meetsMonday, meetsTuesday: properties.meetsTuesday, meetsWednesday: properties.meetsWednesday,
+                    meetsThursday: properties.meetsThursday, meetsFriday: properties.meetsFriday, startTime: properties.startTime, endTime: properties.endTime);
 
-        if (existing)
-            return existing;
-        else
-            return new MeetingTime(days: properties.days, startTime: properties.startTime, endTime: properties.endTime).save();
+            mt.save()
+            println "${mt.errors}";
+            mt;
+        }
     }
 
-    static MeetingTime find(days, startTime, endTime) {
-        def list = MeetingTime.withCriteria {
-            eq("days", days)
-            eq("startTime", startTime)
-            eq("endTime", endTime)
-        }
-
-        if (list)
-            return list[0];
+    String daysString() {
+        def string = "";
+        if (meetsMonday)
+            string += "M";
+        if (meetsTuesday)
+            string += "T";
+        if (meetsWednesday)
+            string += "W";
+        if (meetsThursday)
+            string += "TH";
+        if (meetsMonday)
+            string += "F";
+        string
     }
 
     String toString() {
-        return "${days} ${startTime} ${endTime}"
+        return "${daysString()} ${startTime} ${endTime}"
     }
 
     List<Course> getCourses() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
-
-    boolean equals(other) {
-        if (!(other instanceof MeetingTime)) return false
-
-        return (other.days == days && other.startTime == startTime && other.endTime == endTime)
-    }
 }
