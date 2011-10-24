@@ -83,5 +83,25 @@
         <div><h3>${professor} has no colleagues</h3></div>
     </g:else>
 </div>
+
+<g:if test="${professor.coursesTeaching.size() > 0}">
+    <div class="details-block courses-block span8">
+
+        <div>
+            <h3>Schedule:</h3>
+
+            <g:each in="${days}" var="day">
+                <b>${day}</b>
+                <ul>
+                    <g:each in="${schedule[day]}" var="scheduleItem">
+                        <li>${scheduleItem.time} <g:link controller="course" action="show"
+                                    id="${scheduleItem.course.id}">${scheduleItem.course}</g:link>
+                        </li>
+                    </g:each>
+                </ul>
+            </g:each>
+        </div>
+    </div>
+</g:if>
 </body>
 </html>
