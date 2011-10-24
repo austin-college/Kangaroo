@@ -94,8 +94,13 @@
                 <b>${day}</b>
                 <ul>
                     <g:each in="${schedule[day]}" var="scheduleItem">
-                        <li>${scheduleItem.time} <g:link controller="course" action="show"
-                                    id="${scheduleItem.course.id}">${scheduleItem.course}</g:link>
+                        <li>
+
+                            ${scheduleItem.time.startTime} to ${scheduleItem.time.endTime} &middot;
+
+                            <g:link controller="course" action="show" id="${scheduleItem.course.id}">
+                                ${scheduleItem.course}
+                            </g:link>
                         </li>
                     </g:each>
                 </ul>
