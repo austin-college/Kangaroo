@@ -4,9 +4,17 @@
     <title>${professor}</title>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'data_table.css')}"/>
+    <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <g:javascript src="jquery.dataTables.js"/>
-    <g:javascript src="search.js"/>
+    <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
+    <g:javascript>
+        $(document).ready(function() {
+
+            $('#calendar').fullCalendar({
+                 weekends: false
+            });
+        });
+    </g:javascript>
 </head>
 
 <body>
@@ -90,21 +98,23 @@
         <div>
             <h3>Schedule:</h3>
 
-            <g:each in="${schedule.keySet()}" var="day">
-                <b>${day}</b>
-                <ul>
-                    <g:each in="${schedule[day]}" var="scheduleItem">
-                        <li>
+            <div id="calendar"></div>
 
-                            ${scheduleItem.time.startTime} to ${scheduleItem.time.endTime} &middot;
+            %{--<g:each in="${schedule.keySet()}" var="day">--}%
+            %{--<b>${day}</b>--}%
+            %{--<ul>--}%
+            %{--<g:each in="${schedule[day]}" var="scheduleItem">--}%
+            %{--<li>--}%
 
-                            <g:link controller="course" action="show" id="${scheduleItem.course.id}">
-                                ${scheduleItem.course}
-                            </g:link>
-                        </li>
-                    </g:each>
-                </ul>
-            </g:each>
+            %{--${scheduleItem.time.startTime} to ${scheduleItem.time.endTime} &middot;--}%
+
+            %{--<g:link controller="course" action="show" id="${scheduleItem.course.id}">--}%
+            %{--${scheduleItem.course}--}%
+            %{--</g:link>--}%
+            %{--</li>--}%
+            %{--</g:each>--}%
+            %{--</ul>--}%
+            %{--</g:each>--}%
         </div>
     </div>
 </g:if>
