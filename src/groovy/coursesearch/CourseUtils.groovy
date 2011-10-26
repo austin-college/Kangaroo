@@ -74,7 +74,7 @@ public class CourseUtils {
     }
 
     static String getProfessorLinksForClass(Course course, String connector = ' & ') {
-        course.instructors.collect { "<a href='${createLink('professor', 'show', it.id)}'>${it}</a>"}.join(connector)
+        course.instructors.collect { "<a href='${createLink('professor', 'show', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>${it}</a>"}.join(connector)
     }
 
     static String getScheduleLinksForClass(Course course, String connector = ' & ') {
