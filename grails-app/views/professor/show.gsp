@@ -62,8 +62,8 @@
             }
 
             $("#timeReadout").text($("#timeReadout").text($.fullCalendar.formatDate(curTime, "h:mmtt")));
-            var curSeconds = (curTime.getHours() * 60 * 60) + (curTime.getMinutes() * 60) + curTime.getSeconds();
-            var percentOfDay = curSeconds / (24 * 60 * 60); //24 * 60 * 60 = 86400, # of seconds in a day
+            var curSeconds = (curTime.getHours() * 60 * 60) + (curTime.getMinutes() * 60) + curTime.getSeconds() - (8 * 60 * 60);
+            var percentOfDay = curSeconds / (10 * 60 * 60); //24 * 60 * 60 = 86400, # of seconds in a day
             var topLoc = Math.floor(parentDiv.height() * percentOfDay);
 
             timeline.css("top", topLoc + "px");
