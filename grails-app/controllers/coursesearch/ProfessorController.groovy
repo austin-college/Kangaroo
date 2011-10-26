@@ -24,26 +24,48 @@ class ProfessorController {
 
         if (professor) {
 
-            def schedule = [:];
+            def events = [];
 
-            // Get all of this professor's meeting times.
             professor.coursesTeaching.each { course ->
                 course.meetingTimes.each { meetingTime ->
-                    meetingTime.daysAsWords.each { day ->
+                    meetingTime.daysAsCodes.each { day ->
 
-                        if (!schedule[day])
-                            schedule[day] = [];
+                        def date = getUpcomingWeekday(dayToOffset(day));
 
-                        schedule[day] << [course: course, time: meetingTime]
+                        def startDate = setTime(date, 'hh:mma', meetingTime.startTime);
+                        def endDate = setTime(date, 'hh:mma', meetingTime.endTime);
+
+                        events << [title: course.name, allDay: false, start: startDate, end: endDate,
+                                url: g.createLink(controller: "course", action: "show", id: course.zap)];
                     }
                 }
             }
 
-            def weekEvents = [[title:"Theory of Computation", allDay: false, start: new Date().parse('MM/dd/yyyy HH:mm', '10/24/2011 09:30'), end: new Date().parse('MM/dd/yyyy HH:mm', '10/24/2011 10:50'),
-             url:g.createLink(controller:"course", action:"show", id: 40217)],
-            [id:111, title:"Event1", start:2011-10-26, url:"http://yahoo.com/"]]//, ]]
-
-            render(weekEvents as JSON);
+            render(events as JSON);
         }
+    }
+
+    Date setTime(Date date, String format, String time) {
+
+        def newDate = new Date().parse(format, time);
+
+        newDate.setYear(date.year)
+        newDate.setMonth(date.month)
+        newDate.setDate(date.date)
+        newDate
+    }
+
+    Date getUpcomingWeekday(int dayOfWeek) {
+        def date = new Date();
+
+        if (date[Calendar.DAY_OF_WEEK] != Calendar.MONDAY)
+            date -= (date[Calendar.DAY_OF_WEEK] - Calendar.MONDAY)
+
+        date += dayOfWeek;
+    }
+
+    int dayToOffset(code) {
+        def days = ["M", "T", "W", "TH", "F"]
+        return days.indexOf(code);
     }
 }

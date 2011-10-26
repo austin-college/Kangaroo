@@ -15,9 +15,12 @@
                     events: contextPath + "/professor/getSchedule/${professor.id}",
                     defaultView: 'agendaWeek',
                     header: null,
+                    ignoreTimezone: false,
+                    height: 350,
                     allDaySlot: false,
                     minTime: 8,
-                    maxTime: 18
+                    maxTime: 18,
+                    timeFormat: ''
                 });
         });
     </g:javascript>
@@ -99,7 +102,7 @@
 </div>
 
 <g:if test="${professor.coursesTeaching.size() > 0}">
-    <div class="details-block courses-block span12">
+    <div class="details-block courses-block span14">
 
         <div>
             <h3>Schedule:</h3>
