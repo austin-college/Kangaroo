@@ -4,6 +4,10 @@
     padding-left: 3px;
 }
 
+#classTable td {
+    padding: 6px 10px 5px 10px;
+}
+
 .details-block {
     background-color: #f9f9fa;
     border: 1px solid #ccc;
