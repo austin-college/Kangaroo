@@ -10,7 +10,6 @@
     <script type="text/javascript">
         var timelineInterval;
         var calendar;
-        var date = new Date();
         $(document).ready(function() {
 
             calendar = $('#calendar').fullCalendar({
@@ -26,12 +25,9 @@
                 timeFormat: '',
                 viewDisplay: function(view) {
 
-                    date.setHours(8)
-                    date.setMinutes(0);
                     window.clearInterval(timelineInterval);
-                    timelineInterval = setInterval(setTimeline, 30);
-                    // timelineInterval = window.setInterval(setTimeline, 10000);
-                    // setTimeline();
+                    timelineInterval = window.setInterval(setTimeline, 10000);
+                    setTimeline();
                 }
             });
         });
@@ -44,16 +40,7 @@
                 parentDiv.prepend(timeline);
             }
 
-            var curTime = date;
-            date.setMinutes(date.getMinutes() + 1);
-            if (date.getMinutes() % 60 == 0) {
-                window.clearInterval(timelineInterval);
-                timelineInterval = setInterval(setTimeline, 500);
-            }
-            else {
-                window.clearInterval(timelineInterval);
-                timelineInterval = setInterval(setTimeline, 30);
-            }
+            var curTime = new Date();
             var curCalView = $('#calendar').fullCalendar("getView");
             if (curCalView.visStart < curTime && curCalView.visEnd > curTime) {
                 timeline.show();
@@ -61,7 +48,6 @@
                 timeline.hide();
             }
 
-            $("#timeReadout").text($("#timeReadout").text($.fullCalendar.formatDate(curTime, "h:mmtt")));
             var curSeconds = (curTime.getHours() * 60 * 60) + (curTime.getMinutes() * 60) + curTime.getSeconds() - (8 * 60 * 60);
             var percentOfDay = curSeconds / (10 * 60 * 60); //24 * 60 * 60 = 86400, # of seconds in a day
             var topLoc = Math.floor(parentDiv.height() * percentOfDay);
@@ -176,25 +162,9 @@
     <div class="details-block courses-block span14">
 
         <div>
-            <h3 id="timeReadout">Time</h3>
+            <h3>Schedule</h3>
 
             <div id="calendar"></div>
-
-            %{--<g:each in="${schedule.keySet()}" var="day">--}%
-            %{--<b>${day}</b>--}%
-            %{--<ul>--}%
-            %{--<g:each in="${schedule[day]}" var="scheduleItem">--}%
-            %{--<li>--}%
-
-            %{--${scheduleItem.time.startTime} to ${scheduleItem.time.endTime} &middot;--}%
-
-            %{--<g:link controller="course" action="show" id="${scheduleItem.course.id}">--}%
-            %{--${scheduleItem.course}--}%
-            %{--</g:link>--}%
-            %{--</li>--}%
-            %{--</g:each>--}%
-            %{--</ul>--}%
-            %{--</g:each>--}%
         </div>
     </div>
 </g:if>
