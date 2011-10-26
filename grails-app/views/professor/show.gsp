@@ -10,9 +10,15 @@
     <g:javascript>
         $(document).ready(function() {
 
-            $('#calendar').fullCalendar({
-                 weekends: false
-            });
+                $('#calendar').fullCalendar({
+                    weekends: false,
+                    events: contextPath + "/professor/getSchedule/${professor.id}",
+                    defaultView: 'agendaWeek',
+                    header: null,
+                    allDaySlot: false,
+                    minTime: 8,
+                    maxTime: 18
+                });
         });
     </g:javascript>
 </head>
@@ -93,7 +99,7 @@
 </div>
 
 <g:if test="${professor.coursesTeaching.size() > 0}">
-    <div class="details-block courses-block span8">
+    <div class="details-block courses-block span12">
 
         <div>
             <h3>Schedule:</h3>
