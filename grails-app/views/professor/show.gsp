@@ -91,6 +91,9 @@
         z-index: 999;
     }
 
+    table.fc-agenda-slots {
+        margin-bottom: 0;
+    }
     </style>
 </head>
 
