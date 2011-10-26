@@ -176,7 +176,7 @@
     <div class="details-block courses-block span14">
 
         <div>
-            <h3>Schedule:</h3>
+            <h3 id="timeReadout">Time</h3>
 
             <div id="calendar"></div>
 
