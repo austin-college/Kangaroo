@@ -4,6 +4,8 @@ import coursesearch.mn.Teaching
 
 class Professor {
 
+    static hasMany = [officeHours: MeetingTime]
+
     def redisService
 
     String name

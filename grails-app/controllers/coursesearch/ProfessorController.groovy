@@ -45,6 +45,30 @@ class ProfessorController {
         }
     }
 
+    def getOfficeHours = {
+        def professor = Professor.get(params.id as Long);
+
+        if (professor) {
+
+            def events = [];
+
+            professor.officeHours.each { meetingTime ->
+                meetingTime.daysAsCodes.each { day ->
+
+                    def date = getUpcomingWeekday(dayToOffset(day));
+
+                    def startDate = setTime(date, 'hh:mma', meetingTime.startTime);
+                    def endDate = setTime(date, 'hh:mma', meetingTime.endTime);
+
+                    events << [title: "Office Hours", allDay: false, start: startDate, end: endDate,
+                            url: g.createLink(controller: "course", action: "show")];
+                }
+            }
+
+            render(events as JSON);
+        }
+    }
+
     Date setTime(Date date, String format, String time) {
 
         def newDate = new Date().parse(format, time);

@@ -14,7 +14,16 @@
 
             calendar = $('#calendar').fullCalendar({
                 weekends: false,
-                events: contextPath + "/professor/getSchedule/${professor.id}",
+                eventSources: [
+
+                    { url: contextPath + "/professor/getSchedule/${professor.id}" },
+
+                    {
+                        url: contextPath + "/professor/getOfficeHours/${professor.id}",
+                        color: 'green'
+                    }
+
+                ],
                 defaultView: 'agendaWeek',
                 header: null,
                 ignoreTimezone: false,
