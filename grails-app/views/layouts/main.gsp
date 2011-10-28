@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><g:layoutTitle default="Course Search"/></title>
+    <title><g:layoutTitle default="Kangaroo"/></title>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'app.css')}"/>
@@ -85,8 +85,8 @@
 
     <div class="content">
         <div class="page-header">
-            <g:link controller="home"><img src="${resource(dir: 'images', file: 'app_logo.png')}" alt="CourseSearch"
-                                           border="0"/></g:link>
+            <g:link controller="home"><img src="${resource(dir: 'images', file: 'app_logo.png')}" alt="Kangaroo"
+                                           height="58px" width="290px" border="0"/></g:link>
         </div>
 
         <div class="row">
