@@ -14,7 +14,6 @@ class Course {
     int seatsUsed;
     boolean instructorConsentRequired;
     String reqCode;
-    int zap;
 
     Department department // BIO
     int courseNumber // 652
@@ -29,6 +28,7 @@ class Course {
 
     static mapping = {
         textbooks(sort: "title", order: "asc")
+        id(generator: 'assigned')
     }
 
     static constraints = {

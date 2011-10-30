@@ -36,7 +36,7 @@
 
     <div><b>Section:</b> ${course.sectionString()}</div>
 
-    <div><b>ZAP:</b> ${course.zap}</div>
+    <div><b>ZAP:</b> ${course.id}</div>
 
     <g:if test="${course.comments}">
         <div><b>Requirements:</b> ${course.comments}</div>

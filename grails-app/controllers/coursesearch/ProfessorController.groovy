@@ -36,7 +36,7 @@ class ProfessorController {
                         def endDate = setTime(date, 'hh:mma', meetingTime.endTime);
 
                         events << [title: course.name, allDay: false, start: startDate, end: endDate,
-                                url: g.createLink(controller: "course", action: "show", id: course.zap)];
+                                url: g.createLink(controller: "course", action: "show", id: course.id)];
                     }
                 }
             }

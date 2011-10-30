@@ -25,7 +25,7 @@
     <div><h3>${department}</h3>
         <g:each in="${courses[department]}" var="course">
             <span class="details-block courses-block">
-                <div><g:link action="show" id="${course.zap}">${course}</g:link></div>
+                <div><g:link action="show" id="${course.id}">${course}</g:link></div>
 
                 <div>
                     Taught by ${CourseUtils.getProfessorLinksForClass(course)}

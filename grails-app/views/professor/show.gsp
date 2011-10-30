@@ -137,7 +137,7 @@
             <ul>
                 <g:each in="${professor.coursesTeaching}" var="course">
                     <li><g:link controller="course" action="show"
-                                id="${course.zap}">${course}</g:link> (${course.sectionString()})</li>
+                                id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
                 </g:each>
             </ul>
         </div>

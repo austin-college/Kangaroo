@@ -44,7 +44,7 @@ class CourseController {
     }
 
     def show = {
-        def course = Course.findByZap(params.id)
+        def course = Course.get(params.id)
         if (course) {
             def fullPercentage = (int) ((double) (course.seatsUsed / course.capacity * 100.0)).round();
             [course: course, fullPercentage: fullPercentage, fullPercentageColor: getColorForPercent(fullPercentage)]
