@@ -1,11 +1,10 @@
-package coursesearch.data.convert
+package coursesearch
 
 import grails.test.GrailsUnitTestCase
 import coursesearch.MeetingTime
+import coursesearch.data.convert.ScheduleParseService
 
-class ScheduleParseIntegrationTests extends GrailsUnitTestCase {
-
-    def scheduleParseService
+class MeetingTimeTests extends GrailsUnitTestCase {
 
     void testConstraints() {
 

@@ -1,4 +1,4 @@
-package coursesearch.data
+package coursesearch.data.convert
 
 import coursesearch.data.convert.ScheduleParseService
 import grails.test.GrailsUnitTestCase
@@ -6,7 +6,7 @@ import grails.test.GrailsUnitTestCase
 /**
  * Tests the schedule converter.
  */
-class ScheduleParseServiceTests extends GrailsUnitTestCase {
+class ScheduleConvertUnitTests extends GrailsUnitTestCase {
 
     def scheduleParseService
 
