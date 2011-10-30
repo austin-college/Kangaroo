@@ -1,5 +1,7 @@
 package coursesearch
 
+import coursesearch.data.CourseDataService
+import coursesearch.mn.ProfessorOfficeHours
 import grails.converters.JSON
 
 class BatchControlController {
@@ -35,12 +37,38 @@ class BatchControlController {
                     name: "Amazon",
                     run: { amazonDataService.lookupAllTextbooks() },
                     status: {
-                        if ( Textbook.count() > 0)
+                        if (Textbook.count() > 0)
                             "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (${CourseUtils.toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count())}%)"
                         else
                             "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (0%)"
                     }
             ],
+            "officeHours": [
+                    id: "officeHours",
+                    name: "Office Hours",
+                    run: {
+
+                        def profs = [
+                                "Michael Higgs": ["MW     01:00PM 02:00PM", "TTH    11:00AM 12:00PM"],
+                                "Aaron Block": ["MWF    11:00AM 01:30PM"],
+                        ]
+
+                        profs.each { name, hours ->
+                            def prof = Professor.findByName(name);
+
+                            if (prof) {
+                                println "Setting office hours for ${prof}..."
+                                hours.each { schedule ->
+                                    new ProfessorOfficeHours(professor: prof, meetingTime: MeetingTime.findOrCreate(CourseDataService.convertMeetingTime(schedule))).save()
+                                    prof.save();
+                                }
+
+                                println prof.officeHours
+                            }
+                        }
+                    },
+                    status: { "Ready" }
+            ]
     ]
 
     def index = {}
