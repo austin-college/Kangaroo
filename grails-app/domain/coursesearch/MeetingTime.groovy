@@ -1,9 +1,12 @@
 package coursesearch
 
-import coursesearch.data.convert.ScheduleParseService
+import coursesearch.data.convert.ScheduleConvertService
 import coursesearch.mn.CourseMeetingTime
 
-class MeetingTime implements Serializable {
+/**
+ * Represents a meeting schedule as used by courses or professors ("MWF 09:00AM 10:00AM").
+ */
+class MeetingTime {
 
     static transients = ['daysAsCodes', 'daysAsWords', 'daysAsString']
 
@@ -16,10 +19,8 @@ class MeetingTime implements Serializable {
         // See if this exact meeting time already exists.
         if (MeetingTime.find(this))
             return MeetingTime.find(this);
-        else {
-            save();
-            return this;
-        }
+        else
+            return save();
     }
 
     static constraints = {
@@ -35,10 +36,10 @@ class MeetingTime implements Serializable {
     List<Course> getCoursesMeeting() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
 
     // Returns a list of all of the days we meet, as codes (["M", "W", "TH"]).
-    List<String> getDaysAsCodes() { ScheduleParseService.getDaysAsCodes(this) }
+    List<String> getDaysAsCodes() { ScheduleConvertService.getDaysAsCodes(this) }
 
     // Returns a list of all of the days we meet, as words (["Monday", "Wednesday", "Thursday"]).
-    List<String> getDaysAsWords() { ScheduleParseService.getDaysAsWords(this) }
+    List<String> getDaysAsWords() { ScheduleConvertService.getDaysAsWords(this) }
 
     // Returns a list of all of the days we meet, as a flat string ("MWTH").
     String getDaysAsString() { getDaysAsCodes().join("") }

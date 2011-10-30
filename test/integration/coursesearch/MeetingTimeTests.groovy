@@ -1,8 +1,8 @@
 package coursesearch
 
 import grails.test.GrailsUnitTestCase
-import coursesearch.MeetingTime
-import coursesearch.data.convert.ScheduleParseService
+
+import coursesearch.data.convert.ScheduleConvertService
 
 class MeetingTimeTests extends GrailsUnitTestCase {
 
@@ -17,7 +17,7 @@ class MeetingTimeTests extends GrailsUnitTestCase {
 
     void testSaveOrFind() {
 
-        def model = ScheduleParseService.convertMeetingTime("MWF   11:00AM 12:20PM")
+        def model = ScheduleConvertService.convertMeetingTime("MWF   11:00AM 12:20PM")
 
         def one = model.saveOrFind()
         assert one.toString() == "MWF 11:00AM 12:20PM"
@@ -27,7 +27,7 @@ class MeetingTimeTests extends GrailsUnitTestCase {
         assert two.toString() == "MWF 11:00AM 12:20PM"
         assert two.id == 1
 
-        def three = (ScheduleParseService.convertMeetingTime("MWF   11:01AM 12:20PM")).saveOrFind()
+        def three = (ScheduleConvertService.convertMeetingTime("MWF   11:01AM 12:20PM")).saveOrFind()
         assert three.toString() == "MWF 11:01AM 12:20PM"
         assert three.id == 2
     }

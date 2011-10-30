@@ -12,7 +12,7 @@ import coursesearch.*
 class CourseDataService {
 
     static transactional = true
-    def scheduleParseService
+    def scheduleConvertService
 
     def downloadAndProcess() {
 
@@ -129,7 +129,7 @@ class CourseDataService {
             // Process meeting times.
             List<MeetingTime> meetingTimes = []
             row.td[11].div.input.@value.toString().split('<BR>').each {
-                def time = scheduleParseService.convertMeetingTime(it).saveOrFind()
+                def time = scheduleConvertService.convertMeetingTime(it).saveOrFind()
                 if (time)
                     meetingTimes << new CourseMeetingTime(course: course, meetingTime: time)
             }

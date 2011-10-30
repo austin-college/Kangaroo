@@ -5,7 +5,7 @@ import coursesearch.MeetingTime
 /**
  * Converts meeting schedules from the "MWF 09:00AM 10:00AM" format to (and from) MeetingTimes.
  */
-class ScheduleParseService {
+class ScheduleConvertService {
 
     /**
      * Converts the given "MWF 09:00AM 10:00AM" string to a MeetingTime. The MeetingTime is NOT yet persisted.
