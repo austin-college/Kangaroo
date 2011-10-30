@@ -15,7 +15,7 @@ class CourseController {
         if (meetingTime) {
 
             // Find all courses at this time, but segment by department.
-            def coursesAtTime = meetingTime.courses;
+            def coursesAtTime = meetingTime.coursesMeeting;
             Department.list().each { dept ->
                 def coursesFound = coursesAtTime.findAll { it.department.id == dept.id }
                 if (coursesFound)

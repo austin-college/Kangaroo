@@ -27,13 +27,17 @@ class MeetingTime implements Serializable {
 
     boolean equals(Object other) { toString() == other.toString() }
 
-    List<Course> getCourses() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
+    String toString() { "$daysAsString $startTime $endTime" }
 
-    String getDaysAsString() { getDaysAsCodes().join("") }
+    // Returns the courses meeting at this time.
+    List<Course> getCoursesMeeting() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
 
+    // Returns a list of all of the days we meet, as codes (["M", "W", "TH"]).
     List<String> getDaysAsCodes() { ScheduleParseService.getDaysAsCodes(this) }
 
+    // Returns a list of all of the days we meet, as words (["Monday", "Wednesday", "Thursday"]).
     List<String> getDaysAsWords() { ScheduleParseService.getDaysAsWords(this) }
 
-    String toString() { "${getDaysAsString()} ${startTime} ${endTime}" }
+    // Returns a list of all of the days we meet, as a flat string ("MWTH").
+    String getDaysAsString() { getDaysAsCodes().join("") }
 }
