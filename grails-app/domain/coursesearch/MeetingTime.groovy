@@ -5,13 +5,11 @@ import coursesearch.mn.CourseMeetingTime
 
 class MeetingTime implements Serializable {
 
-    static transients = ['daysAsCodes', 'daysAsWords']
+    static transients = ['daysAsCodes', 'daysAsWords', 'daysAsString']
 
     boolean meetsMonday, meetsTuesday, meetsWednesday, meetsThursday, meetsFriday;
 
-    String startTime
-
-    String endTime
+    String startTime, endTime
 
     def MeetingTime saveOrFind() {
 
@@ -29,13 +27,13 @@ class MeetingTime implements Serializable {
 
     boolean equals(Object other) { toString() == other.toString() }
 
-    String daysString() { getDaysAsCodes().join("") }
+    List<Course> getCourses() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
+
+    String getDaysAsString() { getDaysAsCodes().join("") }
 
     List<String> getDaysAsCodes() { ScheduleParseService.getDaysAsCodes(this) }
 
     List<String> getDaysAsWords() { ScheduleParseService.getDaysAsWords(this) }
 
-    List<Course> getCourses() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
-
-    String toString() { "${daysString()} ${startTime} ${endTime}" }
+    String toString() { "${getDaysAsString()} ${startTime} ${endTime}" }
 }
