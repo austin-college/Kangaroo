@@ -28,6 +28,10 @@ class MeetingTime implements Serializable {
     static constraints = {
     }
 
+    boolean equals(Object other) {
+        return toString() == other.toString()
+    }
+
     String daysString() { getDaysAsCodes().join("") }
 
     List<String> getDaysAsCodes() {

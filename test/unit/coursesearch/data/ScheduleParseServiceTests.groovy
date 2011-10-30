@@ -48,6 +48,11 @@ class ScheduleParseServiceTests extends GrailsUnitTestCase {
         }
     }
 
+    void testWithoutSpacing() {
+        assert ScheduleParseService.convertMeetingTime("MWF 10:00AM 11:00AM") == ScheduleParseService.convertMeetingTime("MWF   10:00AM 11:00AM")
+        assert ScheduleParseService.convertMeetingTime("MTWTHF 10:00AM 11:00AM") == ScheduleParseService.convertMeetingTime("MTWTHF10:00AM 11:00AM")
+    }
+
     void testDaysAsCodes() { assert ScheduleParseService.convertMeetingTime("MWF   08:00AM 09:00AM").daysAsCodes == ['M', 'W', 'F'] }
 
     void testDaysAsWords() { assert ScheduleParseService.convertMeetingTime("TTH   09:30AM 10:50AM").daysAsWords == ['Tuesday', 'Thursday'] }

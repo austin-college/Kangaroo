@@ -19,28 +19,36 @@ class ScheduleParseService {
             if (composite.contains("TBA"))
                 return null;
 
-            def days = composite[0..5];
-            def time = composite[6..-1].trim()
-            def startTime = time.split(" ")[0];
-            def endTime = time.split(" ")[1];
+            // Make sure that if all the day codes are on, there's a space after them. (WebHopper won't do so)
+            if (composite.startsWith("MTWTHF"))
+                composite = composite.replaceAll("MTWTHF", "MTWTHF ")
 
-            def properties = new MeetingTime(startTime: startTime, endTime: endTime)
+            // Split the string into three parts ("MWF", "09:00AM", "10:00AM") without padding.
+            def parts = (List<String>) composite.split(" ").findAll { it.length() > 0 }
 
-            // Check "TH" first and remove it so "T" does not match.
-            if (days.contains("TH"))
-                properties.meetsThursday = true;
-            days = days.replaceAll("TH", "")
+            def meetingTime = new MeetingTime(startTime: parts[1], endTime: parts[2])
 
-            if (days.contains('M'))
-                properties.meetsMonday = true;
-            if (days.contains('T'))
-                properties.meetsTuesday = true;
-            if (days.contains('W'))
-                properties.meetsWednesday = true;
-            if (days.contains('F'))
-                properties.meetsFriday = true;
+            // Convert the "MTWTHF" string into meets*** booleans.
+            meetingTime.with {
 
-            return properties;
+                def days = parts[0];
+
+                // Check "TH" first and remove it so "T" does not match.
+                if (days.contains("TH"))
+                    meetsThursday = true;
+                days = days.replaceAll("TH", "")
+
+                // Check for the rest
+                if (days.contains('M'))
+                    meetsMonday = true;
+                if (days.contains('T'))
+                    meetsTuesday = true;
+                if (days.contains('W'))
+                    meetsWednesday = true;
+                if (days.contains('F'))
+                    meetsFriday = true;
+            }
+            return meetingTime;
         }
         catch (Exception e) {
             println "Error parsing schedule $composite..."
