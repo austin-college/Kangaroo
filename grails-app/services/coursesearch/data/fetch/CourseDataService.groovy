@@ -129,7 +129,7 @@ class CourseDataService {
             // Process meeting times.
             List<MeetingTime> meetingTimes = []
             row.td[11].div.input.@value.toString().split('<BR>').each {
-                def time = scheduleParseService.findOrCreate(scheduleParseService.convertMeetingTime(it))
+                def time = scheduleParseService.convertMeetingTime(it).saveOrFind()
                 if (time)
                     meetingTimes << new CourseMeetingTime(course: course, meetingTime: time)
             }

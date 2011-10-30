@@ -14,6 +14,17 @@ class MeetingTime implements Serializable {
 
     String endTime
 
+    def MeetingTime saveOrFind() {
+
+        // See if this exact meeting time already exists.
+        if (MeetingTime.find(this))
+            return MeetingTime.find(this);
+        else {
+            save();
+            return this;
+        }
+    }
+
     static constraints = {
     }
 
