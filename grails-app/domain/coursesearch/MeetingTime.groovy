@@ -17,20 +17,6 @@ class MeetingTime implements Serializable {
     static constraints = {
     }
 
-    static MeetingTime findOrCreate(MeetingTime properties) {
-
-        // See if this exact meeting time already exists.
-        if (MeetingTime.find(properties))
-            return MeetingTime.find(properties);
-        else {
-            def mt = new MeetingTime(meetsMonday: properties.meetsMonday, meetsTuesday: properties.meetsTuesday, meetsWednesday: properties.meetsWednesday,
-                    meetsThursday: properties.meetsThursday, meetsFriday: properties.meetsFriday, startTime: properties.startTime, endTime: properties.endTime);
-
-            mt.save()
-            mt;
-        }
-    }
-
     String daysString() { getDaysAsCodes().join("") }
 
     List<String> getDaysAsCodes() {

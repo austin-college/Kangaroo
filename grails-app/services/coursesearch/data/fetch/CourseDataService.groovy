@@ -12,6 +12,7 @@ import coursesearch.*
 class CourseDataService {
 
     static transactional = true
+    def scheduleParseService
 
     def downloadAndProcess() {
 
@@ -128,7 +129,7 @@ class CourseDataService {
             // Process meeting times.
             List<MeetingTime> meetingTimes = []
             row.td[11].div.input.@value.toString().split('<BR>').each {
-                def time = convertMeetingTime(it)
+                def time = scheduleParseService.findOrCreate(scheduleParseService.convertMeetingTime(it))
                 if (time)
                     meetingTimes << new CourseMeetingTime(course: course, meetingTime: time)
             }
@@ -150,34 +151,5 @@ class CourseDataService {
             println "Error during course conversion of '${course}'...";
             println e;
         }
-    }
-
-    static MeetingTime convertMeetingTime(String composite) {
-
-        if (composite.contains("TBA"))
-            return null;
-
-        def days = composite[0..5];
-        def time = composite[6..-1].trim()
-        def startTime = time.split(" ")[0];
-        def endTime = time.split(" ")[1];
-
-        def properties = new MeetingTime(startTime: startTime, endTime: endTime)
-
-        // Check "TH" first and remove it so "T" does not match.
-        if (days.contains("TH"))
-            properties.meetsThursday = true;
-        days = days.replaceAll("TH", "")
-
-        if (days.contains('M'))
-            properties.meetsMonday = true;
-        if (days.contains('T'))
-            properties.meetsTuesday = true;
-        if (days.contains('W'))
-            properties.meetsWednesday = true;
-        if (days.contains('F'))
-            properties.meetsFriday = true;
-
-        return MeetingTime.findOrCreate(properties);
     }
 }
