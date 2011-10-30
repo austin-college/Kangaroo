@@ -24,8 +24,11 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:hsqldb:mem:testDb"
+            dbCreate = "create-drop"
+            url = "jdbc:hsqldb:mem:kangarooTestDb"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "sa"
+            password = ""
         }
     }
     production {
