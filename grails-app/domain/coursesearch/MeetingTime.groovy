@@ -27,7 +27,6 @@ class MeetingTime implements Serializable {
                     meetsThursday: properties.meetsThursday, meetsFriday: properties.meetsFriday, startTime: properties.startTime, endTime: properties.endTime);
 
             mt.save()
-            println "${mt.errors}";
             mt;
         }
     }
@@ -44,7 +43,7 @@ class MeetingTime implements Serializable {
             days << "W";
         if (meetsThursday)
             days << "TH";
-        if (meetsMonday)
+        if (meetsFriday)
             days << "F";
         days;
     }
