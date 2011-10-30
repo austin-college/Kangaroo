@@ -1,6 +1,7 @@
 import coursesearch.Course
 import coursesearch.Textbook
 import grails.converters.JSON
+import grails.util.Environment
 
 class BootStrap {
 
@@ -18,15 +19,17 @@ class BootStrap {
             return [id: it.id, name: it.name, items: it.items];
         }
 
-        departmentDataService.setUpDepartments()
-        if (Course.count() == 0)
-            courseDataService.downloadAndProcess();
-        if (Textbook.count() == 0)
-            textbookDataService.lookupTextbooksForAllCourses();
-        facultyDataService.fetchAndMatch()
+        if (Environment.current != Environment.TEST) {
+            departmentDataService.setUpDepartments()
+            if (Course.count() == 0)
+                courseDataService.downloadAndProcess();
+            if (Textbook.count() == 0)
+                textbookDataService.lookupTextbooksForAllCourses();
+            facultyDataService.fetchAndMatch()
 
-        // Pre-cache as much information as we can.
-        cacheService.initializeCache();
+            // Pre-cache as much information as we can.
+            cacheService.initializeCache();
+        }
     }
 
     def destroy = {
