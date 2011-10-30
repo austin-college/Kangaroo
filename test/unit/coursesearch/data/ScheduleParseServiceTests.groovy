@@ -15,13 +15,13 @@ class ScheduleParseServiceTests extends GrailsUnitTestCase {
         def composite = "MWF   09:00AM 10:00AM"
         def meetingTime = ScheduleParseService.convertMeetingTime(composite)
 
-        assert meetingTime.meetsMonday
-        assert !meetingTime.meetsTuesday
-        assert meetingTime.meetsWednesday
-        assert !meetingTime.meetsThursday
-        assert meetingTime.meetsFriday
-        assert meetingTime.startTime == "09:00AM"
-        assert meetingTime.endTime == "10:00AM"
+        meetingTime.with {
+            assert meetsMonday && !meetsTuesday && meetsWednesday &&
+                    !meetsThursday && meetsFriday
+
+            assert startTime == "09:00AM"
+            assert endTime == "10:00AM"
+        }
         assert meetingTime.toString() == "MWF 09:00AM 10:00AM"
     }
 
@@ -30,12 +30,22 @@ class ScheduleParseServiceTests extends GrailsUnitTestCase {
         def composite = "TTH   01:30PM 02:50PM"
         def meetingTime = ScheduleParseService.convertMeetingTime(composite)
 
-        assert !meetingTime.meetsMonday && meetingTime.meetsTuesday &&
-                !meetingTime.meetsWednesday && meetingTime.meetsThursday && !meetingTime.meetsFriday;
+        meetingTime.with {
+            assert !meetsMonday && meetsTuesday && !meetsWednesday &&
+                    meetsThursday && !meetsFriday;
 
-        assert meetingTime.startTime == "01:30PM"
-        assert meetingTime.endTime == "02:50PM"
+            assert startTime == "01:30PM"
+            assert endTime == "02:50PM"
+        }
         assert meetingTime.toString() == "TTH 01:30PM 02:50PM"
+    }
+
+    void testMParsing() {
+        ScheduleParseService.convertMeetingTime("M     01:30PM 02:50PM").with {
+            assert meetsMonday && !meetsTuesday && !meetsWednesday && !meetsThursday && !meetsFriday
+            assert startTime == "01:30PM"
+            assert endTime == "02:50PM"
+        }
     }
 
     void testDaysAsCodes() { assert ScheduleParseService.convertMeetingTime("MWF   08:00AM 09:00AM").daysAsCodes == ['M', 'W', 'F'] }
