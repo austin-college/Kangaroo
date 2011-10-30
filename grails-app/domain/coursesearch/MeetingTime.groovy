@@ -5,8 +5,6 @@ import coursesearch.mn.CourseMeetingTime
 
 class MeetingTime implements Serializable {
 
-    static codesToWords = ["M": "Monday", "T": "Tuesday", "W": "Wednesday", "TH": "Thursday", "F": "Friday"]
-
     static transients = ['daysAsCodes', 'daysAsWords']
 
     boolean meetsMonday, meetsTuesday, meetsWednesday, meetsThursday, meetsFriday;
@@ -35,7 +33,7 @@ class MeetingTime implements Serializable {
 
     List<String> getDaysAsCodes() { ScheduleParseService.getDaysAsCodes(this) }
 
-    List<String> getDaysAsWords() { getDaysAsCodes().collect { code -> codesToWords[code] } }
+    List<String> getDaysAsWords() { ScheduleParseService.getDaysAsWords(this) }
 
     List<Course> getCourses() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
 

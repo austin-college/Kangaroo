@@ -76,4 +76,14 @@ class ScheduleParseService {
         }
         return days;
     }
+
+    /**
+     * Given a MeetingTime, returns a list of the days it meets (["Monday", "Wednesday", "Thursday"]).
+     */
+    static List<String> getDaysAsWords(MeetingTime meetingTime) {
+        final codesToWords = ["M": "Monday", "T": "Tuesday", "W": "Wednesday", "TH": "Thursday", "F": "Friday"]
+
+        // A simple lookup table operation.
+        return meetingTime.daysAsCodes.collect { code -> codesToWords[code] }
+    }
 }
