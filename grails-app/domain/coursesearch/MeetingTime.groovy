@@ -1,5 +1,6 @@
 package coursesearch
 
+import coursesearch.data.convert.ScheduleParseService
 import coursesearch.mn.CourseMeetingTime
 
 class MeetingTime implements Serializable {
@@ -28,32 +29,15 @@ class MeetingTime implements Serializable {
     static constraints = {
     }
 
-    boolean equals(Object other) {
-        return toString() == other.toString()
-    }
+    boolean equals(Object other) { toString() == other.toString() }
 
     String daysString() { getDaysAsCodes().join("") }
 
-    List<String> getDaysAsCodes() {
-        List<String> days = [];
-        if (meetsMonday)
-            days << "M";
-        if (meetsTuesday)
-            days << "T";
-        if (meetsWednesday)
-            days << "W";
-        if (meetsThursday)
-            days << "TH";
-        if (meetsFriday)
-            days << "F";
-        days;
-    }
+    List<String> getDaysAsCodes() { ScheduleParseService.getDaysAsCodes(this) }
 
     List<String> getDaysAsWords() { getDaysAsCodes().collect { code -> codesToWords[code] } }
 
-    String toString() {
-        return "${daysString()} ${startTime} ${endTime}"
-    }
-
     List<Course> getCourses() { CourseMeetingTime.findAllByMeetingTime(this)*.course }
+
+    String toString() { "${daysString()} ${startTime} ${endTime}" }
 }

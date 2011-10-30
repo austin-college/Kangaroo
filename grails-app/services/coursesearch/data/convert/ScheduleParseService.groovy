@@ -7,8 +7,6 @@ import coursesearch.MeetingTime
  */
 class ScheduleParseService {
 
-    static transactional = true
-
     /**
      * Converts the given "MWF 09:00AM 10:00AM" string to a MeetingTime. The MeetingTime is NOT yet persisted.
      * Returns null if the MeetingTime could not be parsed.
@@ -46,16 +44,36 @@ class ScheduleParseService {
             days = days.replaceAll("TH", "")
 
             // Check for the rest
-            if (days.contains('M'))
+            if (days.contains("M"))
                 meetsMonday = true;
-            if (days.contains('T'))
+            if (days.contains("T"))
                 meetsTuesday = true;
-            if (days.contains('W'))
+            if (days.contains("W"))
                 meetsWednesday = true;
-            if (days.contains('F'))
+            if (days.contains("F"))
                 meetsFriday = true;
         }
 
         return meetingTime
+    }
+
+    /**
+     * Given a MeetingTime, returns a list of its day codes (["M", "W", "TH"]).
+     */
+    static List<String> getDaysAsCodes(MeetingTime meetingTime) {
+        List<String> days = [];
+        meetingTime.with {
+            if (meetsMonday)
+                days << "M";
+            if (meetsTuesday)
+                days << "T";
+            if (meetsWednesday)
+                days << "W";
+            if (meetsThursday)
+                days << "TH";
+            if (meetsFriday)
+                days << "F";
+        }
+        return days;
     }
 }
