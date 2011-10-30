@@ -1,4 +1,4 @@
-package coursesearch.data
+package coursesearch.data.fetch
 
 import coursesearch.Professor
 import groovy.util.slurpersupport.GPathResult

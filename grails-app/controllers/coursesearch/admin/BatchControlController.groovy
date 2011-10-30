@@ -1,6 +1,6 @@
 package coursesearch.admin
 
-import coursesearch.data.CourseDataService
+import coursesearch.data.fetch.CourseDataService
 import coursesearch.mn.ProfessorOfficeHours
 import grails.converters.JSON
 import coursesearch.Course

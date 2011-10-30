@@ -1,4 +1,4 @@
-package coursesearch.data
+package coursesearch.data.fetch
 
 import coursesearch.mn.CourseMeetingTime
 import coursesearch.mn.Teaching
