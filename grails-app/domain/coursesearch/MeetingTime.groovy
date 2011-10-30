@@ -23,6 +23,8 @@ class MeetingTime implements Serializable {
     }
 
     static constraints = {
+        startTime(maxSize: 7, matches: /\d{2}:\d{2}[AP]M/)
+        endTime(maxSize: 7, matches: /\d{2}:\d{2}[AP]M/)
     }
 
     boolean equals(Object other) { toString() == other.toString() }

@@ -1,10 +1,20 @@
 package coursesearch.data.convert
 
 import grails.test.GrailsUnitTestCase
+import coursesearch.MeetingTime
 
 class ScheduleParseIntegrationTests extends GrailsUnitTestCase {
 
     def scheduleParseService
+
+    void testConstraints() {
+
+        def positives = ["09:00AM", "10:00AM", "12:20PM", "01:15AM", "02:50PM"];
+        def negatives = ["9:00AM", "9pm", "10:0AM"];
+
+        positives.each { assert new MeetingTime(startTime: it, endTime: "11:50PM").validate() }
+        negatives.each { assert !new MeetingTime(startTime: it, endTime: "11:50PM").validate()}
+    }
 
     void testSaveOrFind() {
 
