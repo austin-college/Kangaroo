@@ -61,7 +61,7 @@ class ScheduleParseService {
                     meetsThursday: properties.meetsThursday, meetsFriday: properties.meetsFriday, startTime: properties.startTime, endTime: properties.endTime);
 
             mt.save()
-            mt;
+            return mt;
         }
     }
 }
