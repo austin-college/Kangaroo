@@ -12,3 +12,5 @@ development.hsqldb.script
 .hgignore
 
 .hg
+out/
+stacktrace.log
