@@ -1,10 +1,9 @@
 package coursesearch
 
 import coursesearch.mn.Teaching
+import coursesearch.mn.ProfessorOfficeHours
 
 class Professor {
-
-    static hasMany = [officeHours: MeetingTime]
 
     def redisService
 
@@ -69,4 +68,6 @@ class Professor {
     }
 
     List<Course> getCoursesTeaching() { return Teaching.findAllByProfessor(this)*.course }
+
+    List<MeetingTime> getOfficeHours() { return ProfessorOfficeHours.findAllByProfessor(this)*.meetingTime }
 }

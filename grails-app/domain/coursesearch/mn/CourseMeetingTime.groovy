@@ -5,9 +5,6 @@ import coursesearch.MeetingTime
 
 class CourseMeetingTime implements Serializable {
 
-    static constraints = {
-    }
-
     Course course
 
     MeetingTime meetingTime
