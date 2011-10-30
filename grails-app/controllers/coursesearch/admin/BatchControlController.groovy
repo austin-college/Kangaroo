@@ -1,8 +1,13 @@
-package coursesearch
+package coursesearch.admin
 
 import coursesearch.data.CourseDataService
 import coursesearch.mn.ProfessorOfficeHours
 import grails.converters.JSON
+import coursesearch.Course
+import coursesearch.Professor
+import coursesearch.CourseUtils
+import coursesearch.Textbook
+import coursesearch.MeetingTime
 
 class BatchControlController {
 
