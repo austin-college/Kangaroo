@@ -113,6 +113,13 @@
 
             <h3>${professor.title}</h3>
 
+            <g:if test="${status?.status == 'officeHours'}">
+                <div><b>Currently having office hours.</b></div>
+            </g:if>
+            <g:elseif test="${status?.status == 'inClass'}">
+                <div><b>Currently in class.</b></div>
+            </g:elseif>
+
             <g:if test="${professor.email}">
                 <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
             </g:if>

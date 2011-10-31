@@ -15,9 +15,30 @@ class ProfessorController {
     def show = {
         def professor = Professor.get(params.id)
 
-        if (professor) {
-            [professor: professor]
+        if (professor)
+            [professor: professor, status: getStatus(professor)]
+    }
+
+    def getStatus(Professor professor) {
+
+        // First check the professor's office hour dates, to see if one is happening now.
+        for (def time: ScheduleProjectService.projectToWeek(professor.officeHours)) {
+            if (isDateBetween(new Date(), time.startDate, time.endDate))
+                return [status: "officeHours"]
         }
+
+        // Next check the dates for each of the professor's courses, to see if one is happening now.
+        for (def course: professor.coursesTeaching) {
+            for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes)) {
+
+                if (isDateBetween(new Date(), time.startDate, time.endDate))
+                    return [status: "inClass", course: course]
+            }
+        }
+    }
+
+    boolean isDateBetween(Date toTest, Date start, Date end) {
+        return (toTest > start) && (toTest < end);
     }
 
     /**
