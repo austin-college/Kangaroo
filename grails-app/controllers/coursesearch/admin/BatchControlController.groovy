@@ -8,6 +8,7 @@ import coursesearch.Professor
 import coursesearch.CourseUtils
 import coursesearch.Textbook
 import coursesearch.MeetingTime
+import coursesearch.data.convert.ScheduleConvertService
 
 class BatchControlController {
 
@@ -64,7 +65,7 @@ class BatchControlController {
                             if (prof) {
                                 println "Setting office hours for ${prof}..."
                                 hours.each { schedule ->
-                                    new ProfessorOfficeHours(professor: prof, meetingTime: MeetingTime.findOrCreate(CourseDataService.convertMeetingTime(schedule))).save()
+                                    new ProfessorOfficeHours(professor: prof, meetingTime: ScheduleConvertService.convertMeetingTime(schedule).saveOrFind()).save()
                                     prof.save();
                                 }
 
