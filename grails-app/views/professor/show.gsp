@@ -114,10 +114,16 @@
             <h3>${professor.title}</h3>
 
             <g:if test="${status?.status == 'officeHours'}">
-                <div><b>Currently having office hours.</b></div>
+                <div class="status available">
+                    <img src="${resource(dir:'images/statusIcons', file:'available.png')}" alt="Available">
+                    Currently having office hours.
+                </div>
             </g:if>
             <g:elseif test="${status?.status == 'inClass'}">
-                <div><b>Currently in class.</b></div>
+                <div class="status unavailable">
+                    <img src="${resource(dir:'images/statusIcons', file:'away.png')}" alt="Away">
+                    Currently teaching "${status.course}".
+                </div>
             </g:elseif>
 
             <g:if test="${professor.email}">

@@ -39,7 +39,7 @@
     margin-left: 0;
 }
 
-.professor-block img {
+.professor-block .photo img {
     float: left;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -66,4 +66,24 @@
 .courses-block {
     clear: both;
     padding: 8px 18px 5px 20px;
+}
+
+/* The "status" indicator for professors. */
+
+.professor-block .status {
+    font-style: italic;
+    margin-bottom: 6px;
+}
+
+.professor-block .status img {
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+.professor-block .available {
+    color: #448744;
+}
+
+.professor-block .unavailable {
+    color: #874444;
 }
