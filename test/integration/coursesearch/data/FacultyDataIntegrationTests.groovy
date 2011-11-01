@@ -20,10 +20,19 @@ class FacultyDataIntegrationTests extends GrailsUnitTestCase {
             assert prof.matched
             assert prof.title.contains("Professor")
             assert prof.email?.contains("@austincollege.edu")
-            assert prof.photoUrl && new URL(prof.photoUrl).bytes
+            assert prof.photoUrl && fetchUrlSafely(prof.photoUrl)
         }
 
         // Naturally the negatives should not be matched.
         negatives.each { prof -> assert !prof.matched }
+    }
+
+    def fetchUrlSafely(url) {
+        try {
+            return new URL(url).bytes
+        }
+        catch (Exception e) {
+            println "Could not fetch $url: $e"
+        }
     }
 }
