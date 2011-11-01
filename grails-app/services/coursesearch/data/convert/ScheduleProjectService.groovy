@@ -1,7 +1,7 @@
 package coursesearch.data.convert
 
 /**
- * Converts MeetingTimes into real dates (ie, MWF 8:00AM becomes [10/31 0800, 11/2/11 0800, 11/4/11 0800]).
+ * Converts MeetingTimes + a base into real dates (ie, MWF 8:00AM becomes [10/31 0800, 11/2/11 0800, 11/4/11 0800]).
  */
 class ScheduleProjectService {
 

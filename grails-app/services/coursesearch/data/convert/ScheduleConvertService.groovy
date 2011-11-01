@@ -3,7 +3,7 @@ package coursesearch.data.convert
 import coursesearch.MeetingTime
 
 /**
- * Converts meeting schedules from the "MWF 09:00AM 10:00AM" format to (and from) MeetingTimes.
+ * Converts the "MWF 09:00AM 10:00AM" schedule format to (and from) MeetingTimes.
  */
 class ScheduleConvertService {
 

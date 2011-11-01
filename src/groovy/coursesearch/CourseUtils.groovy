@@ -73,6 +73,22 @@ public class CourseUtils {
         return new XmlSlurper(false, false).parseText(xml)
     }
 
+    /**
+     * Counts the number of times the given substring appears in the string.
+     */
+    public static int countSubstringMatches(String string, String substring) {
+        if (string.isEmpty() || substring.isEmpty())
+            return 0;
+
+        int count = 0;
+        int i = 0;
+        while ((i = string.indexOf(substring, i)) != -1) {
+            count++;
+            i += substring.length();
+        }
+        return count;
+    }
+
     static String getProfessorLinksForClass(Course course, String connector = ' & ') {
         course.instructors.collect { "<a href='${createLink('professor', 'show', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>${it}</a>"}.join(connector)
     }
