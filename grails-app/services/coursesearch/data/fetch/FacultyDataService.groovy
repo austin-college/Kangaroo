@@ -83,31 +83,12 @@ class FacultyDataService {
         print 'Matching downloaded faculty...'
         int entriedUsed = 0;
         int entriedUnused = 0;
-        scraped.each { s ->
-            def cleanName = s.name.toString().replaceAll("Dr. ", "");
-            def prof = Professor.findByName(cleanName);
 
-            // Not found - try removing their middle name.
-            if (!prof) {
-                def firstLast = CourseUtils.cleanFacultyName(cleanName);
+        scraped.each { rawData ->
 
-                if (firstLast != cleanName && Professor.findByName(firstLast))
-                    prof = Professor.findByName(firstLast);
-            }
-
-            // Not found - use the synonyms table.
-            if (!prof && synonyms.containsKey(cleanName))
-                prof = Professor.findByName(synonyms[cleanName]);
-
-            if (prof) {
-                prof.matched = true;
-                prof.photoUrl = s.photoUrl
-                prof.title = s.title
-                prof.department = s.department
-                prof.office = s.office
-                prof.email = s.email
-                prof.phone = s.phone
-                prof.save();
+            def professor = findMatch(rawData);
+            if (professor) {
+                updateProfessor(professor, rawData);
                 entriedUsed++;
             }
             else
@@ -118,5 +99,44 @@ class FacultyDataService {
         def matched = Professor.countByMatched(true);
         def percent = (Professor.count() > 0) ? ((double) ((matched / Professor.count()) * 100)).round() : 0;
         println "...done! ${matched} matched of ${Professor.count()} (${percent}%)."
+    }
+
+    /**
+     * Given the raw data map from the faculty page, tries to find the corresponding faculty member.
+     */
+    Professor findMatch(Map rawData) {
+
+        def cleanName = rawData.name.toString().replaceAll("Dr. ", "");
+
+        // First try a direct search.
+        def prof = Professor.findByName(cleanName);
+
+        // Not found? Try removing their middle name.
+        if (!prof) {
+            def firstLast = CourseUtils.cleanFacultyName(cleanName);
+
+            if (firstLast != cleanName && Professor.findByName(firstLast))
+                prof = Professor.findByName(firstLast);
+        }
+
+        // Not found? Try the synonyms table.
+        if (!prof && synonyms.containsKey(cleanName))
+            prof = Professor.findByName(synonyms[cleanName]);
+
+        return prof;
+    }
+
+    /**
+     * Updates the professor to match the raw data given.
+     */
+    def updateProfessor(Professor professor, Map rawData) {
+        professor.matched = true;
+        professor.photoUrl = rawData.photoUrl
+        professor.title = rawData.title
+        professor.department = rawData.department
+        professor.office = rawData.office
+        professor.email = rawData.email
+        professor.phone = rawData.phone
+        professor.save();
     }
 }
