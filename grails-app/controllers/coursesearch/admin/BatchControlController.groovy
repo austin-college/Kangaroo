@@ -1,14 +1,12 @@
 package coursesearch.admin
 
-import coursesearch.data.fetch.CourseDataService
+import coursesearch.Course
+import coursesearch.CourseUtils
+import coursesearch.Professor
+import coursesearch.Textbook
+import coursesearch.data.convert.ScheduleConvertService
 import coursesearch.mn.ProfessorOfficeHours
 import grails.converters.JSON
-import coursesearch.Course
-import coursesearch.Professor
-import coursesearch.CourseUtils
-import coursesearch.Textbook
-import coursesearch.MeetingTime
-import coursesearch.data.convert.ScheduleConvertService
 
 class BatchControlController {
 
@@ -55,8 +53,13 @@ class BatchControlController {
                     run: {
 
                         def profs = [
-                                "Michael Higgs": ["MW     01:00PM 02:00PM", "TTH    11:00AM 12:00PM"],
-                                "Aaron Block": ["MWF    11:00AM 01:30PM"],
+                                "Michael Higgs": ["MW 01:00PM 02:00PM", "TTH 11:00AM 12:00PM"],
+                                "Aaron Block": ["MWF 11:00AM 01:30PM"],
+                                "J'Lee Bumpus": ["MW 03:00PM 04:30PM"],
+                                "David Baker": ["MWF 03:00PM 04:00PM"],
+                                "E. Don Williams": ["MTWTH 03:15PM 04:30PM"],
+                                "Keith Kisselle": ["M 01:30PM 03:30PM", "T 08:30AM 11:00AM", "W 02:00PM 05:00PM",
+                                        "F 12:00PM 01:00PM"]
                         ]
 
                         profs.each { name, hours ->
