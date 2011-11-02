@@ -38,6 +38,8 @@
 
     <div><b>ZAP:</b> ${course.id}</div>
 
+    <div><b>Term: </b>${course.term.fullDescription}</div>
+
     <g:if test="${course.comments}">
         <div><b>Requirements:</b> ${course.comments}</div>
     </g:if>

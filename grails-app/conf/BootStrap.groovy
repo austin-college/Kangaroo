@@ -2,6 +2,7 @@ import coursesearch.Course
 import coursesearch.Textbook
 import grails.converters.JSON
 import grails.util.Environment
+import coursesearch.Term
 
 class BootStrap {
 
@@ -19,12 +20,16 @@ class BootStrap {
             return [id: it.id, name: it.name, items: it.items];
         }
 
+        // Create terms.
+        def terms = ["11FA", "12SP"]
+        terms.each { Term.findOrCreate(it) }
+
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
             if (Course.count() == 0)
                 courseDataService.downloadAndProcess();
-            if (Textbook.count() == 0)
-                textbookDataService.lookupTextbooksForAllCourses();
+//            if (Textbook.count() == 0)
+//                textbookDataService.lookupTextbooksForAllCourses();
             facultyDataService.fetchAndMatch()
 
             // Pre-cache as much information as we can.

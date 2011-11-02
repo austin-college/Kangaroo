@@ -5,6 +5,7 @@ import coursesearch.mn.Teaching
 
 class Course {
 
+    static belongsTo = [term: Term]
     static hasMany = [textbooks: Textbook]
 
     def courseDataService

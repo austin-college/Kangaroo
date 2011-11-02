@@ -80,6 +80,7 @@ class CourseDataService {
     def parseRow(row) {
         def course = new Course(name: row.td[8].text());
         try {
+            course.term = Term.findOrCreate("11FA")
             course.open = (row.td[2].text() == 'Open');
 
             // Calculate the number of free/used seats.
