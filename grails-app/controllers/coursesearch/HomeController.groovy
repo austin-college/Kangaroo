@@ -1,10 +1,14 @@
 package coursesearch
 
+import grails.converters.JSON
+
 class HomeController {
 
     def dataTablesService
 
-    def index = {
-       [tableJson: dataTablesService.getTableCached()]
+    def index = {}
+
+    def getData = {
+        render([table: JSON.parse(dataTablesService.getTableCached(Term.findByShortCode(params.term)))] as JSON)
     }
 }

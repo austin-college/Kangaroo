@@ -16,15 +16,15 @@ class DataTablesService {
     /**
      * Formats all of the courses into a table.
      */
-    def getTable() {
-        def rows = Course.list().collect { course -> toRow(course) }
+    def getTable(term) {
+        def rows = Course.findAllByTerm(term).collect { course -> toRow(course) }
         return (["sEcho": 0, "iTotalRecords": rows.size(), "iTotalDisplayRecords": rows.size(), "aaData": rows] as JSON)
     }
 
     /**
      * Returns a redis-cached version of the table.
      */
-    String getTableCached() { redisService.memoize("courses") { Jedis redis -> getTable() } }
+    String getTableCached(term) { redisService.memoize("courses/$term") { Jedis redis -> getTable(term) } }
 
     /**
      * Formats a given course to fit in a table row.

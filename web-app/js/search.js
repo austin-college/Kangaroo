@@ -2,10 +2,13 @@ $.fn.dataTableExt.oStdClasses.sSortAsc = "headerSortDown";
 $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
 $(document).ready(function() {
+    getTableData("11FA");
+});
 
+function setupTable(data) {
     $('#classTable').dataTable({
         "bProcessing": true,
-        "aaData": $.parseJSON($("#tableJson").text()).aaData,
+        "aaData": data.aaData,
         "aaSorting": [
             [1,'asc'] // Sort by YTM.
         ],
@@ -21,6 +24,18 @@ $(document).ready(function() {
         "iDisplayLength": 15
     });
 
+    $('#classTable').show();
     $("#tableJson").text('');
     $("#classTable_filter input").focus();
-});
+}
+
+function getTableData(term) {
+    $.ajax({
+        url: contextPath + "/home/getData",
+        data: {term: term},
+        success: function(response) {
+            setupTable(response.table);
+        }
+    });
+
+}

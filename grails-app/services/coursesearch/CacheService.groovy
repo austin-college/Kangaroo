@@ -16,8 +16,10 @@ class CacheService {
     def initializeCache() {
         clearCache();
 
-        println "Pre-caching table..."
-        dataTablesService.getTableCached()
+        Term.list().each { term ->
+            println "Pre-caching table for ${term.fullDescription}..."
+            dataTablesService.getTableCached(term)
+        }
 
         // Pre-cache the colleagues list, an expensive operation.
         if (Environment.current == Environment.PRODUCTION) {
