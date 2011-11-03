@@ -87,3 +87,28 @@
 .professor-block .unavailable {
     color: #874444;
 }
+
+/* Course table */
+
+#coursesTableLoading {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding: 33px 30px 30px 30px;
+    display: block;
+    width: 350px;
+    margin: 30px auto;
+    background-color: #666;
+    color: #ddd;
+
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+
+}
+
+#coursesTableLoading img {
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-top: -3px;
+}

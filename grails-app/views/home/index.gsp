@@ -10,6 +10,14 @@
 
 <body>
 
+<div id="coursesTableLoading">
+
+    <img src="http://i.imgur.com/RPfXl.gif"/>
+    %{--<img src="${resource(dir: "images", file: "courses_ajaxLoader.gif")}"/>--}%
+
+         Loading courses...
+</div>
+
 <table cellpadding="0" cellspacing="0" border="0" class="display zebra-striped" id="classTable" style="display: none;">
     <thead>
     <tr>
