@@ -5,11 +5,11 @@ var tableHtml;
 
 $(document).ready(function() {
     $("#tableSearch").focus();
-    getTableData("11FA");
     $("#termSelector").change(function() {
         destroyTable();
         getTableData($("#termSelector").val());
     });
+    getTableData($("#termSelector").val());
 });
 
 function destroyTable() {

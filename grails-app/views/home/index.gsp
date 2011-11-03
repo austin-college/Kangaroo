@@ -19,7 +19,7 @@
 
 <div id="otherControls">
     <label for="termSelector">Term:</label> <g:select name="termSelector" from="${Term.list()}"
-                                                      optionKey="shortCode"/>
+                                                      optionKey="shortCode" value="12SP"/>
 </div>
 
 <div id="tableHolder">
