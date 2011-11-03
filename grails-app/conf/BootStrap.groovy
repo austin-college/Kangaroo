@@ -32,6 +32,8 @@ class BootStrap {
                 def term = Term.findOrCreate(it)
                 courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
             }
+
+            textbookDataService.lookupTextbooksForAllCourses()
         }
     }
 

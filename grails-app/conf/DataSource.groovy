@@ -33,7 +33,7 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop','update'
+            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
             url = "jdbc:mysql://localhost:3306/course_search?useUnicode=true&amp;characterEncoding=utf8"
         }
     }
