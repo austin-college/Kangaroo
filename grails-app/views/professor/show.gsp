@@ -100,7 +100,7 @@
 </ul>
 
 <div>
-    <div class="details-block professor-block">
+    <div class="details-block professor-block span14">
 
         <g:if test="${professor.photoUrl}">
             <div class="span3 photo">
@@ -108,7 +108,7 @@
             </div>
         </g:if>
 
-        <div class="span8 info">
+        <div class="span9 info">
             <h1>${professor}</h1>
 
             <h3>${professor.title}</h3>
@@ -122,7 +122,7 @@
             <g:elseif test="${status?.status == 'inClass'}">
                 <div class="status unavailable">
                     <img src="${resource(dir: 'images/statusIcons', file: 'away.png')}" alt="Away">
-                    Currently teaching "${status.course}".
+                    Currently teaching "${status.course}" in ${status.course.room}.
                 </div>
             </g:elseif>
 
