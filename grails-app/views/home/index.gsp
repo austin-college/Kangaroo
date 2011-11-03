@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.Term" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -10,29 +10,19 @@
 
 <body>
 
+
+
+<div id="tableFilterControls">
+    <label for="termSelector">Term: </label> <g:select name="termSelector" from="${Term.list()}" optionKey="shortCode"/>
+</div>
+
 <div id="coursesTableLoading">
 
          Loading courses...
 </div>
 
-<table cellpadding="0" cellspacing="0" border="0" class="display zebra-striped" id="classTable" style="display: none;">
-    <thead>
-    <tr>
-        <th width="8%" class="blue header">Name</th>
-        <th width="1%" class="yellow header">Department</th>
-        <th width="3%" class="green header">Professor</th>
-        <th width="5%" class="header">Schedule</th>
-    </tr>
-    </thead>
-    <tbody></tbody>
-    <tfoot>
-    <tr>
-        <th width="6%">Name</th>
-        <th width="1%">Department</th>
-        <th width="3%">Professor</th>
-        <th width="5%">Schedule</th>
-    </tr>
-    </tfoot>
-</table>
+<div id="tableHolder">
+
+</div>
 </body>
 </html>

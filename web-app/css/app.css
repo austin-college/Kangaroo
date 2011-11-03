@@ -98,17 +98,31 @@
     display: block;
     width: 350px;
     margin: 30px auto;
-    background-color: #eee;
-    color: #555;
-
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    border-radius: 30px;
-
+    color: #aaa;
 }
 
 #coursesTableLoading img {
     vertical-align: middle;
     margin-right: 5px;
     margin-top: -3px;
+}
+
+#tableFilterControls {
+    float: right;
+    font-size: 16px;
+    /*margin-bottom: -40px;*/
+}
+
+#tableFilterControls label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    margin-right: 8px;
+    margin-top: -3px;
+
+}
+
+#termSelector {
+    width: 120px;
+    font-size: 16px;
 }

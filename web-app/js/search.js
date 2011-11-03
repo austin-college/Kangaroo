@@ -3,7 +3,17 @@ $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
 $(document).ready(function() {
     getTableData("11FA");
+    $("#termSelector").change(function() {
+        destroyTable();
+        getTableData($("#termSelector").val());
+    });
 });
+
+function destroyTable() {
+    $('#classTable').dataTable().fnDestroy();
+    $('#classTable').remove();
+
+}
 
 function setupTable(data) {
     $('#classTable').dataTable({
@@ -31,10 +41,12 @@ function setupTable(data) {
 }
 
 function getTableData(term) {
+    $("#coursesTableLoading").show();
     $.ajax({
         url: contextPath + "/home/getData",
         data: {term: term},
         success: function(response) {
+            $("#tableHolder").html(response.tableHtml);
             setupTable(response.table);
         }
     });

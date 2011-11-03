@@ -9,6 +9,7 @@ class HomeController {
     def index = {}
 
     def getData = {
-        render([table: JSON.parse(dataTablesService.getTableCached(Term.findByShortCode(params.term)))] as JSON)
+        render([tableHtml: g.render(template: 'emptyTable'),
+                table: JSON.parse(dataTablesService.getTableCached(Term.findByShortCode(params.term)))] as JSON)
     }
 }
