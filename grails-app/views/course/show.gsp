@@ -17,18 +17,32 @@
     <li class="active">${course}</li>
 </ul>
 
-<h1>${course}</h1>
-
 <div>
-    <div class="details-block">
+    <div class="details-block" style="padding-top: 15px">
+
+        <h1>${course}</h1>
 
         <g:if test="${course.description}">
-            <blockquote style="margin-top: 15px; ">
+            <blockquote style="margin-top: 5px; ">
                 <p style="font-size: 18px; line-height: 160%">${course.description}</p>
             </blockquote>
         </g:if>
 
-        <div>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")} in the ${course.department.name} department.</div>
+        <div style="margin-bottom: 10px; background-color: #f9f9ff; padding: 9px">
+            <g:if test="${profImage}">
+                <div class="miniPhoto">
+                    <img src="${profImage}" title="${course.instructors[0]}" alt="${course.instructors[0]}"
+                         width="40px" style="float: left; border: 1px solid #ddd">
+                </div>
+
+            </g:if>
+            <div style="margin-left: 50px">
+                <div><b>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")}</b></div>
+
+                <div>${course.department.name}</div>
+            </div>
+
+        </div>
     </div>
 </div>
 
