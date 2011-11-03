@@ -10,7 +10,6 @@ import grails.converters.JSON
 
 class BatchControlController {
 
-    def courseDataService
     def facultyDataService
     def textbookDataService
     def amazonDataService
@@ -21,7 +20,7 @@ class BatchControlController {
             "courses": [
                     id: "courses",
                     name: "Courses",
-                    run: { courseDataService.downloadAndProcess() },
+                    run: { },
                     status: {"${Course.count()} imported"}
             ],
             "faculty": [
