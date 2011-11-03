@@ -38,7 +38,8 @@ class Professor {
             activeDepartments.each { dept ->
                 Course.findAllByDepartment(dept).each { course ->
                     course.instructors.each { instr ->
-                        colleagues << instr
+                        if (!instr.name.contains("STAFF"))
+                            colleagues << instr
                     }
                 }
             }
