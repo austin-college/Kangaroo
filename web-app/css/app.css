@@ -139,7 +139,7 @@
     font-size: 16px;
     color: #666;
     padding: 8px 0 0 3px;
-    width:auto;
+    width: auto;
 }
 
 #classTable_paginate {
@@ -148,4 +148,12 @@
 
 #classTable tr td {
     min-height: 44px;
+}
+
+.profPhoto {
+    width: 14px;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-top: -2px;
 }

@@ -39,7 +39,7 @@
 
         </g:if>
         <div style="margin-left: 53px">
-            <div><b>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")}</b></div>
+            <div><b>Taught by ${CourseUtils.getProfessorLinksForClass(course, false, " and ")}</b></div>
 
             <div style="font-variant: small-caps">${course.department.name}</div>
         </div>

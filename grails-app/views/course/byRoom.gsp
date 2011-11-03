@@ -28,7 +28,7 @@
                 <div><g:link action="show" id="${course.id}">${course}</g:link></div>
 
                 <div>
-                    Taught by ${CourseUtils.getProfessorLinksForClass(course)}
+                    Taught by ${CourseUtils.getProfessorLinksForClass(course, true)}
                 </div>
 
                 <div style="color: #777">
