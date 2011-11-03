@@ -13,85 +13,79 @@
 <body>
 
 <ul class="breadcrumb">
-    <li><g:link controller="home">Courses</g:link> <span class="divider">/</span></li>
+    <li><g:link controller="home">${course.term.fullDescription} Courses</g:link> <span class="divider">/</span></li>
     <li class="active">${course}</li>
 </ul>
 
-<div>
-    <div class="details-block" style="padding-top: 15px">
+<div class="details-block span15" style="padding-top: 15px">
 
-        <h1>${course}</h1>
+    <h1 style="margin-bottom: 8px">${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span></h1>
 
-        <g:if test="${course.description}">
-            <blockquote style="margin-top: 5px; margin-bottom: 10px">
-                <p style="font-size: 18px; line-height: 160%">${course.description}</p>
-            </blockquote>
-        </g:if>
+    <g:if test="${course.description}">
+        <blockquote style="margin-bottom: 10px">
+            <p style="font-size: 18px; line-height: 160%">${course.description}</p>
+        </blockquote>
+    </g:if>
 
-        <div style="margin-bottom: 10px; padding: 5px 0">
-            <g:if test="${profImage}">
-                <div class="miniPhoto">
-                    <g:link controller="professor" action="show" id="${course.instructors[0].id}">
-                        <img src="${profImage}" title="${course.instructors[0]}" alt="${course.instructors[0]}"
-                             width="40px" style="float: left; border: 1px solid #ddd">
-                    </g:link>
-                </div>
-
-            </g:if>
-            <div style="margin-left: 53px">
-                <div><b>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")}</b></div>
-
-                <div style="font-variant: small-caps">${course.department.name}</div>
+    <div style="margin-bottom: 10px; padding: 5px 0">
+        <g:if test="${profImage}">
+            <div class="miniPhoto">
+                <g:link controller="professor" action="show" id="${course.instructors[0].id}">
+                    <img src="${profImage}" title="${course.instructors[0]}" alt="${course.instructors[0]}"
+                         width="40px" style="float: left; border: 1px solid #ddd">
+                </g:link>
             </div>
 
+        </g:if>
+        <div style="margin-left: 53px">
+            <div><b>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")}</b></div>
+
+            <div style="font-variant: small-caps">${course.department.name}</div>
         </div>
+
     </div>
 </div>
 
-<div class="details-block courses-block span6">
-    <h3>Registration info</h3>
+<div class="details-block span15" style="padding-top: 25px; padding-bottom: 25px">
+    <div style="float: left">
+        <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Meets</div>
 
-    <g:if test="${course.instructorConsentRequired}">
-        <div class="alert-message block-message info">
-            This course requires instructor permission to register.
-        </div>
-    </g:if>
-
-    <div><b>Section:</b> ${course.sectionString()}</div>
-
-    <div><b>ZAP:</b> ${course.id}</div>
-
-    <div><b>Term:</b>${course.term.fullDescription}</div>
-
-    <g:if test="${course.comments}">
-        <div><b>Requirements:</b> ${course.comments}</div>
-    </g:if>
-</div>
-
-<div class="details-block courses-block">
-
-    <div>
-        <h3>Meeting info</h3>
+        <div>
+            <g:if test="${course.room}">
+                <div>in <g:link action="byRoom" id="${course.room}">${course.room}</g:link></div>
+            </g:if>
 
         %{--<g:if test="${course.schedule}">--}%
-        <div><b>Schedule:</b> ${CourseUtils.getScheduleLinksForClass(course)}</div>
-    %{--</g:if>--}%
-
-        <g:if test="${course.room}">
-            <div><b>Room:</b> <g:link action="byRoom" id="${course.room}">${course.room}</g:link></div>
-        </g:if>
-
-    </div>
-</div>
-
-<div class="details-block courses-block span6">
-    <div>
-        <h3>Size</h3>
-
-        <div><b>${course.seatsUsed}</b> students out of a possible <b>${course.capacity}</b> <span
-                style="color: ${fullPercentageColor}">(${fullPercentage}% full)</span>
+            <div>at ${CourseUtils.getScheduleLinksForClass(course)}</div>
+            %{--</g:if>--}%
         </div>
     </div>
+
+    <div style="float: right">
+        <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 20px">Reg. Details</div>
+
+        <div>
+            <div>zap: <b>${course.id}</b></div>
+
+            <div>section: <b>${course.sectionString()}</b></div>
+            <g:if test="${course.instructorConsentRequired}">
+                <div>
+                    <b>instructor consent required</b>
+                </div>
+            </g:if>
+        </div>
+    </div>
+
+
+    <g:if test="${course.comments}">
+        <div style="float: left; clear: both; margin-top: 40px">
+            <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Notes</div>
+
+            <div style="margin-top: 5px; margin-bottom: 10px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                <p style="font-size: 16px; line-height: 160%">${course.comments}</p>
+            </div>
+        </div>
+    </g:if>
 </div>
 
 <div class="details-block courses-block span12">
