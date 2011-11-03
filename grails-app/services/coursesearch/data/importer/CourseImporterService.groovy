@@ -52,7 +52,6 @@ class CourseImporterService {
             if (course.save()) {
                 meetingTimes.each { it.save(); }
                 teachings.each { it.save(); }
-                println "Saved $course"
             }
             else
                 println course.errors

@@ -31,14 +31,8 @@ class BootStrap {
 
             facultyDataService.fetchAndMatch()
 
-            println "Reading in course files..."
-            Term.list().each { term ->
-                def filename = "courses_${term.shortCode}.json"
-                if (new File(filename).exists())
-                    courseImporterService.importFromJson(term, new File(filename).text);
-                else
-                    println "$filename does not exist"
-            }
+            println "Downloading course files..."
+            Term.list().each { term -> courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)}
 
             // Pre-cache as much information as we can.
             cacheService.initializeCache();
