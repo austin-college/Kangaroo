@@ -22,6 +22,7 @@ class Course {
     boolean isLab = false
 
     String name;
+    String description
     String room;
     String comments;
 
@@ -33,6 +34,7 @@ class Course {
     }
 
     static constraints = {
+        description(maxSize: 16384)
     }
 
     String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=A&bookstore_id-1=239&term_id-1=11FA&div-1=&dept-1=${department.code}&course-1=${courseNumber}"}
