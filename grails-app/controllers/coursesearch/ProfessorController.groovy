@@ -53,7 +53,7 @@ class ProfessorController {
             def events = []
 
             // For every course, convert its meeting times into real dates...
-            professor.coursesTeaching.each { course ->
+            professor.coursesTeaching.findAll { it.term == Term.findByShortCode("11FA") }.each { course ->
                 ScheduleProjectService.projectToWeek(course.meetingTimes).each { time ->
 
                     // ...then add them to the calendar.

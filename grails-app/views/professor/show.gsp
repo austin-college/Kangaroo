@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${professor}</title>
@@ -115,13 +115,13 @@
 
             <g:if test="${status?.status == 'officeHours'}">
                 <div class="status available">
-                    <img src="${resource(dir:'images/statusIcons', file:'available.png')}" alt="Available">
+                    <img src="${resource(dir: 'images/statusIcons', file: 'available.png')}" alt="Available">
                     Currently having office hours.
                 </div>
             </g:if>
             <g:elseif test="${status?.status == 'inClass'}">
                 <div class="status unavailable">
-                    <img src="${resource(dir:'images/statusIcons', file:'away.png')}" alt="Away">
+                    <img src="${resource(dir: 'images/statusIcons', file: 'away.png')}" alt="Away">
                     Currently teaching "${status.course}".
                 </div>
             </g:elseif>
@@ -147,8 +147,18 @@
         <div>
             <h3>${professor} is teaching:</h3>
 
+            <b>${Term.findByShortCode("11FA").fullDescription}</b>
             <ul>
-                <g:each in="${professor.coursesTeaching}" var="course">
+                <g:each in="${professor.coursesTeaching.findAll{it.term == Term.findByShortCode('11FA')}}" var="course">
+                    <li><g:link controller="course" action="show"
+                                id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
+                </g:each>
+            </ul>
+
+
+            <b>${Term.findByShortCode("12SP").fullDescription}</b>
+            <ul>
+                <g:each in="${professor.coursesTeaching.findAll{it.term == Term.findByShortCode('12SP')}}" var="course">
                     <li><g:link controller="course" action="show"
                                 id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
                 </g:each>

@@ -82,9 +82,6 @@
 
         <g:if test="${course.textbooksParsed}">
             <g:if test="${course.textbooks.size() > 0}">
-
-                <h3>Textbooks</h3>
-
                 <g:render collection="${course.textbooks}" var="textbook" template="textbook"/>
 
                 <div style="clear: both; padding-top: 10px">
