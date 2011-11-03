@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div id="otherControls">
+<div class="otherControls">
     <label for="termSelector">Term:</label> <g:select name="termSelector" from="${Term.list()}"
                                                       optionKey="shortCode" value="12SP"/>
 </div>
