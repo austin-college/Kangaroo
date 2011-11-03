@@ -46,7 +46,7 @@ class Textbook {
 
     String getIsbn10Digit() { IsbnConverter.convertTo10Digit(isbn) }
 
-    String getAmazonLink() { "http://www.amazon.com/gp/product/${isbn10Digit}" }
+    String getAmazonLink() { "http://www.amazon.com/dp/${isbn10Digit}/?tag=kangaroo1-20" }
 
     String getAmazonSearchUrl() { "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${title.encodeAsURL()}&x=0&y=0"}
 
