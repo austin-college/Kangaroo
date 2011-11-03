@@ -1,7 +1,10 @@
 $.fn.dataTableExt.oStdClasses.sSortAsc = "headerSortDown";
 $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
+var tableHtml;
+
 $(document).ready(function() {
+    $("#tableSearch").focus();
     getTableData("11FA");
     $("#termSelector").change(function() {
         destroyTable();
@@ -12,8 +15,9 @@ $(document).ready(function() {
 function destroyTable() {
     $('#classTable').dataTable().fnDestroy();
     $('#classTable').remove();
-
+    $('#tableHolder').html(tableHtml)
 }
+
 
 function setupTable(data) {
     $('#classTable').dataTable({
@@ -22,7 +26,7 @@ function setupTable(data) {
         "aaSorting": [
             [1,'asc'] // Sort by YTM.
         ],
-        "sDom": '<"H"rf>t<"F"lip>',
+        "sDom": '<"H"r>t<"F"lip>',
         "oLanguage": {
             "sLengthMenu": "Show _MENU_ classes",
             "sZeroRecords": "Nothing found - sorry",
@@ -34,19 +38,20 @@ function setupTable(data) {
         "iDisplayLength": 15
     });
 
+    $("#tableSearch").keyup(function() {
+        $('#classTable').dataTable().fnFilter($("#tableSearch").val());
+    });
+
     $('#classTable').show();
-    $("#tableJson").text('');
-    $("#classTable_filter input").focus();
-    $("#coursesTableLoading").hide();
 }
 
 function getTableData(term) {
-    $("#coursesTableLoading").show();
     $.ajax({
         url: contextPath + "/home/getData",
         data: {term: term},
         success: function(response) {
-            $("#tableHolder").html(response.tableHtml);
+            tableHtml = response.tableHtml;
+            $('#tableHolder').html(tableHtml)
             setupTable(response.table);
         }
     });

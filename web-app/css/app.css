@@ -90,21 +90,28 @@
 
 /* Course table */
 
-#coursesTableLoading {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    padding: 33px 30px 30px 30px;
-    display: block;
-    width: 350px;
-    margin: 30px auto;
-    color: #aaa;
+#searchControls {
+
 }
 
-#coursesTableLoading img {
-    vertical-align: middle;
-    margin-right: 5px;
+#tableFilterBar {
+    width: 500px;
+    display: block;
+    margin: 0 auto;
+}
+
+#tableFilterBar label {
+    font-size: 24px;
+    font-weight: bold;
+    color: #666;
+    float: none;
+    margin-right: 8px;
     margin-top: -3px;
+}
+
+#tableFilterBar input {
+    font-size: 20px;
+    height: 26px;
 }
 
 #tableFilterControls {

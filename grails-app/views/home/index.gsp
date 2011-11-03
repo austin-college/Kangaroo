@@ -10,19 +10,19 @@
 
 <body>
 
-
-
-<div id="tableFilterControls">
-    <label for="termSelector">Term: </label> <g:select name="termSelector" from="${Term.list()}" optionKey="shortCode"/>
+<div id="searchControls">
+    <div id="tableFilterBar">
+        <label for="tableSearch">Search for classes:</label>
+        <g:textField name="tableSearch"/>
+    </div>
 </div>
 
-<div id="coursesTableLoading">
-
-         Loading courses...
+<div id="tableFilterControls">
+    <label for="termSelector">Term:</label> <g:select name="termSelector" from="${Term.list()}" optionKey="shortCode"/>
 </div>
 
 <div id="tableHolder">
-
+    <g:render template="emptyTable"/>
 </div>
 </body>
 </html>
