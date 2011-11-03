@@ -28,7 +28,7 @@ class ProfessorController {
         }
 
         // Next check the dates for each of the professor's courses, to see if one is happening now.
-        for (def course: professor.coursesTeaching) {
+        for (def course: professor.coursesTeaching.findAll { it.term == Term.findOrCreate("11FA")}) {
             for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes)) {
 
                 if (isDateBetween(new Date(), time.startDate, time.endDate))
