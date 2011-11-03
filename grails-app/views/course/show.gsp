@@ -21,6 +21,13 @@
 
 <div>
     <div class="details-block">
+
+        <g:if test="${course.description}">
+            <blockquote style="margin-top: 15px; ">
+                <p style="font-size: 18px; line-height: 160%">${course.description}</p>
+            </blockquote>
+        </g:if>
+
         <div>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")} in the ${course.department.name} department.</div>
     </div>
 </div>
@@ -38,7 +45,7 @@
 
     <div><b>ZAP:</b> ${course.id}</div>
 
-    <div><b>Term: </b>${course.term.fullDescription}</div>
+    <div><b>Term:</b>${course.term.fullDescription}</div>
 
     <g:if test="${course.comments}">
         <div><b>Requirements:</b> ${course.comments}</div>
