@@ -15,6 +15,10 @@
         <label for="tableSearch">Search for classes:</label>
         <g:textField name="tableSearch"/>
     </div>
+
+    <div id="searchDescription">
+        (or professors, majors, meeting times...)
+    </div>
 </div>
 
 <div id="otherControls">

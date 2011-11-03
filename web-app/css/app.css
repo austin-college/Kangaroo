@@ -157,3 +157,10 @@
     vertical-align: middle;
     margin-top: -2px;
 }
+
+#searchDescription {
+    text-align: center;
+    font-size: 20px;
+    color: #bbb;
+    margin-top: 10px;
+}
