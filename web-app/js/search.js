@@ -43,6 +43,7 @@ function setupTable(data) {
         $('#classTable').dataTable().fnFilter($("#tableSearch").val());
     });
 
+    $('#classTable').dataTable().fnFilter($("#tableSearch").val());
     $('#classTable').show();
 }
 
