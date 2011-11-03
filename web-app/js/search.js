@@ -26,7 +26,8 @@ function setupTable(data) {
         "aaSorting": [
             [1,'asc'] // Sort by YTM.
         ],
-        "sDom": '<"H"r>t<"F"lip>',
+        "sPaginationType": "full_numbers",
+        "sDom": '<"H"r>t<"F"ip>',
         "oLanguage": {
             "sLengthMenu": "Show _MENU_ classes",
             "sZeroRecords": "<i>Sorry, no courses like that were found.</i>",

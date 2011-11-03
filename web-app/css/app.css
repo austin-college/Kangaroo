@@ -134,3 +134,18 @@
     width: 120px;
     font-size: 16px;
 }
+
+#classTable_info {
+    font-size: 16px;
+    color: #666;
+    padding: 8px 0 0 3px;
+    width:auto;
+}
+
+#classTable_paginate {
+    padding: 8px 3px 0 0;
+}
+
+#classTable tr td {
+    min-height: 44px;
+}
