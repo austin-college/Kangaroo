@@ -23,23 +23,25 @@
         <h1>${course}</h1>
 
         <g:if test="${course.description}">
-            <blockquote style="margin-top: 5px; ">
+            <blockquote style="margin-top: 5px; margin-bottom: 10px">
                 <p style="font-size: 18px; line-height: 160%">${course.description}</p>
             </blockquote>
         </g:if>
 
-        <div style="margin-bottom: 10px; background-color: #f9f9ff; padding: 9px">
+        <div style="margin-bottom: 10px; padding: 5px 0">
             <g:if test="${profImage}">
                 <div class="miniPhoto">
-                    <img src="${profImage}" title="${course.instructors[0]}" alt="${course.instructors[0]}"
-                         width="40px" style="float: left; border: 1px solid #ddd">
+                    <g:link controller="professor" action="show" id="${course.instructors[0].id}">
+                        <img src="${profImage}" title="${course.instructors[0]}" alt="${course.instructors[0]}"
+                             width="40px" style="float: left; border: 1px solid #ddd">
+                    </g:link>
                 </div>
 
             </g:if>
-            <div style="margin-left: 50px">
+            <div style="margin-left: 53px">
                 <div><b>Taught by ${CourseUtils.getProfessorLinksForClass(course, " and ")}</b></div>
 
-                <div>${course.department.name}</div>
+                <div style="font-variant: small-caps">${course.department.name}</div>
             </div>
 
         </div>
