@@ -91,11 +91,11 @@
 /* Course table */
 
 #searchControls {
-
+    margin-top: 5px;
 }
 
 #tableFilterBar {
-    width: 500px;
+    width: 480px;
     display: block;
     margin: 0 auto;
 }
@@ -111,20 +111,21 @@
 
 #tableFilterBar input {
     font-size: 20px;
-    height: 26px;
+    height: 22px;
 }
 
-#tableFilterControls {
-    float: right;
+#otherControls {
+    margin-top: 20px;
     font-size: 16px;
-    /*margin-bottom: -40px;*/
+    margin-bottom: 10px;
 }
 
-#tableFilterControls label {
+#otherControls label {
+    width: 40px;
     font-size: 16px;
     font-weight: bold;
-    color: #666;
-    margin-right: 8px;
+    color: #888;
+    margin-right: 14px;
     margin-top: -3px;
 
 }

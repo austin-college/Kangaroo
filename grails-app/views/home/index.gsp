@@ -17,8 +17,9 @@
     </div>
 </div>
 
-<div id="tableFilterControls">
-    <label for="termSelector">Term:</label> <g:select name="termSelector" from="${Term.list()}" optionKey="shortCode"/>
+<div id="otherControls">
+    <label for="termSelector">Term:</label> <g:select name="termSelector" from="${Term.list()}"
+                                                      optionKey="shortCode"/>
 </div>
 
 <div id="tableHolder">

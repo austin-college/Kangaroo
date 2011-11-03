@@ -29,16 +29,16 @@ function setupTable(data) {
         "sDom": '<"H"r>t<"F"lip>',
         "oLanguage": {
             "sLengthMenu": "Show _MENU_ classes",
-            "sZeroRecords": "Nothing found - sorry",
+            "sZeroRecords": "<i>Sorry, no courses like that were found.</i>",
             "sInfo": "Showing _START_ to _END_ of _TOTAL_ classes",
-            "sInfoEmpty": "Showing no classes",
+            "sInfoEmpty": "",
             "sInfoFiltered": "(filtered from _MAX_ total classes)",
             "sSearch":"Search for anything:"
         },
         "iDisplayLength": 15
     });
 
-    $("#tableSearch").keyup(function() {
+    $("#tableSearch").live('keyup', function() {
         $('#classTable').dataTable().fnFilter($("#tableSearch").val());
     });
 
