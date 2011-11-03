@@ -282,7 +282,7 @@ td.details {
 }
 
 .paging_full_numbers span.paginate_button {
-	background-color: #ddd;
+	background-color: #eee;
 }
 
 .paging_full_numbers span.paginate_button:hover {
@@ -290,7 +290,7 @@ td.details {
 }
 
 .paging_full_numbers span.paginate_active {
-	background-color: #99B3FF;
+	background-color: #fff;
 }
 
 table.display tr.even.row_selected td {
