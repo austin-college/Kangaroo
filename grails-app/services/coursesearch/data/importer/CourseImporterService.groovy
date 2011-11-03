@@ -34,10 +34,11 @@ class CourseImporterService {
         Course course = (data as Course)
 
         // @todo receive this as a variable
-        course.term = Term.findOrCreate("11SP")
+        course.term = Term.findOrCreate("12SP")
 
         // Convert zap, department, and description.
         course.id = data.zap
+        course.description = course.description.replaceAll("Formerly", "<br/>Formerly");
         course.department = Department.findByCode(data.departmentCode) ?: new Department(code: data.departmentCode, name: data.departmentCode).save();
 
         def meetingTimes = []
