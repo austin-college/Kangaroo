@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 import coursesearch.MeetingTime
 import coursesearch.data.convert.ScheduleConvertService
 import coursesearch.mn.CourseMeetingTime
+import org.hibernate.NonUniqueObjectException
 
 /**
  * Imports course data from the new format -- a JSON dump created by WebhopperDriver.
@@ -20,9 +21,9 @@ class CourseImporterService {
     def cacheService
 
 //    @Transactional
-    def importFromJson(String json) {
+    def importFromJson(Term term, String json) {
         def courses = JSON.parse(json)
-        courses.each { saveSingleCourse(it)}
+        courses.each { saveSingleCourse(term, it)}
 
         // Naturally we'll want to clear the cache.
         cacheService.clearCache()
@@ -30,15 +31,13 @@ class CourseImporterService {
     }
 
 //    @Transactional
-    def saveSingleCourse(Map data) {
+    def saveSingleCourse(Term term, Map data) {
         Course course = (data as Course)
-
-        // @todo receive this as a variable
-        course.term = Term.findOrCreate("12SP")
+        course.term = term
 
         // Convert zap, department, and description.
         course.id = data.zap
-        course.description = course.description.replaceAll("Formerly", "<br/>Formerly");
+        course.description = course.description?.replaceAll("Formerly", "<br/>Formerly");
         course.department = Department.findByCode(data.departmentCode) ?: new Department(code: data.departmentCode, name: data.departmentCode).save();
 
         def meetingTimes = []
@@ -49,15 +48,19 @@ class CourseImporterService {
         }
         def teachings = data.professors.collect { new Teaching(professor: findOrCreateProfessor(it.name, it.email), course: course) }
 
-        if (course.save()) {
-            meetingTimes.each { it.save(); }
-            teachings.each { it.save(); }
-
+        if (!Course.get(course.id)) {
+            if (course.save()) {
+                meetingTimes.each { it.save(); }
+                teachings.each { it.save(); }
+                println "Saved $course"
+            }
+            else
+                println course.errors
         }
         else
-            println course.errors
-    }
+            println "There is already a course with the id ${course.id} (${Course.get(course.id)}"
 
+    }
     //@Transactional
     Professor findOrCreateProfessor(name, email) {
         def professor = Professor.findByEmail(email)

@@ -1,6 +1,7 @@
 package coursesearch.admin
 
 import coursesearch.Course
+import coursesearch.Term
 
 class DataImportController {
 
@@ -9,7 +10,8 @@ class DataImportController {
     def index = {}
 
     def submit = {
-        courseImporterService.importFromJson(params.json)
+        def term = Term.findByShortCode(params.term)
+        courseImporterService.importFromJson(term, params.json)
         flash.success = "Import succeeded; ${Course.count()} courses"
         redirect(action: "index")
     }

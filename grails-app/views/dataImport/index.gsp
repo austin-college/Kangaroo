@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Professor; coursesearch.Course; coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.Term; coursesearch.Professor; coursesearch.Course; coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Data Import</title>
@@ -19,6 +19,8 @@
     <g:if test="${flash.success}">
         ${flash.success}
     </g:if>
+
+    <g:select from="${Term.list()}" optionKey="shortCode" name="term"/>
 
     <h3>Paste your JSON here:</h3>
 
