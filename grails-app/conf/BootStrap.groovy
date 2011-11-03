@@ -3,6 +3,7 @@ import coursesearch.Textbook
 import grails.converters.JSON
 import grails.util.Environment
 import coursesearch.Term
+import coursesearch.Professor
 
 class BootStrap {
 
@@ -26,10 +27,10 @@ class BootStrap {
 
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
-            if (Course.count() == 0)
-                courseDataService.downloadAndProcess();
-//            if (Textbook.count() == 0)
-//                textbookDataService.lookupTextbooksForAllCourses();
+//            if (Course.count() == 0)
+//                courseDataService.downloadAndProcess();
+////            if (Textbook.count() == 0)
+////                textbookDataService.lookupTextbooksForAllCourses();
             facultyDataService.fetchAndMatch()
 
             // Pre-cache as much information as we can.

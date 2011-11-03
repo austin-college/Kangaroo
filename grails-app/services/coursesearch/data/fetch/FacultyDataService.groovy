@@ -32,7 +32,7 @@ class FacultyDataService {
     /**
      * Returns the Austin College faculty page as raw text.
      */
-    static String getFacultyPageAsText() { new URL('http://www.austincollege.edu/faculty-staff/directory/').text }
+    static String getFacultyPageAsText() { new URL('http://www.austincollege.edu/academics/faculty/').text }
 
     /**
      * Returns the Austin College faculty page as a cleaned Groovy XML tree.
@@ -81,19 +81,8 @@ class FacultyDataService {
     void matchScrapedFaculty(scraped) {
 
         print 'Matching downloaded faculty...'
-        int entriedUsed = 0;
-        int entriedUnused = 0;
 
-        scraped.each { rawData ->
-
-            def professor = findMatch(rawData);
-            if (professor) {
-                updateProfessor(professor, rawData);
-                entriedUsed++;
-            }
-            else
-                entriedUnused++;
-        }
+        scraped.each { createProfessor(it) }
 
         // Professor.findAllByMatched(false).each { println "Not Matched: ${it}"}
         def matched = Professor.countByMatched(true);
@@ -102,34 +91,10 @@ class FacultyDataService {
     }
 
     /**
-     * Given the raw data map from the faculty page, tries to find the corresponding faculty member.
-     */
-    Professor findMatch(Map rawData) {
-
-        def cleanName = rawData.name.toString().replaceAll("Dr. ", "");
-
-        // First try a direct search.
-        def prof = Professor.findByName(cleanName);
-
-        // Not found? Try removing their middle name.
-        if (!prof) {
-            def firstLast = CourseUtils.cleanFacultyName(cleanName);
-
-            if (firstLast != cleanName && Professor.findByName(firstLast))
-                prof = Professor.findByName(firstLast);
-        }
-
-        // Not found? Try the synonyms table.
-        if (!prof && synonyms.containsKey(cleanName))
-            prof = Professor.findByName(synonyms[cleanName]);
-
-        return prof;
-    }
-
-    /**
      * Updates the professor to match the raw data given.
      */
-    def updateProfessor(Professor professor, Map rawData) {
+    def createProfessor(Map rawData) {
+        def professor = new Professor(name: CourseUtils.cleanFacultyName(rawData.name))
         professor.matched = true;
         professor.photoUrl = rawData.photoUrl
         professor.title = rawData.title
@@ -138,5 +103,6 @@ class FacultyDataService {
         professor.email = rawData.email
         professor.phone = rawData.phone
         professor.save();
+        if ( professor.hasErrors() ) println professor.errors
     }
 }
