@@ -27,10 +27,12 @@ class BootStrap {
             facultyDataService.fetchAndMatch()
 
             // Create terms and import courses.
-            println "Downloading course files..."
-            ["11FA", "12SP"].each {
-                def term = Term.findOrCreate(it)
-                courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
+            if (Term.count() == 0) {
+                println "Downloading course files..."
+                ["11FA", "12SP"].each {
+                    def term = Term.findOrCreate(it)
+                    courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
+                }
             }
 
             textbookDataService.lookupTextbooksForAllCourses()
