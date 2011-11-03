@@ -19,7 +19,8 @@
 
 <div class="details-block span15" style="padding-top: 15px">
 
-    <h1 style="margin-bottom: 8px">${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span></h1>
+    <h1 style="margin-bottom: 8px">${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
+    </h1>
 
     <g:if test="${course.description}">
         <blockquote style="margin-bottom: 10px">
@@ -62,7 +63,7 @@
     </div>
 
     <div style="float: right">
-        <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 20px">Reg. Details</div>
+        <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 30px">Reg. Details</div>
 
         <div>
             <div>zap: <b>${course.id}</b></div>
@@ -76,20 +77,9 @@
         </div>
     </div>
 
+    <div style="float: left; clear: both; margin-top: 40px">
+        <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Books</div>
 
-    <g:if test="${course.comments}">
-        <div style="float: left; clear: both; margin-top: 40px">
-            <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Notes</div>
-
-            <div style="margin-top: 5px; margin-bottom: 10px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif">
-                <p style="font-size: 16px; line-height: 160%">${course.comments}</p>
-            </div>
-        </div>
-    </g:if>
-</div>
-
-<div class="details-block courses-block span12">
-    <div>
         <g:if test="${course.textbooksParsed}">
             <g:if test="${course.textbooks.size() > 0}">
 
@@ -104,14 +94,25 @@
             </g:if>
             <g:else>
 
-                <h3>This course has no textbooks.</h3>
+                No books posted (yet).
 
             </g:else>
         </g:if>
         <g:else>
-            <h3><a href="${course.textbookPageUrl()}">View this course's textbooks</a></h3>
+            <a href="${course.textbookPageUrl()}">View this course's textbooks</a>
         </g:else>
     </div>
+
+
+    <g:if test="${course.comments}">
+        <div style="float: left; clear: both; margin-top: 40px">
+            <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Notes</div>
+
+            <div style="margin-top: 5px; margin-bottom: 10px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif">
+                <p style="font-size: 16px; line-height: 160%">${course.comments}</p>
+            </div>
+        </div>
+    </g:if>
 </div>
 
 </body>
