@@ -9,6 +9,7 @@ class BootStrap {
 
     // Services to initialize our data.
     def departmentDataService
+    def courseImporterService
     def courseDataService
     def facultyDataService
     def textbookDataService
@@ -27,11 +28,17 @@ class BootStrap {
 
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
-//            if (Course.count() == 0)
-//                courseDataService.downloadAndProcess();
-////            if (Textbook.count() == 0)
-////                textbookDataService.lookupTextbooksForAllCourses();
+
             facultyDataService.fetchAndMatch()
+
+            println "Reading in course files..."
+            Term.list().each { term ->
+                def filename = "courses_${term.shortCode}.json"
+                if (new File(filename).exists())
+                    courseImporterService.importFromJson(term, new File(filename).text);
+                else
+                    println "$filename does not exist"
+            }
 
             // Pre-cache as much information as we can.
             cacheService.initializeCache();

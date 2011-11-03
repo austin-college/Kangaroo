@@ -23,7 +23,7 @@ class Term implements Serializable {
             return new Term(shortCode: shortCode).save();
     }
 
-    String toString() { shortCode }
+    String toString() { fullDescription }
 
     String getFullDescription() { "$season $year" }
 
