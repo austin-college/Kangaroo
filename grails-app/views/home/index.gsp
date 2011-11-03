@@ -12,9 +12,6 @@
 
 <div id="coursesTableLoading">
 
-    <img src="http://i.imgur.com/RPfXl.gif" width="32px" height="32px" alt="Loading..."/>
-    %{--<img src="${resource(dir: "images", file: "courses_ajaxLoader.gif")}"/>--}%
-
          Loading courses...
 </div>
 

@@ -27,6 +27,7 @@ function setupTable(data) {
     $('#classTable').show();
     $("#tableJson").text('');
     $("#classTable_filter input").focus();
+    $("#coursesTableLoading").hide();
 }
 
 function getTableData(term) {
