@@ -1,15 +1,13 @@
 package coursesearch.admin
 
-import coursesearch.Course
-import coursesearch.CourseUtils
-import coursesearch.Professor
-import coursesearch.Textbook
 import coursesearch.data.convert.ScheduleConvertService
 import coursesearch.mn.ProfessorOfficeHours
 import grails.converters.JSON
+import coursesearch.*
 
 class BatchControlController {
 
+    def courseImporterService
     def facultyDataService
     def textbookDataService
     def amazonDataService
@@ -20,7 +18,11 @@ class BatchControlController {
             "courses": [
                     id: "courses",
                     name: "Courses",
-                    run: { },
+                    run: {
+                        Term.list().each { term ->
+                            courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
+                        }
+                    },
                     status: {"${Course.count()} imported"}
             ],
             "faculty": [

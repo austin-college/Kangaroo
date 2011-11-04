@@ -1,9 +1,7 @@
 import coursesearch.Course
-import coursesearch.Textbook
+import coursesearch.Term
 import grails.converters.JSON
 import grails.util.Environment
-import coursesearch.Term
-import coursesearch.Professor
 
 class BootStrap {
 
@@ -28,10 +26,13 @@ class BootStrap {
 
             // Create terms and import courses.
             if (Term.count() == 0) {
-                println "Downloading course files..."
                 ["11FA", "12SP"].each {
                     def term = Term.findOrCreate(it)
-                    courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
+
+                    if (Environment.current == Environment.DEVELOPMENT) {
+                        println "Downloading course files..."
+                        courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
+                    }
                 }
             }
 
