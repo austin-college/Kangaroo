@@ -36,7 +36,7 @@ function setupTable(data) {
             "sInfoFiltered": "(instantly filtered from _MAX_)",
             "sSearch":"Search for anything:"
         },
-        "iDisplayLength": 35
+        "iDisplayLength": 25
     });
 
     $("#tableSearch").live('keyup', function() {
