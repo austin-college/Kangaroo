@@ -15,8 +15,8 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:mem:kangarooTestDb"
+            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            url = "jdbc:hsqldb:mem:kangarooDevDb"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "sa"
             password = ""
