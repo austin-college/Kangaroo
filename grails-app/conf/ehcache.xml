@@ -1,0 +1,46 @@
+<ehcache>
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            maxElementsInMemory="0"
+            eternal="false"
+            timeToIdleSeconds="5"
+            timeToLiveSeconds="10"
+            overflowToDisk="true"
+            />
+
+    <cache name="generalCache"
+           maxElementsInMemory="100"
+           eternal="false"
+           timeToIdleSeconds="10000"
+           timeToLiveSeconds="10000"
+           overflowToDisk="true">
+    </cache>
+
+    <cache name="rootCache"
+           maxElementsInMemory="100"
+           eternal="false"
+           timeToIdleSeconds="10000"
+           timeToLiveSeconds="10000"
+           overflowToDisk="true">
+    </cache>
+
+    <cache name="courseCache"
+           maxElementsInMemory="100"
+           eternal="false"
+           timeToIdleSeconds="10000"
+           timeToLiveSeconds="10000"
+           overflowToDisk="true">
+    </cache>
+
+    <!-- Expire less often due to status-->
+    <cache name="professorCache"
+           maxElementsInMemory="100"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="10000"
+           overflowToDisk="true">
+    </cache>
+
+</ehcache>

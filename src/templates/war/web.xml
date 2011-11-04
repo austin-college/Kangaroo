@@ -34,6 +34,70 @@
         </init-param>
     </filter>
 
+    <!-- Cache filters -->
+
+    <filter>
+        <filter-name>GeneralPageCachingFilter</filter-name>
+        <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</filter-class>
+        <init-param>
+            <param-name>cacheName</param-name>
+            <param-value>generalCache</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>RootPageCachingFilter</filter-name>
+        <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</filter-class>
+        <init-param>
+            <param-name>cacheName</param-name>
+            <param-value>rootCache</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>CoursePageCachingFilter</filter-name>
+        <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</filter-class>
+        <init-param>
+            <param-name>cacheName</param-name>
+            <param-value>courseCache</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>ProfessorPageCachingFilter</filter-name>
+        <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</filter-class>
+        <init-param>
+            <param-name>cacheName</param-name>
+            <param-value>professorCache</param-value>
+        </init-param>
+    </filter>
+
+    <!-- Cache filter mappings -->
+
+    <filter-mapping>
+        <filter-name>GeneralPageCachingFilter</filter-name>
+        <url-pattern>/controller/action/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>RootPageCachingFilter</filter-name>
+        <url-pattern>/</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>CoursePageCachingFilter</filter-name>
+        <url-pattern>/course/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ProfessorPageCachingFilter</filter-name>
+        <url-pattern>/professor/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
     <filter-mapping>
         <filter-name>charEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
