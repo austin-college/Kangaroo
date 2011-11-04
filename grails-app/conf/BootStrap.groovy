@@ -2,6 +2,7 @@ import coursesearch.Course
 import coursesearch.Term
 import grails.converters.JSON
 import grails.util.Environment
+import coursesearch.Professor
 
 class BootStrap {
 
@@ -22,7 +23,8 @@ class BootStrap {
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
 
-            facultyDataService.fetchAndMatch()
+            if (Professor.count() == 0)
+                facultyDataService.fetchAndMatch()
 
             // Create terms and import courses.
             if (Term.count() == 0) {
