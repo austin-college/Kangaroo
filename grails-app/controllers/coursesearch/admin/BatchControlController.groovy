@@ -35,7 +35,12 @@ class BatchControlController {
                     id: "textbooks",
                     name: "Textbooks",
                     run: { textbookDataService.lookupTextbooksForAllCourses() },
-                    status: {"${Textbook.count()} textbooks; ${CourseUtils.toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"}
+                    status: {
+                        if (Course.count() > 0)
+                            "${Textbook.count()} textbooks; ${CourseUtils.toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"
+                        else
+                            "No courses so no textbooks"
+                    }
             ],
             "amazon": [
                     id: "amazon",
