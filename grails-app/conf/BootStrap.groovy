@@ -34,9 +34,11 @@ class BootStrap {
                         courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
                     }
                 }
+
+                textbookDataService.lookupTextbooksForAllCourses()
             }
 
-            textbookDataService.lookupTextbooksForAllCourses()
+            cacheService.initializeCache()
         }
     }
 
