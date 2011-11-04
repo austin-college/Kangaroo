@@ -33,7 +33,7 @@ function setupTable(data) {
             "sZeroRecords": "<i>Sorry, no courses like that were found.</i>",
             "sInfo": "Showing _START_ to _END_ of _TOTAL_ classes",
             "sInfoEmpty": "",
-            "sInfoFiltered": "(filtered from _MAX_ total classes)",
+            "sInfoFiltered": "(instantly filtered from _MAX_)",
             "sSearch":"Search for anything:"
         },
         "iDisplayLength": 15
