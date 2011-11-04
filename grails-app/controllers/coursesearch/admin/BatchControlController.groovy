@@ -11,6 +11,7 @@ class BatchControlController {
     def facultyDataService
     def textbookDataService
     def amazonDataService
+    def cacheService
 
     // Define all the batch jobs here.
     def jobs = [
@@ -82,6 +83,24 @@ class BatchControlController {
                             }
                         }
                     },
+                    status: { "Ready" }
+            ],
+            "clearCache": [
+                    id: "clearCache",
+                    name: "Clear Cache",
+                    run: { cacheService.clearCache() },
+                    status: { "Ready" }
+            ],
+            "initializeCache": [
+                    id: "initializeCache",
+                    name: "Initialize Cache",
+                    run: { cacheService.initializeCache() },
+                    status: { "Ready" }
+            ],
+            "cacheColleagues": [
+                    id: "cacheColleagues",
+                    name: "Cache Colleagues",
+                    run: { cacheService.cacheColleagues() },
                     status: { "Ready" }
             ]
     ]

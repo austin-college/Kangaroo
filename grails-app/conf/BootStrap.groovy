@@ -38,7 +38,7 @@ class BootStrap {
                 textbookDataService.lookupTextbooksForAllCourses()
             }
 
-            cacheService.initializeCache()
+//            cacheService.initializeCache()
         }
     }
 

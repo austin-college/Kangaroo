@@ -21,18 +21,19 @@ class CacheService {
             dataTablesService.getTableCached(term)
         }
 
-        // Pre-cache the colleagues list, an expensive operation.
-        if (Environment.current == Environment.PRODUCTION) {
-            print "Pre-caching colleagues..."
-            def i = 0;
-            Professor.list().each {
-                prof ->
-                prof.getColleagues();
-                if (i++ % 4 == 0)
-                    print ".${i}.."
-            }
-        }
         println "CACHED!"
+    }
+
+    def cacheColleagues() {
+
+        print "Pre-caching colleagues..."
+        def i = 0;
+        Professor.list().each { prof ->
+            prof.getColleagues();
+            if (i++ % 4 == 0)
+                print ".${i}.."
+        }
+        println "...done!"
     }
 
     def clearCache() {
