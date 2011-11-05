@@ -77,8 +77,9 @@ log4j = {
         environments {
             production {
                 console name: "stdout", layout: pattern(conversionPattern: "%c{2} %m%n")
-                rollingFile name: 'stdout', file: "${logDirectory}/courseSearch.log".toString(), maxFileSize: '100KB'
-                rollingFile name: 'stacktrace', file: "${logDirectory}/courseSearch_stack.log".toString(), maxFileSize: '100KB'
+                rollingFile name: 'stdout', file: "${logDirectory}/kangaroo/app.log".toString(), maxFileSize: '100KB', append: false
+                rollingFile name: 'stdout', file: "${logDirectory}/kangaroo/full.log".toString(), maxFileSize: '300KB'
+                rollingFile name: 'stacktrace', file: "${logDirectory}/kangaroo/failures.log".toString(), maxFileSize: '100KB', append: false
             }
         }
     }

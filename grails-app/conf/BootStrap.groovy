@@ -15,6 +15,8 @@ class BootStrap {
 
     def init = { servletContext ->
 
+        println "\n\n==============================\n\n    Kangaroo v1 starting..."
+
         // Customize how objects are formatted to JSON.
         JSON.registerObjectMarshaller(Course) {
             return [id: it.id, name: it.name, items: it.items];
@@ -42,6 +44,8 @@ class BootStrap {
 
 //            cacheService.initializeCache()
         }
+
+        println "\n==============================\n"
     }
 
     def destroy = {

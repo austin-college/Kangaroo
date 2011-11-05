@@ -13,4 +13,6 @@ development.hsqldb.script
 
 .hg
 out/
+
 stacktrace.log
+logs/
