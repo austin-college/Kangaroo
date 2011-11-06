@@ -17,7 +17,7 @@ class CourseController {
             // Find all courses at this time, but segment by department.
             def coursesAtTime = meetingTime.coursesMeeting;
             Department.list().each { dept ->
-                def coursesFound = coursesAtTime.findAll { it.department.id == dept.id }
+                def coursesFound = coursesAtTime.findAll { it.department.id == dept.id && it.term == Term.findOrCreate("12SP") }
                 if (coursesFound)
                     courses.put(dept, coursesFound)
             }
@@ -34,7 +34,11 @@ class CourseController {
 
             // Find all courses at this time by department.
             Department.list().each { dept ->
-                def coursesFound = Course.findAllByRoomAndDepartment(params.id, dept);
+                def coursesFound = Course.withCriteria {
+                    eq("room", params.id)
+                    eq("department", dept)
+                    eq("term", Term.findOrCreate("12SP"))
+                }
                 if (coursesFound)
                     courses.put(dept, coursesFound)
             }
