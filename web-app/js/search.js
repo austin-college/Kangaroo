@@ -8,8 +8,6 @@ var terms = {
 
 var departments = {};
 
-var term = "12SP";
-
 var tableHtml;
 
 $(document).ready(function() {
@@ -20,7 +18,7 @@ $(document).ready(function() {
     $("#selectDepartmentLink").contextMenu({ menu: 'departmentMenu', leftButton: true }, contextMenuWork);
 
     $("#tableSearch").focus();
-    getTableData(term);
+    setupTable($.parseJSON($("#tableJson").text()));
 });
 
 function contextMenuWork(action, el, pos) {
@@ -43,7 +41,6 @@ function destroyTable() {
     $('#classTable').remove();
     $('#tableHolder').html(tableHtml)
 }
-
 
 function setupTable(data) {
     $('#classTable').dataTable({
@@ -83,5 +80,4 @@ function getTableData(term) {
             setupTable(response.table);
         }
     });
-
 }

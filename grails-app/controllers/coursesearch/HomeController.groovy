@@ -8,7 +8,7 @@ class HomeController {
 
     def index = {
 
-        [departmentsJson: (getDepartmentsMap() as JSON)]
+        [tableJson: dataTablesService.getTableCached(Term.findByShortCode("12SP")), departmentsJson: (getDepartmentsMap() as JSON)]
     }
 
     def getData = {

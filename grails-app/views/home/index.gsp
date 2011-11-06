@@ -40,9 +40,8 @@
 
 %{-- CACHED DATA --}%
 <div style="display: none">
-    <div id="departmentsJson">
-        ${departmentsJson.encodeAsHTML()}
-    </div>
+    <div id="tableJson">${tableJson.encodeAsHTML()}</div>
+    <div id="departmentsJson">${departmentsJson.encodeAsHTML()}</div>
 </div>
 
 %{-- menus --}%
