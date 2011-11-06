@@ -1,16 +1,48 @@
 $.fn.dataTableExt.oStdClasses.sSortAsc = "headerSortDown";
 $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
+
+var term = "12SP";
+
 var tableHtml;
 
 $(document).ready(function() {
+
+
+    $("#selectTermLink").contextMenu({ menu: 'myMenu' },
+        function(action, el, pos) {
+            contextMenuWork(action, el, pos);
+        });
+
     $("#tableSearch").focus();
-    $("#termSelector").change(function() {
+    $("#termLink").click(function() {
         destroyTable();
         getTableData($("#termSelector").val());
     });
-    getTableData($("#termSelector").val());
+    getTableData(term);
 });
+
+function contextMenuWork(action, el, pos) {
+
+    switch (action) {
+        case "delete":
+        {
+            //Popup Delete Confirmation - included in demo and in download
+            break;
+        }
+        case "insert":
+        {
+            //Popup Insert Dialog- included in demo and in download
+            break;
+        }
+
+        case "edit":
+        {
+            //Popup Edit Dialog
+            break;
+        }
+    }
+}
 
 function destroyTable() {
     $('#classTable').dataTable().fnDestroy();
