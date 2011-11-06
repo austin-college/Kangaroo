@@ -39,11 +39,13 @@
 
 %{-- menus --}%
 <ul id="myMenu" class="contextMenu">
-    <li class="11FA"><a href="#insert">Fall 2011</a></li>
-    <li class="12SP"><a href="#insert">Spring 2012</a></li>
+    <g:each in="${Term.list()}" var="term">
+        <li><a href="#${term.shortCode}">${term}</a></li>
+    </g:each>
 </ul>
 
 <ul id="departmentMenu" class="contextMenu">
+    <li class=""><a href="#departmentMenu_any">(any)</a></li>
     <g:each in="${Department.list()}" var="department">
         <li class="${department.code}"><a href="#departmentMenu_${department.code}">${department}</a></li>
     </g:each>

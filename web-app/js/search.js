@@ -1,6 +1,12 @@
 $.fn.dataTableExt.oStdClasses.sSortAsc = "headerSortDown";
 $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
+var terms = {
+    "11FA" : "Fall 2011",
+    "12SP" : "Spring 2012"
+};
+
+var departments = {};
 
 var term = "12SP";
 
@@ -9,41 +15,22 @@ var tableHtml;
 $(document).ready(function() {
 
 
-    $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true }, function(action, el, pos) {
-        contextMenuWork(action, el, pos);
-    });
-    $("#selectDepartmentLink").contextMenu({ menu: 'departmentMenu', leftButton: true }, function(action, el, pos) {
-        contextMenuWork(action, el, pos);
-    });
-
+    $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true }, contextMenuWork);
+    $("#selectDepartmentLink").contextMenu({ menu: 'departmentMenu', leftButton: true }, contextMenuWork);
 
     $("#tableSearch").focus();
-    $("#termLink").click(function() {
-        destroyTable();
-        getTableData($("#termSelector").val());
-    });
     getTableData(term);
 });
 
 function contextMenuWork(action, el, pos) {
 
-    switch (action) {
-        case "delete":
-        {
-            //Popup Delete Confirmation - included in demo and in download
-            break;
-        }
-        case "insert":
-        {
-            //Popup Insert Dialog- included in demo and in download
-            break;
-        }
-
-        case "edit":
-        {
-            //Popup Edit Dialog
-            break;
-        }
+    if ($(el).attr('id') == "selectTermLink") {
+        $("#selectTermLink").text(terms[action]);
+        destroyTable();
+        getTableData(action);
+    }
+    else if ($(el).attr('id') == "selectDepartmentLink") {
+        $("#selectDepartmentLink").text("yuiop");
     }
 }
 
