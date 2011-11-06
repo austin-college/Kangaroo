@@ -26,10 +26,10 @@
 <div class="otherControls">
     Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2012</a>
 
-    in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
+    %{--in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>--}%
 
     %{--that meet at <a href="#" class="selectable">any time</a>--}%
-    and that satisfy <a href="#" class="selectable">any requirement</a>.
+    %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
 
 </div>
 
