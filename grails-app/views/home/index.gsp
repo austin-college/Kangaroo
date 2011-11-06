@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'contextMenu/jquery.contextMenu.css')}"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <g:javascript src="jquery.dataTables.js"/>
-    <g:javascript src="search.js"/>
+    <g:javascript src="search2.js"/>
     <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
 </head>
 
