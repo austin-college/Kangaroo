@@ -9,7 +9,7 @@ var tableHtml;
 $(document).ready(function() {
 
 
-    $("#selectTermLink").contextMenu({ menu: 'myMenu' },
+    $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true },
         function(action, el, pos) {
             contextMenuWork(action, el, pos);
         });

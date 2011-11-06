@@ -20,6 +20,7 @@ if(jQuery)( function() {
 			if( o.menu == undefined ) return false;
 			if( o.inSpeed == undefined ) o.inSpeed = 150;
 			if( o.outSpeed == undefined ) o.outSpeed = 75;
+            if( o.leftButton == undefined ) o.leftButton = false;
 			// 0 needs to be -1 for expected results (no fade)
 			if( o.inSpeed == 0 ) o.inSpeed = -1;
 			if( o.outSpeed == 0 ) o.outSpeed = -1;
@@ -37,7 +38,7 @@ if(jQuery)( function() {
 						e.stopPropagation();
 						var srcElement = $(this);
 						$(this).unbind('mouseup');
-						if( evt.button == 2 ) {
+						if( evt.button == 2 || o.leftButton ) {
 							// Hide context menus that may be showing
 							$(".contextMenu").hide();
 							// Get this context menu
