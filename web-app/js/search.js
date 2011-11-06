@@ -18,7 +18,7 @@ $(document).ready(function() {
     $("#selectDepartmentLink").contextMenu({ menu: 'departmentMenu', leftButton: true }, contextMenuWork);
 
     $("#tableSearch").focus();
-    setupTable($.parseJSON($("#tableJson").text()));
+    setupTable(tableRaw);
 });
 
 function contextMenuWork(action, el, pos) {

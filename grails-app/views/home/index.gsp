@@ -40,7 +40,6 @@
 
 %{-- CACHED DATA --}%
 <div style="display: none">
-    <div id="tableJson">${tableJson.encodeAsHTML()}</div>
     <div id="departmentsJson">${departmentsJson.encodeAsHTML()}</div>
 </div>
 
@@ -58,5 +57,8 @@
     </g:each>
 </ul>
 
+<script type="text/javascript">
+    var tableRaw = ${tableJson};
+</script>
 </body>
 </html>
