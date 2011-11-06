@@ -25,7 +25,6 @@ function contextMenuWork(action, el, pos) {
 
     if ($(el).attr('id') == "selectTermLink") {
         $("#selectTermLink").text(terms[action]);
-        destroyTable();
         getTableData(action);
     }
     else if ($(el).attr('id') == "selectDepartmentLink") {
@@ -76,6 +75,7 @@ function getTableData(term) {
         data: {term: term},
         success: function(response) {
             tableHtml = response.tableHtml;
+            destroyTable();
             $('#tableHolder').html(tableHtml)
             setupTable(response.table);
         }
