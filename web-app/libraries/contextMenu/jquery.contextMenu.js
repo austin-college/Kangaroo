@@ -18,8 +18,8 @@ if(jQuery)( function() {
 		contextMenu: function(o, callback) {
 			// Defaults
 			if( o.menu == undefined ) return false;
-			if( o.inSpeed == undefined ) o.inSpeed = 150;
-			if( o.outSpeed == undefined ) o.outSpeed = 75;
+			if( o.inSpeed == undefined ) o.inSpeed = 100;
+			if( o.outSpeed == undefined ) o.outSpeed = 100;
             if( o.leftButton == undefined ) o.leftButton = false;
 			// 0 needs to be -1 for expected results (no fade)
 			if( o.inSpeed == 0 ) o.inSpeed = -1;
@@ -70,7 +70,7 @@ if(jQuery)( function() {
 							
 							// Show the menu
 							$(document).unbind('click');
-							$(menu).css({ top: y, left: x }).fadeIn(o.inSpeed);
+							$(menu).css({ top: y, left: x }).slideDown(o.inSpeed);
 							// Hover events
 							$(menu).find('A').mouseover( function() {
 								$(menu).find('LI.hover').removeClass('hover');
@@ -121,7 +121,7 @@ if(jQuery)( function() {
 							setTimeout( function() { // Delay for Mozilla
 								$(document).click( function() {
 									$(document).unbind('click').unbind('keypress');
-									$(menu).fadeOut(o.outSpeed);
+									$(menu).slideUp(o.outSpeed);
 									return false;
 								});
 							}, 0);
