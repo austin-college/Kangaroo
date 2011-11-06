@@ -1,6 +1,6 @@
 <%@ page import="coursesearch.Term" %>
 <!DOCTYPE html>
-<html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>
     <script type="text/javascript">var _sf_startpt = (new Date()).getTime()</script>
     <title><g:layoutTitle default="Kangaroo"/></title>
@@ -88,18 +88,6 @@
 </head>
 
 <body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {
-        return;
-    }
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 <div class="container">
 
     <div class="content">
@@ -116,8 +104,9 @@
         </div>
 
         <div id="promotion">
-            <div class="fb-like" data-href="http://csac.austincollege.edu/kangaroo/" data-send="false" data-width="450"
-                 data-show-faces="true"></div>
+            <div id="fb-root"></div>
+            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="false" width="450" height="35" action="like"
+                     colorscheme="light" font="trebuchet ms" allowTransparency="true"></fb:like>
         </div>
     </div>
 
@@ -164,6 +153,18 @@
             loadChartbeat();
         };
     })();
+</script>
+<script type="text/javascript">
+    // prevent jQuery from appending cache busting string to the end of the FeatureLoader URL
+    var cache = jQuery.ajaxSettings.cache;
+    jQuery.ajaxSettings.cache = true;
+    // Load FeatureLoader asynchronously. Once loaded, we execute Facebook init
+
+    jQuery.getScript('http://connect.facebook.net/en_US/all.js', function() {
+        FB.init({appId: 'your_app_id-optional', status: true, cookie: true, xfbml: true});
+    });
+    // just Restore jQuery caching setting
+    jQuery.ajaxSettings.cache = cache;
 </script>
 </body>
 </html>
