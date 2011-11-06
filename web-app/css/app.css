@@ -127,7 +127,7 @@
     margin-right: 3px;
     font-weight: bold;
     padding-bottom: 1px;
-    border-bottom: 2px dotted #00438A;
+    border-bottom: 1px solid #006ad9;
 }
 
 .otherControls a.selectable:hover {

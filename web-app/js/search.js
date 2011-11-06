@@ -9,10 +9,13 @@ var tableHtml;
 $(document).ready(function() {
 
 
-    $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true },
-        function(action, el, pos) {
-            contextMenuWork(action, el, pos);
-        });
+    $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true }, function(action, el, pos) {
+        contextMenuWork(action, el, pos);
+    });
+    $("#selectDepartmentLink").contextMenu({ menu: 'departmentMenu', leftButton: true }, function(action, el, pos) {
+        contextMenuWork(action, el, pos);
+    });
+
 
     $("#tableSearch").focus();
     $("#termLink").click(function() {

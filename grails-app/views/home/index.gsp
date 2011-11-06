@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Term" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.Department; coursesearch.Term" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -26,7 +26,7 @@
 <div class="otherControls">
     Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2012</a>
 
-    in <a href="#" class="selectable">any department</a>
+    in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
 
     %{--that meet at <a href="#" class="selectable">any time</a>--}%
     and that satisfy <a href="#" class="selectable">any requirement</a>.
@@ -37,10 +37,17 @@
     <g:render template="emptyTable"/>
 </div>
 
-<!-- Right Click Menu -->
+%{-- menus --}%
 <ul id="myMenu" class="contextMenu">
     <li class="11FA"><a href="#insert">Fall 2011</a></li>
     <li class="12SP"><a href="#insert">Spring 2012</a></li>
 </ul>
+
+<ul id="departmentMenu" class="contextMenu">
+    <g:each in="${Department.list()}" var="department">
+        <li class="${department.code}"><a href="#departmentMenu_${department.code}">${department}</a></li>
+    </g:each>
+</ul>
+
 </body>
 </html>
