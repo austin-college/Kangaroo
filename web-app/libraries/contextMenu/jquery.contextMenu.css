@@ -2,6 +2,10 @@
 .contextMenu {
     position: absolute;
     min-width: 100px;
+    max-width: 250px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 99999;
     border-radius: 6px;
     -webkit-border-radius: 6px;
@@ -29,6 +33,7 @@
     display: block;
     line-height: 20px;
     height: 20px;
+    overflow: hidden;
     background-position: 6px center;
     background-repeat: no-repeat;
     outline: none;
