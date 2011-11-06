@@ -14,6 +14,7 @@ var tableHtml;
 
 $(document).ready(function() {
 
+    departments = $.parseJSON($("#departmentsJson").text());
 
     $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true }, contextMenuWork);
     $("#selectDepartmentLink").contextMenu({ menu: 'departmentMenu', leftButton: true }, contextMenuWork);
@@ -30,7 +31,10 @@ function contextMenuWork(action, el, pos) {
         getTableData(action);
     }
     else if ($(el).attr('id') == "selectDepartmentLink") {
-        $("#selectDepartmentLink").text("yuiop");
+
+        $("#selectDepartmentLink").text(departments[action]);
+//        destroyTable();
+//        getTableData(action);
     }
 }
 

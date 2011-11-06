@@ -37,6 +37,14 @@
     <g:render template="emptyTable"/>
 </div>
 
+
+%{-- CACHED DATA --}%
+<div style="display: none">
+    <div id="departmentsJson">
+        ${departmentsJson.encodeAsHTML()}
+    </div>
+</div>
+
 %{-- menus --}%
 <ul id="myMenu" class="contextMenu">
     <g:each in="${Term.list()}" var="term">
@@ -47,7 +55,7 @@
 <ul id="departmentMenu" class="contextMenu">
     <li class=""><a href="#departmentMenu_any">(any)</a></li>
     <g:each in="${Department.list()}" var="department">
-        <li class="${department.code}"><a href="#departmentMenu_${department.code}">${department}</a></li>
+        <li class="${department.code}"><a href="#${department.code}">${department}</a></li>
     </g:each>
 </ul>
 
