@@ -7,7 +7,13 @@
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'app.css')}"/>
-
+    <meta name="title" content="Kangaroo"/>
+    <meta name="description" content="Browse Austin College courses in style!"/>
+    <meta property="og:title" content="Kangaroo"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="http://csac.austincollege.edu/kangaroo/images/app_logo.png"/>
+    <meta property="og:site_name" content="Kangaroo -- browse Austin College courses in style!"/>
+    <meta property="fb:admins" content="789953992"/>
 
     %{-- Set some global javascript variables while we still have access to the grails closures. --}%
     <script type="text/javascript">
