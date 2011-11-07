@@ -10,6 +10,10 @@ class IsbnConverter {
      * Converts the given 13-digit ISBN to a 10-digit ISBN.
      */
     static String convertTo10Digit(String ISBN) {
+
+        if (!ISBN)
+            return "";
+
         String s9;
         int i, n, v;
         boolean ErrorOccurred;
@@ -34,6 +38,10 @@ class IsbnConverter {
      * Converts the given 10-digit ISBN to a 13-digit ISBN.
      */
     static String convertTo13Digit(String ISBN) {
+
+        if (!ISBN)
+            return "";
+
         String s12;
         int i, n, v;
         boolean ErrorOccurred;

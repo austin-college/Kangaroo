@@ -12,7 +12,7 @@
 
     <div style="margin-left: 100px; padding-top: 10px;">
         <div class="title">
-            <a href="${textbook.amazonLink}">${textbook.title}</a> <g:if
+            <a href="${textbook.toLink()}">${textbook.title}</a> <g:if
                 test="${textbook.edition}">(${textbook.edition} edition)</g:if>
         </div>
 
