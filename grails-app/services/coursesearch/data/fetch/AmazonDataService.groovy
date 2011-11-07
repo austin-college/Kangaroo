@@ -34,18 +34,16 @@ class AmazonDataService {
                 def page = CourseUtils.cleanAndConvertToXml(new URL(textbook.amazonLink).text)
 
                 textbook.matchedOnAmazon = true;
-                textbook.amazonPrice = CourseUtils.parseCurrency(findInNode(page) { it.@id == "actualPriceValue" }.b.toString());
-                textbook.imageUrl = findInNode(page) { node -> node.@id == "prodImageCell" }.a.img.@src;
+                textbook.amazonPrice = CourseUtils.parseCurrency(CourseUtils.findInNode(page) { it.@id == "actualPriceValue" }.b.toString());
+                textbook.imageUrl = CourseUtils.findInNode(page) { node -> node.@id == "prodImageCell" }.a.img.@src;
                 if (!textbook.imageUrl)
-                    textbook.imageUrl = findInNode(page) { node -> node.@id == "prodImageCell" }.img.@src;
+                    textbook.imageUrl = CourseUtils.findInNode(page) { node -> node.@id == "prodImageCell" }.img.@src;
                 textbook.save(flush: true);
                 cleanUpGorm()
             }
             catch (Exception e) { println "Failed (${e})" }
         }
     }
-
-    def findInNode(node, c) { node.depthFirst().collect { it }.find(c)}
 
     def cleanUpGorm() {
         def session = sessionFactory.currentSession

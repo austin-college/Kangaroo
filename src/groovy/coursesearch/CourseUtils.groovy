@@ -89,6 +89,11 @@ public class CourseUtils {
         return count;
     }
 
+    static def findInNode(node, c) { node.depthFirst().collect { it }.find(c)}
+
+    static def findAllInNode(node, c) { node.depthFirst().collect { it }.findAll(c)}
+
+
     static String getProfessorLinksForClass(Course course, boolean includeImages, String connector = ' & ') {
         course.instructors.collect { it ->
             def text = "<a href='${createLink('professor', 'show', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>";
