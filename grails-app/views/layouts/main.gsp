@@ -110,7 +110,7 @@
 
         <div id="promotion">
             <div id="fb-root"></div>
-            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="450"
+            <fb:like href="http://csac.austincollege.edu/kangaroo" layout="standard" show_faces="true" width="450"
                      height="35" action="like"
                      colorscheme="light" font="trebuchet ms" allowTransparency="true"></fb:like>
         </div>
