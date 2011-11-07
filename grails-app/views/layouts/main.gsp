@@ -18,7 +18,7 @@
     <meta property="og:description"
           content="Browse Austin College courses in style!"/>
     <meta property="fb:admins" content="789953992"/>
-    <meta property="fb:page_id" content="316033641745190" />
+    <meta property="fb:page_id" content="316033641745190"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
     %{-- Set some global javascript variables while we still have access to the grails closures. --}%
@@ -109,6 +109,7 @@
 
         <div id="promotion">
             <h3>Like Kangaroo? Share it with your friends.</h3>
+
             <div id="fb-root"></div>
             <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="650"
                      height="35" action="like"
@@ -171,6 +172,30 @@
     });
     // just Restore jQuery caching setting
     jQuery.ajaxSettings.cache = cache;
+</script>
+
+<script type="text/javascript">
+    var uvOptions = {};
+    (function() {
+        var uv = document.createElement('script');
+        uv.type = 'text/javascript';
+        uv.async = true;
+        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/xA6JMmDS9iX0uahuOVO2wQ.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(uv, s);
+    })();
+</script>
+
+<script type="text/javascript">
+    var uvOptions = {};
+    (function() {
+        var uv = document.createElement('script');
+        uv.type = 'text/javascript';
+        uv.async = true;
+        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/xA6JMmDS9iX0uahuOVO2wQ.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(uv, s);
+    })();
 </script>
 </body>
 </html>
