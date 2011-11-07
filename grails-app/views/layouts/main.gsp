@@ -10,11 +10,15 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'app2.css')}"/>
     <meta name="title" content="Kangaroo"/>
     <meta name="description" content="Browse Austin College courses in style!"/>
-    <meta property="og:title" content="Kangaroo"/>
+    <meta property="og:url" content="http://csac.austincollege.edu/kangaroo"/>
+    <meta property="og:title" content="Kangaroo -- browse Austin College courses in style!"/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="http://csac.austincollege.edu/kangaroo/images/app_logo.png"/>
     <meta property="og:site_name" content="Kangaroo -- browse Austin College courses in style!"/>
+    <meta property="og:description"
+          content="Kangaroo -- browse Austin College courses in style!"/>
     <meta property="fb:admins" content="789953992"/>
+    <meta property="fb:page_id" content="316033641745190" />
 
     %{-- Set some global javascript variables while we still have access to the grails closures. --}%
     <script type="text/javascript">
@@ -106,7 +110,8 @@
 
         <div id="promotion">
             <div id="fb-root"></div>
-            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="450" height="35" action="like"
+            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="450"
+                     height="35" action="like"
                      colorscheme="light" font="trebuchet ms" allowTransparency="true"></fb:like>
         </div>
     </div>
