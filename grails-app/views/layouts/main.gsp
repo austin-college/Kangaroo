@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'app2.css')}"/>
     <meta name="title" content="Kangaroo"/>
     <meta name="description" content="Browse Austin College courses in style!"/>
-    <meta property="og:url" content="http://csac.austincollege.edu/kangaroo"/>
+    <meta property="og:url" content="http://csac.austincollege.edu/kangaroo/"/>
     <meta property="og:title" content="Kangaroo -- browse Austin College courses in style!"/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="http://csac.austincollege.edu/kangaroo/images/app_logo.png"/>
@@ -110,7 +110,7 @@
 
         <div id="promotion">
             <div id="fb-root"></div>
-            <fb:like href="http://csac.austincollege.edu/kangaroo" layout="standard" show_faces="true" width="450"
+            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="450"
                      height="35" action="like"
                      colorscheme="light" font="trebuchet ms" allowTransparency="true"></fb:like>
         </div>
