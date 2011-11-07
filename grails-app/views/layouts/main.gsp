@@ -11,12 +11,12 @@
     <meta name="title" content="Kangaroo"/>
     <meta name="description" content="Browse Austin College courses in style!"/>
     <meta property="og:url" content="http://csac.austincollege.edu/kangaroo/"/>
-    <meta property="og:title" content="Kangaroo -- browse Austin College courses in style!"/>
+    <meta property="og:title" content="Kangaroo"/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="http://csac.austincollege.edu/kangaroo/images/app_logo.png"/>
-    <meta property="og:site_name" content="Kangaroo -- browse Austin College courses in style!"/>
+    <meta property="og:site_name" content="Kangaroo"/>
     <meta property="og:description"
-          content="Kangaroo -- browse Austin College courses in style!"/>
+          content="Browse Austin College courses in style! Spring 2012 courses are here."/>
     <meta property="fb:admins" content="789953992"/>
     <meta property="fb:page_id" content="316033641745190" />
 
