@@ -117,7 +117,7 @@
     </div>
 
     <footer>
-        <p>Created by Phillip Cohen</p>
+        <p>Created by Phillip Cohen &middot; <i>Made by students for students</i></p>
     </footer>
 
 </div> <!-- /container -->
