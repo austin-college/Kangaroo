@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>
+    <!-- Random number: ${new Random().nextInt(100)} -->
     <script type="text/javascript">var _sf_startpt = (new Date()).getTime()</script>
     <title><g:layoutTitle default="Kangaroo"/></title>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
