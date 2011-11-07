@@ -4,7 +4,6 @@
     <title>Batch Control</title>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'import_admin.css')}"/>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <g:javascript src="batchControl.js"/>
 </head>
 

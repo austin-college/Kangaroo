@@ -16,7 +16,7 @@
     <meta property="og:image" content="http://csac.austincollege.edu/kangaroo/images/app_logo.png"/>
     <meta property="og:site_name" content="Kangaroo"/>
     <meta property="og:description"
-          content="Browse Austin College courses in style! Spring 2012 courses are here."/>
+          content="Browse Austin College courses in style!"/>
     <meta property="fb:admins" content="789953992"/>
     <meta property="fb:page_id" content="316033641745190" />
 
@@ -87,9 +87,8 @@
     .topbar .btn {
         border: 0;
     }
-
     </style>
-
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -109,15 +108,16 @@
         </div>
 
         <div id="promotion">
+            <h3>Like Kangaroo? Share it with your friends.</h3>
             <div id="fb-root"></div>
-            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="450"
+            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="650"
                      height="35" action="like"
                      colorscheme="light" font="trebuchet ms" allowTransparency="true"></fb:like>
         </div>
     </div>
 
     <footer>
-        <p>Created by Phillip</p>
+        <p>Created by Phillip Cohen</p>
     </footer>
 
 </div> <!-- /container -->
