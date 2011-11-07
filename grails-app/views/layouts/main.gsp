@@ -19,6 +19,7 @@
           content="Browse Austin College courses in style!"/>
     <meta property="fb:admins" content="789953992"/>
     <meta property="fb:page_id" content="316033641745190" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
     %{-- Set some global javascript variables while we still have access to the grails closures. --}%
     <script type="text/javascript">
@@ -88,7 +89,6 @@
         border: 0;
     }
     </style>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 </head>
 
 <body>
