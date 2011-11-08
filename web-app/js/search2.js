@@ -25,12 +25,15 @@ var terms = {
     "12SP" : "Spring 2012"
 };
 
+var oTable;
+
 var departments = {};
 
 var tableHtml;
 
 $(document).ready(function() {
 
+    $("#tableSearch").val(getSavedSearch());
     departments = $.parseJSON($("#departmentsJson").text());
 
     $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true }, contextMenuWork);
@@ -53,13 +56,13 @@ function contextMenuWork(action, el, pos) {
 }
 
 function destroyTable() {
-    $('#classTable').dataTable().fnDestroy();
+    oTable.fnDestroy();
     $('#classTable').remove();
     $('#tableHolder').html(tableHtml)
 }
 
 function setupTable(data) {
-    var oTable = $('#classTable').dataTable({
+    oTable = $('#classTable').dataTable({
         "bProcessing": true,
         "aaData": data.aaData,
         "aaSorting": [
@@ -82,7 +85,8 @@ function setupTable(data) {
 
 
     $("#tableSearch").live('keyup', function() {
-        $('#classTable').dataTable().fnFilter($("#tableSearch").val());
+        oTable.fnFilter($("#tableSearch").val());
+        saveSearchStatus();
     });
 
     $("#classTable_paginate, .paginate_button").live('click', savePaginationStatus);
@@ -90,12 +94,11 @@ function setupTable(data) {
 
     $('#classTable').show();
     oTable.fnDisplayStart(parseInt(getPaginationStatus()));
+    oTable.fnFilter($("#tableSearch").val());
 }
 
 function savePaginationStatus() {
-
-    var oSettings = $('#classTable').dataTable().fnSettings();
-    setCookie('table_displayStart', oSettings._iDisplayStart, 365);
+    setCookie('table_displayStart', oTable.oSettings._iDisplayStart, 365);
 }
 
 function getPaginationStatus() {
@@ -105,6 +108,18 @@ function getPaginationStatus() {
         return cookie;
     else
         return 0;
+}
+
+function getSavedSearch() {
+    var cookie = getCookie('table_search');
+    if (cookie)
+        return cookie;
+    else
+        return "";
+}
+
+function saveSearchStatus() {
+    setCookie('table_search', $("#tableSearch").val(), 365);
 }
 
 function getTableData(term) {
