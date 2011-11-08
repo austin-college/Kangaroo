@@ -34,6 +34,7 @@ var tableHtml;
 $(document).ready(function() {
 
     $("#tableSearch").val(getSavedSearch());
+    tableHtml = $("#tableHolder").html();
     departments = $.parseJSON($("#departmentsJson").text());
 
     $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true }, contextMenuWork);
@@ -50,8 +51,22 @@ function contextMenuWork(action, el, pos) {
         getTableData(action);
     }
     else if ($(el).attr('id') == "selectDepartmentLink") {
+        if (action == "any") {
+            $("#selectDepartmentLink").text("any department");
+            destroyTable();
+            setupTable(tableRaw);
+        }
+        else {
+            $("#selectDepartmentLink").text(departments[action]);
+            var newTable = [];
+            $.each(tableRaw.aaData, function(i, row) {
 
-        $("#selectDepartmentLink").text(departments[action]);
+                if (row[1] == departments[action])
+                    newTable.push(row);
+            });
+            destroyTable();
+            setupTable({aaData:newTable});
+        }
     }
 }
 

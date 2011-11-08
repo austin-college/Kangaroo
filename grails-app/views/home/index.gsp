@@ -26,7 +26,7 @@
 <div class="otherControls">
     Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2012</a>
 
-    %{--in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>--}%
+    in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
 
     %{--that meet at <a href="#" class="selectable">any time</a>--}%
     %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
@@ -51,7 +51,7 @@
 </ul>
 
 <ul id="departmentMenu" class="contextMenu">
-    <li class=""><a href="#departmentMenu_any">(any)</a></li>
+    <li class=""><a href="#any">(any)</a></li>
     <g:each in="${Department.list()}" var="department">
         <li class="${department.code}"><a href="#${department.code}">${department}</a></li>
     </g:each>
