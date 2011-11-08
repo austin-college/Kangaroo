@@ -16,7 +16,16 @@ class ProfessorController {
         def professor = Professor.get(params.id)
 
         if (professor)
-            [professor: professor, status: getStatus(professor)]
+            [professor: professor]
+    }
+
+    def getStatus = {
+        def professor = Professor.get(params.id)
+
+        if (professor) {
+            def status = getStatus(professor)
+            render([html: g.render(template: "status", model: [status: status])] as JSON)
+        }
     }
 
     def getStatus(Professor professor) {

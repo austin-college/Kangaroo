@@ -10,6 +10,16 @@
         var calendar;
         $(document).ready(function() {
 
+
+            $.ajax({
+                url: contextPath + "/professor/getStatus/${professor.id}?time=" + new Date().getTime(),
+                success: function(response) {
+                    $("#statusHolder").html(response.html);
+                    $("#statusHolder").hide();
+                    $("#statusHolder").fadeIn();
+                }
+            });
+
             calendar = $('#calendar').fullCalendar({
                 weekends: false,
                 eventSources: [
@@ -111,18 +121,7 @@
 
             <h3>${professor.title}</h3>
 
-            <g:if test="${status?.status == 'officeHours'}">
-                <div class="status available">
-                    <img src="${resource(dir: 'images/statusIcons', file: 'available.png')}" alt="Available">
-                    Currently having office hours.
-                </div>
-            </g:if>
-            <g:elseif test="${status?.status == 'inClass'}">
-                <div class="status unavailable">
-                    <img src="${resource(dir: 'images/statusIcons', file: 'away.png')}" alt="Away">
-                    Currently teaching "${status.course}" in ${status.course.room}.
-                </div>
-            </g:elseif>
+            <div id="statusHolder"></div>
 
             <g:if test="${professor.email}">
                 <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
