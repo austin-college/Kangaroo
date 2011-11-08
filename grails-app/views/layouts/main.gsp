@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Term" %>
+<%@ page import="grails.util.Environment; coursesearch.Term" %>
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>
@@ -107,14 +107,17 @@
 
         </div>
 
-        <div id="promotion">
-            <h3>Like Kangaroo? Share it with your friends.</h3>
 
-            <div id="fb-root"></div>
-            <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="650"
-                     height="35" action="like" data-send="true"
-                     colorscheme="light" font="trebuchet ms" allowTransparency="true"></fb:like>
-        </div>
+        <g:if test="${Environment.current == Environment.PRODUCTION}">
+            <div id="promotion">
+                <h3>Like Kangaroo? Share it with your friends.</h3>
+
+                <div id="fb-root"></div>
+                <fb:like href="http://csac.austincollege.edu/kangaroo/" layout="standard" show_faces="true" width="650"
+                         height="35" action="like" data-send="true"
+                         colorscheme="light" font="trebuchet ms" allowTransparency="true"></fb:like>
+            </div>
+        </g:if>
     </div>
 
     <footer>
@@ -123,79 +126,69 @@
 
 </div> <!-- /container -->
 
-<script type="text/javascript">
+<g:if test="${Environment.current == Environment.PRODUCTION}">
+    <script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-26802912-1']);
-    _gaq.push(['_trackPageview']);
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-26802912-1']);
+        _gaq.push(['_trackPageview']);
 
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
 
-</script>
-<script type="text/javascript">
-    var _sf_async_config = {uid:30899,domain:"austincollege.edu"};
-    (function() {
-        function loadChartbeat() {
-            window._sf_endpt = (new Date()).getTime();
-            var e = document.createElement('script');
-            e.setAttribute('language', 'javascript');
-            e.setAttribute('type', 'text/javascript');
-            e.setAttribute('src',
-                    (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
-                            "js/chartbeat.js");
-            document.body.appendChild(e);
-        }
+    </script>
+    <script type="text/javascript">
+        var _sf_async_config = {uid:30899,domain:"austincollege.edu"};
+        (function() {
+            function loadChartbeat() {
+                window._sf_endpt = (new Date()).getTime();
+                var e = document.createElement('script');
+                e.setAttribute('language', 'javascript');
+                e.setAttribute('type', 'text/javascript');
+                e.setAttribute('src',
+                        (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+                                "js/chartbeat.js");
+                document.body.appendChild(e);
+            }
 
-        var oldonload = window.onload;
-        window.onload = (typeof window.onload != 'function') ?
-                loadChartbeat : function() {
-            oldonload();
-            loadChartbeat();
-        };
-    })();
-</script>
-<script type="text/javascript">
-    // prevent jQuery from appending cache busting string to the end of the FeatureLoader URL
-    var cache = jQuery.ajaxSettings.cache;
-    jQuery.ajaxSettings.cache = true;
-    // Load FeatureLoader asynchronously. Once loaded, we execute Facebook init
+            var oldonload = window.onload;
+            window.onload = (typeof window.onload != 'function') ?
+                    loadChartbeat : function() {
+                oldonload();
+                loadChartbeat();
+            };
+        })();
+    </script>
+    <script type="text/javascript">
+        // prevent jQuery from appending cache busting string to the end of the FeatureLoader URL
+        var cache = jQuery.ajaxSettings.cache;
+        jQuery.ajaxSettings.cache = true;
+        // Load FeatureLoader asynchronously. Once loaded, we execute Facebook init
 
-    jQuery.getScript('http://connect.facebook.net/en_US/all.js', function() {
-        FB.init({appId: 'your_app_id-optional', status: true, cookie: true, xfbml: true});
-    });
-    // just Restore jQuery caching setting
-    jQuery.ajaxSettings.cache = cache;
-</script>
+        jQuery.getScript('http://connect.facebook.net/en_US/all.js', function() {
+            FB.init({appId: 'your_app_id-optional', status: true, cookie: true, xfbml: true});
+        });
+        // just Restore jQuery caching setting
+        jQuery.ajaxSettings.cache = cache;
+    </script>
 
-<script type="text/javascript">
-    var uvOptions = {};
-    (function() {
-        var uv = document.createElement('script');
-        uv.type = 'text/javascript';
-        uv.async = true;
-        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/xA6JMmDS9iX0uahuOVO2wQ.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(uv, s);
-    })();
-</script>
-
-<script type="text/javascript">
-    var uvOptions = {};
-    (function() {
-        var uv = document.createElement('script');
-        uv.type = 'text/javascript';
-        uv.async = true;
-        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/xA6JMmDS9iX0uahuOVO2wQ.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(uv, s);
-    })();
-</script>
+    <script type="text/javascript">
+        var uvOptions = {};
+        (function() {
+            var uv = document.createElement('script');
+            uv.type = 'text/javascript';
+            uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/xA6JMmDS9iX0uahuOVO2wQ.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(uv, s);
+        })();
+    </script>
+</g:if>
 </body>
 </html>
