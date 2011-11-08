@@ -50,6 +50,7 @@ function setupTable(data) {
         ],
         "sPaginationType": "full_numbers",
         "sDom": '<"H"r>t<"F"ip>',
+        "bStateSave": true,
         "oLanguage": {
             "sLengthMenu": "Show _MENU_ classes",
             "sZeroRecords": "<i>Sorry, no courses like that were found.</i>",
