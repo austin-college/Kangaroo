@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Grails Runtime Exception</title>
+    <title>Kangaroo Error</title>
     <style type="text/css">
     body {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
