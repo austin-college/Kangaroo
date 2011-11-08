@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'contextMenu/jquery.contextMenu.css')}"/>
     <g:javascript src="cookies.js"/>
     <g:javascript src="jquery.dataTables.js"/>
-    <g:javascript src="search2.js"/>
+    <g:javascript src="search3.js"/>
     <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
 </head>
 
