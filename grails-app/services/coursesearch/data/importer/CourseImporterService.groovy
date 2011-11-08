@@ -1,17 +1,11 @@
 package coursesearch.data.importer
 
-import coursesearch.Course
-import grails.converters.JSON
-import coursesearch.Department
-import coursesearch.Term
-import coursesearch.Professor
-import coursesearch.CourseUtils
-import coursesearch.mn.Teaching
-import org.springframework.transaction.annotation.Transactional
-import coursesearch.MeetingTime
 import coursesearch.data.convert.ScheduleConvertService
+import coursesearch.mn.CourseFulfillsRequirement
 import coursesearch.mn.CourseMeetingTime
-import org.hibernate.NonUniqueObjectException
+import coursesearch.mn.Teaching
+import grails.converters.JSON
+import coursesearch.*
 
 /**
  * Imports course data from the new format -- a JSON dump created by WebhopperDriver.
@@ -40,6 +34,7 @@ class CourseImporterService {
         course.description = course.description?.replaceAll("Formerly", "<br/>Formerly");
         course.department = Department.findByCode(data.departmentCode) ?: new Department(code: data.departmentCode, name: data.departmentCode).save();
 
+        def courseRequirements = getRequirements(data.reqCode).collect { new CourseFulfillsRequirement(course: course, requirement: it) }
         def meetingTimes = []
         data.schedules.each {
             def time = ScheduleConvertService.convertMeetingTime(it)?.saveOrFind()
@@ -52,6 +47,7 @@ class CourseImporterService {
             if (course.save()) {
                 meetingTimes.each { it.save(); }
                 teachings.each { it.save(); }
+                courseRequirements.each { it.save(); }
             }
             else
                 println course.errors
@@ -67,5 +63,9 @@ class CourseImporterService {
             professor = new Professor(name: CourseUtils.cleanFacultyName(name), email: email).save()
 
         return professor
+    }
+
+    List<Requirement> getRequirements(String reqCode) {
+        reqCode.split(" ").collect { Requirement.findByCode(it) }
     }
 }

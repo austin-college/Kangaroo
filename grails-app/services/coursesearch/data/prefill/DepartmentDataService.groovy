@@ -1,4 +1,4 @@
-package coursesearch.data.fetch
+package coursesearch.data.prefill
 
 import coursesearch.Department
 import coursesearch.CourseUtils

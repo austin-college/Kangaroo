@@ -14,7 +14,6 @@ class Course {
     int capacity;
     int seatsUsed;
     boolean instructorConsentRequired;
-    String reqCode;
 
     Department department // BIO
     int courseNumber // 652
@@ -44,6 +43,8 @@ class Course {
     String sectionString() { department.code + ' ' + courseNumber + section; }
 
     List<Professor> getInstructors() { Teaching.findAllByCourse(this)*.professor; }
+
+    List<Requirement> getRequirementsFulfilled() {coursesearch.mn.CourseFulfillsRequirement.findAllByCourse(this)*.requirement; }
 
     List<MeetingTime> getMeetingTimes() { CourseMeetingTime.findAllByCourse(this)*.meetingTime }
 }

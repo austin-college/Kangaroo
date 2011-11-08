@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.mn.CourseFulfillsRequirement; coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${course}</title>
@@ -58,8 +58,8 @@
         </div>
     </div>
 
-    <div style="float: right">
-        <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 30px">Reg. Details</div>
+    <div style="float: right; display: inline-block; width: 260px">
+        <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 30px">Details</div>
 
         <div>
             <div>zap: <b>${course.id}</b></div>
@@ -72,6 +72,8 @@
             </g:if>
         </div>
     </div>
+
+    <div style="clear: both;"></div>
 
     <div style="float: left; clear: both; margin-top: 40px">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Textbooks</div>
@@ -87,7 +89,7 @@
             </g:if>
             <g:else>
 
-                No books posted (yet).
+                No textbooks have been posted.
 
             </g:else>
         </g:if>
@@ -95,6 +97,19 @@
             <a href="${course.textbookPageUrl()}">View this course's textbooks</a>
         </g:else>
     </div>
+
+    <g:if test="${course.requirementsFulfilled}">
+        <div style="float: right; margin-top: 40px; display: inline-block; width: 260px">
+            <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 30px">Fulfills</div>
+
+            <div>
+                <g:each in="${course.requirementsFulfilled}" var="requirement">
+                    <div class="courseFulfills"><img src="${resource(dir: 'images', file: 'check.png')}" height="16px"
+                                                     width="16px" border="0"/> ${requirement} credit</div>
+                </g:each>
+            </div>
+        </div>
+    </g:if>
 
 
     <g:if test="${course.comments}">
