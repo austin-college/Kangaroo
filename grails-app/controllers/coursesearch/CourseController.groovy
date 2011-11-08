@@ -51,8 +51,7 @@ class CourseController {
         def course = Course.get(params.id)
         if (course) {
             def profImage = course.instructors[0]?.photoUrl
-            def fullPercentage = (int) ((double) (course.seatsUsed / course.capacity * 100.0)).round();
-            [course: course, profImage: profImage, fullPercentage: fullPercentage, fullPercentageColor: getColorForPercent(fullPercentage)]
+            [course: course, profImage: profImage]
         }
     }
 
