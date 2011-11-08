@@ -87,6 +87,7 @@
           <root url="file://$MODULE_DIR$/lib" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.gpars/gpars/jars/gpars-0.10.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/redis.clients/jedis/jars/jedis-2.0.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.ehcache/ehcache-web/jars/ehcache-web-2.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

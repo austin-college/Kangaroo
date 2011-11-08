@@ -1,13 +1,14 @@
 import coursesearch.Course
+import coursesearch.Professor
 import coursesearch.Term
 import grails.converters.JSON
 import grails.util.Environment
-import coursesearch.Professor
 
 class BootStrap {
 
     // Services to initialize our data.
     def departmentDataService
+    def requirementsDataService
     def courseImporterService
     def facultyDataService
     def textbookDataService
@@ -24,6 +25,7 @@ class BootStrap {
 
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
+            requirementsDataService.fillRequirements()
 
             if (Professor.count() == 0)
                 facultyDataService.fetchAndMatch()
