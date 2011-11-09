@@ -8,9 +8,24 @@
     <g:javascript src="jquery.dataTables.js"/>
     <g:javascript src="search3.js"/>
     <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
+    <style type="text/css">
+    #newStuff {
+        font-size: 18px;
+        margin: 10px auto 30px auto;
+        width: 600px;
+        padding: 9px;
+        text-align: center;
+        background-color: #dfd;
+        border: 1px solid #ded;
+    }
+    </style>
 </head>
 
 <body>
+
+<div id="newStuff">
+    <b>New!</b> You can now get to Kangaroo by going to <a href="http://ackangaroo.com">www.<b>ackangaroo</b>.com.</a>
+</div>
 
 <div id="searchControls">
     <div id="tableFilterBar">
