@@ -8,18 +8,74 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("#accordion").accordion({ active: false,  autoHeight: false,  collapsible: true  });
+
+            $("a.toggle").live('click', function(event) {
+
+                var expanded = ( $(this).html().indexOf("expand") != -1 );
+                if (!expanded) {
+                    $(this).html("expand &raquo;");
+                    $(this).siblings(".hidden").hide();
+                    $(this).siblings(".ellipsis").show();
+                } else {
+                    $(this).html("&laquo; collapse");
+                    $(this).siblings(".hidden").show();
+                    $(this).siblings(".ellipsis").hide();
+                }
+                event.stopImmediatePropagation();
+                return false;
+            });
+
         });
     </script>
     <style type="text/css">
     #accordion h3 {
         font-size: 18px;
     }
+
+    .major {
+        font-size: 16px;
+        padding: 20px;
+        border: 1px solid #eee;
+        background-color: #f3f3f3;
+        line-height: 130%;
+    }
+
+    .major .block {
+        margin: 7px 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
     </style>
 </head>
 
 <body>
 
 <h1>Majors & Minors</h1>
+
+
+<div id="majors">
+    <div class="major">
+        <h2>Computer Science</h2>
+
+        <div class="block"><strong>A major in computer science</strong> consists of
+            <span class="ellipsis">...</span>
+
+            <span class="hidden">
+                a minimum of  eight approved computer science course credit units, including the  following core courses: Computer Science 201, 110 (if required), and 120  (if required), 211, and 221. Students must earn a grade of C or above  in each of these core courses. In addition, a major includes approved  computer science elective courses to reach eight or more course credits,  of which two must be numbered 300 or above, and one numbered 400 or  above. Mathematics 120 and 151 also are required.
+            </span>
+            <a href="#" class="toggle">expand &raquo;</a>
+        </div>
+
+        <div class="block"><strong>A minor in computer science</strong> consists of... <a href="#"
+                                                                                          class="toggle">expand &raquo;</a>
+        </div>
+    </div>
+</div>
+
+<br/><br/>
 
 <div id="accordion">
 
