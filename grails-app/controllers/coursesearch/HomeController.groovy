@@ -6,7 +6,11 @@ class HomeController {
 
     def dataTablesService
 
+    def majorDataService
+
     def index = {
+
+        majorDataService.serviceMethod();
 
         [tableJson: dataTablesService.getTableCached(Term.findByShortCode("12SP")), departmentsJson: (getDepartmentsMap() as JSON)]
     }
