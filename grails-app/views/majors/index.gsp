@@ -48,7 +48,7 @@
             <h2>${department}</h2>
             <g:each in="${majorsByDepartment[department]}" var="major">
                 <div class="block">
-                    <p>${major.description}</p>
+                    ${major.description}
                 </div>
             </g:each>
         </div>

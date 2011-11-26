@@ -18,7 +18,16 @@ class MajorDataService {
             def department = Department.findByName(data.department);
 
             if (department) {
-                def major = new Major(name: data.name, description: data.description,
+
+                String description = data.description;
+
+                // Wrap the description in <p> tags if it isn't already.
+                if (!description.startsWith("<p>") && !description.endsWith("</p>"))
+                    description = "<p>$description</p>";
+
+
+
+                def major = new Major(name: data.name, description: description,
                         isMajor: data.isMajor, department: department);
 
                 if (!major.save())
