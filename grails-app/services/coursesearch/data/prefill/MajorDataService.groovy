@@ -1,10 +1,35 @@
 package coursesearch.data.prefill
 
+import coursesearch.Department
+import coursesearch.Major
 import grails.converters.JSON
 
 class MajorDataService {
 
     static transactional = true
+
+    def setUpMajors() {
+        def list = JSON.parse(new File("majors.json").text);
+
+        Major.list().each { it.delete(flush: true) }
+
+        list.each { data ->
+
+            def department = Department.findByName(data.department);
+
+            if (department) {
+                def major = new Major(name: data.name, description: data.description,
+                        isMajor: data.isMajor, department: department);
+
+                if (!major.save())
+                    println major.errors.toString()
+            }
+            else
+                println "Department not found: ${data.department}"
+        }
+
+        println "${Major.count()} majors saved successfully"
+    }
 
     def createAndDump() {
 
