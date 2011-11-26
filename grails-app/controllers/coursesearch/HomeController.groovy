@@ -10,6 +10,7 @@ class HomeController {
 
     def index = {
 
+        majorDataService.createAndDump()
         majorDataService.setUpMajors();
 
         [tableJson: dataTablesService.getTableCached(Term.findByShortCode("12SP")), departmentsJson: (getDepartmentsMap() as JSON)]
