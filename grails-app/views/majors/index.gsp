@@ -7,7 +7,7 @@
         $(document).ready(function () {
             $('.major .block').expander({
                 preserveWords:true,
-                slicePoint: 85
+                slicePoint:85
             });
         });
     </script>
@@ -24,6 +24,10 @@
 
     .major .block {
         margin: 7px 0;
+    }
+
+    .read-more, .read-less {
+        font-size: 13px;
     }
     </style>
 </head>
