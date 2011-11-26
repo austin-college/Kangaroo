@@ -8,11 +8,11 @@
     <g:javascript src="../libraries/jquery-ui/js/jquery-ui-1.8.16.custom.min.js"/>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#accordion").accordion({ active:false, autoHeight:false, collapsible:true  });
+        $("#accordion").accordion({ active:false, autoHeight:false, collapsible:true  });
 
-            $('.major .block').expander({
-                preserveWords:true
-            });
+        $('.major .block').expander({
+        preserveWords:true
+        });
         });
     </script>
     <style type="text/css">
@@ -42,15 +42,18 @@
 
 
 <div id="majors">
-    <div class="major">
-        <h2>Computer Science</h2>
 
-        <div class="block">
+    <g:each in="${majorsByDepartment.keySet()}" var="department">
+        <div class="major">
+            <h2>${department}</h2>
+            <g:each in="${majorsByDepartment[department]}" var="major">
+                <div class="block">
+                    <p>${major.description}</p>
+                </div>
+            </g:each>
         </div>
+    </g:each>
 
-        <div class="block">
-        </div>
-    </div>
 </div>
 
 </body>
