@@ -107,9 +107,15 @@ class BatchControlController {
             "majors": [
                     id: "majors",
                     name: "Majors & Minors",
-                    run: { majorDataService.setUpMajors() },
+                    run: { majorDataService.upgradeIfNeeded() },
                     status: { "Ready" }
             ],
+            "dataUpgrade" : [
+                    id: "dataUpgrade",
+                    name: "Data Upgrade",
+                    run: { DataFetcherJob.triggerNow() },
+                    status: { "Ready" }
+            ]
     ]
 
     def index = {}
@@ -122,7 +128,6 @@ class BatchControlController {
 
     def runJob = {
         def job = jobs[params.job];
-        println job
         if (job) {
             def results
             def time = CourseUtils.time { results = job.run(); }

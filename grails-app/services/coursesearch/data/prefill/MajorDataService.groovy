@@ -10,31 +10,48 @@ import org.springframework.transaction.annotation.Transactional
  */
 class MajorDataService {
 
+    private static int lastVersionUsed = 0;
+
     @Transactional
-    def setUpMajors() {
+    def upgradeIfNeeded() {
+
+        def dataFromServer = getDataFromServer();
+
+        if (dataFromServer.version > lastVersionUsed)
+            upgradeMajors(dataFromServer)
+        else
+            println "Majors list is up to date; version $lastVersionUsed."
+    }
+
+    def upgradeMajors(dataFromServer) {
+
+        println "Upgrading majors to version ${dataFromServer.version}..."
 
         // Remove the existing majors.
         Major.list().each { it.delete(flush: true) }
 
-        majorsFromServer.each { data ->
+        // Add the new ones.
+        dataFromServer.majors.each { importMajor(it) }
 
-            def department = Department.findByName(data.department);
-
-            if (department) {
-
-                def major = new Major(name: data.name, description: improveDescription(data.description, data.name), isMajor: data.isMajor, department: department);
-
-                if (!major.save())
-                    println major.errors.toString()
-            }
-            else
-                println "Department not found: ${data.department}"
-        }
-
-        println "${Major.count()} majors saved successfully"
+        lastVersionUsed = dataFromServer.version;
+        println "Majors list is now at version ${lastVersionUsed}; ${Major.count()} majors saved."
     }
-    
-    List getMajorsFromServer() { (List) JSON.parse(new URL("https://raw.github.com/austin-college/data/master/majors.json").text); }
+
+    def importMajor(data) {
+        def department = Department.findByName(data.department);
+
+        if (department) {
+
+            def major = new Major(name: data.name, description: improveDescription(data.description, data.name), isMajor: data.isMajor, department: department);
+
+            if (!major.save())
+                println major.errors.toString()
+        }
+        else
+            println "Department not found: ${data.department}"
+    }
+
+    def getDataFromServer() { JSON.parse(new URL("https://raw.github.com/austin-college/data/master/majors.json").text); }
 
     /**
      * Makes improvements to the HTML description of a major.
