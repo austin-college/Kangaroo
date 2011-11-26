@@ -12,6 +12,7 @@ class BootStrap {
     def courseImporterService
     def facultyDataService
     def textbookDataService
+    def majorDataService
     def cacheService
 
     def init = { servletContext ->
@@ -26,6 +27,7 @@ class BootStrap {
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
             requirementsDataService.fillRequirements()
+            majorDataService.setUpMajors();
 
             if (Professor.count() == 0)
                 facultyDataService.fetchAndMatch()
@@ -37,7 +39,7 @@ class BootStrap {
 
                     if (Environment.current == Environment.DEVELOPMENT) {
                         println "Downloading course files..."
-                        courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
+                        courseImporterService.importFromJson(term, new URL("https://raw.github.com/austin-college/data/master/courses/${term.shortCode}.json").text)
                     }
                 }
 

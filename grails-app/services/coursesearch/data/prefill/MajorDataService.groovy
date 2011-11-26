@@ -22,7 +22,7 @@ class MajorDataService {
 
             if (department) {
 
-                def major = new Major(name: data.name, description: improveDescription(data.description), isMajor: data.isMajor, department: department);
+                def major = new Major(name: data.name, description: improveDescription(data.description, data.name), isMajor: data.isMajor, department: department);
 
                 if (!major.save())
                     println major.errors.toString()
