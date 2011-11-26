@@ -29,6 +29,16 @@
     .read-more, .read-less {
         font-size: 13px;
     }
+
+    .block ul, .block ol {
+        margin-top: 5px;
+        font-size: 13px;
+    }
+
+    .block li {
+        color: #404040;
+        margin: 3px 0;
+    }
     </style>
 </head>
 
