@@ -12,7 +12,7 @@
     #newStuff {
         font-size: 18px;
         margin: 10px auto 30px auto;
-        width: 600px;
+        width: 400px;
         padding: 9px;
         text-align: center;
         background-color: #dfd;
@@ -24,7 +24,7 @@
 <body>
 
 <div id="newStuff">
-    <b>New!</b> You can now get to Kangaroo by going to <a href="http://ackangaroo.com">www.<b>ackangaroo</b>.com.</a>
+    <b>New!</b> We now have <g:link controller="majors">majors and minors</g:link>!</a>
 </div>
 
 <div id="searchControls">
