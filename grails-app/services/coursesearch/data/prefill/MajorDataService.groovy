@@ -255,19 +255,215 @@ class MajorDataService {
         <li>MEDA 440 Advanced Topics in Media Studies: Film</li>
         <li>SPAN 481 Cinelandia</li>
         </ul>""", "Media")
+        list << major("French", "A major in French consists of a minimum of eight approved course credit units above French 201. At least three of these eight must be at the 300 level or above and must include French 495. An honors thesis may not substitute for French 495. Only one of the eight units may be from among French 226, 227, and/or 237, or an approved immersion course. Up to three credits taught in French that treat French history, philosophy, sociology, political science, art history, or economics may count for the major with departmental approval. One approved course taught in English may also count toward the eight credits for the major. Majors must enroll in French 495 in the spring of their senior year. French 101, 102, and 201 may not count toward the major.")
+        list << minor("French", "A minor in French consists of a minimum of five approved course credit units in French above French 201, including at least one course at the 300 level or above. Only one credit may be allowed from among French 226, 227, and/or 237, or an approved immersion course.")
+        list << major("Gender Studies", "A student may major in gender studies by submitting a proposal for a personally designed interdisciplinary major (see the director for more information). Disciplinary courses approved for gender studies are listed collectively in the course schedule each term.")
+        list << minor("Gender Studies", "A minor in gender studies consists of a minimum of six course credit units including Gender Studies 120 or an approved substitute. Some of these consider gender directly or devote significant sections to the topic, but others require that students select gender-related topics for their research assignments to earn gender studies credit in the course. At least three disciplines must be represented in work counting toward this minor, with at least two courses numbered 200 or above, including one course numbered 300 or above. Up to two courses taken in the January term may be applied to the minor (please consult with the director prior to enrollment). Topics courses may be applied to the minor with the approval of the gender studies director and the vice president for Academic Affairs.")
+        list << major("German", "A major in German consists of a minimum of eight approved course credit units above German 201. At least three of these eight must be at the 300 level or above and must include German 495. An honors thesis may not substitute for German 495. Only one of the eight units may be from among German 226, 227, and/or 237, or an approved immersion course. Up to three credits taught in German that treat German history, philosophy, sociology, political science, art history, or economics may count for the major with departmental approval. One approved course taught in English may also count toward the eight credits for the major. Majors must enroll in German 495 in the spring of their senior year. German 101, 102, and 201 may not count toward the major.")
+        list << minor("German", "A minor in German consists of a minimum of five approved course credit units in German above German 201, including at least one course at the 300 level or above. Only one credit may be allowed from among German 226, 227, and/or 237, or an approved immersion course.")
+        list << minor("Global Science, Technology, and Society", """<p>The minor in global science, technology, and society is designed to  foster awareness of the interrelationship of global culture and the  changing nature of scientific knowledge and technology. The quest for  scientific knowledge is universal, yet both the advances in knowledge  and the implementation of technologies can be properly understood only  in their multicultural context. Historical and contemporary studies of  the relationship between science and society help to moderate our  parochial conceits. Such studies create conditions that allow  international problems like global warming, pandemic disease, secure  telecommunications, militarization of space, economic inequality, and  environmental degradation to be addressed in true cooperative and  informed spirit.</p>
+<p><strong>A minor in global science, technology, and society</strong> consists of five courses: GSTS  250: Intermediate Topics in Global Science, Technology, and Society,  and four courses from the following list of approved courses. At least  one of those courses must have a global perspective; such courses are  designated with an asterisk. In addition, students are required to  undertake an approved GSTS-related international experience and present their reflections on this experience in a public forum on campus.</p>
+<p><strong>ANTHRO 263</strong> <sup>1</sup> Whose Amazon?<br />
+<strong>BIO 101</strong> <sup>1</sup> Influenza – From 1918 until 2009<br />
+<strong>BIO 101</strong> Microbes and Society<br />
+<strong>CHEM 101</strong> Women and Science<br />
+<strong>BIO 246</strong> <sup>1</sup> Eukaryotic Pathogens<br />
+<strong>ECON 234</strong> <sup>1</sup> Economic Development<br />
+<strong>ECON 270</strong> Economic History<br />
+<strong>ECON 485</strong> History of Economic Thought<br />
+<strong>ENG 252</strong> Literature and Science<br />
+<strong>ENVS 235</strong> Introduction to Environmental Studies<br />
+<strong>ENVS 230/330</strong> Globalization<br />
+<strong>ENVS 479</strong> Environmental Policy<br />
+<strong>PHIL 205</strong> Ethics<br />
+<strong>PHIL 207</strong> Environment Philosophy<br />
+<strong>PHIL 209</strong> Ethics and Medicine<br />
+<strong>PHIL 306</strong> Knowledge and Reality<br />
+<strong>PHIL 307</strong> Environmental Philosophy<br />
+<strong>PHIL 310</strong> Mind and Language<br />
+<strong>PHY 101</strong> <sup>1</sup> The Day After Tomorrow (Global Climate and Extreme Weather)<br />
+<strong>PSCI 240</strong> <sup>1</sup> Introduction to Asian Politics<br />
+<strong>PSCI 430</strong> <sup>1</sup> International Relations Theory<br />
+<strong>PSY 214</strong> Psychopharmacology<br />
+<strong>PSY 340</strong> <sup>1</sup> Cultural Psychology<br />
+<strong>REL 220</strong> <sup>1</sup> Illness, Medicine, and Healing in Asian Religions<br />
+<strong>SCI 201</strong> All sections<br />
+<strong>SCI 202</strong> Axioms and Atoms</p>
+<p><sup>1</sup> Approved courses in Classics, History, Philosophy, Anthropology, Sociology, and Religion<br />
+<sup>1</sup> Approved courses in African Studies, Art History, Asian Studies, English, and Modern Language Literature and Culture<br />
+<sup>1</sup> Approved Science 101 courses<br />
+<sup>1</sup> Approved Science disciplinary courses</p>
+<p>Other courses may be appropriate and relevant to students’ specific interests and may be included with director’s approval.</p>""")
+        list << major("History", """<p><strong>A major in history</strong> consists of a minimum of eight  course credit units, at least three of which are at the 300 level or  above, and no more than four of which are at the 100 level. This work  must include at least one course in each of the following three areas:</p>
+<ol>
+<li>United States history</li>
+<li>European history</li>
+<li>History of Latin America, Africa, Asia, or the Middle East.</li>
+</ol>""")
+        list << minor("History", "A minor in history consists of a minimum of five course credit units with work in at least two of the geographical areas listed above, and at least two course credit units numbered 300 or above. The department recommends that two courses be taken at the 100 level and one course at the 200 level.")
         list << minor("Latin", "A major in Latin consists of a minimum of eight and one-half course credit units, including at least seven and one-half approved units in Latin above Latin 102, Latin 236 and three courses at the 300 level or above are required (except LAT 491), and at least one credit of classics 102/302 (Roman History and Civilization).")
+        list << major("Latin American and Iberian Studies", """A major in Latin American and Iberian studies shall consist of nine course credit units of Latin American or Iberian content, with work completed in at least three disciplines (e.g., Spanish, history, anthropology, political science, or economics) including a minimum of three and a maximum of five courses in one discipline. One of the nine course credit units will be a directed study (Latin American and Iberian Studies 460), which must involve the approaches of several disciplines to an appropriate topic as an advanced, summative project. The major will demonstrate proficiency at the 236 level in Spanish or Portuguese.""")
+        list << minor("Latin American and Iberian Studies", "A minor in Latin American and Iberian studies consists of a minimum of five approved course credit units with significant Latin American or Iberian content, with work completed in at least two disciplines, and two courses numbered 300 or above. Language competency in Spanish or Portuguese through the 202 level, or its equivalent, also is required.")
+        list << minor("Leadership Studies", "A minor in leadership studies consists of a minimum of six approved course credit units including Leadership Studies 120, 240, and 495. Students must select at least 1.5 credit units from Leadership Studies 250, 260, 350, 464, 480, 490, and 492. Students also must select one course in ethics from Philosophy 205, 207, 209, and 213, and one course in communication from Speech 112 and 222. To complement the minor, students must complete one course from the following list: History 366; Business Administration 352; Political Science 212, 311, 318; Anthropology 315, 365; Sociology 240, 385; Psychology 240, 340; or an approved topics course.", "Leadership")
         list << major("Mathematics", "<strong>A major in mathematics</strong> consists of a minimum of  eight course credit units approved by the department, including  Mathematics 251, 252, and five courses numbered 300 or above. Students  planning to major in mathematics are expected to enter directly into the  calculus sequence beginning with Mathematics 151 or 152. They also are  encouraged to take at least one course in computer science beyond the  introductory level. Students planning graduate study should be aware  that some programs require proficiency in German or French.")
         list << minor("Mathematics", "<strong>A minor in mathematics</strong> consists of a minimum of five  course credit units approved by the department, including Mathematics  251, 252, and two numbered 300 or above. Prerequisite courses must be passed with a grade of C or higher. Those  who would major or minor in mathematics must take those courses under  the “grade” option.");
-        list << major("Media", "A major in media studies consists of a minimum of eight course credits in Media Studies, including Media 121 and one course in individualized study (CSOC, directed study, or independent study). At least three courses must be taken at the 300-level or above. Theatre 111 and/or Communication 222 also may count toward the eight courses.")
-        list << minor("Media", "A minor in media studies consists of five course credits in media studies, including Media 121. At least two courses must be taken at the 300-level or above.")
+        list << major("Media Studies", "A major in media studies consists of a minimum of eight course credits in Media Studies, including Media 121 and one course in individualized study (CSOC, directed study, or independent study). At least three courses must be taken at the 300-level or above. Theatre 111 and/or Communication 222 also may count toward the eight courses.", "Media")
+        list << minor("Media Studies", "A minor in media studies consists of five course credits in media studies, including Media 121. At least two courses must be taken at the 300-level or above.", "Media")
+        list << major("Music", """<p><strong>A major in music</strong> requires a minimum of 10 course  credit units including work in theory, history/literature, and applied  music. The following courses are required of all music majors: Music  120, 121, 220, 221, 222, 240, 241, at least three classroom courses at  the 300 level and above, at least one-half credit in applied music at  the 300 level or above, <em>Piano Proficiency</em> (Music 090), <em>Junior Level Examination</em> (Music 091), and <em>Senior Recital</em> (Music 495).</p>
+<p>Students choose one of three “tracks” for their major:</p>
+<p><strong>General Track</strong> — In addition to the courses in music  theory and history listed above, upper-level courses are chosen in  consultation with the music faculty and according to the student’s  interests, plans for graduate study, and vocational direction. Students  in this track often will emphasize areas such as performance,  musicology, music business, arts management, or conducting.</p>
+<p><strong><a name="ed"></a>Music Education Track</strong> — Students intending to pursue  the Master of Arts in Teaching degree through the Austin Teacher  Program with an undergraduate major in music must complete the required  courses in music theory and history/literature listed above. The three  classroom courses at the 300 level or above must include <em>Music in the Elementary Schools</em> (Music 361) and at least two credits selected from the following  courses, depending on the intended teaching emphasis and level:</p>
+<ul>
+<li>Instrumental Methods (to one credit)</li>
+<li>Orchestration and Arranging</li>
+<li>Choral Literature and Techniques</li>
+<li>Conducting</li>
+<li>Vocal Pedagogy</li>
+<li>Instrumental Conducting</li>
+</ul>
+<p><strong>Theory/Composition Track</strong> — Students intending an emphasis in theory/composition are required to pass the <em>Junior-Level Examination</em> (Music 091) on a major instrument. Upon successful completion of the <em>Junior-Level Examination</em> and <em>Composition Seminar</em> (Music 271) along with the recommendation of the theory/composition  faculty, students begin private composition study and present a Senior  Recital in composition. Students must complete the required courses in  music theory and history/literature listed above. They also choose at  least two of their required upper-level courses from the following  topics in music theory. Theory/Composition students must attempt the <em>Piano Proficiency</em> (Music 090) by the end of the second year and pass it by the end of the third year.</p>
+<p><strong>Music 342 Aspects of 20th-Century Music</strong></p>
+<p><strong>Music 357 Topics in Music Theory</strong></p>
+<ul>
+<li>Post-Tonal Theory</li>
+<li>Counterpoint</li>
+<li>Form and Analysis</li>
+<li>Music Technology</li>
+<li>Orchestration and Arranging</li>
+</ul>
+<p>Students should consult early with the music faculty for specific  recommendations and requirements regarding coursework and course  scheduling.</p>
+<p><strong>Acceptance into the Music Major</strong> — Formal application  for entry into the music major is contingent upon 1) the successful  completion of Music 220 and 221 as well as either Music 240 or 241 2)  full passing of the <em>Junior-Level Examination</em> (Music 091),  normally attempted by the end of the second year, and 3) the  recommendation of the music faculty after the student has had at least  one jury examination in applied music. Students wishing to pursue the  theory/composition track also must take <em>Composition Seminar</em> (Music 271) before being admitted to the major and must attempt the Piano Proficiency.</p>
+<p><strong>Additional Requirements for the Music Major</strong> — The  Piano Proficiency Exam (Music 090) must be attempted by the end of the  third year and completed for graduation. Theory/Composition students  must attempt the Piano Proficiency by the end of the second year and  pass it by the end of the third year.</p>
+<p><strong>Senior Recital</strong> — A capstone experience in the fourth  year designed to synthesize aspects of theoretical, historical, and  applied music into a final performance project. The minimum requirement  is a “half” recital, normally 30 minutes of music, but students often  opt to perform a “full” recital in consultation with the applied  teacher. Theory/Composition students prepare a Senior Recital consisting  largely of their own compositions and must perform on the recital as  well.</p>
+<p><strong>Transfer students</strong> are admitted to the major only  after taking placement examinations in theory and history and  auditioning for the faculty member who teaches the major instrument  involved.</p>""")
+        list << minor("Music", "A minor in music consists of a minimum of five course credit units including Music 120 and 220, Music 240 or 241, applied music (to one credit), and at least one additional music course numbered 240 or above. Additional applied study and classroom coursework is recommended.")
+        list << major("Philosophy", "A major in philosophy consists of a minimum of nine approved course credit units in philosophy, including Philosophy 110, 220, 225, 230, 495, and two additional courses numbered 300 or above. Philosophy 105 may count toward the major if not taken after any philosophy course numbered 200 or above. Students wishing to pursue graduate work in philosophy should consider completing 11 credits in philosophy in consultation with philosophy faculty.")
+        list << minor("Philosophy", "A minor in philosophy consists of five course credit units in philosophy with at least three courses numbered 200 or above.")
+        list << major("Religious Studies and Philosophy", "A combined major in religious studies and philosophy is available for students whose personal or professional interests include both disciplines. The major in religious studies and philosophy consists of 10 course credit units approved by both departments (usually consisting of a five/five distribution), to be chosen from offerings in both fields according to the interests of the student. The student must take two 300 level or above courses in both philosophy and religious studies (four total).", "Philosophy")
+        list << minor("Ethics", "A minor in ethics consists of five course credit units in philosophy, normally taken from the following list: 205, 207, 211, 209, 213, 302, 307, 314, and 105 (if 105 is not taken after any of the other courses in this list). Approved topics courses also may count, but students should consult the instructor to determine whether a course is appropriate before enrolling in it.", "Philosophy")
+        list << major("Political Science", """<p><strong>A major in political science</strong> consists of at least  eight course credit units in political science, including Political  Science 495, and at least one course from each of the following groups:</p>
+<ul>
+<li>American politics — Political Science 110, 212, 310, 311, 313, 315, 317, 318, 410;</li>
+<li>International relations and comparative politics — Political  Science 130, 140, 230, 235, 240, 241, 242, 330, 332, 335, 340, 345, 430,  432, 440;</li>
+<li>Political theory — Political Science 120, 220, 420, 425, 428.</li>
+</ul>
+<p>At least three courses must be numbered 300 or above.</p>""")
+        list << minor("Political Science", "A minor in political science consists of at least five course credit units in political science, including at least one course from each of the above subfields. A minimum of two courses must be at the 300-level or above.")
+        list << major("International Relations", "A major in international relations allows students to specialize within the subfield of international relations while still completing a major that is firmly grounded within the broader discipline of political science. The major consists of at least eight course credit units in political science, including Political Science 430 and Political Science 495, at least four electives in the subfields of international relations and/or comparative politics (at least two of the four must be numbered 300 or above), at least one course each from the American politics and political theory subfields, and study in a modern language through the 236 level.", "Political Science")
+        list << major("Physics", "Students planning to major in physics or pursue the pre-engineering program should enroll in Physics 111 and Mathematics 151 in the fall term of their freshman year. Ordinarily, credit may not be received for both Physics 105 and 111, or both Physics 106 and 112. A major in physics consists of Physics 111, 112, 211, 212, 311, and 312, three additional one-credit courses at the 200 level or higher including at least one course at the 300 level, and the half-credit courses Physics 261 and 361. Courses used as prerequisites for physics courses must be passed with grades of at least C.")
+        list << minor("Physics", "A minor in physics consists of Physics 111, 112, 211, 212, and 311 and the half-credit course Physics 261.")
+        list << major("Psychology", """<p><strong>A major in psychology</strong> consists of nine to 11 course  credit units including Psychology 101, 120 (Mathematics 120 or Social  Sciences 120 may be substituted), 201, at least one course from Group A,  at least one course from Group B, and at least one course from Group  C,at least one advanced seminar, one 300-level psychology lab course and  a second 300 level psychology course (or Biology 326 or 348) as  identified in the text and table below.</p>
+<ul>
+<li><strong>Group A:</strong> Psychology as Natural Science courses includes Psychology 214, 215, 220, 265.</li>
+<li><strong>Group B:</strong> Psychology as a Social Science courses include Psychology 235, 240, 296</li>
+<li><strong>Group C:</strong> Psychology as an Applied Science courses include Psychology 222, 245, 255, 270</li>
+<li><strong>Psychology lab courses:</strong> Psychology 315, 330, 355</li>
+<li><strong>Psychology 300 courses:</strong> Psychology 315, 320, 330, 340, 350 (Language Development), 355, 360, 375, Biol 326, 348</li>
+<li><strong>Advanced seminars:</strong> Psychology 410, 415, 420, 490, 491, 492, and 495 or departmentally approved elective.</li>
+</ul>
+<table>
+<tbody>
+<tr>
+<td>Psychology Core Coures</td>
+<td>Group A Psychology As Natural Science</td>
+<td>Group B Psychology As Social Science</td>
+<td>Group C Psychology  As Applied Science</td>
+<td>Psychology Lab Courses</td>
+<td>Second Advanced Course</td>
+<td>Advanced Seminar</td>
+</tr>
+<tr>
+<td>Take All</td>
+<td>Take at least 1 from</td>
+<td>Take at least 1 from</td>
+<td>Take at least 1 from</td>
+<td>Take at least 1 from</td>
+<td>Take at least 1 from</td>
+<td>Take at least 1 from</td>
+</tr>
+<tr>
+<td>Psy 101<br />
+Psy 120*<br />
+Psy 201</td>
+<td>Psy 214<br />
+Psy 215<br />
+Psy 220<br />
+Psy 265</td>
+<td>Psy 235<br />
+Psy 240<br />
+Psy 296</td>
+<td>Psy 222<br />
+Psy 245<br />
+Psy 255<br />
+Psy 270</td>
+<td>Psy 315 &amp;lab<br />
+Psy 330&amp;lab<br />
+Psy 355&amp;lab</td>
+<td>Any Psy 300<br />
+Level course<br />
+Biology 326<br />
+Biology 348</td>
+<td>Psy 410<br />
+Psy 415<br />
+Psy 420<br />
+Psy 490<br />
+Psy 491<br />
+Psy 492<br />
+Psy 495</td>
+</tr>
+</tbody>
+</table>""")
+        list << minor("Psychology", "A minor in psychology consists of a minimum of five course credit units, including Psychology 101, 201, plus two approved psychology electives numbered 200 or above and one psychology elective numbered 300 or above. Psychology 120 (or Social Science 120 or Mathematics 120) is a prerequisite for some of the required courses in the minor.")
+        list << minor("Educational Psychology", """<p><strong>A minor in psychology</strong> consists of a minimum of five  course credit units, including Psychology 101, 201, plus two approved  psychology electives numbered 200 or above and one psychology elective  numbered 300 or above. Psychology 120 (or Social Science 120 or  Mathematics 120) is a prerequisite for some of the required courses in  the minor.</p>
+<h2><a name="ep"></a>EDUCATIONAL PSYCHOLOGY</h2>
+<p>Educational psychology links the disciplines of psychology and  education with attention to the complex contextual forces that shape  individual lives and the institutions within which individuals are  shaped by their cultures.</p>
+<p><strong>A minor in educational psychology</strong> normally consists  of six course credits including three courses in psychology and two  courses in education, with a sixth approved course. The required courses  include:</p>
+<table width="358" height="124">
+<tbody>
+<tr>
+<td>Psy 101</td>
+<td>General Psychology</td>
+</tr>
+<tr>
+<td>Psy 201</td>
+<td>Research Methods</td>
+</tr>
+<tr>
+<td>Psy 296</td>
+<td>Life Span Psychology</td>
+</tr>
+<tr>
+<td>Ed 351</td>
+<td>Teacher/Learner Interaction</td>
+</tr>
+<tr>
+<td>Ed 475</td>
+<td>The Learner, the Teacher, and the Curriculum</td>
+</tr>
+<tr>
+<td>-</td>
+<td>One approved course</td>
+</tr>
+</tbody>
+</table>
+<p>The director must pre-approve the sixth course that is intended to be  a special bridging course that assists the student in linking knowledge  gained from the required courses with a specific interest. Given that a  course in Life Span Psychology is required for teacher certification,  it is required for the Educational Psychology minor; PSY  330 Educational Psychology may be taken for the approved sixth course.  Courses for the educational psychology minor may not be taken S/D/U.  Students may not major in psychology and minor in educational  psychology. We recommend that students take statistics and methods in  consecutive semesters.</p>""", "Psychology")
+        list << major("Religious Studies", "A major in religious studies consists of a minimum of eight course credit units with three courses numbered in the 100 or 200 range with one course from each of the following three concentrations: Asian religions and culture (110, 115, 220, or 250 when topic is appropriate); Bible and culture (135, 235, or 250 when topic is appropriate); Christian theology and history (165, 265, 270, or 250 when topic is appropriate). The major also requires three courses numbered 300 or above, one of which must be the concentration capstone course (301, 302, 303). Students can deepen their study of one of the three concentrations through their selection of the electives and the two courses numbered 300 or above.", "Religion")
+        list << minor("Religious Studies", "A minor in religious studies consists of a minimum of five course credit units with at least two courses numbered 200 or above, one course numbered 300 or above, and representation of a least one course in two of the three departmental concentrations.", "Religion")
         list << major("Sociology", "<strong>A major in sociology</strong> consists of eight approved  course credit units including Sociology 101, 240, 270, and three courses  numbered 300 or above. All prospective majors are strongly encouraged  to take these required courses as early as possible and to seek faculty  advice to ensure the most effective reflection of student intellectual  and career goals.")
         list << minor("Sociology", "<strong>A minor in sociology</strong> consists of five course credit  units including Sociology 240 and 270 and at least one course numbered  300 or above. Departmental faculty will assist students when selecting  the appropriate courses for the minor. The selection should reflect a  coherent program within sociology as well as possible connections to the  student’s academic major.")
+        list << minor("Southwestern and Mexican studies", "A minor in Southwestern and Mexican studies consists of a minimum of five approved course credit units with each course having a significant southwestern and/or Mexican content. Students must take at least one course in each of the two regional focus areas (southwestern United States and Mexico), with at least one course of the five numbered 300 or above. Language competency in Spanish through the 202-level also is required in addition to the five approved courses.")
+        list << major("Spanish", "A major in Spanish consists of a minimum of eight approved course credit units above Spanish 201. At least three of these eight must be at the 300 level or above and must include Spanish 481. An honors thesis may not substitute for Spanish 481. Two of the three 300+ courses must be Hispanic literature courses taken on campus. Only one of the eight units may be from among Spanish 226, 227, and/or 237, or an approved immersion course. At least one of the eight courses must relate to Spain; at least one must relate to Latin America. Up to three credits taught in Spanish that treat Spanish or Latin American history, philosophy, sociology, political science, art history, or economics may count for the major with departmental approval. One approved course taught in English may also count toward the eight credits for the major. Majors must enroll in Spanish 481 in the spring of their senior year. Spanish 101, 102, and 201 may not count toward the major.")
+        list << minor("Spanish", "A minor in Spanish consists of a minimum of five approved course credit units in Spanish above Spanish 201, including at least one course at the 300 level or above. Only one credit may be allowed from among Spanish 226, 227, and/or 237, or an approved immersion course.")
         list << major("Theatre", """A major in theatre consists of a minimum of nine course credit units, including Theatre 142, 143, 221, and Theatre 493. Ideally, Theatre 142 and 221 are taken during the first year. In addition, one course from another discipline in the Department of Communication, Media, and Theatre is required, and up to two courses may be accepted with faculty approval. At least three courses must be taken at the 300 level or above. Majors are encouraged to consult with theatre faculty in selecting theatre electives. Students seeking to do directed or independent study courses must complete appropriate prerequisites in the area in which they wish to do advanced work. Students should consult with faculty in the department concerning courses in other disciplines that would contribute significantly to their work in theatre. Students majoring in theatre are expected to participate in departmental productions.""")
         list << minor("Theatre", """A minor in theatre consists of a minimum of five course credit units, with at least two classes numbered 300 or above. No more than one credit unit of practicum courses may be counted toward requirements for the minor. Students seeking a minor in theatre should confer with an appropriate departmental faculty member to consider specific courses.""")
-
-        list
-
-        println list
+        list << major("Western Intellectual Tradition", """<p><strong>A minor in western intellectual tradition</strong> consists of a minimum of six course credit units in at least three disciplines:</p>
+<ul>
+<li>History 133 or an approved substitute</li>
+<li>Philosophy 220 or 225, or an approved substitute</li>
+<li>Four additional approved courses, of which at least one must be at the 300 level or higher</li>
+<li>Competence in a European language other than English is highly  recommended, but not required. A January term, semester, or year abroad  in Europe also is highly recommended, but not required. January term  courses may not be used to satisfy the requirements for the minor.</li>
+<li>Disciplinary courses approved for the western intellectual  tradition minor are listed collectively in the course schedule each  term.</li>
+</ul>""")
 
     }
 
