@@ -39,7 +39,7 @@ class BootStrap {
 
                     if (Environment.current == Environment.DEVELOPMENT) {
                         println "Downloading course files..."
-                        courseImporterService.importFromJson(term, new URL("https://raw.github.com/austin-college/data/master/courses/${term.shortCode}.json").text)
+                        courseImporterService.importCourses(term)
                     }
                 }
 

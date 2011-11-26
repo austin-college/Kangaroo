@@ -22,7 +22,7 @@ class BatchControlController {
                     name: "Courses",
                     run: {
                         Term.list().each { term ->
-                            courseImporterService.importFromJson(term, new URL("http://phillipcohen.net/accourses/courses_${term.shortCode}.json").text)
+                            courseImporterService.importFromJson(term)
                         }
                     },
                     status: {"${Course.count()} imported"}

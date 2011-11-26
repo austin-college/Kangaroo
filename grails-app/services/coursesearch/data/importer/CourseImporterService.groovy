@@ -14,6 +14,10 @@ class CourseImporterService {
 
     def cacheService
 
+    def importCourses(Term term) {
+        importFromJson(term, new URL("https://raw.github.com/austin-college/data/master/courses/${term.shortCode}.json").text)
+    }
+
 //    @Transactional
     def importFromJson(Term term, String json) {
         def courses = JSON.parse(json)
