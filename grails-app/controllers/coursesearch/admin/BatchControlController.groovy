@@ -11,6 +11,7 @@ class BatchControlController {
     def facultyDataService
     def textbookDataService
     def amazonDataService
+    def majorDataService
     def cacheService
 
     // Define all the batch jobs here.
@@ -102,7 +103,13 @@ class BatchControlController {
                     name: "Cache Colleagues",
                     run: { cacheService.cacheColleagues() },
                     status: { "Ready" }
-            ]
+            ],
+            "majors": [
+                    id: "majors",
+                    name: "Majors & Minors",
+                    run: { majorDataService.setUpMajors() },
+                    status: { "Ready" }
+            ],
     ]
 
     def index = {}
