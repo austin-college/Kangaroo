@@ -1,10 +1,12 @@
 package coursesearch.data.prefill
 
+import grails.converters.JSON
+
 class MajorDataService {
 
     static transactional = true
 
-    def serviceMethod() {
+    def createAndDump() {
 
         def list = [];
 
@@ -465,6 +467,7 @@ Psy 495</td>
 <li>Disciplinary courses approved for the western intellectual  tradition minor are listed collectively in the course schedule each  term.</li>
 </ul>""")
 
+        new File("majors.json").write(new JSON(list).toString(true));
     }
 
     def toMap(name, isMajor, description, department = name) {
