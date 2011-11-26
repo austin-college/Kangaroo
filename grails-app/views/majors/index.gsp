@@ -6,7 +6,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.major .block').expander({
-                preserveWords:true
+                preserveWords:true,
+                slicePoint: 85
             });
         });
     </script>
