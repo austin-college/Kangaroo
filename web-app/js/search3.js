@@ -21,8 +21,8 @@ $.fn.dataTableExt.oApi.fnDisplayStart = function (oSettings, iStart, bRedraw) {
 }
 
 var terms = {
-    "11FA" : "Fall 2011",
-    "12SP" : "Spring 2012"
+    "11FA":"Fall 2011",
+    "12SP":"Spring 2012"
 };
 
 var oTable;
@@ -31,14 +31,14 @@ var departments = {};
 
 var tableHtml;
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     $("#tableSearch").val(getSavedSearch());
     tableHtml = $("#tableHolder").html();
     departments = $.parseJSON($("#departmentsJson").text());
 
-    $("#selectTermLink").contextMenu({ menu: 'myMenu', leftButton: true }, contextMenuWork);
-    $("#selectDepartmentLink").contextMenu({ menu: 'departmentMenu', leftButton: true }, contextMenuWork);
+    $("#selectTermLink").contextMenu({ menu:'myMenu', leftButton:true }, contextMenuWork);
+    $("#selectDepartmentLink").contextMenu({ menu:'departmentMenu', leftButton:true }, contextMenuWork);
 
     $("#tableSearch").focus();
     setupTable(tableRaw);
@@ -59,7 +59,7 @@ function contextMenuWork(action, el, pos) {
         else {
             $("#selectDepartmentLink").text(departments[action]);
             var newTable = [];
-            $.each(tableRaw.aaData, function(i, row) {
+            $.each(tableRaw.aaData, function (i, row) {
 
                 if (row[1] == departments[action])
                     newTable.push(row);
@@ -78,28 +78,28 @@ function destroyTable() {
 
 function setupTable(data) {
     oTable = $('#classTable').dataTable({
-        "bProcessing": true,
-        "aaData": data.aaData,
-        "aaSorting": [
-            [1,'asc'] // Sort by YTM.
+        "bProcessing":true,
+        "aaData":data.aaData,
+        "aaSorting":[
+            [1, 'asc'] // Sort by YTM.
         ],
-        "sPaginationType": "full_numbers",
-        "sDom": '<"H"r>t<"F"ip>',
-        "bStateSave": true,
-        "oLanguage": {
-            "sLengthMenu": "Show _MENU_ classes",
-            "sZeroRecords": "<i>Sorry, no courses like that were found.</i>",
-            "sInfo": "Showing _START_ to _END_ of _TOTAL_ classes",
-            "sInfoEmpty": "",
-            "sInfoFiltered": "(instantly filtered from _MAX_)",
+        "sPaginationType":"full_numbers",
+        "sDom":'<"H"r>t<"F"ip>',
+        "bStateSave":true,
+        "oLanguage":{
+            "sLengthMenu":"Show _MENU_ classes",
+            "sZeroRecords":"<i>Sorry, no courses like that were found.</i>",
+            "sInfo":"Showing _START_ to _END_ of _TOTAL_ classes",
+            "sInfoEmpty":"",
+            "sInfoFiltered":"(instantly filtered from _MAX_)",
             "sSearch":"Search for anything:"
         },
-        "iDisplayLength": 25,
-        "iDisplayStart": parseInt(getPaginationStatus())
+        "iDisplayLength":25,
+        "iDisplayStart":parseInt(getPaginationStatus())
     });
 
 
-    $("#tableSearch").live('keyup', function() {
+    $("#tableSearch").live('keyup', function () {
         oTable.fnFilter($("#tableSearch").val());
         saveSearchStatus();
     });
@@ -139,13 +139,21 @@ function saveSearchStatus() {
 
 function getTableData(term) {
     $.ajax({
-        url: contextPath + "/home/getData",
-        data: {term: term},
-        success: function(response) {
+        url:contextPath + "/home/getData",
+        data:{term:term},
+        success:function (response) {
             tableHtml = response.tableHtml;
             destroyTable();
-            $('#tableHolder').html(tableHtml)
-            setupTable(response.table);
+            $('#tableHolder').html(tableHtml);
+
+            var newTable = [];
+            $.each(response.table.aaData, function (i, row) {
+
+                if (row[1] == "Chemistry")
+                    newTable.push(row);
+            });
+            destroyTable();
+            setupTable({aaData:newTable});
         }
     });
 }
