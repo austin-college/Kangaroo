@@ -2,24 +2,15 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <link rel="stylesheet"
-          href="${resource(dir: 'libraries', file: 'jquery-ui/css/smoothness/jquery-ui-1.8.16.custom.css')}"/>
     <g:javascript src="../libraries/expander/jquery.expander.min.js"/>
-    <g:javascript src="../libraries/jquery-ui/js/jquery-ui-1.8.16.custom.min.js"/>
     <script type="text/javascript">
         $(document).ready(function () {
-        $("#accordion").accordion({ active:false, autoHeight:false, collapsible:true  });
-
-        $('.major .block').expander({
-        preserveWords:true
-        });
+            $('.major .block').expander({
+                preserveWords:true
+            });
         });
     </script>
     <style type="text/css">
-    #accordion h3 {
-        font-size: 18px;
-    }
-
     .major {
         background-color: #f9f9fa;
         border: 1px solid #ccc;
