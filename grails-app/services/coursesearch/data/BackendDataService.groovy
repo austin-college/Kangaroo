@@ -5,6 +5,7 @@ import coursesearch.Professor
 
 class BackendDataService {
 
+    def departmentDataService
     def majorDataService
     def requirementsDataService
     def facultyDataService
@@ -14,6 +15,7 @@ class BackendDataService {
     def upgradeAllIfNeeded() {
 
         println "\nUpgrading backend data..."
+        departmentDataService.upgradeIfNeeded()
         majorDataService.upgradeIfNeeded()
         requirementsDataService.upgradeIfNeeded()
 

@@ -8,12 +8,8 @@ class BootStrap {
 
     // Services to initialize our data.
     def backendDataService
-    def departmentDataService
-    def requirementsDataService
     def courseImporterService
-    def facultyDataService
     def textbookDataService
-    def majorDataService
     def cacheService
 
     def init = { servletContext ->
@@ -26,7 +22,6 @@ class BootStrap {
         }
 
         if (Environment.current != Environment.TEST) {
-            departmentDataService.setUpDepartments()
             backendDataService.upgradeAllIfNeeded()
 
             // Create terms and import courses.
