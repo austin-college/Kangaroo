@@ -26,8 +26,8 @@ class BootStrap {
 
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
-            requirementsDataService.fillRequirements()
-            majorDataService.setUpMajors();
+            requirementsDataService.upgradeIfNeeded()
+            majorDataService.upgradeIfNeeded()
 
             if (Professor.count() == 0)
                 facultyDataService.fetchAndMatch()

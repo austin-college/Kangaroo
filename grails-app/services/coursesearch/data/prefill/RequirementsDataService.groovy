@@ -1,57 +1,63 @@
 package coursesearch.data.prefill
 
+import coursesearch.Course
+import coursesearch.CourseUtils
 import coursesearch.Requirement
+import coursesearch.mn.CourseFulfillsRequirement
+import grails.converters.JSON
+import org.springframework.transaction.annotation.Transactional
 
 class RequirementsDataService {
 
-    static transactional = true
+    private static int lastVersionUsed = 0;
 
-    static def requirements = [
-            "HU": "Humanities",
-            "SC": "Science",
-            "SS": "Social Science",
-            "NLS": "Non-Lab Science",
-            "Q": "Quantitative",
-            "L": "Language",
-            "R": "Half Writing",
-            "W": "Full Writing",
-    ]
+    @Transactional
+    def upgradeIfNeeded() {
 
-    static def interdisciplinaries = [
-            "AS": "Asian Studies",
-            "ES": "Environmental Studies",
-            "GN": "Gender Studies",
-            "LA": "Latin American Studies",
-            "SW": "Southwest and Mexican Studies",
-            "WIT": "Western Intellectual Tradition",
-            "FLM": "Film Studies",
-            "CSP": "Community Service and Policy",
-            "AM": "American Studies",
-            "COG": "Cognitive Science",
-            "GSTS": "Global Science, Technology and Society",
-            "LD": "Leadership",
-            "TOP": "Topics"
-    ]
+        def dataFromServer = getDataFromServer();
 
-    def fillRequirements() {
-
-        // Create requirements from the mappings.
-        createFromMapping(requirements, false);
-        createFromMapping(interdisciplinaries, true);
+        if (dataFromServer.version > lastVersionUsed)
+            upgradeAll(dataFromServer)
+        else
+            println "Requirements list is up to date; version $lastVersionUsed."
     }
 
-    def createFromMapping(mapping, markAsDiscipline) {
-        mapping.each { code, name ->
-            def req = Requirement.findByCode(code);
-            if (req) {
-                if (req.name != name || req.isInterdisciplinaryMajor != markAsDiscipline) { // Update this requirements's name.
-                    req.name = name
-                    req.isInterdisciplinaryMajor = markAsDiscipline
-                    req.save();
+    def upgradeAll(dataFromServer) {
+
+        println "Upgrading requirements to version ${dataFromServer.version}..."
+
+        CourseUtils.runAndTime("Requirements list updated to version ${lastVersionUsed}") {
+
+            // Save the mapping of courses to requirements.
+            def mappingCache = [:]
+            CourseFulfillsRequirement.list().each { mapping ->
+                if (!mappingCache[mapping.course])
+                    mappingCache[mapping.course] = [];
+
+                mappingCache[mapping.course] << mapping.requirement.code;
+            }
+
+            println "Mapping cache is: $mappingCache"
+
+            // Remove the existing majors.
+            Requirement.list().each { existing ->
+                CourseFulfillsRequirement.findAllByRequirement(existing).each { it.delete(flush: true) }
+                existing.delete(flush: true)
+            }
+
+            // Add the new requirements.
+            dataFromServer.list.each { data -> new Requirement(code: data.code, name: data.name, isInterdisciplinaryMajor: data.isDiscipline).save(); }
+
+            // Recreate the mappings.
+            mappingCache.each { Course course, List<String> codes ->
+                codes.each { code ->
+                    new CourseFulfillsRequirement(course: course, requirement: Requirement.findByCode(code)).save();
                 }
             }
-            else
-                new Requirement(code: code, name: name, isInterdisciplinaryMajor: markAsDiscipline).save();
+
+            lastVersionUsed = dataFromServer.version;
         }
     }
+
+    def getDataFromServer() { JSON.parse(new URL("https://raw.github.com/austin-college/data/master/requirements.json").text); }
 }

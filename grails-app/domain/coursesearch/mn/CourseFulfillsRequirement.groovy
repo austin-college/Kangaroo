@@ -5,9 +5,9 @@ import coursesearch.Requirement
 
 class CourseFulfillsRequirement implements Serializable {
 
-    Course course
+    static belongsTo = [requirement: Requirement]
 
-    Requirement requirement
+    Course course
 
     static mapping = {
         id(composite: ['course', 'requirement'])
