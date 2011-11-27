@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional
 
 abstract class UpdateableDataService {
 
-    protected static String dataRoot = "https://raw.github.com/phillco/data/master"
+    protected static String dataRoot = "https://raw.github.com/austin-college/data/master"
 
     @Transactional
     def upgradeIfNeeded() {

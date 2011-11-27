@@ -2,6 +2,8 @@ package coursesearch.data.prefill
 
 import coursesearch.Major
 import coursesearch.mn.ProfessorOfficeHours
+import coursesearch.Professor
+import coursesearch.data.convert.ScheduleConvertService
 
 class OfficeHoursDataService extends UpdateableDataService {
 
@@ -16,7 +18,20 @@ class OfficeHoursDataService extends UpdateableDataService {
         ProfessorOfficeHours.list().each { it.delete(flush: true) }
 
         // Add the new ones.
-        dataFromServer.majors.each { importMajor(it) }
+        dataFromServer.list.each { data ->
+            def prof = Professor.findByName(data.name);
+
+            if (prof) {
+                println "Setting office hours for ${prof}..."
+
+                data.hours.each { schedule ->
+                    new ProfessorOfficeHours(professor: prof, meetingTime: ScheduleConvertService.convertMeetingTime(schedule).saveOrFind()).save()
+                    prof.save();
+                }
+
+                println prof.officeHours
+            }
+        }
     }
 
 }
