@@ -8,33 +8,19 @@ import org.springframework.transaction.annotation.Transactional
 /**
  * Fills in data about Austin College's majors and minors.
  */
-class MajorDataService {
+class MajorDataService extends UpdateableDataService {
 
-    private static int lastVersionUsed = 0;
+    static String name = "Majors list"
+    static String url = "${dataRoot}/majors.json"
 
-    @Transactional
-    def upgradeIfNeeded() {
-
-        def dataFromServer = getDataFromServer();
-
-        if (dataFromServer.version > lastVersionUsed)
-            upgradeMajors(dataFromServer)
-        else
-            println "Majors list is up to date; version $lastVersionUsed."
-    }
-
-    def upgradeMajors(dataFromServer) {
-
-        println "Upgrading majors to version ${dataFromServer.version}..."
+    @Override
+    protected void upgradeAll(dataFromServer) {
 
         // Remove the existing majors.
         Major.list().each { it.delete(flush: true) }
 
         // Add the new ones.
         dataFromServer.majors.each { importMajor(it) }
-
-        lastVersionUsed = dataFromServer.version;
-        println "Majors list is now at version ${lastVersionUsed}; ${Major.count()} majors saved."
     }
 
     def importMajor(data) {
