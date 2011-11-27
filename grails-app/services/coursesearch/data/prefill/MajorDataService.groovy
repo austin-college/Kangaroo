@@ -3,7 +3,6 @@ package coursesearch.data.prefill
 import coursesearch.Department
 import coursesearch.Major
 import grails.converters.JSON
-import org.springframework.transaction.annotation.Transactional
 
 /**
  * Fills in data about Austin College's majors and minors.
@@ -12,6 +11,7 @@ class MajorDataService extends UpdateableDataService {
 
     static String name = "Majors list"
     static String url = "${dataRoot}/majors.json"
+    static int lastVersionUsed = 0;
 
     @Override
     protected void upgradeAll(dataFromServer) {
@@ -33,8 +33,8 @@ class MajorDataService extends UpdateableDataService {
             if (!major.save())
                 println major.errors.toString()
         }
-        else
-            println "Department not found: ${data.department}"
+        // else
+        //     println "Department not found: ${data.department}"
     }
 
     def getDataFromServer() { JSON.parse(new URL("https://raw.github.com/austin-college/data/master/majors.json").text); }
@@ -53,9 +53,9 @@ class MajorDataService extends UpdateableDataService {
         int endPosition = description.toLowerCase().indexOf(majorName.toLowerCase()) + majorName.length();
         if (startPosition > -1 && endPosition > startPosition)
             description = description.substring(0, startPosition) + "<strong>" + description.substring(startPosition, endPosition) + "</strong>" + description.substring(endPosition);
-        else
-            println "'a' not found in $description"
-
+        /* else
+           println "'a' not found in $description"
+        */
         description;
     }
 }
