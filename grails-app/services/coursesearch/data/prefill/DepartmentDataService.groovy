@@ -40,5 +40,8 @@ class DepartmentDataService extends UpdateableDataService {
 
         // This modifies the course table.
         cacheService.clearCache()
+
+        // Also, reimport the majors list -- some may match now.
+        MajorDataService.lastVersionUsed = 0;
     }
 }

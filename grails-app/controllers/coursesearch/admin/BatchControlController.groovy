@@ -2,9 +2,12 @@ package coursesearch.admin
 
 import grails.converters.JSON
 import coursesearch.*
+import coursesearch.data.prefill.RequirementsDataService
+import coursesearch.data.prefill.OfficeHoursDataService
 
 class BatchControlController {
 
+    def backendDataService
     def courseImporterService
     def facultyDataService
     def textbookDataService
@@ -19,6 +22,15 @@ class BatchControlController {
                     id: "dataUpgrade",
                     name: "Data Upgrade",
                     run: { DataFetcherJob.triggerNow() },
+                    status: { "Ready" }
+            ],
+            "dataReset": [
+                    id: "dataReset",
+                    name: "Data Reset",
+                    run: {
+                        backendDataService.reset()
+                        DataFetcherJob.triggerNow()
+                    },
                     status: { "Ready" }
             ],
             "courses": [

@@ -22,14 +22,10 @@ class OfficeHoursDataService extends UpdateableDataService {
             def prof = Professor.findByName(data.name);
 
             if (prof) {
-                println "Setting office hours for ${prof}..."
-
                 data.hours.each { schedule ->
                     new ProfessorOfficeHours(professor: prof, meetingTime: ScheduleConvertService.convertMeetingTime(schedule).saveOrFind()).save()
                     prof.save();
                 }
-
-                println prof.officeHours
             }
         }
     }

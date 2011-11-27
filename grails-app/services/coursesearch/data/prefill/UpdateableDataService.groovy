@@ -15,10 +15,9 @@ abstract class UpdateableDataService {
 
         if (dataFromServer.version > lastVersionUsed) {
 
-            println "$url ==> ${dataFromServer.version}"
-
             // Run the upgrade.
-            println "Upgrading ${name} to version ${dataFromServer.version}..."
+            println "\nUpgrading ${name} to version ${dataFromServer.version}..."
+            println " ===> $url is at version ${dataFromServer.version}"
             CourseUtils.runAndTime("${name} updated") {
                 upgradeAll(dataFromServer);
                 lastVersionUsed = dataFromServer.version;

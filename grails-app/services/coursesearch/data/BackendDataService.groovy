@@ -23,6 +23,13 @@ class BackendDataService {
             facultyDataService.fetchAndMatch()
 
         officeHoursDataService.upgradeIfNeeded()
+    }
 
+    def reset() {
+        println "\nResetting backend data version..."
+        DepartmentDataService.lastVersionUsed = 0
+        RequirementsDataService.lastVersionUsed = 0
+        MajorDataService.lastVersionUsed = 0
+        OfficeHoursDataService.lastVersionUsed = 0
     }
 }

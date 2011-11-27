@@ -33,8 +33,8 @@ class MajorDataService extends UpdateableDataService {
             if (!major.save())
                 println major.errors.toString()
         }
-        // else
-        //     println "Department not found: ${data.department}"
+        else
+             println "Department not found: ${data.department}"
     }
 
     def getDataFromServer() { JSON.parse(new URL("https://raw.github.com/austin-college/data/master/majors.json").text); }
