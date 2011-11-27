@@ -15,12 +15,13 @@ abstract class UpdateableDataService {
 
         if (dataFromServer.version > lastVersionUsed) {
 
+            println "$url ==> ${dataFromServer.version}"
+
             // Run the upgrade.
             println "Upgrading ${name} to version ${dataFromServer.version}..."
             CourseUtils.runAndTime("${name} updated") {
                 upgradeAll(dataFromServer);
                 lastVersionUsed = dataFromServer.version;
-                println "${name} is now at version ${lastVersionUsed}"
             }
         }
         else
@@ -28,8 +29,6 @@ abstract class UpdateableDataService {
     }
 
     abstract protected void upgradeAll(dataFromServer)
-
-    ;
 
     def getDataFromServer() { JSON.parse(new URL(url).text); }
 }

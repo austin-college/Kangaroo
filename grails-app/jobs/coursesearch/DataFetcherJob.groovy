@@ -2,17 +2,11 @@ package coursesearch
 
 class DataFetcherJob {
 
-    def requirementsDataService
-    def majorDataService
+    def backendDataService
 
     static triggers = {
-        simple name: 'mySimpleTrigger', startDelay: 2 * 60000, repeatInterval: 60000
+        simple name: 'mySimpleTrigger', startDelay: 2 * 60 * 1000, repeatInterval: 60 * 1000
     }
 
-    def execute() {
-        
-        println "Upgrading backend data..."
-        majorDataService.upgradeIfNeeded()
-        requirementsDataService.upgradeIfNeeded()
-    }
+    def execute() { backendDataService.upgradeAllIfNeeded() }
 }

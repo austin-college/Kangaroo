@@ -7,6 +7,7 @@ import grails.util.Environment
 class BootStrap {
 
     // Services to initialize our data.
+    def backendDataService
     def departmentDataService
     def requirementsDataService
     def courseImporterService
@@ -26,11 +27,7 @@ class BootStrap {
 
         if (Environment.current != Environment.TEST) {
             departmentDataService.setUpDepartments()
-            requirementsDataService.upgradeIfNeeded()
-            majorDataService.upgradeIfNeeded()
-
-            if (Professor.count() == 0)
-                facultyDataService.fetchAndMatch()
+            backendDataService.upgradeAllIfNeeded()
 
             // Create terms and import courses.
             if (Term.count() == 0) {
