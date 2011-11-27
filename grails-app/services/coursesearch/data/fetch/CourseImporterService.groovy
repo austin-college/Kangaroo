@@ -1,4 +1,4 @@
-package coursesearch.data.importer
+package coursesearch.data.fetch
 
 import coursesearch.data.convert.ScheduleConvertService
 import coursesearch.mn.CourseFulfillsRequirement
