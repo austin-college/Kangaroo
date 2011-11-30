@@ -10,12 +10,11 @@ class HomeController {
         [tableJson: dataTablesService.getTableCached(Term.findByShortCode("12SP")), departmentsJson: (getDepartmentsMap() as JSON)]
     }
 
+    /**
+     * Called via AJAX: returns the table data for the given term in JSON form.
+     */
     def getData = {
-
-        def departments = []
-
-        render([tableHtml: g.render(template: 'emptyTable'),
-                table: JSON.parse(dataTablesService.getTableCached(Term.findByShortCode(params.term)))] as JSON)
+        render([table: JSON.parse(dataTablesService.getTableCached(Term.findByShortCode(params.term)))] as JSON)
     }
 
     def getDepartmentsMap() {

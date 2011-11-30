@@ -8,6 +8,8 @@
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'app3.css')}"/>
+
+    %{-- Facebook terms! Oh boy! --}%
     <meta name="title" content="Kangaroo"/>
     <meta name="description" content="Browse Austin College courses in style!"/>
     <meta property="og:url" content="http://csac.austincollege.edu/kangaroo/"/>

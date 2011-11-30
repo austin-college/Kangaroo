@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'contextMenu/jquery.contextMenu.css')}"/>
     <g:javascript src="cookies.js"/>
     <g:javascript src="jquery.dataTables.js"/>
-    <g:javascript src="search3.js"/>
     <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
+    <g:javascript src="courseDataTable.js"/>
+    <g:javascript src="searchPage.js"/>
     <style type="text/css">
     #newStuff {
         font-size: 18px;
