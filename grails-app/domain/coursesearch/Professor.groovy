@@ -1,15 +1,24 @@
 package coursesearch
 
-import coursesearch.mn.Teaching
 import coursesearch.mn.ProfessorOfficeHours
+import coursesearch.mn.Teaching
 
+/**
+ * The facilitators of learning, the lifeblood of a university, the people who hate grading.
+ */
 class Professor {
 
     def redisService
 
     String name
 
+    /**
+     * Has this professor been matched with the faculty data from github.com/austin-college/data?
+     * If so -> we will have their photo, title, office location, phone number, and department.
+     * If not -> this means they were listed in the course catalog as teaching a class, but not on the austin-college website.
+     */
     boolean matched = false
+
     String photoUrl
     String title
     String department
@@ -27,7 +36,6 @@ class Professor {
     }
 
     String toString() { name }
-
 
     List<Professor> getColleagues() {
 

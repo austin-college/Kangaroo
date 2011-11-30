@@ -3,6 +3,9 @@ package coursesearch
 import coursesearch.mn.CourseMeetingTime
 import coursesearch.mn.Teaching
 
+/**
+ * Represents a course taught at Austin College.
+ */
 class Course {
 
     static belongsTo = [term: Term]
