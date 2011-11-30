@@ -1,5 +1,6 @@
 package coursesearch
 
+import coursesearch.mn.CourseFulfillsRequirement
 import coursesearch.mn.CourseMeetingTime
 import coursesearch.mn.Teaching
 
@@ -47,7 +48,7 @@ class Course {
 
     List<Professor> getInstructors() { Teaching.findAllByCourse(this)*.professor; }
 
-    List<Requirement> getRequirementsFulfilled() {coursesearch.mn.CourseFulfillsRequirement.findAllByCourse(this)*.requirement; }
+    List<Requirement> getRequirementsFulfilled() { CourseFulfillsRequirement.findAllByCourse(this)*.requirement; }
 
     List<MeetingTime> getMeetingTimes() { CourseMeetingTime.findAllByCourse(this)*.meetingTime }
 }
