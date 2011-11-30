@@ -10,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional
  */
 class ProfessorService {
 
+    // List staff names that should not appear in the colleagues list (@todo later just don't create these professors at all).
+    final static def fakeStaffNames = ["STAFF", "No Information Available"]
+
+    // List departments that many professors teach in (like Communication/Inquiry), and which are likely to dilute the colleagues list.
+    final static def commonDepartments = ["CI"]
+
     def redisService
 
     /**
@@ -26,18 +32,24 @@ class ProfessorService {
 
             Set<Professor> colleagues = [];
 
-            // O(n^3) goodness...
+            // O(n^4) goodness. Good thing we precache...
             professor.activeDepartments.each { dept ->
                 Course.findAllByDepartment(dept).each { course ->
-                    course.instructors.each { instr ->
-                        if (!instr.name.contains("STAFF"))
-                            colleagues << instr
+                    course.instructors.each { instructor ->
+
+                        // Don't include certain staff names as "colleagues".
+                        for (String fakeName: fakeStaffNames) {
+                            if (instructor.name.contains(fakeName))
+                                return;
+                        }
+
+                        colleagues << instructor
                     }
                 }
             }
 
             // We are not our own colleague.
-            colleagues.remove(this);
+            colleagues.remove(professor);
 
             // Sort the list.
             return ((colleagues as List).sort({a, b -> return a.name.compareTo(b.name)}));
@@ -55,7 +67,9 @@ class ProfessorService {
     List<Department> getDepartmentsForProfessor(Professor professor) {
 
         def departments = (professor.coursesTeaching*.department as Set);
-        departments.remove(Department.findByCode("CI"));
+
+        // Remove common departments (they dilute the colleagues list).
+        commonDepartments.each { code -> departments.remove(Department.findByCode(code)); }
 
         // Sort the list.
         return (departments as List).sort({a, b -> return a.name.compareTo(b.name)});
