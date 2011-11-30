@@ -121,7 +121,7 @@
     </div>
 
     <footer>
-        <p>Created by Phillip Cohen &middot; <i>Made by students for students</i></p>
+        <p>Version 1 &middot; Created by Phillip Cohen &middot; <a href="http://github.com/austin-college/Kangaroo">Fork us on GitHub</a></p>
     </footer>
 
 </div> <!-- /container -->
