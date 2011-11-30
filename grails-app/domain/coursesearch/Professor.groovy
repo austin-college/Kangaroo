@@ -8,7 +8,7 @@ import coursesearch.mn.Teaching
  */
 class Professor {
 
-    def redisService
+    def professorService
 
     String name
 
@@ -37,46 +37,28 @@ class Professor {
 
     String toString() { name }
 
-    List<Professor> getColleagues() {
-
-        def ids = (List<Long>) redisService.memoizeDomainIdList(Professor, "professor/${this.id}/colleagues") { def redis ->
-
-            // EXPENSIVE AND HACKY QUERY
-            Set<Professor> colleagues = [];
-            activeDepartments.each { dept ->
-                Course.findAllByDepartment(dept).each { course ->
-                    course.instructors.each { instr ->
-                        if (!instr.name.contains("STAFF"))
-                            colleagues << instr
-                    }
-                }
-            }
-
-            colleagues.remove(this);
-            return ((colleagues as List).sort({a, b -> return a.name.compareTo(b.name)}));
-        }
-
-        ids.collect { id -> Professor.get(id)}
-    }
-
-    List<Department> getActiveDepartments() {
-        def depts = (coursesTeaching*.department as Set);
-        depts.remove(Department.findByCode("CI"));
-
-        (depts as List).sort({a, b -> return a.name.compareTo(b.name)});
-    }
-
-    List<String> getActiveRooms() {
-        def rooms = (coursesTeaching*.room as Set);
-        rooms.remove("");
-        (rooms as List).sort({a, b -> return a.compareTo(b)});
-    }
-
-    List<Course> getCoursesForRoom(String room) {
-        coursesTeaching.findAll { course -> course.room == room };
-    }
-
+    /**
+     * Returns all of the courses this professor is teaching. (Not limited by term)
+     */
     List<Course> getCoursesTeaching() { return Teaching.findAllByProfessor(this)*.course }
 
+    /**
+     * Returns this professor's office hours.
+     */
     List<MeetingTime> getOfficeHours() { return ProfessorOfficeHours.findAllByProfessor(this)*.meetingTime }
+
+    /**
+     * Returns this professor's colleagues (professors who teach in the same departments this guy does).
+     */
+    List<Professor> getColleagues() { professorService.getColleaguesForProfessor(this) }
+
+    /**
+     * Returns all of the departments this professor teaches classes in (ie, [Biology, Chemistry]).
+     */
+    List<Department> getActiveDepartments() { professorService.getDepartmentsForProfessor(this) }
+
+    /**
+     * Returns all of the rooms this professor teaches classes in (ie, ["MS128", "MS133"]).
+     */
+    List<String> getActiveRooms() { professorService.getRoomsForProfessor(this)}
 }
