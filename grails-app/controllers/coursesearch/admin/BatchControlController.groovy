@@ -4,6 +4,7 @@ import grails.converters.JSON
 import coursesearch.*
 import coursesearch.data.prefill.RequirementsDataService
 import coursesearch.data.prefill.OfficeHoursDataService
+import coursesearch.mn.ProfessorOfficeHours
 
 class BatchControlController {
 
@@ -87,6 +88,12 @@ class BatchControlController {
                     id: "cacheColleagues",
                     name: "Cache Colleagues",
                     run: { cacheService.cacheColleagues() },
+                    status: { "Ready" }
+            ],
+            "clearOfficeHours": [
+                    id: "clearOfficeHours",
+                    name: "clearOfficeHours",
+                    run: { ProfessorOfficeHours.list().each { it.delete(flush: true) } },
                     status: { "Ready" }
             ]
     ]
