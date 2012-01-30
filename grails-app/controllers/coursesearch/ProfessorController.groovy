@@ -30,13 +30,13 @@ class ProfessorController {
 
     def getStatus(Professor professor) {
 
-        // First check the professor's office hour dates, to see if one is happening now.
+        // First check the professor's office hour dates, to see if the professor is having office hours.
         for (def time: ScheduleProjectService.projectToWeek(professor.officeHours)) {
             if (isDateBetween(new Date(), time.startDate, time.endDate))
                 return [status: "officeHours"]
         }
 
-        // Next check the dates for each of the professor's courses, to see if one is happening now.
+        // Next check the dates for each of the professor's courses, to see if the professor is in class.
         for (def course: professor.coursesTeaching.findAll { it.term == Term.findOrCreate("11FA")}) {
             for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes)) {
 
