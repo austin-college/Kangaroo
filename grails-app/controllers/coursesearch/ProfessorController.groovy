@@ -30,14 +30,14 @@ class ProfessorController {
 
     def getStatus(Professor professor) {
 
-        // First check the professor's office hour dates, to see if one is happening now.
+        // First check the professor's office hour dates, to see if the professor is having office hours.
         for (def time: ScheduleProjectService.projectToWeek(professor.officeHours)) {
             if (isDateBetween(new Date(), time.startDate, time.endDate))
                 return [status: "officeHours"]
         }
 
-        // Next check the dates for each of the professor's courses, to see if one is happening now.
-        for (def course: professor.coursesTeaching.findAll { it.term == Term.findOrCreate("11FA")}) {
+        // Next check the dates for each of the professor's courses, to see if the professor is in class.
+        for (def course: professor.coursesTeaching.findAll { it.term == Term.findOrCreate("12SP")}) {
             for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes)) {
 
                 if (isDateBetween(new Date(), time.startDate, time.endDate))
@@ -62,7 +62,7 @@ class ProfessorController {
             def events = []
 
             // For every course, convert its meeting times into real dates...
-            professor.coursesTeaching.findAll { it.term == Term.findByShortCode("11FA") }.each { course ->
+            professor.coursesTeaching.findAll { it.term == Term.findByShortCode("12SP") }.each { course ->
                 ScheduleProjectService.projectToWeek(course.meetingTimes).each { time ->
 
                     // ...then add them to the calendar.
