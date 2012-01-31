@@ -119,7 +119,7 @@ public class CourseUtils {
 
     static String getProfessorLinksForClass(Course course, boolean includeImages, String connector = ' & ') {
         course.instructors.collect { it ->
-            def text = "<a href='${createLink('professor', 'show', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>";
+            def text = "<a href='${createLink('professor', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>";
 
             if (includeImages && it.photoUrl)
                 text += "<img src='${it.photoUrl}' width='20px' class='profPhoto'/>"
@@ -142,5 +142,12 @@ public class CourseUtils {
 
         def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/kangaroo" : "http://localhost:8080/CourseSearch";
         return "${prefix}/${controller}/${action}/${id}";
+    }
+
+
+    static String createLink(controller, id) {
+
+        def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/kangaroo" : "http://localhost:8080/CourseSearch";
+        return "${prefix}/${controller}/${id}";
     }
 }

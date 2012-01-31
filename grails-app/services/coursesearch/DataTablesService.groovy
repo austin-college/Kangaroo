@@ -33,7 +33,7 @@ class DataTablesService {
 
         def row = []
 
-        row << "<a href='${CourseUtils.createLink('course', 'show', course.id)}'>${course}</a> <span class='section'>${course.sectionString()}</span>"
+        row << "<a href='${CourseUtils.createLink('course', course.id)}'>${course}</a> <span class='section'>${course.sectionString()}</span>"
         row << course.department.name
         if (course.instructors)
             row << CourseUtils.getProfessorLinksForClass(course, false, "<br/>");
