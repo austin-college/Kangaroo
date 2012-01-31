@@ -26,6 +26,29 @@ public class CourseUtils {
             processed
     }
 
+    static String extractProfessorUsername(String email, String name) {
+        if (email)
+            extractProfessorUsername(email)
+        else
+            extractProfessorUsernameFromName(name)
+    }
+
+    static String extractProfessorUsername(String email) {
+        if (email) {
+            def parts = email.split("@")
+            if (parts)
+                parts[0]
+        }
+    }
+
+    static String extractProfessorUsernameFromName(String name) {
+        if (name) {
+            def parts = cleanFacultyName(name).toLowerCase().split(' ');
+            if (parts?.length > 1)
+                return parts[0][0] + parts[1];
+        }
+    }
+
     // Our cheap&easy way to parse currency.
     static double parseCurrency(amount) {
         Double.parseDouble(amount[1..-1]);
@@ -96,7 +119,7 @@ public class CourseUtils {
 
     static String getProfessorLinksForClass(Course course, boolean includeImages, String connector = ' & ') {
         course.instructors.collect { it ->
-            def text = "<a href='${createLink('professor', 'show', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>";
+            def text = "<a href='${createLink('professor', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>";
 
             if (includeImages && it.photoUrl)
                 text += "<img src='${it.photoUrl}' width='20px' class='profPhoto'/>"
@@ -119,5 +142,12 @@ public class CourseUtils {
 
         def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/kangaroo" : "http://localhost:8080/CourseSearch";
         return "${prefix}/${controller}/${action}/${id}";
+    }
+
+
+    static String createLink(controller, id) {
+
+        def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/kangaroo" : "http://localhost:8080/CourseSearch";
+        return "${prefix}/${controller}/${id}";
     }
 }

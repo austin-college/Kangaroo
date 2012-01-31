@@ -10,6 +10,7 @@ class Professor {
 
     def professorService
 
+    String id
     String name
 
     /**
@@ -27,12 +28,17 @@ class Professor {
     String email
 
     static constraints = {
+        id(maxSize: 64, blank: false)
         photoUrl(nullable: true)
         title(nullable: true)
         department(nullable: true)
         office(nullable: true)
         phone(nullable: true)
         email(nullable: true)
+    }
+
+    static mapping = {
+        id(column: 'user_id', generator: 'assigned')
     }
 
     String toString() { name }

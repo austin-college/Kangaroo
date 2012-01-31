@@ -55,7 +55,7 @@ class ProfessorController {
      */
     def getSchedule = {
 
-        def professor = Professor.get(params.id as Long);
+        def professor = Professor.get(params.id);
 
         if (professor) {
 
@@ -78,7 +78,7 @@ class ProfessorController {
      * Returns a JSON list of this professor's office hours for the week.
      */
     def getOfficeHours = {
-        def professor = Professor.get(params.id as Long);
+        def professor = Professor.get(params.id);
 
         if (professor) {
 

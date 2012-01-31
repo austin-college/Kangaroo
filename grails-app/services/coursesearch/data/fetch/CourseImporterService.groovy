@@ -12,6 +12,8 @@ import coursesearch.*
  */
 class CourseImporterService {
 
+    final static placeholderProfessorNames = ["STAFF", "No Information Available"]
+
     def cacheService
 
     def importCourses(Term term) {
@@ -45,7 +47,14 @@ class CourseImporterService {
             if (time)
                 meetingTimes << new CourseMeetingTime(course: course, meetingTime: time)
         }
-        def teachings = data.professors.collect { new Teaching(professor: findOrCreateProfessor(it.name, it.email), course: course) }
+        def teachings = []
+        data.professors.each {
+            def prof = findOrCreateProfessor(it.name, it.email)
+            if (prof)
+                teachings << new Teaching(professor: prof, course: course)
+            else
+                println "NO PROFESSOR FOR \"${course.name}\": \"${it.name}\" given as a name."
+        }
 
         if (!Course.get(course.id)) {
             if (course.save()) {
@@ -60,11 +69,26 @@ class CourseImporterService {
             println "There is already a course with the id ${course.id} (${Course.get(course.id)}"
 
     }
+
     //@Transactional
     Professor findOrCreateProfessor(name, email) {
-        def professor = Professor.findByEmail(email)
-        if (!professor)
-            professor = new Professor(name: CourseUtils.cleanFacultyName(name), email: email).save()
+
+        // Check if this isn't a real professor.
+        for (String toAvoid : placeholderProfessorNames)
+            if (name.equals(toAvoid))
+                return null;
+
+        def id = CourseUtils.extractProfessorUsername(email, name)
+        def professor = Professor.get(id)
+        if (!professor && id) {
+            professor = new Professor(name: CourseUtils.cleanFacultyName(name), email: email)
+            professor.id = id;
+            if (!email) {
+//                professor.id = CourseUtils.extractProfessorUsernameFromName(name)
+                println "NO EMAIL ====> " + name + "//" + professor.id
+            }
+            professor = professor.save()
+        }
 
         return professor
     }

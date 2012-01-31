@@ -4,6 +4,7 @@ import coursesearch.Course
 import coursesearch.Department
 import coursesearch.Professor
 import org.springframework.transaction.annotation.Transactional
+import redis.clients.jedis.Jedis
 
 /**
  * Contains utility methods for professors.
@@ -28,7 +29,7 @@ class ProfessorService {
     List<Professor> getColleaguesForProfessor(Professor professor) {
 
         // This query is slow, so we cache the results in redis.
-        def ids = (List<Long>) redisService.memoizeDomainIdList(Professor, "professor/${professor.id}/colleagues") { def redis ->
+        String ids = redisService.memoize("professor/${professor.id}/colleagues") { def redis ->
 
             Set<Professor> colleagues = [];
 
@@ -52,11 +53,18 @@ class ProfessorService {
             colleagues.remove(professor);
 
             // Sort the list.
-            return ((colleagues as List).sort({a, b -> return a.name.compareTo(b.name)}));
+            def list = (colleagues as List);
+            println list
+            list = list.sort({a, b -> return a.name.compareTo(b.name)})
+
+            // Extract and join the IDs together
+            list*.id.join(",")
         }
+        
+        println ids
 
         // Transform the ID list back into a list of Professors.
-        return ids.collect { id -> Professor.get(id)}
+        return ids.split(",").collect { id -> Professor.get(id)}
     }
 
     /**
