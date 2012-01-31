@@ -28,6 +28,7 @@ class Professor {
     String email
 
     static constraints = {
+        id(maxSize: 32, blank: false)
         photoUrl(nullable: true)
         title(nullable: true)
         department(nullable: true)
