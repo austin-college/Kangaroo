@@ -29,10 +29,8 @@ class BootStrap {
                 ["11FA", "12SP"].each {
                     def term = Term.findOrCreate(it)
 
-                    if (Environment.current == Environment.DEVELOPMENT) {
                         println "Downloading course files..."
                         courseImporterService.importCourses(term)
-                    }
                 }
 
                 textbookDataService.lookupTextbooksForAllCourses()
