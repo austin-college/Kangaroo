@@ -49,7 +49,7 @@ class Term implements Serializable {
         if (Term.findByShortCode(shortCode))
             return Term.findByShortCode(shortCode);
         else
-            return new Term(shortCode: shortCode).save();
+            return new Term(shortCode: shortCode).save(flush: true);
     }
 
     String toString() { return fullDescription; }
