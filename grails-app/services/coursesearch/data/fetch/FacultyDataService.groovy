@@ -94,7 +94,9 @@ class FacultyDataService {
      * Updates the professor to match the raw data given.
      */
     def createProfessor(Map rawData) {
-        def professor = new Professor(name: CourseUtils.cleanFacultyName(rawData.name))
+        def professor = new Professor()
+        professor.id = CourseUtils.extractProfessorUsername(rawData.email);
+        professor.name = CourseUtils.cleanFacultyName(rawData.name)
         professor.matched = true;
         professor.photoUrl = rawData.photoUrl
         professor.title = rawData.title
@@ -103,6 +105,6 @@ class FacultyDataService {
         professor.email = rawData.email
         professor.phone = rawData.phone
         professor.save();
-        if ( professor.hasErrors() ) println professor.errors
+        if (professor.hasErrors()) println professor.errors
     }
 }

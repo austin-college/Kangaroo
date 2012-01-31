@@ -26,6 +26,29 @@ public class CourseUtils {
             processed
     }
 
+    static String extractProfessorUsername(String email, String name) {
+        if (email)
+            extractProfessorUsername(email)
+        else
+            extractProfessorUsernameFromName(name)
+    }
+
+    static String extractProfessorUsername(String email) {
+        if (email) {
+            def parts = email.split("@")
+            if (parts)
+                parts[0]
+        }
+    }
+
+    static String extractProfessorUsernameFromName(String name) {
+        if (name) {
+            def parts = cleanFacultyName(name).toLowerCase().split(' ');
+            if (parts?.length > 1)
+                return parts[0][0] + parts[1];
+        }
+    }
+
     // Our cheap&easy way to parse currency.
     static double parseCurrency(amount) {
         Double.parseDouble(amount[1..-1]);
