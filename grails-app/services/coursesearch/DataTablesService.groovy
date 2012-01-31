@@ -39,7 +39,11 @@ class DataTablesService {
             row << CourseUtils.getProfessorLinksForClass(course, false, "<br/>");
         else
             row << "<i>Unknown<i/>"
-        row << CourseUtils.getScheduleLinksForClass(course)
+
+        if (course.meetingTimes)
+            row << CourseUtils.getScheduleLinksForClass(course)
+        else
+            row << "<i>Unknown<i/>"
 
         return row;
     }
