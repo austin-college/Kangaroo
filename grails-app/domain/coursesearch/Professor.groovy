@@ -36,7 +36,7 @@ class Professor {
         office(nullable: true)
         phone(nullable: true)
         email(nullable: true)
-        privateEditKey(maxSize: 32, blank: false)
+        privateEditKey(maxSize: 32, blank: false, unique: true)
     }
 
     static mapping = {
