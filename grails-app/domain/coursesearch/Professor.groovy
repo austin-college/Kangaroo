@@ -26,6 +26,7 @@ class Professor {
     String office
     String phone
     String email
+    String privateEditKey = CourseUtils.generateRandomToken()
 
     static constraints = {
         id(maxSize: 64, blank: false)
@@ -35,6 +36,7 @@ class Professor {
         office(nullable: true)
         phone(nullable: true)
         email(nullable: true)
+        privateEditKey(maxSize: 32, blank: false)
     }
 
     static mapping = {

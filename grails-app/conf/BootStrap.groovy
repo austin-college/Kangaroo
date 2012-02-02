@@ -3,6 +3,7 @@ import coursesearch.Professor
 import coursesearch.Term
 import grails.converters.JSON
 import grails.util.Environment
+import coursesearch.CourseUtils
 
 class BootStrap {
 
@@ -37,6 +38,13 @@ class BootStrap {
             }
 
 //            cacheService.initializeCache()
+        }
+        
+        // Give professors random edit tokens.
+        Professor.findAllByPrivateEditKey(null).each {
+            it.privateEditKey = CourseUtils.generateRandomToken()
+            it.save()
+            println "${it} now has edit key ${it.privateEditKey}."
         }
 
         println "\n==============================\n"

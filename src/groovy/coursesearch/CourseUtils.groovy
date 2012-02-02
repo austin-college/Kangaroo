@@ -4,6 +4,7 @@ import grails.util.Environment
 import groovy.util.slurpersupport.GPathResult
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
+import java.security.SecureRandom
 
 /**
  * Useful stuff.
@@ -111,6 +112,18 @@ public class CourseUtils {
         }
         return count;
     }
+
+    /**
+     * [PC] Generates a random token that's base36 encoded. Useful for tokens or authkeys.
+     */
+    static String generateRandomToken(int bytesOfEntropy = 20) {
+        def bytes = new byte[bytesOfEntropy];
+        new SecureRandom().nextBytes(bytes);
+
+        // Convert to base 36, which is compact and looks non-threatening to the user.
+        return new BigInteger(bytes).abs().toString(36);
+    }
+
 
     static def findInNode(node, c) { node.depthFirst().collect { it }.find(c)}
 
