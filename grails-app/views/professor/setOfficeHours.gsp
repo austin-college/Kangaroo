@@ -1,10 +1,11 @@
 <%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${professor}: Set your office hours</title>
+    <title>${professor.firstName}: Set your office hours</title>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
     <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
+    <g:javascript src="../libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js"/>
     <script type="text/javascript">
         var timelineInterval;
         var calendar;
@@ -21,7 +22,8 @@
                     },
                     {
                         url:contextPath + "/professor/getSchedule/${professor.id}",
-                        color:'#36c'
+                        color:'#36c',
+                        editable: false
                     }
 
                 ],
@@ -115,8 +117,8 @@
 
     .finishButtonRight {
         float: right;
-        margin-top: 24px;
-        margin-right: 10px;
+        margin-top: 28px;
+        margin-right: 15px;
     }
 
     .finishButtonRight .btn {
@@ -144,10 +146,10 @@
         <button class="btn primary large">Save and finish &raquo;</button>
     </div>
 
-    <div class="span7 info">
-        <h1>Welcome, ${professor}!</h1>
+    <div class="span8 info">
+        <h1>Welcome, ${professor.firstName}!</h1>
 
-        <div>Set your office hours below.</div>
+        <div>To set your office hours, just <b>click</b> and <b>drag</b> on the calendar.</div>
     </div>
 
     <div style="clear: both; margin-top: 140px;"></div>

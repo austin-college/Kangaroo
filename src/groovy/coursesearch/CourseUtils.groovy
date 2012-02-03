@@ -46,7 +46,7 @@ public class CourseUtils {
         if (name) {
             def parts = cleanFacultyName(name).toLowerCase().split(' ');
             if (parts?.length > 1)
-                return parts[0][0] + parts[1];
+                return parts[0][0] + parts[-1];
         }
     }
 
