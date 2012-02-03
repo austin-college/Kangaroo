@@ -45,7 +45,7 @@
                                 },
                                 true // make the event "stick"
                         );
-                        $(".finishButtonRight").fadeIn();
+                        calendarChanged();
                     }
                     calendar.fullCalendar('unselect');
                 },
@@ -64,14 +64,20 @@
                     timelineInterval = window.setInterval(setTimeline, 10000);
                     setTimeline();
                 },
+                eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+                    calendarChanged();
+                },
+                eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                    calendarChanged();
+                },
                 eventClick:function (calEvent, jsEvent, view) {
 
-
-                    if (confirm("Remove this block of office hours?"))
+                    if (confirm("Remove this block of office hours?")) {
+                        calendarChanged();
                         calendar.fullCalendar('removeEvents', function (event) {
                             return ( event == calEvent );
                         });
-
+                    }
                 }
             });
 
@@ -84,6 +90,10 @@
                 return false;
             });
         });
+
+        function calendarChanged() {
+            $(".finishButtonRight").fadeIn();
+        }
 
         function setTimeline() {
             var parentDiv = $(".fc-agenda-slots:visible").parent();
