@@ -3,6 +3,7 @@ package coursesearch
 import grails.converters.JSON
 import coursesearch.data.convert.ScheduleProjectService
 import coursesearch.data.convert.ScheduleConvertService
+import coursesearch.data.convert.ScheduleExtractService
 
 class ProfessorController {
 
@@ -30,18 +31,26 @@ class ProfessorController {
         }
     }
 
+
     def editOfficeHours = {
 
         def professor = Professor.findByPrivateEditKey(params?.id);
         if (professor) {
+            
+            List<MeetingTime> officeHours = [];
+            
             JSON.parse(params.officeHours).each { data ->
                 Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.start + "-0600");
                 Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.end + "-0600");
-                
+
+                // Adjust for time zones.
                 start.hours -= 6;                
                 end.hours -= 6;
-                
-                println "$start to $end"
+
+                days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]
+                String composite = days[start[Calendar.DAY_OF_WEEK]] + " " + start.format("hh:mm aa") + " " + end.format("hh:mm aa");
+                officeHours << ScheduleConvertService.convertMeetingTime(composite)
+                println officeHours
 
             }
             render([error: "InvalidProfessor"] as JSON)
