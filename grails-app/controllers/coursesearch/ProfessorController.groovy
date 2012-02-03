@@ -20,7 +20,7 @@ class ProfessorController {
     }
 
     def setOfficeHours = {
-        
+
         def professor = Professor.findByPrivateEditKey(params.id);
         if (professor)
             [professor: professor]
@@ -35,7 +35,14 @@ class ProfessorController {
         def professor = Professor.findByPrivateEditKey(params?.id);
         if (professor) {
             JSON.parse(params.officeHours).each { data ->
-                println data
+                Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.start + "-0600");
+                Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.end + "-0600");
+                
+                start.hours -= 6;                
+                end.hours -= 6;
+                
+                println "$start to $end"
+
             }
             render([error: "InvalidProfessor"] as JSON)
         }
