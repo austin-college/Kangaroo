@@ -8,6 +8,7 @@ import coursesearch.mn.ProfessorOfficeHours
 
 class ProfessorController {
 
+    def dataExportService
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
     def index = {
@@ -97,6 +98,8 @@ class ProfessorController {
                 new ProfessorOfficeHours(professor: professor, meetingTime: meetingTime).save(flush: true)
             }
 
+            // Export the data so it can be viewed by the iPhone app.
+            dataExportService.exportOfficeHours()
 
             render([success: true] as JSON)
         }
