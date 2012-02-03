@@ -43,8 +43,8 @@
         <br/>
 
         <div><b>Calendar:</b> Need a printed calendar for your office door? We can create <g:link
-                action="wee">one with all of your classes and office hours</g:link> on it, in addition to
-            your  e-mail. Takes 5 seconds. <g:link action="wee">Try it out!</g:link></div>
+                action="printWeeklyCalendar" id="${professor.id}">one with all of your classes and office hours</g:link> on it, in addition to
+            your  e-mail. Takes 5 seconds. <g:link action="printWeeklyCalendar" id="${professor.id}">Try it out!</g:link></div>
 
         <br/>
 
