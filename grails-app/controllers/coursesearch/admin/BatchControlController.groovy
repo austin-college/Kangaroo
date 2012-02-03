@@ -2,7 +2,7 @@ package coursesearch.admin
 
 import grails.converters.JSON
 import coursesearch.*
-import coursesearch.data.prefill.RequirementsDataService
+
 import coursesearch.data.prefill.OfficeHoursDataService
 import coursesearch.mn.ProfessorOfficeHours
 
