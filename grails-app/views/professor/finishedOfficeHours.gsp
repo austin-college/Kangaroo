@@ -9,7 +9,7 @@
         display: inline-block;
         font-weight: bold;
         padding: 10px 10px;
-        margin: 15px 10px;
+        margin: 15px 0px;
         border: 1px dotted #ddd;
     }
     </style>
@@ -34,11 +34,7 @@
     <div class="span12 info">
         <h1>All done, ${professor.firstName}!</h1>
 
-        <div>Your office hours have been saved.
-
-        %{--Check out your <g:link action="show" id="${professor.id}">Kangaroo page</g:link>!--}%
-        </div>
-
+        <div>Your office hours have been saved.</div>
         <br/>
         <br/>
 
@@ -48,13 +44,15 @@
 
         <br/>
 
-        <div><b>Web page:</b> You should put a link to <g:link action="show"
-                                                               id="${professor.id}">your one-stop Kangaroo page</g:link> in your syllabi. That way, students will always
-        be able to easily find your contact details, and your latest office hours.</div>
+        <div><b>Web page:</b> Check out <g:link action="show" id="${professor.id}" target="_blank">your shiny Kangaroo page</g:link>.</div>
+
+        <br/>
+
+        <div><b>Syllabi:</b> You can put a link to <g:link action="show" id="${professor.id}" target="_blank">your Kangaroo page</g:link> in your syllabi, and students will always
+        be able to easily find your contact details and office hours. Just copy and paste this link:</div>
 
         <div>
 
-            Just copy and paste this link:
 
             <span class="profileLink">
 
