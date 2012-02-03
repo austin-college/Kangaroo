@@ -4,6 +4,8 @@ import grails.converters.JSON
 import coursesearch.data.convert.ScheduleProjectService
 import coursesearch.data.convert.ScheduleConvertService
 
+import coursesearch.mn.ProfessorOfficeHours
+
 class ProfessorController {
 
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
@@ -17,6 +19,82 @@ class ProfessorController {
 
         if (professor)
             [professor: professor]
+    }
+
+    def printWeeklyCalendar = {
+        def professor = Professor.get(params.id)
+
+        if (professor)
+            [professor: professor]
+    }
+
+    def setOfficeHours = {
+
+        def professor = Professor.findByPrivateEditKey(params.id);
+        if (professor)
+            [professor: professor]
+        else {
+            flash.message = "Invalid edit key."
+            redirect(controller: "home")
+        }
+    }
+
+    def finishedOfficeHours = {
+        def professor = Professor.findByPrivateEditKey(params.id);
+        if (professor)
+            [professor: professor]
+    }
+
+
+    def editOfficeHours = {
+
+        def professor = Professor.findByPrivateEditKey(params?.id);
+        if (professor) {
+
+            List<MeetingTime> officeHours = [];
+
+            JSON.parse(params.officeHours).each { data ->
+                Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.start + "-0600");
+                Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.end + "-0600");
+
+                // Adjust for time zones.
+                start.hours -= 6;
+                end.hours -= 6;
+
+                // Convert to a MeetingTime.
+                final days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]
+                String composite = days[start[Calendar.DAY_OF_WEEK]] + " " + start.format("hh:mmaa") + " " + end.format("hh:mmaa");
+                MeetingTime meetingTime = ScheduleConvertService.convertMeetingTime(composite);
+
+                // See if there's an existing meetingTime with the same times that we can add to. (So we end up with "MWF 3:00PM 4:00PM" instead of three separate ones.)
+                boolean matched = false;
+                for (MeetingTime existing: officeHours) {
+
+                    if (existing.startTime == meetingTime.startTime && existing.endTime == meetingTime.endTime) {
+                        ScheduleConvertService.setDayCodes(existing, meetingTime.daysAsString)
+                        matched = true;
+                        break;
+                    }
+                }
+
+                if (!matched)
+                    officeHours << meetingTime
+            }
+
+            // Remove existing office hours.
+            ProfessorOfficeHours.findAllByProfessor(professor).each { it.delete(flush: true)}
+
+            // Add the new ones!
+            officeHours.each { meetingTime ->
+                meetingTime = meetingTime.saveOrFind()
+                new ProfessorOfficeHours(professor: professor, meetingTime: meetingTime).save(flush: true)
+            }
+
+
+            render([success: true] as JSON)
+        }
+        else
+            render([error: "InvalidProfessor"] as JSON)
     }
 
     def getStatus = {
@@ -67,7 +145,7 @@ class ProfessorController {
 
                     // ...then add them to the calendar.
                     events << [title: course.name, allDay: false, start: time.startDate, end: time.endDate,
-                            url: g.createLink(controller: "course", action: "show", id: course.id)]
+                            url: (params.hideLinks ? null : g.createLink(controller: "course", action: "show", id: course.id))]
                 }
             }
             render(events as JSON);
