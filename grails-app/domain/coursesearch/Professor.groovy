@@ -10,6 +10,8 @@ class Professor {
 
     def professorService
 
+    static transients = ['firstName', 'lastName']
+
     String id
     String name
 
@@ -44,6 +46,10 @@ class Professor {
     }
 
     String toString() { name }
+    
+    String getFirstName() { return name.split(' ')[0] }
+
+    String getLastName() { return name.split(' ')[-1] }
 
     /**
      * Returns all of the courses this professor is teaching. (Not limited by term)
