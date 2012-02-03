@@ -10,8 +10,6 @@
         var calendar;
         $(document).ready(function () {
 
-            print();
-
             $.ajax({
                 url:contextPath + "/professor/getStatus/${professor.id}?time=" + new Date().getTime(),
                 success:function (response) {
@@ -40,7 +38,13 @@
                 allDaySlot:false,
                 minTime:8,
                 maxTime:18,
-                timeFormat:''
+                timeFormat:'',
+                loading:function (isLoading, view) {
+
+                    if (!isLoading) {
+                        print();
+                    }
+                }
             });
         });
     </script>
