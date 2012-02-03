@@ -10,6 +10,8 @@
         var calendar;
         $(document).ready(function () {
 
+            print();
+
             $.ajax({
                 url:contextPath + "/professor/getStatus/${professor.id}?time=" + new Date().getTime(),
                 success:function (response) {
@@ -67,12 +69,14 @@
             <h3>${professor.title}</h3>
 
             <div id="statusHolder"></div>
-            
+
             <g:if test="${professor.email}">
                 <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
             </g:if>
 
-            <div><b>Web:</b> <a href="http://kangaroo.austincollege.edu/${professor.id}">kangaroo.austincollege.edu/${professor.id}</a></div>
+            <div><b>Web:</b> <a
+                    href="http://kangaroo.austincollege.edu/${professor.id}">kangaroo.austincollege.edu/${professor.id}</a>
+            </div>
 
             <g:if test="${professor.office}">
                 <div><b>Office:</b> ${professor.office}</div>
