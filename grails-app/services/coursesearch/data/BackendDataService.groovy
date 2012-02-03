@@ -9,7 +9,6 @@ class BackendDataService {
     def majorDataService
     def requirementsDataService
     def facultyDataService
-    def officeHoursDataService
 
     @Transactional
     def upgradeAllIfNeeded() {
@@ -21,8 +20,6 @@ class BackendDataService {
 
         if (Professor.count() == 0)
             facultyDataService.fetchAndMatch()
-
-        officeHoursDataService.upgradeIfNeeded()
     }
 
     def reset() {
@@ -30,6 +27,5 @@ class BackendDataService {
         DepartmentDataService.lastVersionUsed = 0
         RequirementsDataService.lastVersionUsed = 0
         MajorDataService.lastVersionUsed = 0
-        OfficeHoursDataService.lastVersionUsed = 0
     }
 }
