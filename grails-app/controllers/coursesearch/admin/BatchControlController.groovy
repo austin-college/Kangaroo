@@ -3,7 +3,6 @@ package coursesearch.admin
 import grails.converters.JSON
 import coursesearch.*
 
-import coursesearch.data.prefill.OfficeHoursDataService
 import coursesearch.mn.ProfessorOfficeHours
 
 class BatchControlController {
