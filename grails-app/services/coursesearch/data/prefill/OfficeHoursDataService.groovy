@@ -15,19 +15,19 @@ class OfficeHoursDataService extends UpdateableDataService {
     protected void upgradeAll(dataFromServer) {
 
         // Remove the existing items.
-        ProfessorOfficeHours.list().each { it.delete(flush: true) }
+//        ProfessorOfficeHours.list().each { it.delete(flush: true) }
 
         // Add the new ones.
-        dataFromServer.list.each { data ->
-            def prof = Professor.findByName(data.name);
-
-            if (prof) {
-                data.hours.each { schedule ->
-                    new ProfessorOfficeHours(professor: prof, meetingTime: ScheduleConvertService.convertMeetingTime(schedule).saveOrFind()).save()
-                    prof.save();
-                }
-            }
-        }
+//        dataFromServer.list.each { data ->
+//            def prof = Professor.findByName(data.name);
+//
+//            if (prof) {
+//                data.hours.each { schedule ->
+//                    new ProfessorOfficeHours(professor: prof, meetingTime: ScheduleConvertService.convertMeetingTime(schedule).saveOrFind()).save()
+//                    prof.save();
+//                }
+//            }
+//        }
     }
 
 }
