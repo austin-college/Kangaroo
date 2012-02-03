@@ -97,13 +97,13 @@
             $("#finishButton").click(function () {
 
                 $("#finishButton").attr("disabled", "disabled");
-                $(".finishButtonRight").css({ opacity: 0.3 });
+                $(".finishButtonRight").css({ opacity:0.3 });
 
                 // Extract the office hours...
                 var items = []
                 $.each(calendar.fullCalendar('clientEvents'), function (index, value) {
                     if (value.source.id != "classes") {
-                        items.push({start:value.start, end: value.end});
+                        items.push({start:value.start, end:value.end});
                     }
                 });
 
@@ -135,7 +135,7 @@
 
             var curTime = new Date();
             var curCalView = $('#calendar').fullCalendar("getView");
-            alert(curCalView.visStart);
+//            alert(curCalView.visStart);
             if (curCalView.visStart < curTime && curCalView.visEnd > curTime) {
                 timeline.show();
             } else {
@@ -146,7 +146,7 @@
             var percentOfDay = curSeconds / (10 * 60 * 60); //24 * 60 * 60 = 86400, # of seconds in a day
             var topLoc = Math.floor(parentDiv.height() * percentOfDay);
 
-            if ( topLoc > 0 )
+            if (topLoc > 0)
                 timeline.show();
             else
                 timeline.hide();
