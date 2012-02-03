@@ -25,6 +25,7 @@
                     }
 
                 ],
+                columnFormat: { week: "dddd's'" /* "Mondays" */ },
                 defaultView:'agendaWeek',
                 selectable:true,
                 selectHelper:true,
@@ -49,7 +50,7 @@
                 editable:true,
                 header:null,
                 ignoreTimezone:false,
-                height:350,
+                height:500,
                 allDaySlot:false,
                 minTime:8,
                 maxTime:18,
