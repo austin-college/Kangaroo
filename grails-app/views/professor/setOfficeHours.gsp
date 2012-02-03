@@ -135,6 +135,7 @@
 
             var curTime = new Date();
             var curCalView = $('#calendar').fullCalendar("getView");
+            alert(curCalView.visStart);
             if (curCalView.visStart < curTime && curCalView.visEnd > curTime) {
                 timeline.show();
             } else {
@@ -144,6 +145,11 @@
             var curSeconds = (curTime.getHours() * 60 * 60) + (curTime.getMinutes() * 60) + curTime.getSeconds() - (8 * 60 * 60);
             var percentOfDay = curSeconds / (10 * 60 * 60); //24 * 60 * 60 = 86400, # of seconds in a day
             var topLoc = Math.floor(parentDiv.height() * percentOfDay);
+
+            if ( topLoc > 0 )
+                timeline.show();
+            else
+                timeline.hide();
 
             timeline.css("top", topLoc + "px");
 
