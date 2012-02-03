@@ -3,7 +3,8 @@ package coursesearch
 import grails.converters.JSON
 import coursesearch.data.convert.ScheduleProjectService
 import coursesearch.data.convert.ScheduleConvertService
-import coursesearch.data.convert.ScheduleExtractService
+
+import coursesearch.mn.ProfessorOfficeHours
 
 class ProfessorController {
 
@@ -31,6 +32,12 @@ class ProfessorController {
         }
     }
 
+    def finishedOfficeHours = {
+        def professor = Professor.findByPrivateEditKey(params.id);
+        if (professor)
+            [professor: professor]
+    }
+
 
     def editOfficeHours = {
 
@@ -47,6 +54,7 @@ class ProfessorController {
                 start.hours -= 6;
                 end.hours -= 6;
 
+                // Convert to a MeetingTime.
                 final days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]
                 String composite = days[start[Calendar.DAY_OF_WEEK]] + " " + start.format("hh:mmaa") + " " + end.format("hh:mmaa");
                 MeetingTime meetingTime = ScheduleConvertService.convertMeetingTime(composite);
@@ -64,10 +72,19 @@ class ProfessorController {
 
                 if (!matched)
                     officeHours << meetingTime
-
-                println officeHours
             }
-            render([error: "InvalidProfessor"] as JSON)
+
+            // Remove existing office hours.
+            ProfessorOfficeHours.findAllByProfessor(professor).each { it.delete(flush: true)}
+
+            // Add the new ones!
+            officeHours.each { meetingTime ->
+                meetingTime = meetingTime.saveOrFind()
+                new ProfessorOfficeHours(professor: professor, meetingTime: meetingTime).save(flush: true)
+            }
+
+
+            render([success: true] as JSON)
         }
         else
             render([error: "InvalidProfessor"] as JSON)

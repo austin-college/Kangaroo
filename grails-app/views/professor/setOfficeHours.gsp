@@ -96,6 +96,9 @@
 
             $("#finishButton").click(function () {
 
+                $("#finishButton").attr("disabled", "disabled");
+                $(".finishButtonRight").css({ opacity: 0.3 });
+
                 // Extract the office hours...
                 var items = []
                 $.each(calendar.fullCalendar('clientEvents'), function (index, value) {
@@ -111,7 +114,7 @@
                     data:{officeHours:JSON.stringify(items)},
                     type:"POST",
                     success:function (response) {
-//                        alert("true");
+                        window.location = contextPath + "/professor/finishedOfficeHours/${professor.privateEditKey}";
                     }
                 });
 
