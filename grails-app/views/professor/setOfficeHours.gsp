@@ -18,11 +18,11 @@
                 eventSources:[
 
                     {
-                        url:contextPath + "/professor/getOfficeHours/${professor.id}",
+                        url:contextPath + "/professor/getOfficeHours/${professor.id}?hideLinks=true",
                         color:'green'
                     },
                     {
-                        url:contextPath + "/professor/getSchedule/${professor.id}",
+                        url:contextPath + "/professor/getSchedule/${professor.id}?hideLinks=true",
                         color:'#36c',
                         editable:false
                     }

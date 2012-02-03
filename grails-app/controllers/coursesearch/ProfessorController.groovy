@@ -78,7 +78,7 @@ class ProfessorController {
 
                     // ...then add them to the calendar.
                     events << [title: course.name, allDay: false, start: time.startDate, end: time.endDate,
-                            url: g.createLink(controller: "course", action: "show", id: course.id)]
+                            url: (params.hideLinks ? null : g.createLink(controller: "course", action: "show", id: course.id))]
                 }
             }
             render(events as JSON);
