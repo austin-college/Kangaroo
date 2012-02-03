@@ -36,22 +36,36 @@ class ProfessorController {
 
         def professor = Professor.findByPrivateEditKey(params?.id);
         if (professor) {
-            
+
             List<MeetingTime> officeHours = [];
-            
+
             JSON.parse(params.officeHours).each { data ->
                 Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.start + "-0600");
                 Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.end + "-0600");
 
                 // Adjust for time zones.
-                start.hours -= 6;                
+                start.hours -= 6;
                 end.hours -= 6;
 
-                days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]
-                String composite = days[start[Calendar.DAY_OF_WEEK]] + " " + start.format("hh:mm aa") + " " + end.format("hh:mm aa");
-                officeHours << ScheduleConvertService.convertMeetingTime(composite)
-                println officeHours
+                final days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]
+                String composite = days[start[Calendar.DAY_OF_WEEK]] + " " + start.format("hh:mmaa") + " " + end.format("hh:mmaa");
+                MeetingTime meetingTime = ScheduleConvertService.convertMeetingTime(composite);
 
+                // See if there's an existing meetingTime with the same times that we can add to. (So we end up with "MWF 3:00PM 4:00PM" instead of three separate ones.)
+                boolean matched = false;
+                for (MeetingTime existing: officeHours) {
+
+                    if (existing.startTime == meetingTime.startTime && existing.endTime == meetingTime.endTime) {
+                        ScheduleConvertService.setDayCodes(existing, meetingTime.daysAsString)
+                        matched = true;
+                        break;
+                    }
+                }
+
+                if (!matched)
+                    officeHours << meetingTime
+
+                println officeHours
             }
             render([error: "InvalidProfessor"] as JSON)
         }
