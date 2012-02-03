@@ -75,7 +75,7 @@
                 },
                 eventClick:function (calEvent, jsEvent, view) {
 
-                    if (calEvent.source.editable && confirm("Remove this block of office hours?")) {
+                    if (calEvent.source.id != "classes" && confirm("Remove this block of office hours?")) {
                         calendarChanged();
                         calendar.fullCalendar('removeEvents', function (event) {
                             return ( event == calEvent );
@@ -99,7 +99,7 @@
                 // Extract the office hours...
                 var items = []
                 $.each(calendar.fullCalendar('clientEvents'), function (index, value) {
-                    if (value.source.id == "officeHours") {
+                    if (value.source.id != "classes") {
                         items.push({start:value.start, end: value.end});
                     }
                 });
