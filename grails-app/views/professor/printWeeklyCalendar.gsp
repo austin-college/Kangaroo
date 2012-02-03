@@ -31,6 +31,7 @@
                     }
 
                 ],
+                columnFormat:{ week:"dddd's'" /* "Mondays" */ },
                 defaultView:'agendaWeek',
                 header:null,
                 ignoreTimezone:false,
@@ -69,7 +70,7 @@
             </div>
         </g:if>
 
-        <div class="info">
+        <div class="info" style="margin-left: 120px;">
             <h1>${professor}</h1>
 
             <h3>${professor.title}</h3>
