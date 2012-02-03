@@ -28,6 +28,13 @@ class ProfessorController {
             [professor: professor]
     }
 
+    def mobileCalendar = {
+        def professor = Professor.get(params.id)
+
+        if (professor)
+            [professor: professor]
+    }
+
     def setOfficeHours = {
 
         def professor = Professor.findByPrivateEditKey(params.id);
