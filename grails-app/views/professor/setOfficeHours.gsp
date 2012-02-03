@@ -19,7 +19,8 @@
 
                     {
                         url:contextPath + "/professor/getOfficeHours/${professor.id}?hideLinks=true",
-                        color:'green'
+                        color:'green',
+                        editable:true
                     },
                     {
                         url:contextPath + "/professor/getSchedule/${professor.id}?hideLinks=true",
@@ -64,15 +65,15 @@
                     timelineInterval = window.setInterval(setTimeline, 10000);
                     setTimeline();
                 },
-                eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+                eventDrop:function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                     calendarChanged();
                 },
-                eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                eventResize:function (event, dayDelta, minuteDelta, revertFunc) {
                     calendarChanged();
                 },
                 eventClick:function (calEvent, jsEvent, view) {
 
-                    if (confirm("Remove this block of office hours?")) {
+                    if (calEvent.source.editable && confirm("Remove this block of office hours?")) {
                         calendarChanged();
                         calendar.fullCalendar('removeEvents', function (event) {
                             return ( event == calEvent );
