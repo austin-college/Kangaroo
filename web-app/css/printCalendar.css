@@ -11,6 +11,7 @@ body {
     margin: 0 auto;
     padding: 15px;
     border: 1px solid #ddd;
+    font-size: 14px;
 }
 
 hr {
@@ -37,4 +38,9 @@ h3 {
     font-size: 16px;
     color: #000 !important;
     background-color: #fff !important;
+}
+
+.fc-widget-header {
+    font-size: 16px;
+    /*padding: 5px !important;*/
 }

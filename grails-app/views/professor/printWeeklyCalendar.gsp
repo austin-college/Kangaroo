@@ -85,13 +85,11 @@
                     href="http://kangaroo.austincollege.edu/${professor.id}">kangaroo.austincollege.edu/${professor.id}</a>
             </div>
 
-            <g:if test="${professor.office}">
-                <div><b>Office:</b> ${professor.office}</div>
-            </g:if>
-
             <g:if test="${professor.phone}">
                 <div><b>Phone:</b> ${professor.phone}</div>
             </g:if>
+
+            <div style="clear: both;"></div>
         </div>
     </div>
 </div>
