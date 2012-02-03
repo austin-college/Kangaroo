@@ -34,7 +34,7 @@
                 defaultView:'agendaWeek',
                 header:null,
                 ignoreTimezone:false,
-                height:450,
+                height:550,
                 allDaySlot:false,
                 minTime:8,
                 maxTime:18,
@@ -42,6 +42,8 @@
                 loading:function (isLoading, view) {
 
                     if (!isLoading) {
+                        $('.fc-view-agendaWeek > div > div').css('overflow-y', 'hidden');
+                        $('.fc-agenda-gutter').css('width', 0);
                         print();
                     }
                 }
@@ -93,12 +95,10 @@
     </div>
 </div>
 
-<div class="details-block courses-block span16" style="clear: both; margin-top: 60px">
+<div class="details-block courses-block span12"
+     style="clear: both; margin: 60px auto 0 auto; display: block;">
 
-    <div>
-
-        <div id="calendar"></div>
-    </div>
+    <div id="calendar"></div>
 </div>
 </body>
 </html>
