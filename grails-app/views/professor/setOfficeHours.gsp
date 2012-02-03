@@ -23,11 +23,11 @@
                     {
                         url:contextPath + "/professor/getSchedule/${professor.id}",
                         color:'#36c',
-                        editable: false
+                        editable:false
                     }
 
                 ],
-                columnFormat: { week: "dddd's'" /* "Mondays" */ },
+                columnFormat:{ week:"dddd's'" /* "Mondays" */ },
                 defaultView:'agendaWeek',
                 selectable:true,
                 selectHelper:true,
@@ -63,6 +63,15 @@
                     timelineInterval = window.setInterval(setTimeline, 10000);
                     setTimeline();
                 }
+            });
+
+            $("a.startOver").click(function() {
+
+                calendar.fullCalendar( 'removeEvents' );
+                calendar.fullCalendar( 'refetchEvents' );
+                $(".finishButtonRight").hide();
+
+                return false;
             });
         });
 
@@ -101,7 +110,7 @@
     </script>
     <style type="text/css">
     .timeline {
-        position: absolute;
+        posit8on: absolute;
         left: 59px;
         border: none;
         border-top: 2px solid red;
@@ -117,12 +126,20 @@
 
     .finishButtonRight {
         float: right;
-        margin-top: 28px;
+        display: none;
+        margin-top: 24px;
         margin-right: 15px;
     }
 
     .finishButtonRight .btn {
         font-size: 20px;
+    }
+
+    a.startOver {
+        display: inline-block;
+        text-align: center;
+        margin-top: 7px;
+        margin-left: 48px;
     }
     </style>
 </head>
@@ -142,8 +159,12 @@
         </div>
     </g:if>
 
-    <div class="finishButtonRight" style="display: none;">
+    <div class="finishButtonRight">
         <button class="btn primary large">Save and finish &raquo;</button>
+
+        <div>
+            <a href="#" class="startOver">Start over &raquo;</a>
+        </div>
     </div>
 
     <div class="span8 info">
