@@ -8,6 +8,7 @@
     <g:javascript src="../libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js"/>
 
     <script type="text/javascript">
+
         var timelineInterval;
         var calendar;
         $(document).ready(function () {
@@ -16,13 +17,14 @@
             calendar = $('#calendar').fullCalendar({
                 weekends:false,
                 eventSources:[
-
                     {
+                        id:"officeHours",
                         url:contextPath + "/professor/getOfficeHours/${professor.id}?hideLinks=true",
                         color:'green',
                         editable:true
                     },
                     {
+                        id:"classes",
                         url:contextPath + "/professor/getSchedule/${professor.id}?hideLinks=true",
                         color:'#36c',
                         editable:false
@@ -84,11 +86,35 @@
 
             $("a.startOver").click(function () {
 
+                // Reset the calendar...
                 calendar.fullCalendar('removeEvents');
                 calendar.fullCalendar('refetchEvents');
                 $(".finishButtonRight").hide();
 
                 return false;
+            });
+
+            $("#finishButton").click(function () {
+
+                // Extract the office hours...
+                var items = []
+                $.each(calendar.fullCalendar('clientEvents'), function (index, value) {
+                    if (value.source.id == "officeHours") {
+                        items.push({start:value.start, end: value.end});
+                    }
+                });
+
+                // Send to the server.
+                $.ajax({
+                    url:contextPath + "/professor/editOfficeHours/${professor.privateEditKey}",
+                    dataType:"json",
+                    data:{officeHours:JSON.stringify(items)},
+                    type:"POST",
+                    success:function (response) {
+//                        alert("true");
+                    }
+                });
+
             });
         });
 
@@ -181,7 +207,7 @@
     </g:if>
 
     <div class="finishButtonRight">
-        <button class="btn primary large">Save and finish &raquo;</button>
+        <button class="btn primary large" id="finishButton">Save and finish &raquo;</button>
 
         <div>
             <a href="#" class="startOver">Start over &raquo;</a>

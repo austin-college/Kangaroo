@@ -20,7 +20,7 @@ class ProfessorController {
     }
 
     def setOfficeHours = {
-
+        
         def professor = Professor.findByPrivateEditKey(params.id);
         if (professor)
             [professor: professor]
@@ -28,6 +28,19 @@ class ProfessorController {
             flash.message = "Invalid edit key."
             redirect(controller: "home")
         }
+    }
+
+    def editOfficeHours = {
+
+        def professor = Professor.findByPrivateEditKey(params?.id);
+        if (professor) {
+            JSON.parse(params.officeHours).each { data ->
+                println data
+            }
+            render([error: "InvalidProfessor"] as JSON)
+        }
+        else
+            render([error: "InvalidProfessor"] as JSON)
     }
 
     def getStatus = {
