@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
     <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
     <g:javascript src="../libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js"/>
+
     <script type="text/javascript">
         var timelineInterval;
         var calendar;
@@ -62,13 +63,22 @@
                     window.clearInterval(timelineInterval);
                     timelineInterval = window.setInterval(setTimeline, 10000);
                     setTimeline();
+                },
+                eventClick:function (calEvent, jsEvent, view) {
+
+
+                    if (confirm("Remove this block of office hours?"))
+                        calendar.fullCalendar('removeEvents', function (event) {
+                            return ( event == calEvent );
+                        });
+
                 }
             });
 
-            $("a.startOver").click(function() {
+            $("a.startOver").click(function () {
 
-                calendar.fullCalendar( 'removeEvents' );
-                calendar.fullCalendar( 'refetchEvents' );
+                calendar.fullCalendar('removeEvents');
+                calendar.fullCalendar('refetchEvents');
                 $(".finishButtonRight").hide();
 
                 return false;
@@ -110,7 +120,7 @@
     </script>
     <style type="text/css">
     .timeline {
-        posit8on: absolute;
+        positon: absolute;
         left: 59px;
         border: none;
         border-top: 2px solid red;
