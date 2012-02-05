@@ -24,10 +24,6 @@
 
 <body>
 
-<div id="newStuff">
-    <b>New!</b> We now have <g:link controller="majors">majors and minors</g:link>!</a>
-</div>
-
 <div id="searchControls">
     <div id="tableFilterBar">
         <label for="tableSearch">Search for classes:</label>
