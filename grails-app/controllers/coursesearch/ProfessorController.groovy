@@ -62,8 +62,8 @@ class ProfessorController {
             List<MeetingTime> officeHours = [];
 
             JSON.parse(params.officeHours).each { data ->
-                Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.start + "-0600");
-                Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.end + "-0600");
+                Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.start);
+                Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.end);
 
                 // Adjust for time zones.
                 start.hours -= 6;

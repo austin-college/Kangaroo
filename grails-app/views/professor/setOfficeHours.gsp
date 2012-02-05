@@ -111,9 +111,11 @@
                     type:"POST",
                     success:function (response) {
                         window.location = contextPath + "/professor/finishedOfficeHours/${professor.privateEditKey}";
+                    },
+                    error: function(error) {
+                        document.write(error.responseText);
                     }
                 });
-
             });
         });
 
