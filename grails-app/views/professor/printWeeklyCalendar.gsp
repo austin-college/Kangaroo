@@ -1,7 +1,7 @@
 <%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${professor}</title>
+    <title>Weekly Calendar: ${professor}</title>
     <meta name="layout" content="print"/>
     <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
     <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
@@ -65,8 +65,8 @@
     <div class="details-block professor-block" id="professorInfo">
 
         <g:if test="${professor.photoUrl}">
-            <div class="photo" style="margin-right: 20px; float: left">
-                <img src="${professor.photoUrl}" alt="${professor}" title="${professor}" width="100px">
+            <div class="photo" style="margin-right: 25px; float: left">
+                <img src="${professor.photoUrl}" alt="${professor}" title="${professor}" width="120px">
             </div>
         </g:if>
 
@@ -78,12 +78,8 @@
             <div id="statusHolder"></div>
 
             <g:if test="${professor.email}">
-                <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
+                <div><b>E-mail:</b> ${professor.email}</div>
             </g:if>
-
-            <div><b>Web:</b> <a
-                    href="http://kangaroo.austincollege.edu/${professor.id}">kangaroo.austincollege.edu/${professor.id}</a>
-            </div>
 
             <g:if test="${professor.phone}">
                 <div><b>Phone:</b> ${professor.phone}</div>
