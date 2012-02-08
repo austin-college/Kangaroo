@@ -10,15 +10,6 @@
         var calendar;
         $(document).ready(function () {
 
-            $.ajax({
-                url:contextPath + "/professor/getStatus/${professor.id}?time=" + new Date().getTime(),
-                success:function (response) {
-                    $("#statusHolder").html(response.html);
-                    $("#statusHolder").hide();
-                    $("#statusHolder").fadeIn();
-                }
-            });
-
             calendar = $('#calendar').fullCalendar({
                 weekends:false,
                 eventSources:[
@@ -74,8 +65,6 @@
             <h1>${professor}</h1>
 
             <h3>${professor.title}</h3>
-
-            <div id="statusHolder"></div>
 
             <g:if test="${professor.email}">
                 <div><b>E-mail:</b> ${professor.email}</div>
