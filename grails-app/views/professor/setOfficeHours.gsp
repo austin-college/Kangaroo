@@ -1,7 +1,7 @@
 <%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${professor.firstName}: Set your office hours</title>
+    <title>${professor}: Set your office hours</title>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
     <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
@@ -222,7 +222,13 @@
     </div>
 
     <div class="span8 info">
-        <h1>Welcome, ${professor.firstName}!</h1>
+
+        <g:if test="${professor.id == 'dwilliams'}">
+            <h1>Welcome, E. Don!</h1>
+        </g:if>
+        <g:else>
+            <h1>Welcome, ${professor.firstName}!</h1>
+        </g:else>
 
         <div>To set your office hours, just <b>click</b> and <b>drag</b> on the calendar.</div>
     </div>
