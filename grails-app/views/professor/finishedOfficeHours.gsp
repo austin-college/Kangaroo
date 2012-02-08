@@ -1,7 +1,7 @@
 <%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${professor.firstName}: Office Hours Set</title>
+    <title>${professor}: Office Hours Set</title>
     <meta name="layout" content="main"/>
 
     <style type="text/css">
@@ -60,7 +60,12 @@
 
 
     <div class="span12 info">
-        <h1>All done, ${professor.firstName}!</h1>
+        <g:if test="${professor.id == 'dwilliams'}">
+            <h1>All done, E. Don!</h1>
+        </g:if>
+        <g:else>
+            <h1>All done, ${professor.firstName}!</h1>
+        </g:else>
 
         <div>Your office hours have been saved.</div>
         <hr/>
