@@ -1,5 +1,7 @@
 package coursesearch
 
+import coursesearch.data.BackendDataService
+
 class CourseController {
 
     def index = {
@@ -17,7 +19,7 @@ class CourseController {
             // Find all courses at this time, but segment by department.
             def coursesAtTime = meetingTime.coursesMeeting;
             Department.list().each { dept ->
-                def coursesFound = coursesAtTime.findAll { it.department.id == dept.id && it.term == Term.findOrCreate("12SP") }
+                def coursesFound = coursesAtTime.findAll { it.department.id == dept.id && it.term == BackendDataService.currentTerm }
                 if (coursesFound)
                     courses.put(dept, coursesFound)
             }
@@ -37,7 +39,7 @@ class CourseController {
                 def coursesFound = Course.withCriteria {
                     eq("room", params.id)
                     eq("department", dept)
-                    eq("term", Term.findOrCreate("12SP"))
+                    eq("term", BackendDataService.currentTerm)
                 }
                 if (coursesFound)
                     courses.put(dept, coursesFound)

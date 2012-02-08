@@ -62,10 +62,6 @@
                 maxTime:18,
                 timeFormat:'',
                 viewDisplay:function (view) {
-
-                    window.clearInterval(timelineInterval);
-                    timelineInterval = window.setInterval(setTimeline, 10000);
-                    setTimeline();
                 },
                 eventDrop:function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                     calendarChanged();
@@ -115,9 +111,11 @@
                     type:"POST",
                     success:function (response) {
                         window.location = contextPath + "/professor/finishedOfficeHours/${professor.privateEditKey}";
+                    },
+                    error: function(error) {
+                        document.write(error.responseText);
                     }
                 });
-
             });
         });
 

@@ -1,7 +1,7 @@
 <%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${professor.firstName}: All done!</title>
+    <title>${professor.firstName}: Office Hours Set</title>
     <meta name="layout" content="main"/>
 
     <style type="text/css">
@@ -12,7 +12,35 @@
         margin: 15px 0px;
         border: 1px dotted #ddd;
     }
+
+    ul li {
+        color: #333;
+        padding: 3px 0;
+    }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a#addAsBookmark").click(function () {
+
+                var title = "${professor} - Set Office Hours";
+                if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1)
+                    alert("Press Ctrl+D to bookmark this page.");
+                else if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1)
+                    alert("Press Ctrl+D to bookmark this page.");
+                else if (window.sidebar) // Mozilla Firefox Bookmark
+                    window.sidebar.addPanel(location.href, title, "");
+                else if (window.external) // IE Favorite
+                    window.external.AddFavorite(location.href, title);
+                else if (window.opera && window.print) { // Opera Hotlist
+                    this.title = document.title;
+                    return true;
+                } else
+                    alert("Press Ctrl+D to bookmark this page.");
+
+                return false;
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -35,32 +63,39 @@
         <h1>All done, ${professor.firstName}!</h1>
 
         <div>Your office hours have been saved.</div>
-        <br/>
-        <br/>
-
-        <div><b>Calendar:</b> Need a printed calendar for your office door? We can create <g:link
-                action="printWeeklyCalendar" id="${professor.id}">one with all of your classes and office hours</g:link> on it, in addition to
-            your  e-mail. Takes 5 seconds. <g:link action="printWeeklyCalendar" id="${professor.id}">Try it out!</g:link></div>
-
-        <br/>
-
-        <div><b>Web page:</b> Check out <g:link action="show" id="${professor.id}" target="_blank">your shiny Kangaroo page</g:link>.</div>
-
-        <br/>
-
-        <div><b>Syllabi:</b> You can put a link to <g:link action="show" id="${professor.id}" target="_blank">your Kangaroo page</g:link> in your syllabi, and students will always
-        be able to easily find your contact details and office hours. Just copy and paste this link:</div>
+        <hr/>
 
         <div>
-
-
-            <span class="profileLink">
-
-
-                <div><a href="http://kangaroo.austincollege.edu/${professor.id}">kangaroo.austincollege.edu/${professor.id}</a></div>
-                %{--<div><a href="${g.createLink(action: 'show', id: professor.id)}"><g:createLink action="show" id="${professor.id}" absolute="true"/></a></div></div>--}%
-            </span>
+            <ul>
+                <li><b><g:link action="printWeeklyCalendar" id="${professor.id}">Print a weekly calendar</g:link></b>
+                    for your office door.</li>
+                <li>Check out <g:link action="show" id="${professor.id}"
+                                      target="_blank">your shiny Kangaroo page</g:link>.</li>
+                <li><g:link action="setOfficeHours"
+                            id="${professor.privateEditKey}">Edit your office hours</g:link> again (in case you made a mistake)</li>
+            </ul>
         </div>
+
+        <div>
+            <b>We strongly recommend <a href="#" id="addAsBookmark">bookmarking this page</a>.
+            </b> (So you can easily edit your office hours any time during the semester.)
+        </div>
+
+        <br/>
+
+        %{--<div><b>Syllabi:</b> You can put a link to <g:link action="show" id="${professor.id}" target="_blank">your Kangaroo page</g:link> in your syllabi, and students will always--}%
+        %{--be able to easily find your contact details and office hours. Just copy and paste this link:</div>--}%
+
+        %{--<div>--}%
+
+
+        %{--<span class="profileLink">--}%
+
+
+        %{--<div><a href="http://kangaroo.austincollege.edu/${professor.id}">kangaroo.austincollege.edu/${professor.id}</a></div>--}%
+        %{--<div><a href="${g.createLink(action: 'show', id: professor.id)}"><g:createLink action="show" id="${professor.id}" absolute="true"/></a></div></div>--}%
+        %{--</span>--}%
+        %{--</div>--}%
     </div>
 </div>
 

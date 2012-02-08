@@ -2,6 +2,7 @@ package coursesearch
 
 import coursesearch.mn.ProfessorOfficeHours
 import coursesearch.mn.Teaching
+import coursesearch.data.BackendDataService
 
 /**
  * The facilitators of learning, the lifeblood of a university, the people who hate grading.
@@ -55,6 +56,11 @@ class Professor {
      * Returns all of the courses this professor is teaching. (Not limited by term)
      */
     List<Course> getCoursesTeaching() { return Teaching.findAllByProfessor(this)*.course }
+
+    /**
+     * Returns all of the courses this professor is teaching in the current term.
+     */
+    List<Course> getCurrentCursesTeaching() { coursesTeaching.findAll { it.term == BackendDataService.currentTerm} }
 
     /**
      * Returns this professor's office hours.
