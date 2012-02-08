@@ -148,14 +148,18 @@ class ProfessorController {
         if (professor) {
 
             def events = []
+            def usedTimes = [:]
 
             // For every course, convert its meeting times into real dates...
             professor.coursesTeaching.findAll { it.term == Term.findByShortCode("12SP") }.each { course ->
                 ScheduleProjectService.projectToWeek(course.meetingTimes).each { time ->
 
                     // ...then add them to the calendar.
-                    events << [title: course.name, allDay: false, start: time.startDate, end: time.endDate,
-                            url: (params.hideLinks ? null : g.createLink(controller: "course", action: "show", id: course.id))]
+                    if (!usedTimes.containsKey(time)) { // Don't show overlapping classes.
+                        usedTimes[time] = course;
+                        events << [title: course.name, allDay: false, start: time.startDate, end: time.endDate,
+                                url: (params.hideLinks ? null : g.createLink(controller: "course", action: "show", id: course.id))]
+                    }
                 }
             }
             render(events as JSON);
