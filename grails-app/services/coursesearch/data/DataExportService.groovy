@@ -12,7 +12,7 @@ class DataExportService {
 
     def exportOfficeHours() {
 
-        def term = Term.findOrCreate("12SP")
+        def term = BackendDataService.currentTerm;
 
         def list = []
 

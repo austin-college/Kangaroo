@@ -2,8 +2,12 @@ package coursesearch.data
 
 import org.springframework.transaction.annotation.Transactional
 import coursesearch.Professor
+import coursesearch.Term
 
 class BackendDataService {
+
+    // The current term.
+    static final String CURRENT_TERM_CODE = "12SP"
 
     def departmentDataService
     def majorDataService
@@ -32,4 +36,6 @@ class BackendDataService {
         RequirementsDataService.lastVersionUsed = 0
         MajorDataService.lastVersionUsed = 0
     }
+
+    static Term getCurrentTerm() { return Term.findOrCreate(CURRENT_TERM_CODE)}
 }

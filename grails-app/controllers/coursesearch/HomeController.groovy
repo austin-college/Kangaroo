@@ -1,13 +1,14 @@
 package coursesearch
 
 import grails.converters.JSON
+import coursesearch.data.BackendDataService
 
 class HomeController {
 
     def dataTablesService
 
     def index = {
-        [tableJson: dataTablesService.getTableCached(Term.findByShortCode("12SP")), departmentsJson: (getDepartmentsMap() as JSON)]
+        [tableJson: dataTablesService.getTableCached(BackendDataService.currentTerm), departmentsJson: (getDepartmentsMap() as JSON)]
     }
 
     /**
