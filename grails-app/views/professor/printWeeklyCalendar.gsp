@@ -45,7 +45,7 @@
                     if (!isLoading) {
                         $('.fc-view-agendaWeek > div > div').css('overflow-y', 'hidden');
                         $('.fc-agenda-gutter').css('width', 0);
-//                        print();
+                        print();
                     }
                 }
             });
