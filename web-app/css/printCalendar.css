@@ -64,16 +64,19 @@ h3 {
 }
 
 #madeBy {
-    padding-top: 50px;
+    padding-top: 55px;
     float: right;
     clear: both;
     width: 250px;
     margin-right: 60px;
     text-align: right;
-    line-height: 18px;
+    line-height: 16px;
     font-size: 14px;
 }
 
 #madeBy h3 {
-    margin-bottom: 9px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    /*font-style: normal;*/
+    font-weight: normal;
 }
