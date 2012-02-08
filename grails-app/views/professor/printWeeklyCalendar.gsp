@@ -70,7 +70,7 @@
             </div>
         </g:if>
 
-        <div class="info" style="margin-left: 120px;">
+        <div class="info" style="margin-left: 148px;">
             <h1>${professor}</h1>
 
             <h3>${professor.title}</h3>
