@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.data.convert.ProfessorService; coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Weekly Calendar: ${professor}</title>
@@ -94,6 +94,16 @@
      style="clear: both; margin: 60px auto 0 auto; display: block;">
 
     <div id="calendar"></div>
+</div>
+
+<div id="classLocations">
+    <h3>Class Locations</h3>
+    <g:each in="${ProfessorService.filterSameTimeCourses(professor.currentCursesTeaching)}" var="course">
+        <div class="course">
+            <div><b>${course}</b> is in <i>${course.room}</i></div>
+            %{--<div><i>${course.description}</i></div>--}%
+        </div>
+    </g:each>
 </div>
 </body>
 </html>
