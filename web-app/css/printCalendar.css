@@ -49,16 +49,31 @@ h3 {
 }
 
 #classLocations {
-    clear: both;
+    clear: left;
     padding-top: 40px;
     font-size: 16px;
     line-height: 26px;
 }
 
-#classLocations h3 {
+#classLocations h3, #madeBy h3 {
     /*font-weight: normal;*/
     color: #666;
     font-style: italic;
     line-height: 20px;
     margin-bottom: 5px;
+}
+
+#madeBy {
+    padding-top: 50px;
+    float: right;
+    clear: both;
+    width: 250px;
+    margin-right: 60px;
+    text-align: right;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+#madeBy h3 {
+    margin-bottom: 9px;
 }

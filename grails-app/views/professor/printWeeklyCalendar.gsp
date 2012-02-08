@@ -45,7 +45,7 @@
                     if (!isLoading) {
                         $('.fc-view-agendaWeek > div > div').css('overflow-y', 'hidden');
                         $('.fc-agenda-gutter').css('width', 0);
-                        print();
+//                        print();
                     }
                 }
             });
@@ -94,6 +94,12 @@
      style="clear: both; margin: 60px auto 0 auto; display: block;">
 
     <div id="calendar"></div>
+</div>
+
+<div id="madeBy">
+    <h3>Made with:</h3>
+    <img src="${resource(dir: 'images', file: 'app_logo.png')}" alt="Kangaroo" height="29px" width="145px" border="0"/>
+    <div>www.<b>ackangaroo</b>.com</div>
 </div>
 
 <div id="classLocations">
