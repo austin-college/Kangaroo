@@ -2,14 +2,19 @@ package coursesearch.data
 
 import org.springframework.transaction.annotation.Transactional
 import coursesearch.Professor
+import coursesearch.Term
 
 class BackendDataService {
+
+    // The current term.
+    static final String CURRENT_TERM_CODE = "12SP"
 
     def departmentDataService
     def majorDataService
     def requirementsDataService
     def facultyDataService
-    def officeHoursDataService
+
+    def dataExportService
 
     @Transactional
     def upgradeAllIfNeeded() {
@@ -22,7 +27,7 @@ class BackendDataService {
         if (Professor.count() == 0)
             facultyDataService.fetchAndMatch()
 
-        officeHoursDataService.upgradeIfNeeded()
+        dataExportService.exportOfficeHours()
     }
 
     def reset() {
@@ -30,6 +35,7 @@ class BackendDataService {
         DepartmentDataService.lastVersionUsed = 0
         RequirementsDataService.lastVersionUsed = 0
         MajorDataService.lastVersionUsed = 0
-        OfficeHoursDataService.lastVersionUsed = 0
     }
+
+    static Term getCurrentTerm() { return Term.findOrCreate(CURRENT_TERM_CODE)}
 }

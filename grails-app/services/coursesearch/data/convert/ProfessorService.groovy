@@ -5,6 +5,7 @@ import coursesearch.Department
 import coursesearch.Professor
 import org.springframework.transaction.annotation.Transactional
 import redis.clients.jedis.Jedis
+import coursesearch.MeetingTime
 
 /**
  * Contains utility methods for professors.
@@ -60,7 +61,7 @@ class ProfessorService {
             // Extract and join the IDs together
             list*.id.join(",")
         }
-        
+
         println ids
 
         // Transform the ID list back into a list of Professors.
@@ -95,5 +96,32 @@ class ProfessorService {
 
         // Sort the list.
         return (rooms as List).sort({a, b -> return a.compareTo(b)});
+    }
+
+    /**
+     * Returns the given list of courses, minus any that appear at the same time.
+     */
+    @Transactional(readOnly = true)
+    static List<Course> filterSameTimeCourses(List<Course> courses) {
+
+        List<Course> resultList = []
+        def usedTimes = [];
+        for (Course c: courses) {
+
+            boolean rejected = false;
+            for (MeetingTime m: c.meetingTimes) {
+                if (usedTimes.contains(m)) {
+                    rejected = true;
+                    break;
+                }
+                else
+                    usedTimes << m;
+            }
+
+            if (!rejected)
+                resultList << c;
+        }
+
+        resultList;
     }
 }

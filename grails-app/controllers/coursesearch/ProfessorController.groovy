@@ -8,6 +8,7 @@ import coursesearch.mn.ProfessorOfficeHours
 
 class ProfessorController {
 
+    def dataExportService
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
     def index = {
@@ -22,6 +23,13 @@ class ProfessorController {
     }
 
     def printWeeklyCalendar = {
+        def professor = Professor.get(params.id)
+
+        if (professor)
+            [professor: professor]
+    }
+
+    def mobileCalendar = {
         def professor = Professor.get(params.id)
 
         if (professor)
@@ -54,8 +62,8 @@ class ProfessorController {
             List<MeetingTime> officeHours = [];
 
             JSON.parse(params.officeHours).each { data ->
-                Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.start + "-0600");
-                Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'ZZZZ", data.end + "-0600");
+                Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.start);
+                Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.end);
 
                 // Adjust for time zones.
                 start.hours -= 6;
@@ -90,6 +98,8 @@ class ProfessorController {
                 new ProfessorOfficeHours(professor: professor, meetingTime: meetingTime).save(flush: true)
             }
 
+            // Export the data so it can be viewed by the iPhone app.
+            dataExportService.exportOfficeHours()
 
             render([success: true] as JSON)
         }
@@ -115,7 +125,7 @@ class ProfessorController {
         }
 
         // Next check the dates for each of the professor's courses, to see if the professor is in class.
-        for (def course: professor.coursesTeaching.findAll { it.term == Term.findOrCreate("12SP")}) {
+        for (def course: professor.currentCursesTeaching) {
             for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes)) {
 
                 if (isDateBetween(new Date(), time.startDate, time.endDate))
@@ -138,14 +148,18 @@ class ProfessorController {
         if (professor) {
 
             def events = []
+            def usedTimes = [:]
 
             // For every course, convert its meeting times into real dates...
-            professor.coursesTeaching.findAll { it.term == Term.findByShortCode("12SP") }.each { course ->
+            professor.currentCursesTeaching.each { course ->
                 ScheduleProjectService.projectToWeek(course.meetingTimes).each { time ->
 
                     // ...then add them to the calendar.
-                    events << [title: course.name, allDay: false, start: time.startDate, end: time.endDate,
-                            url: (params.hideLinks ? null : g.createLink(controller: "course", action: "show", id: course.id))]
+                    if (!usedTimes.containsKey(time)) { // Don't show overlapping classes.
+                        usedTimes[time] = course;
+                        events << [title: course.name, allDay: false, start: time.startDate, end: time.endDate,
+                                url: (params.hideLinks ? null : g.createLink(controller: "course", action: "show", id: course.id))]
+                    }
                 }
             }
             render(events as JSON);
