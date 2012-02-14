@@ -160,7 +160,7 @@ public class CourseUtils {
 
     static String createLink(controller, id) {
 
-        def prefix = (Environment.current == Environment.PRODUCTION) ? "http://csac.austincollege.edu/kangaroo" : "http://localhost:8080/CourseSearch";
+        def prefix = (Environment.current == Environment.PRODUCTION) ? "http://kangaroo.austincollege.edu/" : "http://localhost:8080/CourseSearch";
         return "${prefix}/${controller}/${id}";
     }
 }
