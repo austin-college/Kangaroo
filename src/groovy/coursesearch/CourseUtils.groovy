@@ -2,9 +2,9 @@ package coursesearch
 
 import grails.util.Environment
 import groovy.util.slurpersupport.GPathResult
+import java.security.SecureRandom
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
-import java.security.SecureRandom
 
 /**
  * Useful stuff.
@@ -153,14 +153,14 @@ public class CourseUtils {
 
     static String createLink(controller, action, id) {
 
-        def prefix = (Environment.current == Environment.PRODUCTION) ? "//" : "http://localhost:8080/CourseSearch";
+        def prefix = (Environment.current == Environment.PRODUCTION) ? "" : "http://localhost:8080/CourseSearch";
         return "${prefix}/${controller}/${action}/${id}";
     }
 
 
     static String createLink(controller, id) {
 
-        def prefix = (Environment.current == Environment.PRODUCTION) ? "//" : "http://localhost:8080/CourseSearch";
+        def prefix = (Environment.current == Environment.PRODUCTION) ? "" : "http://localhost:8080/CourseSearch";
         return "${prefix}/${controller}/${id}";
     }
 }
