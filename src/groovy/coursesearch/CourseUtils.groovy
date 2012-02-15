@@ -129,10 +129,9 @@ public class CourseUtils {
 
     static def findAllInNode(node, c) { node.depthFirst().collect { it }.findAll(c)}
 
-
     static String getProfessorLinksForClass(Course course, boolean includeImages, String connector = ' & ') {
         course.instructors.collect { it ->
-            def text = "<a href='${createLink('professor', it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>";
+            def text = "<a href='${createLink(it.id)}' class='professorLink' title='${it.toString().encodeAsHTML()}' rel='${it.id}'>";
 
             if (includeImages && it.photoUrl)
                 text += "<img src='${it.photoUrl}' width='20px' class='profPhoto'/>"
@@ -151,16 +150,18 @@ public class CourseUtils {
         professor.activeRooms.collect { room -> "<a href='${createLink('course', 'byRoom', room)}'>${room.trim()}</a>"}.join(connector)
     }
 
-    static String createLink(controller, action, id) {
+    /*===================================================
 
-        def prefix = (Environment.current == Environment.PRODUCTION) ? "" : "http://localhost:8080/CourseSearch";
-        return "${prefix}/${controller}/${action}/${id}";
-    }
+        LINK GENERATORS
+        In Grails 2.0 these won't be necessary, as the g.createLink() bean is accessible in plain src/ files.
 
+    ===================================================*/
 
-    static String createLink(controller, id) {
+    static String getPrefix() { (Environment.current == Environment.PRODUCTION) ? "" : "/CourseSearch" }
 
-        def prefix = (Environment.current == Environment.PRODUCTION) ? "" : "http://localhost:8080/CourseSearch";
-        return "${prefix}/${controller}/${id}";
-    }
+    static String createLink(controller, action, id) { "${prefix}/${controller}/${action}/${id}" }
+
+    static String createLink(controller, id) { "${prefix}/${controller}/${id}"; }
+
+    static String createLink(id) { "${prefix}/${id}"; }
 }
