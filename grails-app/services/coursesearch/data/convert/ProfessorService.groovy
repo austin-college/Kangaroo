@@ -65,7 +65,7 @@ class ProfessorService {
         println ids
 
         // Transform the ID list back into a list of Professors.
-        return ids.split(",").collect { id -> Professor.get(id)}
+        return ids.split(",").collect { id -> Professor.get(id)}.findAll { it != null }
     }
 
     /**
