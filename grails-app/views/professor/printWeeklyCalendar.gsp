@@ -70,6 +70,8 @@
                 <div><b>E-mail:</b> ${professor.email}</div>
             </g:if>
 
+            <div><b>Web page:</b> ${CourseUtils.getKangarooAddress(professor)}</div>
+
             <g:if test="${professor.phone}">
                 <div><b>Phone:</b> ${professor.phone}</div>
             </g:if>
@@ -88,6 +90,7 @@
 <div id="madeBy">
     <h3>Made with:</h3>
     <img src="${resource(dir: 'images', file: 'app_logo.png')}" alt="Kangaroo" height="29px" width="145px" border="0"/>
+
     <div>www.<b>ackangaroo</b>.com</div>
 </div>
 

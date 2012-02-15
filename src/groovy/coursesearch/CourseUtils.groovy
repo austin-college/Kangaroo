@@ -164,4 +164,8 @@ public class CourseUtils {
     static String createLink(controller, id) { "${prefix}/${controller}/${id}"; }
 
     static String createLink(id) { "${prefix}/${id}"; }
+
+    static String createKangarooLink(Professor professor) { "<a href='http://${getKangarooAddress(professor)}'>${getKangarooAddress(professor)}</a>" }
+
+    static String getKangarooAddress(Professor professor) { "kangaroo.austincollege.edu/${professor.id}" }
 }
