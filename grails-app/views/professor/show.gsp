@@ -8,12 +8,12 @@
     <script type="text/javascript">
         var timelineInterval;
         var calendar;
-        $(document).ready(function() {
+        $(document).ready(function () {
 
 
             $.ajax({
-                url: contextPath + "/professor/getStatus/${professor.id}?time=" + new Date().getTime(),
-                success: function(response) {
+                url:contextPath + "/professor/getStatus/${professor.id}?time=" + new Date().getTime(),
+                success:function (response) {
                     $("#statusHolder").html(response.html);
                     $("#statusHolder").hide();
                     $("#statusHolder").fadeIn();
@@ -21,26 +21,26 @@
             });
 
             calendar = $('#calendar').fullCalendar({
-                weekends: false,
-                eventSources: [
+                weekends:false,
+                eventSources:[
 
-                    { url: contextPath + "/professor/getSchedule/${professor.id}" },
+                    { url:contextPath + "/professor/getSchedule/${professor.id}" },
 
                     {
-                        url: contextPath + "/professor/getOfficeHours/${professor.id}",
-                        color: 'green'
+                        url:contextPath + "/professor/getOfficeHours/${professor.id}",
+                        color:'green'
                     }
 
                 ],
-                defaultView: 'agendaWeek',
-                header: null,
-                ignoreTimezone: false,
-                height: 350,
-                allDaySlot: false,
-                minTime: 8,
-                maxTime: 18,
-                timeFormat: '',
-                viewDisplay: function(view) {
+                defaultView:'agendaWeek',
+                header:null,
+                ignoreTimezone:false,
+                height:350,
+                allDaySlot:false,
+                minTime:8,
+                maxTime:18,
+                timeFormat:'',
+                viewDisplay:function (view) {
 
                     window.clearInterval(timelineInterval);
                     timelineInterval = window.setInterval(setTimeline, 10000);
@@ -76,8 +76,8 @@
                 var left = dayCol.position().left + 1;
                 var width = dayCol.width();
                 timeline.css({
-                    left: left + "px",
-                    width: width + "px"
+                    left:left + "px",
+                    width:width + "px"
                 });
             }
         }
@@ -127,6 +127,8 @@
                 <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
             </g:if>
 
+            <div><b>Web page:</b> ${CourseUtils.createKangarooLink(professor)}</div>
+
             <g:if test="${professor.office}">
                 <div><b>Office:</b> ${professor.office}</div>
             </g:if>
@@ -146,7 +148,8 @@
 
             <b>${Term.findByShortCode("11FA").fullDescription}</b>
             <ul>
-                <g:each in="${professor.coursesTeaching.findAll{it.term == Term.findByShortCode('11FA')}}" var="course">
+                <g:each in="${professor.coursesTeaching.findAll {it.term == Term.findByShortCode('11FA')}}"
+                        var="course">
                     <li><g:link controller="course" action="show"
                                 id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
                 </g:each>
@@ -155,7 +158,8 @@
 
             <b>${Term.findByShortCode("12SP").fullDescription}</b>
             <ul>
-                <g:each in="${professor.coursesTeaching.findAll{it.term == Term.findByShortCode('12SP')}}" var="course">
+                <g:each in="${professor.coursesTeaching.findAll {it.term == Term.findByShortCode('12SP')}}"
+                        var="course">
                     <li><g:link controller="course" action="show"
                                 id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
                 </g:each>
