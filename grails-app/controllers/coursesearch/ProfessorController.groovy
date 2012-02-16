@@ -1,10 +1,10 @@
 package coursesearch
 
-import grails.converters.JSON
-import coursesearch.data.convert.ScheduleProjectService
 import coursesearch.data.convert.ScheduleConvertService
-
+import coursesearch.data.convert.ScheduleProjectService
 import coursesearch.mn.ProfessorOfficeHours
+import grails.converters.JSON
+import javax.servlet.http.Cookie
 
 class ProfessorController {
 
@@ -39,12 +39,26 @@ class ProfessorController {
     def setOfficeHours = {
 
         def professor = Professor.findByPrivateEditKey(params.id);
-        if (professor)
+        if (professor) {
+
+            // Store the current professor on the session, and send them some cookies too.
+            session.professorId = professor.id;
+            response.addCookie(createCookie("prof_id", professor.id, 365))
+            response.addCookie(createCookie("prof_email", professor.email, 365))
+            response.addCookie(createCookie("prof_name", professor.name, 365))
+
             [professor: professor]
+        }
         else {
             flash.message = "Invalid edit key."
             redirect(controller: "home")
         }
+    }
+
+    Cookie createCookie(key, value, maxAgeInDays) {
+        def c = new Cookie(key, value)
+        c.maxAge = maxAgeInDays * 24 * 60 * 60
+        c;
     }
 
     def finishedOfficeHours = {

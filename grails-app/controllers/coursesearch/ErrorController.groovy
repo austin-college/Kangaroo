@@ -53,7 +53,7 @@ class ErrorController {
      */
     def reportBug = {
 
-        def bugDetails = "A guest encountered an error:\n\n"
+        def bugDetails = "${activeProfessorString} encountered an error:\n\n"
 
         bugDetails += "[code]${session.bugStackTrace}[/code]\n\n";
 
@@ -68,7 +68,7 @@ class ErrorController {
         bugDetails += "Browser: " + params.browser + "\n";
         bugDetails += "Opened from: ${params.sourceUri}";
 
-        def response = bugReportService.reportBug(session.bugTitle, bugDetails, "");
+        def response = bugReportService.reportBug(session.bugTitle, bugDetails, activeProfessor?.email);
         println response
         render(response as JSON);
     }
@@ -80,9 +80,24 @@ class ErrorController {
 
         def bugDetails;
 
-        bugDetails = "The guest has added some details:\n\n"
+        bugDetails = "${activeProfessorString} has returned to add some details:\n\n"
         bugDetails += params.reportDetails + "\n";
 
-        render(bugReportService.reportBug(session.bugTitle, bugDetails, "") as JSON);
+        render(bugReportService.reportBug(session.bugTitle, bugDetails, activeProfessor?.email) as JSON);
+    }
+
+    /**
+     * Returns the current "logged in" professor (meaning they set office hours recently and are still in session) or null.
+     */
+    Professor getActiveProfessor() {
+        if (session.professorId)
+            Professor.get(session.professorId);
+    }
+
+    String getActiveProfessorString() {
+        if (activeProfessor)
+            "${activeProfessor} (${activeProfessor.id})"
+        else
+            "A guest"
     }
 }
