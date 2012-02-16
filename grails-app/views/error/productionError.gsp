@@ -7,6 +7,7 @@
     <less:scripts/>
 
     <script type="text/javascript">
+        var sourceUrl = "${request.forwardURI - request.contextPath}";
         $(document).ready(initProductionErrorReporting);
     </script>
 </head>
@@ -78,7 +79,8 @@
             </g:if>
         </div>
         <g:if test="${exception}">
-            <h3>Stack Trace</h3>
+            <br/>
+            <h4>Stack Trace</h4>
 
             <div class="stack">
                 <pre><g:each in="${exception.stackTraceLines}">${it.encodeAsHTML()}<br/></g:each></pre>

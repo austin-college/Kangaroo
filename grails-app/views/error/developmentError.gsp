@@ -3,76 +3,11 @@
     <title>Kangaroo Error</title>
 
     <g:javascript src="errorReporting.js"/>
-
-    <style type="text/css">
-    body {
-        font-family: Lucida Grande, Verdana, Sans-serif;
-        font-size: 11px;
-        line-height: 190%;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .message {
-        border: 1px solid black;
-        padding: 5px;
-        background-color: #E9E9E9;
-    }
-
-    .stack {
-        border: 1px solid black;
-        padding: 5px;
-        overflow: auto;
-        height: 300px;
-    }
-
-    .snippet {
-        padding: 5px;
-        background-color: white;
-        border: 1px solid black;
-        margin: 3px;
-        font-family: courier;
-    }
-
-    h1 {
-        font-size: 16px;
-        padding-bottom: 3px;
-        border-bottom: 1px solid #ccc;
-    }
-
-    #extraInfo {
-        margin: 10px 0 30px 0px;
-        width: 400px;
-        padding: 10px 50px 20px 15px;
-        background-color: #eef;
-        border: 2px solid #ccd;
-    }
-
-    #extraInfo h4 {
-        font-size: 14px;
-        margin: 0px;
-    }
-
-    #extraInfo label {
-        font-weight: bold;
-        width: 400px;
-        margin-bottom: 10px;
-        text-align: left;
-        font-size: 14px;
-        color: #999;
-    }
-
-    #reportDetails {
-        width: 350px;
-    }
-
-    #bugTitle {
-        color: #aaa;
-        margin-bottom: 5px;
-    }
-    </style>
+    <less:stylesheet name="errorPage"/>
+    <less:scripts/>
 
     <script type="text/javascript">
+        var sourceUrl = "${request.forwardURI - request.contextPath}";
         $(document).ready(initDevelopmentErrorReporting);
     </script>
 </head>
@@ -81,6 +16,8 @@
 <h1>
     <img src="${createLinkTo(dir: "images", file: "error_delete.png")}"/> &nbsp;Kangaroo has encountered an error.
 </h1>
+
+<div id="inDevMode">You're in development mode. A bug report won't be sent unless you push "send" below.</div>
 
 <div id="submitDiagnostics"></div>
 
@@ -118,18 +55,24 @@
 </div>
 
 <div id="extraInfo">
-    <h4><img src="${createLinkTo(dir: "images", file: "attach.png")}" style="vertical-align: middle;"> <span
-            id="reportHeader">Send a report</span></h4>
+    <h3>Submit report to FogBugz</h3>
 
-    <div id="addDetailFields" style="padding: 0 20px">
-        <div><label for="reportDetails">What were you doing when the error occurred? <i>(optional)</i></label></div>
+    <div id="addDetailFields" style="padding-top: 4px">
+
+        <div id="addReportSubheader"><b>Optionally,</b> add details into the box. (What were you doing?)</div>
 
         <div><textarea id="reportDetails" cols="50" rows="4"></textarea></div>
 
-        <div style="margin-top: 20px;">
-            <button id="submitExtraInformation" class="btn large primary">Send report &raquo;</button>
-            <span id="actionLoader"></span>
-        </div>
+        %{--<g:if test="${!hasEmail}">--}%
+        %{--<div style="margin-top: 5px;">--}%
+        %{--<label for="userEmail">Your e-mail (optional). We'll follow up when the bug is fixed.</label>--}%
+
+        %{--<div><input type="text" id="userEmail"/></div>--}%
+        %{--</div>--}%
+        %{--</g:if>--}%
+
+        <div style="margin-top: 15px;"><button id="submitExtraInformation"
+                                               class="btn large primary">Send &raquo;</button></div>
     </div>
 </div>
 </body>

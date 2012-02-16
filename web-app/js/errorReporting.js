@@ -2,55 +2,14 @@
 //
 // errorReporting.js
 //
-// JavaScript for the error page.
+// JavaScript for the error pages (development and production).
 //
 //==========================================================================
 
-
-function initDevelopmentErrorReporting() {
-    $("#submitExtraInformation").click(function () {
-        $.ajax({
-            cache:false,
-            dataType:'json',
-            type:'POST',
-            url:contextPath + '/error/reportBug',
-            data:"sourceUri=${request.forwardURI - request.contextPath}" +
-                "&browser=" + getBrowserInfo() +
-                "&reportDetails=" + $("#reportDetails").val(),
-            error:function (response) {
-                ajaxInternalServerError(response, "Kangaroo failed to submit the bug report.");
-                $("#submitStatus").text("Kangaroo failed to submit the bug report.");
-
-            },
-            success:function (response) {
-                $("#addDetailFields").slideUp();
-                $("#reportHeader").text("Report successful!");
-                $("#addReportSubheader").text(response.message);
-            }
-        });
-    });
-}
-
-function initProductionErrorReporting() {
-
-    $("#showDetails").click(function () {
-
-        var detailsVisible = $("#errorDetailsContainer").is(':visible');
-        if (detailsVisible) {
-            $("#showDetails").html("show details &raquo;");
-            $("#errorDetailsContainer").slideUp(900);
-
-            $('html, body').animate({scrollTop:0}, 950);
-        }
-        else {
-            $("#showDetails").html("&laquo; Hide details");
-            $("#errorDetailsContainer").slideDown(900);
-
-            // Scroll to the details.
-            $('html, body').animate({scrollTop:$("#errorDetailsContainer").position().top}, 950);
-        }
-        return false;
-    });
+/**
+ * Initializes things that are on both error pages.
+ */
+function initShared() {
 
     $("#submitExtraInformation").click(function () {
 
@@ -71,14 +30,66 @@ function initProductionErrorReporting() {
             }
         });
     });
+}
 
+/**
+ * Initializes the "development" error page.
+ */
+function initDevelopmentErrorReporting() {
+
+    initShared();
+    $("#extraInfo").fadeIn(100);
+}
+
+/**
+ * Initializes the "production" error page.
+ */
+function initProductionErrorReporting() {
+
+    initShared();
+
+    // Expand/collapse the "error details" panel on the production page.
+    $("#showDetails").click(toggleDetailsPanel);
+
+    submitBugReport();
+
+    $("#errorDetailsContainer").hide();
+    $("#submitStatus").fadeIn(100);
+    $("#extraInfo").fadeIn(100);
+}
+
+/**
+ * Expands or collapses the "error details" panel on the production page.
+ */
+function toggleDetailsPanel() {
+
+    var detailsVisible = $("#errorDetailsContainer").is(':visible');
+    if (detailsVisible) {
+        $("#showDetails").html("show details &raquo;");
+        $("#errorDetailsContainer").slideUp(900);
+
+        $('html, body').animate({scrollTop:0}, 950);
+    }
+    else {
+        $("#showDetails").html("&laquo; Hide details");
+        $("#errorDetailsContainer").slideDown(900);
+
+        // Scroll to the details.
+        $('html, body').animate({scrollTop:$("#errorDetailsContainer").position().top}, 950);
+    }
+    return false;
+}
+
+/**
+ * Submits the bug report.
+ */
+function submitBugReport() {
     $.ajax({
         cache:false,
         dataType:'json',
         type:'POST',
         url:contextPath + '/error/reportBug',
-        data:"sourceUri=${request.forwardURI - request.contextPath}" +
-            "&browser=" + getBrowserInfo(),
+        data:{"sourceUri":sourceUrl, "browser":getBrowserInfo() },
         error:function (response) {
             $("#submitStatus").text("Kangaroo failed to submit the bug report.");
         },
@@ -94,12 +105,11 @@ function initProductionErrorReporting() {
             }
         }
     });
-
-    $("#errorDetailsContainer").hide();
-    $("#submitStatus").fadeIn(100);
-    $("#extraInfo").fadeIn(100);
 }
 
+/**
+ * Returns the user's browser & version.
+ */
 function getBrowserInfo() {
     var browser;
     if ($.browser.mozilla)
