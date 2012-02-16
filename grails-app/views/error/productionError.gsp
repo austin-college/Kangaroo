@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Kangaroo Error</title>
-
+    <meta name="layout" content="main"/>
     <g:javascript src="errorReporting.js"/>
     <less:stylesheet name="errorPage"/>
     <less:scripts/>

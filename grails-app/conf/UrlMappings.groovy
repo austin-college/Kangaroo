@@ -16,6 +16,11 @@ class UrlMappings {
         "/course/$id"(controller: "course", action: "show")
         "/setOfficeHours/$id"(controller: "professor", action: "setOfficeHours")
 
+        // Manually define other controllers here (otherwise they'll be swallowed by /$id --> professor/show/id!)
+        "/batchControl"(controller: "batchControl")
+        "/majors"(controller: "majors")
+        "/error"(controller: "error")
+
         // Errors...
         "500"(controller: "error", action: "serverError")
         // "404"(controller: "error", action: "notFound")
