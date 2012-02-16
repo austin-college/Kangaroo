@@ -91,6 +91,8 @@
         border: 0;
     }
     </style>
+
+    <g:javascript src="cookies.js"/>
 </head>
 
 <body>
@@ -123,7 +125,8 @@
     </div>
 
     <footer>
-        <p>Version 1 &middot; Created by Phillip Cohen &middot; <a href="http://github.com/austin-college/Kangaroo">Fork us on GitHub</a></p>
+        <p>Version 1 &middot; Created by Phillip Cohen &middot; <a
+                href="http://github.com/austin-college/Kangaroo">Fork us on GitHub</a></p>
     </footer>
 
 </div> <!-- /container -->
@@ -135,7 +138,7 @@
         _gaq.push(['_setAccount', 'UA-26802912-1']);
         _gaq.push(['_trackPageview']);
 
-        (function() {
+        (function () {
             var ga = document.createElement('script');
             ga.type = 'text/javascript';
             ga.async = true;
@@ -151,12 +154,61 @@
         jQuery.ajaxSettings.cache = true;
         // Load FeatureLoader asynchronously. Once loaded, we execute Facebook init
 
-        jQuery.getScript('http://connect.facebook.net/en_US/all.js', function() {
-            FB.init({appId: 'your_app_id-optional', status: true, cookie: true, xfbml: true});
+        jQuery.getScript('http://connect.facebook.net/en_US/all.js', function () {
+            FB.init({appId:'your_app_id-optional', status:true, cookie:true, xfbml:true});
         });
         // just Restore jQuery caching setting
         jQuery.ajaxSettings.cache = cache;
     </script>
+
+    <!-- start Mixpanel --><script type="text/javascript">var mpq = [];
+mpq.push(["init", "102753bbc8bcef0e34932d5f829ed00d"]);
+(function () {
+    var b, a, e, d, c;
+    b = document.createElement("script");
+    b.type = "text/javascript";
+    b.async = true;
+    b.src = (document.location.protocol === "https:" ? "https:" : "http:") + "//api.mixpanel.com/site_media/js/api/mixpanel.js";
+    a = document.getElementsByTagName("script")[0];
+    a.parentNode.insertBefore(b, a);
+    e = function (f) {
+        return function () {
+            mpq.push([f].concat(Array.prototype.slice.call(arguments, 0)))
+        }
+    };
+    d = ["init", "track", "track_links", "track_forms", "register", "register_once", "identify", "name_tag", "set_config"];
+    for (c = 0; c < d.length; c++) {
+        mpq[d[c]] = e(d[c])
+    }
+})();
+</script><!-- end Mixpanel -->
 </g:if>
+
+<script type="text/javascript" charset="utf-8">
+    var is_ssl = ("https:" == document.location.protocol);
+    var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+    document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+    var feedback_widget_options = {};
+
+    feedback_widget_options.display = "overlay";
+    feedback_widget_options.company = "kangaroo";
+    feedback_widget_options.placement = "left";
+    feedback_widget_options.color = "#222";
+    feedback_widget_options.style = "idea";
+
+
+    var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </body>
+
+<script type="text/javascript">
+    var cookie = getCookie('prof_id');
+    if (cookie) {
+        mpq.name_tag(cookie);
+        mpq.identify(cookie);
+    }
+</script>
 </html>

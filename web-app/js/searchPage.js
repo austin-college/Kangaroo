@@ -28,6 +28,8 @@ $(document).ready(function () {
     // Set up the table!
     $("#tableSearch").focus();
     setupTable(tableRaw);
+
+    mpq.track('home', {'mp_note':"User went home"});
 });
 
 /**
