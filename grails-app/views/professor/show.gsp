@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="coursesearch.Professor; coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${professor}</title>
@@ -47,6 +47,11 @@
                     setTimeline();
                 }
             });
+
+            if (${session.professorId && professor.id == session.professorId})
+                mpq.track('self view', {'mp_note':"User viewed their own profile."});
+            else
+                mpq.track('professor view', {'mp_note':"User viewed ${professor}'s profile."});
         });
 
         function setTimeline() {

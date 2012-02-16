@@ -3,6 +3,11 @@
 <head>
     <title>${schedule}</title>
     <meta name="layout" content="main"/>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            mpq.track('schedule search', {'mp_note':"User viewed courses meeting at ${schedule}"});
+        });
+    </script>
 </head>
 
 <body>

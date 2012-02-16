@@ -57,7 +57,7 @@ class Textbook {
 
         // Amazon uses 10-digit ISBNS for URLs so we have to convert.
         if (isbn)
-            "http://www.amazon.com/dp/${isbn10Digit}/?tag=kangaroo1-20"
+            "http://www.amazon.com/dp/${isbn10Digit}/?tag=austincollege-20"
     }
 
     /**
