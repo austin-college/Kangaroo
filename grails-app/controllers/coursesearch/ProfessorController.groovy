@@ -58,6 +58,7 @@ class ProfessorController {
     Cookie createCookie(key, value, maxAgeInDays) {
         def c = new Cookie(key, value)
         c.maxAge = maxAgeInDays * 24 * 60 * 60
+        c.path = "/"
         c;
     }
 
