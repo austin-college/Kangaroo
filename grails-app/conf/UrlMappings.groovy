@@ -7,10 +7,17 @@ class UrlMappings {
             }
         }
 
+        // Assign the root.
+        "/"(controller: 'home')
+
+        // Fancy URLS for professors & courses.
         "/$id"(controller: "professor", action: "show")
         "/professor/$id"(controller: "professor", action: "show")
         "/course/$id"(controller: "course", action: "show")
-        "/"(controller: 'home')
-        "500"(view: '/error')
+
+        // Errors...
+        "500"(controller: "error", action: "serverError")
+        // "404"(controller: "error", action: "notFound")
+        //"403"(controller: "error", action: "forbidden")
     }
 }
