@@ -70,8 +70,11 @@
         color: #aaa;
         margin-bottom: 5px;
     }
-
     </style>
+
+    <script type="text/javascript">
+        $(document).ready(initDevelopmentErrorReporting);
+    </script>
 </head>
 
 <body>

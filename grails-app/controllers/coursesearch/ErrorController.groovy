@@ -44,7 +44,7 @@ class ErrorController {
         }
 
         if (Environment.current == Environment.PRODUCTION)
-            render(view: "/error", model: [bugTitle: session.bugTitle]);
+            render(view: "productionError", model: [bugTitle: session.bugTitle]);
         else
             render(view: "developmentError", model: [bugTitle: session.bugTitle]);
     }
@@ -70,6 +70,7 @@ class ErrorController {
         bugDetails += "Opened from: ${params.sourceUri}";
 
         def response = bugReportService.reportBug(session.bugTitle, bugDetails, "");
+        println response
         render(response as JSON);
     }
 
