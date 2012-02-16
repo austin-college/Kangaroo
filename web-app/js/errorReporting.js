@@ -7,37 +7,11 @@
 //==========================================================================
 
 /**
- * Initializes things that are on both error pages.
- */
-function initShared() {
-
-    $("#submitExtraInformation").click(function () {
-
-        $.ajax({
-            cache:false,
-            dataType:'json',
-            type:'POST',
-            url:contextPath + '/error/addBugDetails',
-            data:"email=" + $("#userEmail").val() +
-                "&reportDetails=" + $("#reportDetails").val(),
-            error:function (response) {
-                $("#addReportSubheader").text("Kangaroo failed to submit the followup.");
-            },
-            success:function (response) {
-                $("#addDetailFields").slideUp();
-                $("#extraInfo h3").text("Thanks, we've received your details.");
-                $("#extraInfo h3").css("text-align", "center");
-            }
-        });
-    });
-}
-
-/**
  * Initializes the "development" error page.
  */
 function initDevelopmentErrorReporting() {
 
-    initShared();
+    $("#submitExtraInformation").click(submitBugReportDevelopment);
     $("#extraInfo").fadeIn(100);
 }
 
@@ -46,7 +20,7 @@ function initDevelopmentErrorReporting() {
  */
 function initProductionErrorReporting() {
 
-    initShared();
+    $("#submitExtraInformation").click(submitFollowup);
 
     // Expand/collapse the "error details" panel on the production page.
     $("#showDetails").click(toggleDetailsPanel);
@@ -81,9 +55,10 @@ function toggleDetailsPanel() {
 }
 
 /**
- * Submits the bug report.
+ * Submits the bug report (called automatically on the production page).
  */
 function submitBugReport() {
+
     $.ajax({
         cache:false,
         dataType:'json',
@@ -103,6 +78,52 @@ function submitBugReport() {
                 $("#scoutResponse").fadeIn();
                 $("#submitStatus").fadeOut();
             }
+        }
+    });
+}
+
+/**
+ * Submits the user's followup (called manually on the production page).
+ */
+function submitFollowup() {
+
+    $.ajax({
+        cache:false,
+        dataType:'json',
+        type:'POST',
+        url:contextPath + '/error/addBugDetails',
+        data:{"email":$("#userEmail").val(), "reportDetails":$("#reportDetails").val() },
+        error:function (response) {
+            $("#addReportSubheader").text("Kangaroo failed to submit the followup.");
+        },
+        success:function (response) {
+            $("#addDetailFields").slideUp();
+            $("#extraInfo h3").text("Thanks, we've received your details.");
+            $("#extraInfo h3").css("text-align", "center");
+        }
+    });
+}
+
+/**
+ * Submits both the error report and the details (called manually on the development page).
+ */
+function submitBugReportDevelopment() {
+
+    $.ajax({
+        cache:false,
+        dataType:'json',
+        type:'POST',
+        url:contextPath + '/error/reportBug',
+        data:{"sourceUri":sourceUrl, "browser":getBrowserInfo(), "reportDetails":$("#reportDetails").val() },
+        error:function (response) {
+            ajaxInternalServerError(response, "Kangaroo failed to submit the bug report.");
+            $("#extraInfo h3").text("Kangaroo failed to submit the bug report.");
+
+        },
+        success:function (response) {
+            $("#addDetailFields").slideUp();
+            $("#extraInfo h3").text("Report successfully sent to FogBugz!");
+            $("#addReportSubheader").text(response.message);
         }
     });
 }
