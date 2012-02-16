@@ -3,129 +3,8 @@
     <title>Kangaroo Error</title>
 
     <g:javascript src="errorReporting.js"/>
-    <style type="text/css">
-    body {
-        font-family: Lucida Grande, Verdana, Sans-serif;
-        line-height: 190%;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .message {
-        border: 1px solid black;
-        padding: 5px;
-        background-color: #E9E9E9;
-    }
-
-    .stack {
-        border: 1px solid black;
-        padding: 5px;
-        overflow: auto;
-        height: 300px;
-    }
-
-    .snippet {
-        padding: 5px;
-        background-color: white;
-        border: 1px solid black;
-        margin: 3px;
-        font-family: courier;
-    }
-
-    #bugTitle {
-        color: #aaa;
-        margin: 7px 0 5px 0;
-        text-align: center;
-    }
-
-    h1 {
-        padding-top: 10px;
-        font-size: 20px;
-        border-bottom: 1px solid #ccc;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    #submitStatus {
-        border-radius: 5px;
-        background-color: #eef;
-        border: 1px solid #ccf;
-        color: #444;
-        margin: 0 auto 0 auto;
-        padding: 7px 15px 9px 15px;
-        font-size: 14px;
-        width: 450px;
-        text-align: center;
-        display: none;
-    }
-
-    #submitStatus .header {
-        padding-left: 5px;
-    }
-
-    #scoutResponse {
-        border-radius: 5px;
-        background-color: #dfb;
-        border: 1px solid #ddd;
-        color: #111;
-        margin: 15px auto 0px auto;
-        padding: 7px 15px 15px 15px;
-        width: 450px;
-        text-align: center;
-        display: none;
-    }
-
-    #scoutResponse h4 {
-        font-size: 14px;
-        color: #333;
-        border-bottom: 1px solid #bdb;
-        margin-bottom: 5px;
-    }
-
-    #extraInfo {
-        width: 450px;
-        padding: 10px 15px 20px 20px;
-        border-radius: 5px;
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        margin: 35px auto 30px auto;
-        display: none;
-    }
-
-    #extraInfo textarea {
-        width: 425px;
-        display: block;
-        margin: 0px auto 12px auto;
-    }
-
-    #extraInfo #addReportSubheader {
-        text-align: center;
-        line-height: 28px;
-        margin-bottom: 8px;
-    }
-
-    #addReportSubheader b {
-        color: #999;
-    }
-
-    #extraInfo h3 {
-        font-size: 16px;
-        text-align: center;
-        /*margin: 22px 0 0 0 0;*/
-        padding-top: 10px;
-        line-height: 12px;
-    }
-
-    #extraInfo label {
-        font-weight: bold;
-        width: 450px;
-        margin-bottom: 10px;
-        text-align: left;
-        font-size: 14px;
-        color: #999;
-    }
-
-    </style>
+    <less:stylesheet name="errorPage"/>
+    <less:scripts/>
 
     <script type="text/javascript">
         $(document).ready(initProductionErrorReporting);
@@ -173,7 +52,7 @@
     </div>
 </div>
 
-<div id="bugTitle">${bugTitle}...&nbsp; <a href="#" id="showDetails">show details &raquo;</a></div>
+<div id="bugTitleExpandable">${bugTitle}...&nbsp; <a href="#" id="showDetails">show details &raquo;</a></div>
 
 <div id="errorDetailsContainer">
 
