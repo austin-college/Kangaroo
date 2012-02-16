@@ -4,6 +4,11 @@
     <title>${course}</title>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'course_view.css')}"/>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            mpq.track('course view', {'mp_note':"User viewed ${course.sectionString()}: ${course}"});
+        });
+    </script>
 </head>
 
 <body>

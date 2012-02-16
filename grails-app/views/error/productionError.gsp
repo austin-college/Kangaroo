@@ -53,7 +53,9 @@
     </div>
 </div>
 
-<div id="bugTitleExpandable">${bugTitle}...&nbsp; <a href="#" id="showDetails">show details &raquo;</a></div>
+<div id="bugTitleExpandable"><span id="bugName">${bugTitle}</span>...&nbsp; <a href="#"
+                                                                               id="showDetails">show details &raquo;</a>
+</div>
 
 <div id="errorDetailsContainer">
 

@@ -3,6 +3,11 @@
 <head>
     <title>${room}</title>
     <meta name="layout" content="main"/>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            mpq.track('room search', {'mp_note':"User viewed courses meeting in ${room}"});
+        });
+    </script>
 </head>
 
 <body>
@@ -28,9 +33,8 @@
                 </div>
 
                 <div style="color: #777">
-                     ${CourseUtils.getScheduleLinksForClass(course)}
+                    ${CourseUtils.getScheduleLinksForClass(course)}
                 </div>
-
 
             </span>
         </g:each>
