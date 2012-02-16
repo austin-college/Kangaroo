@@ -92,6 +92,8 @@
     }
     </style>
 
+    <g:javascript src="cookies.js"/>
+
     <!-- start Mixpanel --><script type="text/javascript">var mpq = [];
 mpq.push(["init", "102753bbc8bcef0e34932d5f829ed00d"]);
 (function () {
@@ -182,4 +184,10 @@ mpq.push(["init", "102753bbc8bcef0e34932d5f829ed00d"]);
     </script>
 </g:if>
 </body>
+
+<script type="text/javascript">
+    var cookie = getCookie('prof_id');
+    if (cookie)
+        mpq.name_tag(cookie);
+</script>
 </html>
