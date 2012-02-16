@@ -14,16 +14,17 @@ $.fn.dataTableExt.oStdClasses.sSortAsc = "headerSortDown";
 $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 
 /**
- * Sets up the table to use the given dataset.
+ * Sets up the table to use the given set of courses. (Re-creates it if it already exists)
  */
 function setupTable(data, originalHtml) {
 
+    // If the table already exists on the page, drop it first before recreasing. [PC] @todo This is a bit sloppy.
     if (objTable)
         destroyTable(originalHtml);
 
     objTable = $('#classTable').dataTable({
 
-        // Use the dataset given.
+        // Use the given dataset locally.
         "bProcessing":true,
         "aaData":data.aaData,
         "aaSorting":[
@@ -47,22 +48,32 @@ function setupTable(data, originalHtml) {
             "sSearch":"Search for anything:"
         },
         "iDisplayLength":25,
-        "iDisplayStart":parseInt(getPaginationStatus())
-    });
+        "iDisplayStart":parseInt(getPaginationStatus()),
+        "fnInitComplete":function (oSettings, json) {
 
-    $('#classTable').show();
-    $("#tableSearch").val(getSavedSearch());
-    objTable.fnFilter($("#tableSearch").val());
-    objTable.fnDisplayStart(parseInt(getPaginationStatus()));
+            $('#classTable').show();
 
-    // Whenever the search string is changed, refilter the table.
-    $("#tableSearch").live('keyup', function () {
-        objTable.fnFilter($("#tableSearch").val());
-        saveSearchStatus();
+            // Load the saved filter string.
+            var filterText = getSavedSearch();
+            $("#tableSearch").val(filterText);
+            this.fnFilter(filterText);
+
+            // Load the save pagination settings...BUT not if there's text in the search string. (see bug below)
+            // [PC] @todo do sanity check to see if this page even exists. Paging to a nonexistant page makes the table look empty..
+            if (filterText.length == 0)
+                this.fnDisplayStart(parseInt(getPaginationStatus()));
+
+            // Whenever the search string is changed, refilter the table.
+            $("#tableSearch").live('keyup', function () {
+                objTable.fnFilter($("#tableSearch").val());
+                saveSearchStatus();
+            });
+        }
     });
 
     // Whenever the user changes the pagination, save it to a cookie.
-    // $("#classTable_paginate, .paginate_button").live('click', savePaginationStatus);
+    // [PC] @todo broken, see below.
+    $("#classTable_paginate, .paginate_button").live('click', savePaginationStatus);
 }
 
 /**
@@ -86,7 +97,8 @@ function saveSearchStatus() {
  * Saves pagination status to a cookie.
  */
 function savePaginationStatus() {
-    setCookie('table_displayStart', objTable.oSettings._iDisplayStart, 365);
+    // @todo Fix this; objTable is coming up null for some reason when called from a live() event.
+    // setCookie('table_displayStart', objTable.oSettings._iDisplayStart, 365);
 }
 
 /**
