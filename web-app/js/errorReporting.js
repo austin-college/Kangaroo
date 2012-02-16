@@ -6,12 +6,15 @@
 //
 //==========================================================================
 
+var isInProduction = false;
+
 /**
  * Initializes the "development" error page.
  */
 function initDevelopmentErrorReporting() {
 
-    $("#submitExtraInformation").click(submitBugReportDevelopment);
+    isInProduction = false;
+    $("#submitExtraInformation").click(submitFollowup);
     $("#extraInfo").fadeIn(100);
 }
 
@@ -20,11 +23,13 @@ function initDevelopmentErrorReporting() {
  */
 function initProductionErrorReporting() {
 
+    isInProduction = true;
     $("#submitExtraInformation").click(submitFollowup);
 
     // Expand/collapse the "error details" panel on the production page.
     $("#showDetails").click(toggleDetailsPanel);
 
+    // Auto-submit the error report now.
     submitBugReport();
 
     $("#errorDetailsContainer").hide();
@@ -83,7 +88,7 @@ function submitBugReport() {
 }
 
 /**
- * Submits the user's followup (called manually on the production page).
+ * Submits the user's followup (called manually on both pages).
  */
 function submitFollowup() {
 
@@ -91,58 +96,43 @@ function submitFollowup() {
     $("#submitExtraInformation").css({ opacity:0.5 });
     $("#extraInfo").css({ opacity:0.7 });
 
+    // In development, this is our first report, not our followup.
+    var url = contextPath + '/error/' + (isInProduction ? 'addBugDetails' : 'reportBug');
+    var data = {"email":$("#userEmail").val(), "reportDetails":$("#reportDetails").val() };
+
+    if (!isInProduction) { // So add more data in development too.
+        data["reportDetails"] = $("#reportDetails").val();
+        data["sourceUri"] = sourceUrl;
+        data["browser"] = getBrowserInfo();
+    }
+
+    // Send the request.
     $.ajax({
         cache:false,
         dataType:'json',
         type:'POST',
-        url:contextPath + '/error/addBugDetails',
-        data:{"email":$("#userEmail").val(), "reportDetails":$("#reportDetails").val() },
-        error:function (response) {
-            followupFailed();
-            $("#extraInfo h3").text("Sending failed; please try again.");
-        },
-        success:function (response) {
-
-            followupSucceeded();
-            $("#extraInfo h3").text("Thanks, we've received your details.");
-        }
+        url:url,
+        data:data,
+        error:followupFailed,
+        success:followupSucceeded
     });
 }
 
 /**
- * Submits both the error report and the details (called manually on the development page).
+ * Called when the followup succeeds; closed up the form.
  */
-function submitBugReportDevelopment() {
-
-    $("#submitExtraInformation").attr("disabled", true);
-    $("#submitExtraInformation").css({ opacity:0.5 });
-    $("#extraInfo").css({ opacity:0.7 });
-
-    $.ajax({
-        cache:false,
-        dataType:'json',
-        type:'POST',
-        url:contextPath + '/error/reportBug',
-        data:{"sourceUri":sourceUrl, "browser":getBrowserInfo(), "reportDetails":$("#reportDetails").val() },
-        error:function (response) {
-            followupFailed();
-            $("#extraInfo h3").text("Sending failed; please try again.");
-        },
-        success:function (response) {
-
-            followupSucceeded();
-            $("#extraInfo h3").text("Report successfully sent to FogBugz!");
-        }
-    });
-}
-
 function followupSucceeded() {
+    $("#extraInfo h3").text("Thanks, we've received your details.");
     $("#addDetailFields").slideUp();
     $("#extraInfo").animate({ opacity:1.0 }, 200);
     $("#addReportSubheader").fadeOut();
 }
 
+/**
+ * Called when the followup fails; re-enables the form for another go.
+ */
 function followupFailed() {
+    $("#extraInfo h3").text("Sending failed; please try again.");
     $("#extraInfo").animate({ opacity:1.0 }, 200);
     $("#submitExtraInformation").animate({ opacity:1.0 }, 200);
     $("#submitExtraInformation").attr("disabled", false);
