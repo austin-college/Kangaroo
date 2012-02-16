@@ -87,6 +87,10 @@ function submitBugReport() {
  */
 function submitFollowup() {
 
+    $("#submitExtraInformation").attr("disabled", "disabled");
+    $("#submitExtraInformation").css({ opacity:0.5 });
+    $("#extraInfo").css({ opacity:0.7 });
+
     $.ajax({
         cache:false,
         dataType:'json',
@@ -94,10 +98,13 @@ function submitFollowup() {
         url:contextPath + '/error/addBugDetails',
         data:{"email":$("#userEmail").val(), "reportDetails":$("#reportDetails").val() },
         error:function (response) {
+            $("#extraInfo").animate({ opacity:1.0 }, 200);
             $("#addReportSubheader").text("Kangaroo failed to submit the followup.");
         },
         success:function (response) {
             $("#addDetailFields").slideUp();
+            $("#extraInfo").animate({ opacity:1.0 }, 200);
+            $("#addReportSubheader").fadeOut();
             $("#extraInfo h3").text("Thanks, we've received your details.");
             $("#extraInfo h3").css("text-align", "center");
         }
@@ -109,6 +116,10 @@ function submitFollowup() {
  */
 function submitBugReportDevelopment() {
 
+    $("#submitExtraInformation").attr("disabled", "disabled");
+    $("#submitExtraInformation").css({ opacity:0.5 });
+    $("#extraInfo").css({ opacity:0.7 });
+
     $.ajax({
         cache:false,
         dataType:'json',
@@ -117,11 +128,14 @@ function submitBugReportDevelopment() {
         data:{"sourceUri":sourceUrl, "browser":getBrowserInfo(), "reportDetails":$("#reportDetails").val() },
         error:function (response) {
             ajaxInternalServerError(response, "Kangaroo failed to submit the bug report.");
+            $("#extraInfo").animate({ opacity:1.0 }, 200);
             $("#extraInfo h3").text("Kangaroo failed to submit the bug report.");
 
         },
         success:function (response) {
             $("#addDetailFields").slideUp();
+            $("#extraInfo").animate({ opacity:1.0 }, 200);
+            $("#addReportSubheader").fadeOut();
             $("#extraInfo h3").text("Report successfully sent to FogBugz!");
             $("#addReportSubheader").text(response.message);
         }

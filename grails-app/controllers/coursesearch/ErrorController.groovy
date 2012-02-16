@@ -7,8 +7,7 @@ import grails.util.Environment
  * [PC] Handles any error the application experiences.
  *
  * Some notes:
- * - error.gsp is in the root of the "views" folder because very low-level Grails bugs skip this class entirely, and go right for the file.
- *      If it's not there, you simply get "Internal server error". Should probably make this version bare-bones.
+ * - productionError.gsp is used in production.
  *
  * - developmentError.gsp is called instead of error.gsp in development environments. It doesn't report the bugs automatically and
  *      makes it easier to read the error details.
