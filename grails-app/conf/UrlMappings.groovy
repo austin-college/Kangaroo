@@ -14,6 +14,7 @@ class UrlMappings {
         "/$id"(controller: "professor", action: "show")
         "/professor/$id"(controller: "professor", action: "show")
         "/course/$id"(controller: "course", action: "show")
+        "/setOfficeHours/$id"(controller: "professor", action: "setOfficeHours")
 
         // Errors...
         "500"(controller: "error", action: "serverError")
