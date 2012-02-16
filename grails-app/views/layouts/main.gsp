@@ -91,6 +91,28 @@
         border: 0;
     }
     </style>
+
+    <!-- start Mixpanel --><script type="text/javascript">var mpq = [];
+mpq.push(["init", "102753bbc8bcef0e34932d5f829ed00d"]);
+(function () {
+    var b, a, e, d, c;
+    b = document.createElement("script");
+    b.type = "text/javascript";
+    b.async = true;
+    b.src = (document.location.protocol === "https:" ? "https:" : "http:") + "//api.mixpanel.com/site_media/js/api/mixpanel.js";
+    a = document.getElementsByTagName("script")[0];
+    a.parentNode.insertBefore(b, a);
+    e = function (f) {
+        return function () {
+            mpq.push([f].concat(Array.prototype.slice.call(arguments, 0)))
+        }
+    };
+    d = ["init", "track", "track_links", "track_forms", "register", "register_once", "identify", "name_tag", "set_config"];
+    for (c = 0; c < d.length; c++) {
+        mpq[d[c]] = e(d[c])
+    }
+})();
+</script><!-- end Mixpanel -->
 </head>
 
 <body>
@@ -123,7 +145,8 @@
     </div>
 
     <footer>
-        <p>Version 1 &middot; Created by Phillip Cohen &middot; <a href="http://github.com/austin-college/Kangaroo">Fork us on GitHub</a></p>
+        <p>Version 1 &middot; Created by Phillip Cohen &middot; <a
+                href="http://github.com/austin-college/Kangaroo">Fork us on GitHub</a></p>
     </footer>
 
 </div> <!-- /container -->
@@ -135,7 +158,7 @@
         _gaq.push(['_setAccount', 'UA-26802912-1']);
         _gaq.push(['_trackPageview']);
 
-        (function() {
+        (function () {
             var ga = document.createElement('script');
             ga.type = 'text/javascript';
             ga.async = true;
@@ -151,8 +174,8 @@
         jQuery.ajaxSettings.cache = true;
         // Load FeatureLoader asynchronously. Once loaded, we execute Facebook init
 
-        jQuery.getScript('http://connect.facebook.net/en_US/all.js', function() {
-            FB.init({appId: 'your_app_id-optional', status: true, cookie: true, xfbml: true});
+        jQuery.getScript('http://connect.facebook.net/en_US/all.js', function () {
+            FB.init({appId:'your_app_id-optional', status:true, cookie:true, xfbml:true});
         });
         // just Restore jQuery caching setting
         jQuery.ajaxSettings.cache = cache;
