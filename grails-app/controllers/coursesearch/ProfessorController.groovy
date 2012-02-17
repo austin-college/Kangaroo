@@ -44,8 +44,8 @@ class ProfessorController {
             // Store the current professor on the session, and send them some cookies too.
             session.professorId = professor.id;
             response.addCookie(createCookie("prof_id", professor.id, 365))
-            response.addCookie(createCookie("prof_email", professor.email, 365))
-            response.addCookie(createCookie("prof_name", professor.name, 365))
+//            response.addCookie(createCookie("prof_email", professor.email, 365))
+//            response.addCookie(createCookie("prof_name", professor.name, 365))
 
             [professor: professor]
         }
