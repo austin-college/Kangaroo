@@ -6,27 +6,27 @@
 //
 //================================================================
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     $.ajax({
-        url: contextPath + "/batchControl/getJobs",
-        success: function(response) {
-            $.each(response, function(key, value) {
+        url:contextPath + "/batchControl/getJobs",
+        success:function (response) {
+            $.each(response, function (key, value) {
                 addJob(key, value);
             });
         }
     });
 
 
-    $("a.runLink").live('click', function() {
+    $("a.runLink").live('click', function () {
         var job = $(this).attr('rel');
         var dom = $(this).parent().parent();
         setStatusMessage(dom, "<i>Working...</i>");
 
         $.ajax({
-            url: contextPath + "/batchControl/runJob",
-            data: {job: job},
-            success: function(response) {
+            url:contextPath + "/batchControl/runJob",
+            data:{job:job},
+            success:function (response) {
                 setStatusMessage(dom, getCompletionStatus(response));
             }
         });
@@ -37,7 +37,7 @@ $(document).ready(function() {
 });
 
 function addJob(name, job) {
-    $("#importBars").append($(job.html));
+    $("#batchJobs").append($(job.html));
 }
 
 /**

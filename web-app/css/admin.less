@@ -1,0 +1,37 @@
+//==========================================================================
+//
+// admin.less
+//
+// Styles for the admin area.
+//
+//==========================================================================
+
+/**
+ * A batch job that an admin can run. Displayed as a green bar with a title, status, and control links.
+ */
+.batchJob {
+
+    padding: 20px;
+    font-size: 18px;
+    background-color: #f0faf9;
+    border: 2px solid #ccd4d4;
+    margin-bottom: 15px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+
+    .status {
+
+        // Clocks how long the job took.
+        .time {
+            font-size: 14px;
+            margin-left: 5px;
+            color: #999;
+        }
+    }
+
+    // Control links on the right.
+    .actionLinks {
+        float: right;
+    }
+}

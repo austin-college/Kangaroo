@@ -1,0 +1,102 @@
+//==========================================================================
+//
+// printCalendar.less
+//
+// Styles for the "printable" layout. These are used to customize the
+// existing "professor profile" styles to be printer-friendly.
+//
+//==========================================================================
+
+body {
+    padding: 20px 20px 0 20px;
+    margin: 0;
+    width: 100%;
+}
+
+/**
+ * Customize the professor's info block.
+ */
+#professorInfo {
+    width: 550px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+    line-height: 22px;
+
+    h1 {
+        font-size: 36px;
+        padding: 0;
+        margin-top: 2px;
+        line-height: 40px;
+        margin-bottom: 6px;
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+        line-height: 26px;
+    }
+
+    .photo img {
+        border: 1px solid #888;
+    }
+}
+
+/**
+ * Customize the weekly calendar.
+ */
+#calendar {
+
+    // Make events big and bold.
+    .fc-event-skin {
+        font-size: 16px;
+        color: #000 !important;
+        background-color: #fff !important;
+    }
+
+    // Make headers bigger too.
+    .fc-widget-header {
+        font-size: 16px;
+    }
+}
+
+/**
+ * Lists the professor's class locations in the bottom-left.
+ */
+#classLocations {
+    clear: left;
+    padding-top: 40px;
+    font-size: 16px;
+    line-height: 26px;
+
+    h3 {
+        color: #666;
+        font-style: italic;
+        line-height: 20px;
+        margin-bottom: 5px;
+    }
+}
+
+/**
+ * Display a little "made with Kangaroo" logo in the bottom-right.
+ */
+#madeBy {
+    padding-top: 55px;
+    float: right;
+    clear: both;
+    width: 250px;
+    margin-right: 60px;
+    text-align: right;
+    line-height: 16px;
+    font-size: 14px;
+
+    h3 {
+        color: #666;
+        font-style: italic;
+        line-height: 20px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: normal;
+    }
+}

@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Department; coursesearch.Term" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Department; kangaroo.Term" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -8,17 +8,7 @@
     <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
     <g:javascript src="courseDataTable.js"/>
     <g:javascript src="searchPage.js"/>
-    <style type="text/css">
-    #newStuff {
-        font-size: 18px;
-        margin: 10px auto 30px auto;
-        width: 400px;
-        padding: 9px;
-        text-align: center;
-        background-color: #dfd;
-        border: 1px solid #ded;
-    }
-    </style>
+    <less:stylesheet name="searchPage"/>
 </head>
 
 <body>

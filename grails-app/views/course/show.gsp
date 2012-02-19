@@ -1,9 +1,10 @@
-<%@ page import="coursesearch.mn.CourseFulfillsRequirement; coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.mn.CourseFulfillsRequirement; kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${course}</title>
     <meta name="layout" content="main"/>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'course_view.css')}"/>
+    <less:stylesheet name="profiles"/>
+    <less:stylesheet name="courseView"/>
     <script type="text/javascript">
         $(document).ready(function () {
             mpq.track('course view', {'mp_note':"User viewed ${course.sectionString()}: ${course}"});
@@ -40,7 +41,7 @@
 
         </g:if>
         <div style="margin-left: 53px">
-            <div><b>Taught by ${CourseUtils.getProfessorLinksForClass(course, false, " and ")}</b></div>
+            <div><b>Taught by ${AppUtils.getProfessorLinksForClass(course, false, " and ")}</b></div>
 
             <div style="font-variant: small-caps">${course.department.name}</div>
         </div>
@@ -58,7 +59,7 @@
             </g:if>
 
         %{--<g:if test="${course.schedule}">--}%
-            <div>at ${CourseUtils.getScheduleLinksForClass(course)}</div>
+            <div>at ${AppUtils.getScheduleLinksForClass(course)}</div>
             %{--</g:if>--}%
         </div>
     </div>
