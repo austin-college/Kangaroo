@@ -12,10 +12,11 @@ class BootStrap {
     def courseImporterService
     def textbookDataService
     def cacheService
+    def grailsApplication
 
     def init = { servletContext ->
 
-        println "\n\n==============================\n\n    Kangaroo v1 starting..."
+        println "\n\n==============================\n\n    Kangaroo v${grailsApplication.metadata.'app.version'} starting..."
 
         // Customize how objects are formatted to JSON.
         JSON.registerObjectMarshaller(Course) {
