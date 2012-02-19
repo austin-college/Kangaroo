@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.AppUtils; kangaroo.CourseUtils; kangaroo.data.convert.ProfessorService; kangaroo.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.AppUtils; kangaroo.data.convert.ProfessorService; kangaroo.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Weekly Calendar: ${professor}</title>
