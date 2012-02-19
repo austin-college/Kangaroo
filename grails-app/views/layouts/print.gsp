@@ -14,7 +14,7 @@
     <title><g:layoutTitle default="Kangaroo"/></title>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'bootstrap.137.min.css')}"/>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="${resource(dir: 'libraries', file: 'jquery.164.min.js')}"></script>
 
     <less:stylesheet media="screen, print" name="printCalendar"/>
     <less:scripts/>
