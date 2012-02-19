@@ -1,7 +1,7 @@
 package kangaroo.mn
 
-import kangaroo.Professor
 import kangaroo.MeetingTime
+import kangaroo.Professor
 
 /**
  * Many-many relationship between professors and office hours, which are stored as MeetingTimes (professor has these office hours).

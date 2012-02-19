@@ -1,9 +1,9 @@
 package kangaroo.data.fetch
 
+import groovyx.gpars.GParsPool
 import kangaroo.Course
 import kangaroo.CourseUtils
 import kangaroo.Textbook
-import groovyx.gpars.GParsPool
 
 class TextbookDataService {
 
@@ -72,7 +72,7 @@ class TextbookDataService {
     }
 
     def cleanUpGorm() {
-        def session =  sessionFactory.currentSession
+        def session = sessionFactory.currentSession
         session.flush()
         session.clear()
         propertyInstanceMap.get().clear()

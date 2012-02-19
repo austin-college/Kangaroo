@@ -1,9 +1,8 @@
 package kangaroo.data
 
-import kangaroo.Professor
-
 import grails.converters.JSON
 import grails.util.Environment
+import kangaroo.Professor
 
 class DataExportService {
 

@@ -1,7 +1,6 @@
 package kangaroo
 
 import grails.test.GrailsUnitTestCase
-
 import kangaroo.data.convert.ScheduleConvertService
 
 class MeetingTimeTests extends GrailsUnitTestCase {

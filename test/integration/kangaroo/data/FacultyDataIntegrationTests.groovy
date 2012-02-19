@@ -1,7 +1,7 @@
 package kangaroo.data
 
-import kangaroo.Professor
 import grails.test.GrailsUnitTestCase
+import kangaroo.Professor
 
 class FacultyDataIntegrationTests extends GrailsUnitTestCase {
 

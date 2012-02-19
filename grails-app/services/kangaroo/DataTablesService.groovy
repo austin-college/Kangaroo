@@ -1,7 +1,6 @@
 package kangaroo
 
 import grails.converters.JSON
-import grails.util.Environment
 import redis.clients.jedis.Jedis
 
 /**

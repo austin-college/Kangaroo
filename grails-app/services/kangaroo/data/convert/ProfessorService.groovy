@@ -2,10 +2,9 @@ package kangaroo.data.convert
 
 import kangaroo.Course
 import kangaroo.Department
+import kangaroo.MeetingTime
 import kangaroo.Professor
 import org.springframework.transaction.annotation.Transactional
-
-import kangaroo.MeetingTime
 
 /**
  * Contains utility methods for professors.

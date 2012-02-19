@@ -1,7 +1,7 @@
 package kangaroo.data.prefill
 
-import kangaroo.CourseUtils
 import grails.converters.JSON
+import kangaroo.CourseUtils
 import org.springframework.transaction.annotation.Transactional
 
 abstract class UpdateableDataService {

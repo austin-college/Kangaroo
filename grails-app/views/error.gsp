@@ -103,6 +103,7 @@
     </div>
     <g:if test="${exception}">
         <br/><br/>
+
         <h2>Stack Trace</h2>
 
         <div class="stack">

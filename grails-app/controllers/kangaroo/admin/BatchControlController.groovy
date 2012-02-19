@@ -1,9 +1,8 @@
 package kangaroo.admin
 
 import grails.converters.JSON
-import kangaroo.*
-
 import kangaroo.mn.ProfessorOfficeHours
+import kangaroo.*
 
 class BatchControlController {
 

@@ -1,8 +1,8 @@
 package kangaroo.data.fetch
 
+import groovyx.gpars.GParsPool
 import kangaroo.CourseUtils
 import kangaroo.Textbook
-import groovyx.gpars.GParsPool
 
 /**
  * Pulls in data from Amazon.com about textbooks.

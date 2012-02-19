@@ -1,8 +1,8 @@
 package kangaroo.data.prefill
 
+import grails.converters.JSON
 import kangaroo.Department
 import kangaroo.Major
-import grails.converters.JSON
 
 /**
  * Fills in data about Austin College's majors and minors.
@@ -34,7 +34,7 @@ class MajorDataService extends UpdateableDataService {
                 println major.errors.toString()
         }
         else
-             println "Department not found: ${data.department}"
+            println "Department not found: ${data.department}"
     }
 
     def getDataFromServer() { JSON.parse(new URL("https://raw.github.com/austin-college/data/master/majors.json").text); }

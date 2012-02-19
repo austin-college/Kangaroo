@@ -1,8 +1,8 @@
 package kangaroo.data
 
-import org.springframework.transaction.annotation.Transactional
 import kangaroo.Professor
 import kangaroo.Term
+import org.springframework.transaction.annotation.Transactional
 
 class BackendDataService {
 

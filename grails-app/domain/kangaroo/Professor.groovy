@@ -1,8 +1,8 @@
 package kangaroo
 
+import kangaroo.data.BackendDataService
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.mn.Teaching
-import kangaroo.data.BackendDataService
 
 /**
  * The facilitators of learning, the lifeblood of a university, the people who hate grading.
@@ -47,7 +47,7 @@ class Professor {
     }
 
     String toString() { name }
-    
+
     String getFirstName() { return name.split(' ')[0] }
 
     String getLastName() { return name.split(' ')[-1] }

@@ -1,9 +1,9 @@
-import kangaroo.Course
-import kangaroo.Professor
-import kangaroo.Term
 import grails.converters.JSON
 import grails.util.Environment
+import kangaroo.Course
 import kangaroo.CourseUtils
+import kangaroo.Professor
+import kangaroo.Term
 
 class BootStrap {
 
@@ -30,8 +30,8 @@ class BootStrap {
                 ["11FA", "12SP"].each {
                     def term = Term.findOrCreate(it)
 
-                        println "Downloading course files..."
-                        courseImporterService.importCourses(term)
+                    println "Downloading course files..."
+                    courseImporterService.importCourses(term)
                 }
 
                 textbookDataService.lookupTextbooksForAllCourses()
@@ -39,7 +39,7 @@ class BootStrap {
 
 //            cacheService.initializeCache()
         }
-        
+
         // Give professors random edit tokens.
         Professor.findAllByPrivateEditKey(null).each {
             it.privateEditKey = CourseUtils.generateRandomToken()

@@ -1,8 +1,8 @@
 package kangaroo.data.fetch
 
+import groovy.util.slurpersupport.GPathResult
 import kangaroo.CourseUtils
 import kangaroo.Professor
-import groovy.util.slurpersupport.GPathResult
 
 /**
  * Downloads the faculty page from austincollege.edu, which contains useful data like photos, titles, phone numbers, etc.

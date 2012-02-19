@@ -1,10 +1,10 @@
 package kangaroo.data.fetch
 
+import grails.converters.JSON
 import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.mn.CourseFulfillsRequirement
 import kangaroo.mn.CourseMeetingTime
 import kangaroo.mn.Teaching
-import grails.converters.JSON
 import kangaroo.*
 
 /**
@@ -74,7 +74,7 @@ class CourseImporterService {
     Professor findOrCreateProfessor(name, email) {
 
         // Check if this isn't a real professor.
-        for (String toAvoid : placeholderProfessorNames)
+        for (String toAvoid: placeholderProfessorNames)
             if (name.equals(toAvoid))
                 return null;
 

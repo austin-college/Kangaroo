@@ -1,10 +1,10 @@
 package kangaroo
 
+import grails.converters.JSON
+import javax.servlet.http.Cookie
 import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.data.convert.ScheduleProjectService
 import kangaroo.mn.ProfessorOfficeHours
-import grails.converters.JSON
-import javax.servlet.http.Cookie
 
 class ProfessorController {
 

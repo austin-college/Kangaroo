@@ -1,7 +1,5 @@
 package kangaroo
 
-import grails.util.Environment
-
 /**
  * Stores information in the super-fast, memory-only redis cache. This is a great way to speed up slow, unchanging queries.
  */

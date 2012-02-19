@@ -1,6 +1,6 @@
 package kangaroo
 
-import grails.test.*
+import grails.test.GrailsUnitTestCase
 
 class RequirementTests extends GrailsUnitTestCase {
     protected void setUp() {
