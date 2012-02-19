@@ -1,10 +1,7 @@
 package kangaroo.data.convert
 
-import kangaroo.Course
-import kangaroo.Department
-import kangaroo.MeetingTime
-import kangaroo.Professor
 import org.springframework.transaction.annotation.Transactional
+import kangaroo.*
 
 /**
  * Contains utility methods for professors.
@@ -119,5 +116,59 @@ class ProfessorService {
         }
 
         resultList;
+    }
+
+    /**
+     * Returns whether the given professor is having office hours, RIGHT NOW.
+     * @todo [PC] Support future dates (remember to align the weeks).
+     */
+    @Transactional(readOnly = true)
+    static boolean isInOfficeHours(Professor professor) {
+
+        for (def time: ScheduleProjectService.projectToWeek(professor.officeHours))
+            if (AppUtils.isDateBetween(new Date(), time.startDate, time.endDate))
+                return true;
+
+        return false;
+    }
+
+    /**
+     * Returns the class the professor is teaching RIGHT NOW (if any).
+     * @todo [PC] Support future dates (remember to align the weeks).
+     */
+    @Transactional(readOnly = true)
+    static Course getCurrentClass(Professor professor) {
+
+        for (def course: professor.currentCursesTeaching)
+            for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes))
+                if (AppUtils.isDateBetween(new Date(), time.startDate, time.endDate))
+                    return course;
+    }
+
+    /**
+     * Returns the status of the given professor (teaching, in office hours, unknown) RIGHT NOW.
+     *
+     * @return A map with these keys: [status, available, busy].
+     *  status: "officeHours", "inClass", "unknown"
+     *  available: true only if the professor is confirmed to be available
+     *  busy: true only if the professor is confirmed to be busy
+     *
+     * @todo [PC] Support future dates (remember to align the weeks).
+     */
+    @Transactional(readOnly = true)
+    static getStatus(Professor professor) {
+
+        // Are they having office hours?
+        if (isInOfficeHours(professor))
+            [status: "officeHours", available: true]
+        else {
+
+            // See if they're in a class.
+            def course = getCurrentClass(professor)
+            if (course)
+                [status: "inClass", course: course, busy: true]
+        }
+
+        return [status: "unknown"]
     }
 }

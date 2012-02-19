@@ -11,7 +11,7 @@ class Professor {
 
     def professorService
 
-    static transients = ['firstName', 'lastName']
+    static transients = ['firstName', 'lastName', 'inOfficeHours']
 
     String id
     String name
@@ -81,4 +81,14 @@ class Professor {
      * Returns all of the rooms this professor teaches classes in (ie, ["MS128", "MS133"]).
      */
     List<String> getActiveRooms() { professorService.getRoomsForProfessor(this)}
+
+    /**
+     * Gets the professor's current status (busy? in office hours? teaching?) as of RIGHT NOW.
+     */
+    def getStatus() { professorService.getStatus(this) }
+
+    /**
+     * Returns true if the professor is having office hours RIGHT NOW.
+     */
+    boolean isInOfficeHours() { professorService.isInOfficeHours(this) }
 }
