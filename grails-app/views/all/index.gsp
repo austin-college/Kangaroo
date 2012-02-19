@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.Course; kangaroo.Professor; kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Course; kangaroo.Professor; kangaroo.AppUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Everything</title>

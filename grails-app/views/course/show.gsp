@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.AppUtils; kangaroo.mn.CourseFulfillsRequirement; kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.mn.CourseFulfillsRequirement; kangaroo.AppUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${course}</title>

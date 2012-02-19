@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.Professor; kangaroo.Course; kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Professor; kangaroo.Course; kangaroo.AppUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Batch Control</title>
