@@ -1,4 +1,4 @@
-<div id="import_${job.id}" class="importBar">
+<div id="job_${job.id}" class="batchJob">
     <b>${job.name}:</b>
     <span class="status">${job.status()}</span>
 

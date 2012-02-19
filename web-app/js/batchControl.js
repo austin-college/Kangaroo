@@ -37,7 +37,7 @@ $(document).ready(function () {
 });
 
 function addJob(name, job) {
-    $("#importBars").append($(job.html));
+    $("#batchJobs").append($(job.html));
 }
 
 /**
