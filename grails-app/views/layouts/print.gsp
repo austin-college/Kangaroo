@@ -7,8 +7,9 @@
     <title><g:layoutTitle default="Kangaroo"/></title>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
-    <link rel="stylesheet" media="screen, print" title="Printer-Friendly Style"
-          href="${resource(dir: 'css', file: 'printCalendar.css')}"/>
+
+    <less:stylesheet media="screen, print" name="printCalendar"/>
+    <less:scripts/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
     %{-- Set some global javascript variables while we still have access to the grails closures. --}%
