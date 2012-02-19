@@ -2,8 +2,9 @@ package kangaroo.data.fetch
 
 import groovyx.gpars.GParsPool
 import kangaroo.Course
-import kangaroo.CourseUtils
+
 import kangaroo.Textbook
+import kangaroo.AppUtils
 
 class TextbookDataService {
 
@@ -20,7 +21,7 @@ class TextbookDataService {
 
         Textbook.list().each { it.delete() };
         cleanUpGorm()
-        CourseUtils.runAndTime("Textbooks fetched") {
+        AppUtils.runAndTime("Textbooks fetched") {
             GParsPool.withPool(20) {
                 Course.list().eachParallel { course ->
                     lookupTextbookInfo(course)
@@ -37,7 +38,7 @@ class TextbookDataService {
 
             course = course.merge()
 
-            def page = kangaroo.CourseUtils.cleanAndConvertToXml(new URL(course.textbookPageUrl()).text);
+            def page = AppUtils.cleanAndConvertToXml(new URL(course.textbookPageUrl()).text);
             def list = page.depthFirst().collect { it }.find { it.name() == "div" && it.@class.toString().contains("results") }
 
             int failures = 0;
@@ -113,17 +114,17 @@ class TextbookDataService {
 
         // Pricing details...
             case 'NEW':
-                textbook.bookstoreNewPrice = CourseUtils.parseCurrency(value);
+                textbook.bookstoreNewPrice = AppUtils.parseCurrency(value);
                 break;
             case 'USED':
-                textbook.bookstoreRentalPrice = CourseUtils.parseCurrency(value);
+                textbook.bookstoreRentalPrice = AppUtils.parseCurrency(value);
                 break;
             case 'RENTAL':
-                textbook.bookstoreRentalPrice = CourseUtils.parseCurrency(value);
+                textbook.bookstoreRentalPrice = AppUtils.parseCurrency(value);
                 break;
             case 'DIGITAL':
                 textbook.isDigital = true;
-                textbook.bookstoreNewPrice = CourseUtils.parseCurrency(value);
+                textbook.bookstoreNewPrice = AppUtils.parseCurrency(value);
                 break;
 
             default:

@@ -78,13 +78,13 @@ class CourseImporterService {
             if (name.equals(toAvoid))
                 return null;
 
-        def id = CourseUtils.extractProfessorUsername(email, name)
+        def id = AppUtils.extractProfessorUsername(email, name)
         def professor = Professor.get(id)
         if (!professor && id) {
-            professor = new Professor(name: CourseUtils.cleanFacultyName(name), email: email)
+            professor = new Professor(name: AppUtils.cleanFacultyName(name), email: email)
             professor.id = id;
             if (!email) {
-//                professor.id = CourseUtils.extractProfessorUsernameFromName(name)
+//                professor.id = AppUtils.extractProfessorUsernameFromName(name)
                 println "NO EMAIL ====> " + name + "//" + professor.id
             }
             professor = professor.save()

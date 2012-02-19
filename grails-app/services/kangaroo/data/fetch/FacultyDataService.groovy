@@ -1,8 +1,9 @@
 package kangaroo.data.fetch
 
 import groovy.util.slurpersupport.GPathResult
-import kangaroo.CourseUtils
+
 import kangaroo.Professor
+import kangaroo.AppUtils
 
 /**
  * Downloads the faculty page from austincollege.edu, which contains useful data like photos, titles, phone numbers, etc.
@@ -37,7 +38,7 @@ class FacultyDataService {
     /**
      * Returns the Austin College faculty page as a cleaned Groovy XML tree.
      */
-    static GPathResult getFacultyPageAsXml() {CourseUtils.cleanAndConvertToXml(facultyPageAsText)}
+    static GPathResult getFacultyPageAsXml() {AppUtils.cleanAndConvertToXml(facultyPageAsText)}
 
     /**
      * Returns just the list of faculty as a cleaned Groovy XML tree.
@@ -47,7 +48,7 @@ class FacultyDataService {
     def fetchAndMatch() {
 
         // Download and extract the faculty list.
-        CourseUtils.runAndTime("Faculty fetched and matched") {
+        AppUtils.runAndTime("Faculty fetched and matched") {
             println 'Fetching faculty page...'
             matchScrapedFaculty(extractRawData())
         }
@@ -95,8 +96,8 @@ class FacultyDataService {
      */
     def createProfessor(Map rawData) {
         def professor = new Professor()
-        professor.id = CourseUtils.extractProfessorUsername(rawData.email);
-        professor.name = CourseUtils.cleanFacultyName(rawData.name)
+        professor.id = AppUtils.extractProfessorUsername(rawData.email);
+        professor.name = AppUtils.cleanFacultyName(rawData.name)
         professor.matched = true;
         professor.photoUrl = rawData.photoUrl
         professor.title = rawData.title

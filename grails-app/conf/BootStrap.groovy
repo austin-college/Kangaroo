@@ -1,7 +1,7 @@
 import grails.converters.JSON
 import grails.util.Environment
 import kangaroo.Course
-import kangaroo.CourseUtils
+import kangaroo.AppUtils
 import kangaroo.Professor
 import kangaroo.Term
 
@@ -23,7 +23,7 @@ class BootStrap {
         }
 
         if (Environment.current != Environment.TEST) {
-            backendDataService.upgradeAllIfNeeded()
+        //    backendDataService.upgradeAllIfNeeded()
 
             // Create terms and import courses.
             if (Term.count() == 0) {
@@ -42,7 +42,7 @@ class BootStrap {
 
         // Give professors random edit tokens.
         Professor.findAllByPrivateEditKey(null).each {
-            it.privateEditKey = CourseUtils.generateRandomToken()
+            it.privateEditKey = AppUtils.generateRandomToken()
             it.save()
             println "${it} now has edit key ${it.privateEditKey}."
         }

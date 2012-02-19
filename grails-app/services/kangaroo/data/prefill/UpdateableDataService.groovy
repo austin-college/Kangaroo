@@ -1,7 +1,7 @@
 package kangaroo.data.prefill
 
 import grails.converters.JSON
-import kangaroo.CourseUtils
+import kangaroo.AppUtils
 import org.springframework.transaction.annotation.Transactional
 
 abstract class UpdateableDataService {
@@ -18,7 +18,7 @@ abstract class UpdateableDataService {
             // Run the upgrade.
             println "\nUpgrading ${name} to version ${dataFromServer.version}..."
             println " ===> $url is at version ${dataFromServer.version}"
-            CourseUtils.runAndTime("${name} updated") {
+            AppUtils.runAndTime("${name} updated") {
                 upgradeAll(dataFromServer);
                 lastVersionUsed = dataFromServer.version;
             }

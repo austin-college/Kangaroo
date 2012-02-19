@@ -1,7 +1,7 @@
 package kangaroo.data.fetch
 
 import groovyx.gpars.GParsPool
-import kangaroo.CourseUtils
+import kangaroo.AppUtils
 import kangaroo.Textbook
 
 /**
@@ -15,7 +15,7 @@ class AmazonDataService {
 
     def lookupAllTextbooks() {
         println "Fetching detailed textbook data from amazon.com..."
-        CourseUtils.runAndTime("Amazon details fetched") {
+        AppUtils.runAndTime("Amazon details fetched") {
             cleanUpGorm()
             GParsPool.withPool(20) {
                 Textbook.findAllByMatchedOnAmazon(false).eachParallel { textbook ->
@@ -31,13 +31,13 @@ class AmazonDataService {
             try {
                 textbook = textbook.merge()
                 println "Looking up Amazon.com details for ${textbook} (${textbook.id})..."
-                def page = CourseUtils.cleanAndConvertToXml(new URL(textbook.amazonLink).text)
+                def page = AppUtils.cleanAndConvertToXml(new URL(textbook.amazonLink).text)
 
                 textbook.matchedOnAmazon = true;
-                textbook.amazonPrice = CourseUtils.parseCurrency(CourseUtils.findInNode(page) { it.@id == "actualPriceValue" }.b.toString());
-                textbook.imageUrl = CourseUtils.findInNode(page) { node -> node.@id == "prodImageCell" }.a.img.@src;
+                textbook.amazonPrice = AppUtils.parseCurrency(AppUtils.findInNode(page) { it.@id == "actualPriceValue" }.b.toString());
+                textbook.imageUrl = AppUtils.findInNode(page) { node -> node.@id == "prodImageCell" }.a.img.@src;
                 if (!textbook.imageUrl)
-                    textbook.imageUrl = CourseUtils.findInNode(page) { node -> node.@id == "prodImageCell" }.img.@src;
+                    textbook.imageUrl = AppUtils.findInNode(page) { node -> node.@id == "prodImageCell" }.img.@src;
                 textbook.save(flush: true);
                 cleanUpGorm()
             }

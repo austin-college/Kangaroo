@@ -29,7 +29,7 @@ class Professor {
     String office
     String phone
     String email
-    String privateEditKey = CourseUtils.generateRandomToken()
+    String privateEditKey = AppUtils.generateRandomToken()
 
     static constraints = {
         id(maxSize: 64, blank: false)

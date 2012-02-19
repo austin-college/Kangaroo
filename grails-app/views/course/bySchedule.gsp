@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${schedule}</title>
@@ -29,7 +29,7 @@
                 <div><g:link action="show" id="${course.id}">${course}</g:link></div>
 
                 <div>
-                    Taught by ${CourseUtils.getProfessorLinksForClass(course, true)}
+                    Taught by ${AppUtils.getProfessorLinksForClass(course, true)}
                 </div>
 
             </span>

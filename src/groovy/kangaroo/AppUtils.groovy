@@ -9,7 +9,7 @@ import org.htmlcleaner.SimpleXmlSerializer
 /**
  * Useful stuff.
  */
-public class CourseUtils {
+public class AppUtils {
 
     /**
      * Removes all but someone's first and last name.

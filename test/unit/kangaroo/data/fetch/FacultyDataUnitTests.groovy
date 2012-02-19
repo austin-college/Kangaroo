@@ -1,7 +1,7 @@
 package kangaroo.data.fetch
 
 import grails.test.GrailsUnitTestCase
-import kangaroo.CourseUtils
+import kangaroo.AppUtils
 
 class FacultyDataUnitTests extends GrailsUnitTestCase {
 
@@ -13,7 +13,7 @@ class FacultyDataUnitTests extends GrailsUnitTestCase {
         // Just do some really basic tests to ensure the right page was fetched.
         assert text.contains("Faculty")
         assert text.contains("Professor of")
-        assert CourseUtils.countSubstringMatches(text, "Professor of") > 50
+        assert AppUtils.countSubstringMatches(text, "Professor of") > 50
         assert text.contains("Biology")
         assert text.contains("@austincollege.edu")
     }
@@ -29,7 +29,7 @@ class FacultyDataUnitTests extends GrailsUnitTestCase {
 
         // Count the number of "Professor of"s in the titles, and make sure it matches the page.
         def numProfessors = data.findAll { it.title.contains("Professor of") }.size()
-        assert CourseUtils.countSubstringMatches(FacultyDataService.facultyPageAsText, "Professor of") == numProfessors
+        assert AppUtils.countSubstringMatches(FacultyDataService.facultyPageAsText, "Professor of") == numProfessors
     }
 
 }

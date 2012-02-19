@@ -46,7 +46,7 @@ class BatchControlController {
                     id: "faculty",
                     name: "Faculty",
                     run: { facultyDataService.fetchAndMatch() },
-                    status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${CourseUtils.toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
+                    status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${AppUtils.toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
             ],
             "textbooks": [
                     id: "textbooks",
@@ -54,7 +54,7 @@ class BatchControlController {
                     run: { textbookDataService.lookupTextbooksForAllCourses() },
                     status: {
                         if (Course.count() > 0)
-                            "${Textbook.count()} textbooks; ${CourseUtils.toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"
+                            "${Textbook.count()} textbooks; ${AppUtils.toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"
                         else
                             "No courses so no textbooks"
                     }
@@ -65,7 +65,7 @@ class BatchControlController {
                     run: { amazonDataService.lookupAllTextbooks() },
                     status: {
                         if (Textbook.count() > 0)
-                            "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (${CourseUtils.toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count())}%)"
+                            "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (${AppUtils.toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count())}%)"
                         else
                             "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (0%)"
                     }
@@ -108,7 +108,7 @@ class BatchControlController {
         def job = jobs[params.job];
         if (job) {
             def results
-            def time = CourseUtils.time { results = job.run(); }
+            def time = AppUtils.time { results = job.run(); }
             render([success: true, time: time, details: jobToJson(job)] as JSON)
         }
         else

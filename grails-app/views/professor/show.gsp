@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.Professor; kangaroo.Term; kangaroo.CourseUtils; kangaroo.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.Professor; kangaroo.Term; kangaroo.CourseUtils; kangaroo.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${professor}</title>
@@ -132,7 +132,7 @@
                 <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
             </g:if>
 
-            <div><b>Web page:</b> ${CourseUtils.createKangarooLink(professor)}</div>
+            <div><b>Web page:</b> ${AppUtils.createKangarooLink(professor)}</div>
 
             <g:if test="${professor.office}">
                 <div><b>Office:</b> ${professor.office}</div>
