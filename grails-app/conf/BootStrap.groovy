@@ -1,9 +1,9 @@
-import coursesearch.Course
-import coursesearch.Professor
-import coursesearch.Term
+import kangaroo.Course
+import kangaroo.Professor
+import kangaroo.Term
 import grails.converters.JSON
 import grails.util.Environment
-import coursesearch.CourseUtils
+import kangaroo.CourseUtils
 
 class BootStrap {
 

@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Term; courkangaroorseUtils; kangaroo.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${professor}</title>

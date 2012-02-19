@@ -106,7 +106,7 @@ log4j = {
                     'grails.app.controller',
                     'grails.app.service'
 
-            info 'courseSearch'
+            info 'kangaroo'
 
             error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
                     'org.codehaus.groovy.grails.web.pages', //  GSP

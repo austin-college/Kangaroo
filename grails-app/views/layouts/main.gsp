@@ -1,4 +1,4 @@
-<%@ page import="grails.util.Environment; coursesearch.Term" %>
+<%@ page import="grails.util.Environment; kangaroo.Term" %>
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>

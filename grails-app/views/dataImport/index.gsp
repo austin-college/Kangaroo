@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Term; coursesearch.Professor; coursesearch.Course; coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Term; kangaroo.Professor; kangaroo.Course; kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Data Import</title>
