@@ -54,14 +54,11 @@ class ProfessorService {
 
             // Sort the list.
             def list = (colleagues as List);
-            println list
             list = list.sort({a, b -> return a.name.compareTo(b.name)})
 
             // Extract and join the IDs together
             list*.id.join(",")
         }
-
-        println ids
 
         // Transform the ID list back into a list of Professors.
         return ids.split(",").collect { id -> Professor.get(id)}.findAll { it != null }
