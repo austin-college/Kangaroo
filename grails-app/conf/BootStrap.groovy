@@ -1,9 +1,9 @@
-import coursesearch.Course
-import coursesearch.Professor
-import coursesearch.Term
 import grails.converters.JSON
 import grails.util.Environment
-import coursesearch.CourseUtils
+import kangaroo.Course
+import kangaroo.AppUtils
+import kangaroo.Professor
+import kangaroo.Term
 
 class BootStrap {
 
@@ -12,10 +12,11 @@ class BootStrap {
     def courseImporterService
     def textbookDataService
     def cacheService
+    def grailsApplication
 
     def init = { servletContext ->
 
-        println "\n\n==============================\n\n    Kangaroo v1 starting..."
+        println "\n\n==============================\n\n    Kangaroo v${grailsApplication.metadata.'app.version'} starting..."
 
         // Customize how objects are formatted to JSON.
         JSON.registerObjectMarshaller(Course) {
@@ -23,15 +24,15 @@ class BootStrap {
         }
 
         if (Environment.current != Environment.TEST) {
-            backendDataService.upgradeAllIfNeeded()
+        //    backendDataService.upgradeAllIfNeeded()
 
             // Create terms and import courses.
             if (Term.count() == 0) {
                 ["11FA", "12SP"].each {
                     def term = Term.findOrCreate(it)
 
-                        println "Downloading course files..."
-                        courseImporterService.importCourses(term)
+                    println "Downloading course files..."
+                    courseImporterService.importCourses(term)
                 }
 
                 textbookDataService.lookupTextbooksForAllCourses()
@@ -39,10 +40,10 @@ class BootStrap {
 
 //            cacheService.initializeCache()
         }
-        
+
         // Give professors random edit tokens.
         Professor.findAllByPrivateEditKey(null).each {
-            it.privateEditKey = CourseUtils.generateRandomToken()
+            it.privateEditKey = AppUtils.generateRandomToken()
             it.save()
             println "${it} now has edit key ${it.privateEditKey}."
         }

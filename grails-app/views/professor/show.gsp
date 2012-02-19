@@ -1,10 +1,12 @@
-<%@ page import="coursesearch.Professor; coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.Professor; kangaroo.Term; kangaroo.CourseUtils; kangaroo.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${professor}</title>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
     <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
+    <less:stylesheet name="profiles"/>
+    <less:stylesheet name="professorView"/>
     <script type="text/javascript">
         var timelineInterval;
         var calendar;
@@ -132,7 +134,7 @@
                 <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
             </g:if>
 
-            <div><b>Web page:</b> ${CourseUtils.createKangarooLink(professor)}</div>
+            <div><b>Web page:</b> ${AppUtils.createKangarooLink(professor)}</div>
 
             <g:if test="${professor.office}">
                 <div><b>Office:</b> ${professor.office}</div>
@@ -145,9 +147,9 @@
     </div>
 </div>
 
-<div class="details-block courses-block span5">
+<g:if test="${professor.coursesTeaching.size() > 0}">
+    <div class="details-block courses-block span5">
 
-    <g:if test="${professor.coursesTeaching.size() > 0}">
         <div>
             <h3>${professor} is teaching:</h3>
 
@@ -170,16 +172,12 @@
                 </g:each>
             </ul>
         </div>
-    </g:if>
-    <g:else>
-        <div><h3>${professor} is not teaching any classes</h3></div>
-    </g:else>
-</div>
+    </div>
+</g:if>
 
+<g:if test="${professor.colleagues.size() > 0}">
+    <div class="details-block courses-block">
 
-<div class="details-block courses-block">
-
-    <g:if test="${professor.colleagues.size() > 0}">
         <div>
             <h3>Colleagues:</h3>
 
@@ -190,11 +188,8 @@
                 </g:each>
             </ul>
         </div>
-    </g:if>
-    <g:else>
-        <div><h3>${professor} has no colleagues</h3></div>
-    </g:else>
-</div>
+    </div>
+</g:if>
 
 <g:if test="${professor.coursesTeaching.size() > 0}">
     <div class="details-block courses-block span14">

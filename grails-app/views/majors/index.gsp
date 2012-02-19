@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.Department; coursesearch.Term" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Department; kangaroo.Term" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>

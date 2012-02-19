@@ -1,8 +1,9 @@
-<%@ page import="coursesearch.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.CourseUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${room}</title>
     <meta name="layout" content="main"/>
+    <less:stylesheet name="profiles"/>
     <script type="text/javascript">
         $(document).ready(function () {
             mpq.track('room search', {'mp_note':"User viewed courses meeting in ${room}"});
@@ -29,11 +30,11 @@
                 <div><g:link action="show" id="${course.id}">${course}</g:link></div>
 
                 <div>
-                    Taught by ${CourseUtils.getProfessorLinksForClass(course, true)}
+                    Taught by ${AppUtils.getProfessorLinksForClass(course, true)}
                 </div>
 
                 <div style="color: #777">
-                    ${CourseUtils.getScheduleLinksForClass(course)}
+                    ${AppUtils.getScheduleLinksForClass(course)}
                 </div>
 
             </span>

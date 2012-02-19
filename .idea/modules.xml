@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CourseSearch.iml" filepath="$PROJECT_DIR$/CourseSearch.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CourseSearch-grailsPlugins.iml" filepath="$PROJECT_DIR$/CourseSearch-grailsPlugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kangaroo.iml" filepath="$PROJECT_DIR$/Kangaroo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kangaroo-grailsPlugins.iml" filepath="$PROJECT_DIR$/Kangaroo-grailsPlugins.iml" />
     </modules>
   </component>
 </project>

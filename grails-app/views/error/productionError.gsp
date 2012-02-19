@@ -4,7 +4,6 @@
     <meta name="layout" content="main"/>
     <g:javascript src="errorReporting.js"/>
     <less:stylesheet name="errorPage"/>
-    <less:scripts/>
 
     <script type="text/javascript">
         var sourceUrl = "${request.forwardURI - request.contextPath}";

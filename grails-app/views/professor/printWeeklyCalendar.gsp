@@ -1,4 +1,4 @@
-<%@ page import="coursesearch.data.convert.ProfessorService; coursesearch.Term; coursesearch.CourseUtils; coursesearch.Course" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.AppUtils; kangaroo.CourseUtils; kangaroo.data.convert.ProfessorService; kangaroo.Course" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Weekly Calendar: ${professor}</title>
@@ -75,7 +75,7 @@
                 <div><b>E-mail:</b> ${professor.email}</div>
             </g:if>
 
-            <div><b>Web page:</b> ${CourseUtils.getKangarooAddress(professor)}</div>
+            <div><b>Web page:</b> ${AppUtils.getKangarooAddress(professor)}</div>
 
             <g:if test="${professor.phone}">
                 <div><b>Phone:</b> ${professor.phone}</div>
