@@ -19,7 +19,7 @@
 <div class="container">
 
     <div class="content">
-       <g:render template="/global/logo"/>
+        <g:render template="/global/logo"/>
 
         %{-- Render the body inside the wrapper. --}%
         <div class="row">
