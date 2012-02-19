@@ -6,7 +6,7 @@
     <script type="text/javascript">var _sf_startpt = (new Date()).getTime()</script>
     <title><g:layoutTitle default="Kangaroo"/></title>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+    <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'bootstrap.137.min.css')}"/>
 
     <less:stylesheet media="screen, print" name="printCalendar"/>
     <less:scripts/>
