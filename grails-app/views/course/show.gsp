@@ -3,8 +3,8 @@
 <head>
     <title>${course}</title>
     <meta name="layout" content="main"/>
+    <less:stylesheet name="profiles"/>
     <less:stylesheet name="courseView"/>
-    <less:scripts/>
     <script type="text/javascript">
         $(document).ready(function () {
             mpq.track('course view', {'mp_note':"User viewed ${course.sectionString()}: ${course}"});

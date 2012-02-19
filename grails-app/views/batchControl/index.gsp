@@ -4,7 +4,6 @@
     <title>Batch Control</title>
     <meta name="layout" content="main"/>
     <less:stylesheet media="screen, print" name="admin"/>
-    <less:scripts/>
     <g:javascript src="batchControl.js"/>
 </head>
 
