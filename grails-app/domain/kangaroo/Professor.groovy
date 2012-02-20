@@ -11,13 +11,12 @@ class Professor {
 
     def professorService
 
-    static transients = ['derivedFirstName', 'derivedLastName', 'inOfficeHours']
+    static transients = ['name', 'inOfficeHours']
 
     String id
     String firstName
     String middleName
     String lastName
-    String name
 
     /**
      * Has this professor been matched with the faculty data from github.com/austin-college/data?
@@ -54,9 +53,15 @@ class Professor {
 
     String toString() { name }
 
-    String getDerivedFirstName() { return name.split(' ')[0] }
-
-    String getDerivedLastName() { return name.split(' ')[-1] }
+    /**
+     * Returns a string representation of this professor's name.
+     */
+    String getName() {
+        if (middleName)
+            "$firstName $middleName $lastName"
+        else
+            "$firstName $lastName"
+    }
 
     /**
      * Returns all of the courses this professor is teaching. (Not limited by term)
