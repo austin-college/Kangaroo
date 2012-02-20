@@ -55,16 +55,7 @@ class CourseController {
             def profImage = course.instructors[0]?.photoUrl
             [course: course, profImage: profImage]
         }
-    }
-
-    String getColorForPercent(int percent) {
-        switch (percent) {
-            case 0..60: return '#3c0';
-            case 61..70: return '#6a0';
-            case 71..80: return '#990';
-            case 81..90: return '#a60';
-            case 91..100: return '#b30';
-            default: return '#d30';
-        }
+        else
+            redirect(controller: "home")
     }
 }
