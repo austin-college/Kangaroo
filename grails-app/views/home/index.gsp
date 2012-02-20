@@ -14,7 +14,7 @@
 <body>
 
 <div id="searchControls">
-    <div id="tableFilterBar">
+    <div id="bigFilterBar">
         <label for="tableSearch">Search for classes:</label>
         <g:textField name="tableSearch"/>
     </div>
