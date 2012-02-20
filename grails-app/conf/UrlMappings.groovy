@@ -25,6 +25,7 @@ class UrlMappings {
 
         // Errors...
         "500"(controller: "error", action: "serverError")
+        "/robots.txt"(controller: "home", action: "robots")
         // "404"(controller: "error", action: "notFound")
         //"403"(controller: "error", action: "forbidden")
     }
