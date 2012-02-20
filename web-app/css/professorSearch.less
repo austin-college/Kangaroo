@@ -23,7 +23,7 @@
         color: #999;
         margin-bottom: 20px;
     }
-}
+}       
 
 /**
  * The style for a single "professor" block.
@@ -36,7 +36,7 @@
     margin: 0 10px 20px 10px;
     font-size: 14px;
     padding: 5px 20px;
-    width: 400px;
+    width: 390px;
     /*height: 120px;*/
     vertical-align: top;
     line-height: 150%;
@@ -75,6 +75,8 @@
         font-size: 22px;
         line-height: 18px;
         margin-bottom: 8px;
+        color: #0069D6;
+        /*text-decoration: underline;*/
     }
 
     h3 {
@@ -105,5 +107,31 @@
 
     .unavailable {
         color: #874444;
+    }
+}
+
+// Style the cards differently on mouseover...
+a.miniCardLink:hover {
+
+    .miniBlock {
+        box-shadow: 1px 1px 8px #999;
+
+        h1 {
+            color:#00438a;
+        }
+    }
+}
+
+// ...and click.
+a.miniCardLink:active {
+
+    .miniBlock {
+
+        margin: 3px 7px 17px 13px;
+        box-shadow: 1px 1px 8px #999;
+
+        h1 {
+            color:#00438a;
+        }
     }
 }
