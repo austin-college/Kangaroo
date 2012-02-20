@@ -23,4 +23,8 @@ class HomeController {
         Department.list().each { map[it.code] = it.name }
         return map;
     }
+
+    def robots = {
+        render(view: "/robots", contentType: "text/plain")
+    }
 }

@@ -20,6 +20,8 @@ class ProfessorController {
 
         if (professor)
             [professor: professor]
+        else
+            redirect(controller: "home")
     }
 
     def printWeeklyCalendar = {

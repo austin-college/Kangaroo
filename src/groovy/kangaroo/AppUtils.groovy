@@ -128,6 +128,16 @@ public class AppUtils {
         return new BigInteger(bytes).abs().toString(36);
     }
 
+    /**
+     * Parses the given input as a long without generating an exception (if the parse fails, -1 is returned).
+     */
+    static long safeParse(input) {
+        try {
+            return Long.parseLong(input as String);
+        } catch (NumberFormatException ex) {
+            return -1;
+        }
+    }
 
     static def findInNode(node, c) { node.depthFirst().collect { it }.find(c)}
 
