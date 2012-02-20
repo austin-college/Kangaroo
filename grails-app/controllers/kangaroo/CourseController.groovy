@@ -50,7 +50,7 @@ class CourseController {
     }
 
     def show = {
-        def course = Course.get(params.id)
+        def course = Course.get(AppUtils.safeParse(params.id))
         if (course) {
             def profImage = course.instructors[0]?.photoUrl
             [course: course, profImage: profImage]
