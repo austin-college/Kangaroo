@@ -16,7 +16,20 @@
 %{--</div>--}%
 
 <div id="professorList">
-    <g:render template="miniCard" collection="${list}" var="professor"/>
+
+    <g:each in="${'A'..'Z'}" var="letter">
+        <g:if test="${listByLetters[letter]}">
+
+            <div class="letterGrouping">
+
+                <h1>${letter}</h1>
+
+                <g:render template="miniCard" collection="${listByLetters[letter]}" var="professor"/>
+            </div>
+
+        </g:if>
+    </g:each>
+
 </div>
 
 </body>
