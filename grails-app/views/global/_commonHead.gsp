@@ -20,4 +20,4 @@
 
 <g:javascript src="cookies.js"/>
 
-<less:stylesheet name="app"/>
+<less:stylesheet name="app2"/>
