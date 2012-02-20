@@ -12,7 +12,7 @@ class ProfessorController {
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
     def index = {
-        redirect(controller: 'home')
+        redirect(controller: "professorSearch")
     }
 
     def show = {
@@ -23,13 +23,6 @@ class ProfessorController {
     }
 
     def printWeeklyCalendar = {
-        def professor = Professor.get(params.id)
-
-        if (professor)
-            [professor: professor]
-    }
-
-    def mobileCalendar = {
         def professor = Professor.get(params.id)
 
         if (professor)
@@ -124,6 +117,8 @@ class ProfessorController {
 
     def getStatus = {
         def professor = Professor.get(params.id)
+
+        println professor.status
 
         if (professor)
             render([html: g.render(template: "status", model: [status: professor.status])] as JSON)

@@ -1,33 +1,31 @@
 <%@ page import="kangaroo.AppUtils" %>
-<div>
-    <div class="details-block professor-block span14">
+<div class="details-block professor-block span14">
 
-        <g:if test="${professor.photoUrl}">
-            <div class="span3 photo">
-                <img src="${professor.photoUrl}" alt="${professor}" title="${professor}">
-            </div>
+    <g:if test="${professor.photoUrl}">
+        <div class="span3 photo">
+            <img src="${professor.photoUrl}" alt="${professor}" title="${professor}">
+        </div>
+    </g:if>
+
+    <div class="span9 info">
+        <h1>${professor}</h1>
+
+        <h3>${professor.title}</h3>
+
+        <div id="statusHolder"></div>
+
+        <g:if test="${professor.email}">
+            <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
         </g:if>
 
-        <div class="span9 info">
-            <h1>${professor}</h1>
+        <div><b>Web page:</b> ${AppUtils.createKangarooLink(professor)}</div>
 
-            <h3>${professor.title}</h3>
+        <g:if test="${professor.office}">
+            <div><b>Office:</b> ${professor.office}</div>
+        </g:if>
 
-            <div id="statusHolder"></div>
-
-            <g:if test="${professor.email}">
-                <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
-            </g:if>
-
-            <div><b>Web page:</b> ${AppUtils.createKangarooLink(professor)}</div>
-
-            <g:if test="${professor.office}">
-                <div><b>Office:</b> ${professor.office}</div>
-            </g:if>
-
-            <g:if test="${professor.phone}">
-                <div><b>Phone:</b> ${professor.phone}</div>
-            </g:if>
-        </div>
+        <g:if test="${professor.phone}">
+            <div><b>Phone:</b> ${professor.phone}</div>
+        </g:if>
     </div>
 </div>
