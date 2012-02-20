@@ -160,13 +160,13 @@ class ProfessorService {
 
         // Are they having office hours?
         if (isInOfficeHours(professor))
-            [status: "officeHours", available: true]
+            return [status: "officeHours", available: true]
         else {
 
             // See if they're in a class.
             def course = getCurrentClass(professor)
             if (course)
-                [status: "inClass", course: course, busy: true]
+                return [status: "inClass", course: course, busy: true]
         }
 
         return [status: "unknown"]

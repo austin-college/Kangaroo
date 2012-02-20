@@ -1,6 +1,6 @@
 %{-- Render the common <head> elements. --}%
 
-<!-- Random number: ${new Random().nextInt(100)} -->
+<!-- Random number (caching test): ${new Random().nextInt(100)} -->
 <title><g:layoutTitle default="Kangaroo"/></title>
 <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
 <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'bootstrap.137.min.css')}"/>
@@ -11,13 +11,18 @@
     var contextPath = "${request.contextPath}";
 </script>
 
+%{-- Set Facebook details (affects the Like button) --}%
 <g:render template="/global/facebookOpenGraph"/>
 
-<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+%{-- Set canonical URLs to prevent duplicate content. --}%
+<link rel="canonical" href="http://kangaroo.austincollege.edu${request.forwardURI - request.contextPath}"/>
+
+<!-- Load HTML5 shim, for IE6-8 support of HTML elements -->
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 <g:javascript src="cookies.js"/>
 
+%{-- Load application stylesheet. --}%
 <less:stylesheet name="app2"/>
