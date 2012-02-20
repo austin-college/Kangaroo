@@ -15,6 +15,7 @@ class UrlMappings {
         "/professor/$id"(controller: "professor", action: "show")
         "/course/$id"(controller: "course", action: "show")
         "/setOfficeHours/$id"(controller: "professor", action: "setOfficeHours")
+        "/printCalendar/$id"(controller: "professor", action: "printWeeklyCalendar")
 
         // Manually define other controllers here (otherwise they'll be swallowed by /$id --> professor/show/id!)
         "/batchControl"(controller: "batchControl")
