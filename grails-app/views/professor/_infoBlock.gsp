@@ -7,7 +7,7 @@
         </div>
     </g:if>
 
-    <div class="span9 info">
+    <div class="span11 info">
         <h1>${professor}</h1>
 
         <h3>${professor.title}</h3>
@@ -27,5 +27,10 @@
         <g:if test="${professor.phone}">
             <div><b>Phone:</b> ${professor.phone}</div>
         </g:if>
+
+        <div class="printLink">
+            <img src="${resource(dir: 'images', file: 'printer.png')}" alt="Print" border="0"/>
+            <g:link controller="professor" action="printWeeklyCalendar" id="${professor.id}">Print...</g:link>
+        </div>
     </div>
 </div>
