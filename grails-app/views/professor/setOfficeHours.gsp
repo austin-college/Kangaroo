@@ -4,6 +4,7 @@
 <title>${professor}: Set your office hours</title>
 <meta name="layout" content="main"/>
 <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
+<less:stylesheet name="profiles"/>
 <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
 <g:javascript src="../libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js"/>
 
@@ -67,14 +68,16 @@
                 calendarChanged();
             },
             eventResize:function (event, dayDelta, minuteDelta, revertFunc) {
-                mpq.track('resized office hours', {'mp_note':"User resized a block of office hours"});
+                if (typeof mpq != 'undefined')
+                    mpq.track('resized office hours', {'mp_note':"User resized a block of office hours"});
                 calendarChanged();
             },
             eventClick:function (calEvent, jsEvent, view) {
 
                 if (calEvent.source.id != "classes" && confirm("Remove this block of office hours?")) {
                     calendarChanged();
-                    mpq.track('remove office hours', {'mp_note':"User removed an existing block of office hours"});
+                    if (typeof mpq != 'undefined')
+                        mpq.track('remove office hours', {'mp_note':"User removed an existing block of office hours"});
                     calendar.fullCalendar('removeEvents', function (event) {
                         return ( event == calEvent );
                     });
@@ -85,7 +88,8 @@
         $("a.startOver").click(function () {
 
             // Reset the calendar...
-            mpq.track('reset office hours', {'mp_note':"User started over while setting office hours"});
+            if (typeof mpq != 'undefined')
+                mpq.track('reset office hours', {'mp_note':"User started over while setting office hours"});
             calendar.fullCalendar('removeEvents');
             calendar.fullCalendar('refetchEvents');
             $(".finishButtonRight").hide();
@@ -95,7 +99,8 @@
 
         $("#finishButton").click(function () {
 
-            mpq.track('finished office hours', {'mp_note':"User finished setting office hours"});
+            if (typeof mpq != 'undefined')
+                mpq.track('finished office hours', {'mp_note':"User finished setting office hours"});
             $("#finishButton").attr("disabled", "disabled");
             $(".finishButtonRight").css({ opacity:0.3 });
 
@@ -122,11 +127,13 @@
             });
         });
 
-        mpq.track('start office hours', {'mp_note':"User loaded the 'set office hours' page"});
+        if (typeof mpq != 'undefined')
+            mpq.track('start office hours', {'mp_note':"User loaded the 'set office hours' page"});
     });
 
     function calendarChanged() {
-        mpq.track('edit office hours', {'mp_note':"User edited office hours (generic)"});
+        if (typeof mpq != 'undefined')
+            mpq.track('edit office hours', {'mp_note':"User edited office hours (generic)"});
         $(".finishButtonRight").fadeIn();
     }
 
