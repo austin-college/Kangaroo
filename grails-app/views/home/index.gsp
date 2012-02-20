@@ -8,7 +8,7 @@
     <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
     <g:javascript src="courseDataTable.js"/>
     <g:javascript src="searchPage.js"/>
-    <less:stylesheet name="searchPage"/>
+    <less:stylesheet name="searchPage2"/>
 </head>
 
 <body>
