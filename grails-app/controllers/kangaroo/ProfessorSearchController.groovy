@@ -9,7 +9,7 @@ class ProfessorSearchController {
         // Divide the list by letter.
         for (char c: 'A'..'Z') {
 
-            def matching = Professor.findAllByNameIlike("$c%")
+            def matching = Professor.findAllByLastNameIlike("$c%")
             if (matching)
                 listByLetters[c] = matching;
         }
