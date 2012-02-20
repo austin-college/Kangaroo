@@ -8,29 +8,31 @@
     </g:if>
 
     <div class="span11 info">
-        <h1>${professor}</h1>
+        <div style="padding-left: 10px">
+            <h1>${professor}</h1>
 
-        <h3>${professor.title}</h3>
+            <h3>${professor.title}</h3>
 
-        <div id="statusHolder"></div>
+            <div id="statusHolder"></div>
 
-        <g:if test="${professor.email}">
-            <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
-        </g:if>
+            <g:if test="${professor.email}">
+                <div><b>E-mail:</b> <a href="mailto:${professor.email}">${professor.email}</a></div>
+            </g:if>
 
-        <div><b>Web page:</b> ${AppUtils.createKangarooLink(professor)}</div>
+            <div><b>Web page:</b> ${AppUtils.createKangarooLink(professor)}</div>
 
-        <g:if test="${professor.office}">
-            <div><b>Office:</b> ${professor.office}</div>
-        </g:if>
+            <g:if test="${professor.office}">
+                <div><b>Office:</b> ${professor.office}</div>
+            </g:if>
 
-        <g:if test="${professor.phone}">
-            <div><b>Phone:</b> ${professor.phone}</div>
-        </g:if>
+            <g:if test="${professor.phone}">
+                <div><b>Phone:</b> ${professor.phone}</div>
+            </g:if>
 
-        <div class="printLink">
-            <img src="${resource(dir: 'images', file: 'printer.png')}" alt="Print" border="0"/>
-            <g:link controller="professor" action="printWeeklyCalendar" id="${professor.id}">Print...</g:link>
+            <div class="printLink">
+                <img src="${resource(dir: 'images', file: 'printer.png')}" alt="Print" border="0"/>
+                <g:link controller="professor" action="printWeeklyCalendar" id="${professor.id}">Print...</g:link>
+            </div>
         </div>
     </div>
 </div>
