@@ -118,8 +118,6 @@ class ProfessorController {
     def getStatus = {
         def professor = Professor.get(params.id)
 
-        println professor.status
-
         if (professor)
             render([html: g.render(template: "status", model: [status: professor.status])] as JSON)
     }
