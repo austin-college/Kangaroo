@@ -1,3 +1,4 @@
+<%@ page import="grails.util.Environment" %>
 %{-- Render the common <head> elements. --}%
 
 <!-- Random number (caching test): ${new Random().nextInt(100)} -->
@@ -26,3 +27,8 @@
 
 %{-- Load application stylesheet. --}%
 <less:stylesheet name="app2"/>
+
+%{-- Load analytics in production. --}%
+<g:if test="${Environment.current == Environment.PRODUCTION}">
+    <g:render template="/global/analytics"/>
+</g:if>

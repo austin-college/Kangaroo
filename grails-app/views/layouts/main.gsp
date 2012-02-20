@@ -36,10 +36,5 @@
 
     <g:render template="/global/footer"/>
 </div>
-
-<g:if test="${Environment.current == Environment.PRODUCTION}">
-    <g:render template="/global/analytics"/>
-</g:if>
-
 </body>
 </html>
