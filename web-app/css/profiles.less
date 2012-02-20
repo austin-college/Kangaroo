@@ -18,47 +18,66 @@
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
-}
 
-.details-block .details {
-    margin: 5px 0 0 14px;
-    font-size: 14px;
-}
+    .details {
+        margin: 5px 0 0 14px;
+        font-size: 14px;
 
-.details-block .details b {
-    color: #555;
+        b {
+            color: #555;
+        }
+    }
+
+    li {
+        margin: 3px 0;
+    }
 }
 
 .professor-block {
     padding-bottom: 10px;
-}
 
-.professor-block .photo {
-    margin-left: 0;
-}
+    .photo {
+        margin-left: 0;
 
-.professor-block .photo img {
-    float: left;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-}
+        img {
+            float: left;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+    }
 
-.professor-block  h1 {
-    margin-bottom: 6px;
-}
+    h1 {
+        margin-bottom: 6px;
+    }
 
-.details-block li {
-    margin: 3px 0;
-}
+    h3 {
+        line-height: 130%;
+        padding-top: 3px;
+        margin-bottom: 10px;
+    }
 
-.professor-block  h3 {
-    line-height: 130%;
-    padding-top: 3px;
-    margin-bottom: 10px;
-}
+    .info {
+        margin-top: 15px;
+    }
 
-.professor-block .info {
-    margin-top: 15px;
+    // The "status" indicator for professors.
+    .status {
+        font-style: italic;
+        margin-bottom: 6px;
+
+        img {
+            vertical-align: middle;
+            margin-top: -3px;
+        }
+    }
+
+    .available {
+        color: #448744;
+    }
+
+    .unavailable {
+        color: #874444;
+    }
 }
 
 .courses-block {
@@ -70,27 +89,9 @@
     color: #373;
 }
 
-/* The "status" indicator for professors. */
 
-.professor-block .status {
-    font-style: italic;
-    margin-bottom: 6px;
-}
-
-.professor-block .status img {
-    vertical-align: middle;
-    margin-top: -3px;
-}
-
-.professor-block .available {
-    color: #448744;
-}
-
-.professor-block .unavailable {
-    color: #874444;
-}
-
-.profPhoto {
+// A tiny professor photo used in the "courses meeting in/at xxx" viw.
+img.profPhoto {
     width: 14px;
     border: 1px solid #ddd;
     margin-right: 5px;

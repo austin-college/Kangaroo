@@ -20,6 +20,7 @@ class UrlMappings {
         "/batchControl"(controller: "batchControl")
         "/majors"(controller: "majors")
         "/error"(controller: "error")
+        "/professors"(controller: "professorSearch")
 
         // Errors...
         "500"(controller: "error", action: "serverError")

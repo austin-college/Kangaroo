@@ -50,6 +50,10 @@ public class AppUtils {
         }
     }
 
+    static boolean isDateBetween(Date toTest, Date start, Date end) {
+        return (toTest > start) && (toTest < end);
+    }
+
     // Our cheap&easy way to parse currency.
     static double parseCurrency(amount) {
         Double.parseDouble(amount[1..-1]);

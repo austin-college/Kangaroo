@@ -12,7 +12,7 @@ class ProfessorController {
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
     def index = {
-        redirect(controller: 'home')
+        redirect(controller: "professorSearch")
     }
 
     def show = {
@@ -23,13 +23,6 @@ class ProfessorController {
     }
 
     def printWeeklyCalendar = {
-        def professor = Professor.get(params.id)
-
-        if (professor)
-            [professor: professor]
-    }
-
-    def mobileCalendar = {
         def professor = Professor.get(params.id)
 
         if (professor)
@@ -125,32 +118,10 @@ class ProfessorController {
     def getStatus = {
         def professor = Professor.get(params.id)
 
-        if (professor) {
-            def status = getStatus(professor)
-            render([html: g.render(template: "status", model: [status: status])] as JSON)
-        }
-    }
+        println professor.status
 
-    def getStatus(Professor professor) {
-
-        // First check the professor's office hour dates, to see if the professor is having office hours.
-        for (def time: ScheduleProjectService.projectToWeek(professor.officeHours)) {
-            if (isDateBetween(new Date(), time.startDate, time.endDate))
-                return [status: "officeHours"]
-        }
-
-        // Next check the dates for each of the professor's courses, to see if the professor is in class.
-        for (def course: professor.currentCursesTeaching) {
-            for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes)) {
-
-                if (isDateBetween(new Date(), time.startDate, time.endDate))
-                    return [status: "inClass", course: course]
-            }
-        }
-    }
-
-    boolean isDateBetween(Date toTest, Date start, Date end) {
-        return (toTest > start) && (toTest < end);
+        if (professor)
+            render([html: g.render(template: "status", model: [status: professor.status])] as JSON)
     }
 
     /**
