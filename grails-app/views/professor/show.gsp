@@ -9,17 +9,7 @@
     <less:stylesheet name="professorView"/>
 
     <script type="text/javascript">
-
         var professorId = "${professor.id}";
-
-        $(document).ready(function () {
-            if (typeof mpq != 'undefined') {
-                if (${session.professorId && professor.id == session.professorId})
-                    mpq.track('self view', {'mp_note':"User viewed their own profile."});
-                else
-                    mpq.track('professor view', {'mp_note':"User viewed ${professor}'s profile."});
-            }
-        });
     </script>
     <g:javascript src="professorCalendar.js"/>
 </head>

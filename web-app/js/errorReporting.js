@@ -35,9 +35,6 @@ function initProductionErrorReporting() {
     $("#errorDetailsContainer").hide();
     $("#submitStatus").fadeIn(100);
     $("#extraInfo").fadeIn(100);
-
-    if (mpq)
-        mpq.track('error sent details', {'mp_note':"User received an error (" + $("#bugName").text() + ")"});
 }
 
 /**
@@ -108,8 +105,6 @@ function submitFollowup() {
         data["sourceUri"] = sourceUrl;
         data["browser"] = getBrowserInfo();
     }
-    else
-        mpq.track('error', {'mp_note':"User sent error details (" + $("#reportDetails").val() + ")"});
 
     // Send the request.
     $.ajax({

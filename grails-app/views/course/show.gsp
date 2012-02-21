@@ -5,11 +5,6 @@
     <meta name="layout" content="main"/>
     <less:stylesheet name="profiles"/>
     <less:stylesheet name="courseView"/>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            mpq.track('course view', {'mp_note':"User viewed ${course.sectionString()}: ${course}"});
-        });
-    </script>
 </head>
 
 <body>
