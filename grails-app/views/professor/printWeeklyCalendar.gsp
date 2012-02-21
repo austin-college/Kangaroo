@@ -40,11 +40,6 @@
                     }
                 }
             });
-
-            if (${session.professorId && professor.id == session.professorId})
-                mpq.track('print calendar', {'mp_note':"User printed their own calendar."});
-            else
-                mpq.track('print calendar (other)', {'mp_note':"User printed ${professor}'s calendar."});
         });
     </script>
     <style type="text/css">
