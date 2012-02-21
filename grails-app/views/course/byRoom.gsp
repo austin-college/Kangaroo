@@ -4,11 +4,6 @@
     <title>${room}</title>
     <meta name="layout" content="main"/>
     <less:stylesheet name="profiles"/>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            mpq.track('room search', {'mp_note':"User viewed courses meeting in ${room}"});
-        });
-    </script>
 </head>
 
 <body>
