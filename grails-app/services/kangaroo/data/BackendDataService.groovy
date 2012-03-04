@@ -14,8 +14,6 @@ class BackendDataService {
     def requirementsDataService
     def facultyDataService
 
-    def dataExportService
-
     @Transactional
     def upgradeAllIfNeeded() {
 
@@ -26,8 +24,6 @@ class BackendDataService {
 
         if (Professor.count() == 0)
             facultyDataService.fetchAndMatch()
-
-        dataExportService.exportOfficeHours()
     }
 
     def reset() {
