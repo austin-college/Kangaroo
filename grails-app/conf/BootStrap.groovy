@@ -23,22 +23,21 @@ class BootStrap {
             return [id: it.id, name: it.name, items: it.items];
         }
 
+        // Create terms if we need to.
+        if (Term.count() == 0)
+            ["11FA", "12SP"].each { Term.findOrCreate(it) }
+
         if (Environment.current != Environment.TEST) {
-            //    backendDataService.upgradeAllIfNeeded()
+            backendDataService.upgradeAllIfNeeded()
 
-            // Create terms and import courses.
-            if (Term.count() == 0) {
-                ["11FA", "12SP"].each {
-                    def term = Term.findOrCreate(it)
+            // Import courses if we need to.
+            if (Course.count() == 0) {
 
-                    println "Downloading course files..."
-                    courseImporterService.importCourses(term)
-                }
-
-                textbookDataService.lookupTextbooksForAllCourses()
+                println "Downloading course files..."
+                Term.list().each { courseImporterService.importCourses(it) }
             }
 
-//            cacheService.initializeCache()
+            cacheService.initializeCache()
         }
 
         // Give professors random edit tokens.
