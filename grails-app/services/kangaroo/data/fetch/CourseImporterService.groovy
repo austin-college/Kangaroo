@@ -81,8 +81,12 @@ class CourseImporterService {
         def id = AppUtils.extractProfessorUsername(email, name)
         def professor = Professor.get(id)
         if (!professor && id) {
-            professor = new Professor(name: AppUtils.cleanFacultyName(name), email: email)
+            professor = new Professor(email: email)
             professor.id = id;
+            def splitName = AppUtils.cleanFacultyName(name);
+            professor.firstName = splitName.firstName;
+            professor.lastName = splitName.lastName;
+
             if (!email) {
 //                professor.id = AppUtils.extractProfessorUsernameFromName(name)
                 println "NO EMAIL ====> " + name + "//" + professor.id

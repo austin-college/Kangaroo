@@ -96,8 +96,11 @@ class FacultyDataService {
      */
     def createProfessor(Map rawData) {
         def professor = new Professor()
+
+        def name = AppUtils.cleanFacultyName(rawData.name);
         professor.id = AppUtils.extractProfessorUsername(rawData.email);
-        professor.name = AppUtils.cleanFacultyName(rawData.name)
+        professor.firstName = name.firstName
+        professor.lastName = name.lastName
         professor.matched = true;
         professor.photoUrl = rawData.photoUrl
         professor.title = rawData.title

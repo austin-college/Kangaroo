@@ -14,17 +14,20 @@ public class AppUtils {
     /**
      * Removes all but someone's first and last name.
      */
-    static String cleanFacultyName(String name) {
+    static def cleanFacultyName(String name) {
 
         // Remove trailing whitespace and "Dr.".
+        def isPhD = name.trim().startsWith("Dr.");
         def processed = name.trim().replaceAll("Dr\\. ", "").trim();
 
-        // Remove any middle initials.
+        // Remove any middle names or initials.
         def words = processed.split(" ");
-        if (words.size() == 3 && words[1].length() == 2)
-            return words[0] + " " + words[-1];
+        if (words.size() >= 2)
+            return [firstName: words[0], lastName: words[-1], isPhD: isPhD];
+        else if (words.size() >= 1)
+            return [firstName: words[0], isPhD: isPhD];
         else
-            processed
+            return [firstName: "Unknown", lastName: "Unknown", isPhD: isPhD];
     }
 
     static String extractProfessorUsername(String email, String name) {
@@ -44,9 +47,9 @@ public class AppUtils {
 
     static String extractProfessorUsernameFromName(String name) {
         if (name) {
-            def parts = cleanFacultyName(name).toLowerCase().split(' ');
-            if (parts?.length > 1)
-                return parts[0][0] + parts[-1];
+            def parts = cleanFacultyName(name.toLowerCase());
+            if (parts?.firstName && parts?.lastName)
+                return parts.firstName[0] + parts.lastName;
         }
     }
 
