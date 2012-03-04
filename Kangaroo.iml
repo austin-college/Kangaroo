@@ -92,6 +92,11 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/redis.clients/jedis/jars/jedis-2.0.0.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.coconut.forkjoin/jsr166y/jars/jsr166y-070108.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/rhino/js/jars/js-1.7R2.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/commons-logging/commons-logging/jars/commons-logging-1.1.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.mozilla/rhino/jars/rhino-1.7R3.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/com.asual.lesscss/lesscss-engine/jars/lesscss-engine-1.1.5.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.codehaus.geb/geb-core/jars/geb-core-0.6.0.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.codehaus.geb/geb-spock/jars/geb-spock-0.6.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

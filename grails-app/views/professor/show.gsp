@@ -5,8 +5,6 @@
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
     <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
-    <less:stylesheet name="profiles"/>
-    <less:stylesheet name="professorView"/>
 
     <script type="text/javascript">
         var professorId = "${professor.id}";

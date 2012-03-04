@@ -11,8 +11,9 @@
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>
     <g:render template="/global/commonHead"/>
+    <r:require modules="common"/>
+    <r:layoutResources/>
     <g:layoutHead/>
-    <less:scripts/>
 </head>
 
 <body>

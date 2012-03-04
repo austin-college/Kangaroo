@@ -3,7 +3,6 @@
 <head>
     <title>Batch Control</title>
     <meta name="layout" content="main"/>
-    <less:stylesheet media="screen, print" name="admin"/>
     <g:javascript src="batchControl.js"/>
 </head>
 

@@ -3,8 +3,6 @@
 <head>
     <title>${course}</title>
     <meta name="layout" content="main"/>
-    <less:stylesheet name="profiles"/>
-    <less:stylesheet name="courseView"/>
 </head>
 
 <body>
