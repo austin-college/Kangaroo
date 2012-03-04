@@ -16,6 +16,7 @@ modules = {
     }
 
     printView {
+        dependsOn "common"
         resource url: "css/printCalendar.less", attrs: [rel: "stylesheet/less", type: 'css', media: 'screen,print'], bundle: 'bundle_print'
     }
 
