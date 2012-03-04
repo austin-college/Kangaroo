@@ -1,18 +1,10 @@
-
 target/
-.idea/workspace.xml
-.DS_Store
-
-development.hsqldb.properties
-
-development.hsqldb.log
-
-development.hsqldb.script
-
-.hgignore
-
-.hg
 out/
+logs/
+
+dev_db.h2.db
+dev_db.lock.db
 
 stacktrace.log
-logs/
+.DS_Store
+.idea/workspace.xml

@@ -16,19 +16,17 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:file:development.hsqldb;shutdown=true"
-            driverClassName = "org.hsqldb.jdbcDriver"
+            url = "jdbc:h2:dev_db;MVCC=TRUE"
+            driverClassName = "org.h2.Driver"
             username = "sa"
             password = ""
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
         }
     }
     test {
         dataSource {
-            dbCreate = "create-drop"
-            url = "jdbc:hsqldb:mem:kangarooTestDb"
-            driverClassName = "org.hsqldb.jdbcDriver"
-            username = "sa"
-            password = ""
+            dbCreate = "update"
+            url = "jdbc:h2:mem:testDb;MVCC=TRUE"
         }
     }
     production {

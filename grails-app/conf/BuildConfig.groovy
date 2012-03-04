@@ -29,6 +29,6 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
         runtime 'org.codehaus.gpars:gpars:0.10'
-        runtime 'org.coconut.forkjoin.jsr166y:jsr166y:070108'
+//        runtime 'org.coconut.forkjoin.jsr166y:jsr166y:070108'
     }
 }
