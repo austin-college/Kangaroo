@@ -71,7 +71,7 @@ class ProfessorService {
         def departments = (professor.coursesTeaching*.department as Set);
 
         // Remove common departments (they dilute the colleagues list).
-        commonDepartments.each { code -> departments.remove(Department.findByCode(code)); }
+        commonDepartments.each { code -> departments.remove(Department.get(code)); }
 
         // Sort the list.
         return (departments as List).sort({a, b -> return a.name.compareTo(b.name)});

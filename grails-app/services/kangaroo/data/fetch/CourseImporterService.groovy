@@ -17,7 +17,7 @@ class CourseImporterService {
     def cacheService
 
     def importCourses(Term term) {
-        importFromJson(term, new URL("https://raw.github.com/austin-college/Data/master/courses/${term.shortCode}.json").text)
+        importFromJson(term, new URL("https://raw.github.com/austin-college/Data/master/courses/${term.id}.json").text)
     }
 
 //    @Transactional
@@ -38,7 +38,7 @@ class CourseImporterService {
         // Convert zap, department, and description.
         course.id = data.zap
         course.description = course.description?.replaceAll("Formerly", "<br/>Formerly");
-        course.department = Department.findByCode(data.departmentCode) ?: new Department(code: data.departmentCode, name: data.departmentCode).save();
+        course.department = Department.findOrSaveWhere(id: data.departmentCode);
 
         def courseRequirements = getRequirements(data.reqCode).collect { new CourseFulfillsRequirement(course: course, requirement: it) }
         def meetingTimes = []
@@ -98,6 +98,6 @@ class CourseImporterService {
     }
 
     List<Requirement> getRequirements(String reqCode) {
-        reqCode.split(" ").collect { Requirement.findByCode(it) }
+        reqCode.split(" ").collect { Requirement.get(it) }
     }
 }

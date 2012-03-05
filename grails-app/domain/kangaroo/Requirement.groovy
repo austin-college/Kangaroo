@@ -10,13 +10,17 @@ import kangaroo.mn.CourseFulfillsRequirement
  */
 class Requirement {
 
-    String code
+    String id // The code ("HU", "SS")
     String name
     boolean isInterdisciplinaryMajor
 
     static constraints = {
-        code(maxSize: 8)
+        id(maxSize: 8)
         name(maxSize: 96)
+    }
+
+    static mapping = {
+        id(column: 'code', generator: 'assigned')
     }
 
     List<Course> getCoursesThatFulfill() { CourseFulfillsRequirement.findAllByRequirement(this)*.course; }
