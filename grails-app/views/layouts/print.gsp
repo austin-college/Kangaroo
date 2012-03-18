@@ -27,14 +27,19 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <g:if test="${Environment.current == Environment.PRODUCTION}">
+        <g:render template="/global/headerScripts"/>
+    </g:if>
 </head>
 
 <body>
 
 <g:layoutBody/>
 
+%{-- Load analytics in production. --}%
 <g:if test="${Environment.current == Environment.PRODUCTION}">
-    <g:render template="/global/analytics"/>
+    <g:render template="/global/footerScripts"/>
 </g:if>
 </body>
 </html>

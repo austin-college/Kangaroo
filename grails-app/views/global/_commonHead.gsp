@@ -25,5 +25,5 @@
 
 %{-- Load analytics in production. --}%
 <g:if test="${Environment.current == Environment.PRODUCTION}">
-    <g:render template="/global/analytics"/>
+    <g:render template="/global/headerScripts"/>
 </g:if>
