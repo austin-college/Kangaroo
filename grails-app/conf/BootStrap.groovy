@@ -36,8 +36,8 @@ class BootStrap {
                 println "Downloading course files..."
                 Term.list().each { courseImporterService.importCourses(it) }
             }
-
-            cacheService.initializeCache()
+            else
+                cacheService.initializeCache()
         }
 
         // Give professors random edit tokens.
