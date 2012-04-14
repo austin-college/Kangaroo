@@ -32,12 +32,13 @@ class CourseImporterService {
 
 //    @Transactional
     def saveSingleCourse(Term term, Map data) {
+        def description = data.remove("description")?.replaceAll("Formerly", "<br/>Formerly")
         Course course = (data as Course)
         course.term = term
 
         // Convert zap, department, and description.
         course.id = data.zap
-        course.description = course.description?.replaceAll("Formerly", "<br/>Formerly");
+        course.description = BigText.getOrCreate(description);
         course.department = Department.findOrSaveWhere(id: data.departmentCode);
 
         def courseRequirements = getRequirements(data.reqCode).collect { new CourseFulfillsRequirement(course: course, requirement: it) }

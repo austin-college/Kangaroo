@@ -24,20 +24,20 @@ class Course {
     char section // A
     boolean isLab = false
 
+    BigText description;
     String name;
-    String description
     String room;
     String comments;
 
     boolean textbooksParsed
 
+    static constraints = {
+        description(nullable: true)
+    }
+
     static mapping = {
         textbooks(sort: "title", order: "asc")
         id(generator: 'assigned')
-    }
-
-    static constraints = {
-        description(maxSize: 16384)
     }
 
     String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=${section}&bookstore_id-1=239&term_id-1=${term.id}&div-1=&dept-1=${department.id}&course-1=${courseNumber}"}
