@@ -17,21 +17,6 @@ class BatchControlController {
     // Define all the batch jobs here.
     def jobs = [
 
-            "dataUpgrade": [
-                    id: "dataUpgrade",
-                    name: "Data Upgrade",
-                    run: { DataFetcherJob.triggerNow() },
-                    status: { "Ready" }
-            ],
-            "dataReset": [
-                    id: "dataReset",
-                    name: "Data Reset",
-                    run: {
-                        backendDataService.reset()
-                        DataFetcherJob.triggerNow()
-                    },
-                    status: { "Ready" }
-            ],
             "courses": [
                     id: "courses",
                     name: "Courses",
