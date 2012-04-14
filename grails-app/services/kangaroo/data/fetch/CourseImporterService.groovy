@@ -40,8 +40,13 @@ class CourseImporterService {
         course.zap = data.zap
         course.description = BigText.getOrCreate(description);
         course.department = Department.findOrSaveWhere(id: data.departmentCode);
-        course.id = course.generateIdString()
 
+        if ( course.isLab && course.section == 'A' ) {
+            println "Note: ${course.department} ${course.courseNumber}${course.section} is a lab but not correctly labelled. Fixing..."
+            course.section = 'L';
+        }
+
+        course.id = course.generateIdString()
         def courseRequirements = getRequirements(data.reqCode).collect { new CourseFulfillsRequirement(course: course, requirement: it) }
         def meetingTimes = []
         data.schedules.each {
@@ -54,8 +59,8 @@ class CourseImporterService {
             def prof = findOrCreateProfessor(it.name, it.email)
             if (prof)
                 teachings << new Teaching(professor: prof, course: course)
-            else
-                println "NO PROFESSOR FOR \"${course.name}\": \"${it.name}\" given as a name."
+//            else
+//                println "NO PROFESSOR FOR \"${course.name}\": \"${it.name}\" given as a name."
         }
 
         if (!Course.get(course.id)) {
