@@ -61,7 +61,7 @@
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 30px">Details</div>
 
         <div>
-            <div>zap: <b>${course.id}</b></div>
+            <div>zap: <b>${course.zap}</b></div>
 
             <div>section: <b>${course.sectionString()}</b></div>
             <g:if test="${course.instructorConsentRequired}">

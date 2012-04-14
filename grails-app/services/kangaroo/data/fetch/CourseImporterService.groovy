@@ -37,9 +37,10 @@ class CourseImporterService {
         course.term = term
 
         // Convert zap, department, and description.
-        course.id = data.zap
+        course.zap = data.zap
         course.description = BigText.getOrCreate(description);
         course.department = Department.findOrSaveWhere(id: data.departmentCode);
+        course.id = course.generateIdString()
 
         def courseRequirements = getRequirements(data.reqCode).collect { new CourseFulfillsRequirement(course: course, requirement: it) }
         def meetingTimes = []
@@ -67,7 +68,7 @@ class CourseImporterService {
                 println course.errors
         }
         else
-            println "There is already a course with the id ${course.id} (${Course.get(course.id)}"
+            println "There is already a course with the id ${course.id} (${Course.get(course.id)})"
 
     }
 
