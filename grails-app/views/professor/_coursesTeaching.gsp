@@ -5,24 +5,16 @@
         <div>
             <h3>${professor} is teaching:</h3>
 
-            <b>${Term.findOrCreate("11FA").fullDescription}</b>
-            <ul>
-                <g:each in="${professor.coursesTeaching.findAll {it.term == Term.findOrCreate('11FA')}}"
-                        var="course">
-                    <li><g:link controller="course" action="show"
-                                id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
-                </g:each>
-            </ul>
+            <g:each in="${Term.list()}" var="term">
 
-
-            <b>${Term.findOrCreate("12SP").fullDescription}</b>
-            <ul>
-                <g:each in="${professor.coursesTeaching.findAll {it.term == Term.findOrCreate('12SP')}}"
-                        var="course">
-                    <li><g:link controller="course" action="show"
-                                id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
-                </g:each>
-            </ul>
+                <b>${term.fullDescription}</b>
+                <ul>
+                    <g:each in="${professor.coursesTeaching.findAll {it.term.shortCode == term.shortCode}}" var="course">
+                        <li><g:link controller="course" action="show"
+                                    id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
+                    </g:each>
+                </ul>
+            </g:each>
         </div>
     </div>
 </g:if>
