@@ -43,6 +43,10 @@
     </div>
 </div>
 
+<g:if test="${course.hasLabs}">
+    <g:render template="hasLab" var="course"/>
+</g:if>
+
 <div class="details-block span15" style="padding-top: 25px; padding-bottom: 25px">
     <div style="float: left">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Meets</div>
@@ -74,19 +78,6 @@
     </div>
 
     <div style="clear: both;"></div>
-
-    <g:if test="${course.hasLabs}">
-        <div style="font-size: 30px; color: #999; font-weight: bold; margin-top: 45px; margin-bottom: 10px">Lab Info</div>
-
-        $50 lab fee required. You will also need to register one of the following lab sections:
-        <ul style="padding: 5px 0">
-            <g:each in="${course.siblings.findAll { it.isLab }}" var="lab">
-                <li style="padding: 3px 0">
-                    <b><g:link action="show" id="${lab.id}">${lab.sectionString()}</g:link>:</b>
-                    ${lab.meetingTimes.join(" and ")}</li>
-            </g:each>
-        </ul>
-    </g:if>
 
     <div style="float: left; clear: both; margin-top: 40px">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Textbooks</div>
