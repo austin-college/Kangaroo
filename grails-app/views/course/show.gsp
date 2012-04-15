@@ -14,8 +14,17 @@
 
 <div class="details-block span15" style="padding-top: 15px">
 
-    <h1 style="margin-bottom: 8px">${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
-    </h1>
+    <g:if test="${course.labOf}">
+        <h1 style="margin-bottom: 8px">
+            Lab <i>${course.section}</i> of <g:link action="show" id="${course.labOf.id}">${course.labOf}</g:link> <span style="color: #999; font-size: 18px">${course.labOf.department.id} ${course.labOf.courseNumber}</span>
+        </h1>
+        <i>$50 lab fee required. This will be charged to your student account.</i>
+    </g:if>
+    <g:else>
+        <h1 style="margin-bottom: 8px">
+            ${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
+        </h1>
+    </g:else>
 
     <g:if test="${course.description}">
         <blockquote style="margin-bottom: 10px">

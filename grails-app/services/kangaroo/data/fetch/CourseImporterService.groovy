@@ -25,6 +25,17 @@ class CourseImporterService {
         def courses = JSON.parse(json)
         courses.each { saveSingleCourse(term, it)}
 
+        // Now find which courses are labs of other courses.
+        println "Matching labs..."
+        Course.findAllWhere([term: term, isLab: true]).each { course ->
+            def pattern = /\*\* ([A-Z]+)\*(\d+) Lab/;
+            if (course.name =~ pattern) {
+                def matchedLab = ( course.name =~ pattern );
+                course.labOf = Course.findWhere([term: term, isLab: false, department: Department.get(matchedLab[0][1]), courseNumber: Integer.parseInt(matchedLab[0][2])])
+                course.save();
+            }
+        }
+
         // Naturally we'll want to clear the cache.
         cacheService.clearCache()
         cacheService.initializeCache()
@@ -41,7 +52,7 @@ class CourseImporterService {
         course.description = BigText.getOrCreate(description);
         course.department = Department.findOrSaveWhere(id: data.departmentCode);
 
-        if ( course.isLab && course.section == 'A' ) {
+        if (course.isLab && course.section == 'A') {
             println "Note: ${course.department} ${course.courseNumber}${course.section} is a lab but not correctly labelled. Fixing..."
             course.section = 'L';
         }
@@ -81,7 +92,7 @@ class CourseImporterService {
     Professor findOrCreateProfessor(name, email) {
 
         // Check if this isn't a real professor.
-        for (String toAvoid: placeholderProfessorNames)
+        for (String toAvoid : placeholderProfessorNames)
             if (name.equals(toAvoid))
                 return null;
 
