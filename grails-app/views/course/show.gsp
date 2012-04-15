@@ -15,7 +15,7 @@
 <div class="details-block span15" style="padding-top: 15px">
 
     <h1 style="margin-bottom: 8px">
-    ${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
+        ${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
     </h1>
 
     <g:if test="${course.description}">
@@ -80,9 +80,11 @@
 
         $50 lab fee required. You will also need to register one of the following lab sections:
         <ul style="padding: 5px 0">
-        <g:each in="${Course.findAllWhere([term: course.term, department: course.department, courseNumber: course.courseNumber, isLab: true])}" var="lab">
-            <li style="padding: 3px 0"><b><g:link action="show" id="${lab.id}">${lab.sectionString()}</g:link>:</b> ${lab.meetingTimes.join(" and ")}</li>
-        </g:each>
+            <g:each in="${course.siblings.findAll { it.isLab }}" var="lab">
+                <li style="padding: 3px 0">
+                    <b><g:link action="show" id="${lab.id}">${lab.sectionString()}</g:link>:</b>
+                    ${lab.meetingTimes.join(" and ")}</li>
+            </g:each>
         </ul>
     </g:if>
 

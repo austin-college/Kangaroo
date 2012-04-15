@@ -25,13 +25,21 @@ class CourseImporterService {
         def courses = JSON.parse(json)
         courses.each { saveSingleCourse(term, it)}
 
-        // Now find which courses are labs of other courses.
+        // Now match courses to labs...
         println "Matching labs..."
         Course.findAllWhere([term: term, isLab: true]).each { lab ->
-            Course.findAllWhere([term: term, department: lab.department, courseNumber: lab.courseNumber, isLab: false]).each { course ->
+            String courseName;
+
+            // All of its siblings must have labs, too.
+            Course.findAllSections(term, lab.department, lab.courseNumber).findAll { !it.isLab }.each { course ->
                 course.hasLabs = true;
+                courseName = course.name;
                 course.save();
             }
+
+            // Improve the name presentation.
+            lab.name = "Lab: ${courseName}"
+            lab.save();
         }
 
         // Naturally we'll want to clear the cache.

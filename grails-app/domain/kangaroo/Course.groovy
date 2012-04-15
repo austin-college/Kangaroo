@@ -45,9 +45,21 @@ class Course {
         id(column: 'course_id', generator: 'assigned')
     }
 
-    String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=${section}&bookstore_id-1=239&term_id-1=${term.id}&div-1=&dept-1=${department.id}&course-1=${courseNumber}"}
+    // Generates a universal ID string for the given attributes.
+    static String generateIdString(Term term, Department department, int courseNumber, char section) { "${department.id}${courseNumber}${section}_${term.id}".toLowerCase() }
 
-    String generateIdString() { "${department.id}${courseNumber}${section}_${term.id}".toLowerCase() }
+    // Fetches a specific course efficiently.
+    static Course get(Term term, Department department, int courseNumber, char section ) {  Course.get(generateIdString(term, department, courseNumber, section)); }
+
+    // Fetches all of the sections of a specific course efficiently.
+    static List<Course> findAllSections(Term term, Department department, int courseNumber ) {
+        ('A'..'Z').collect { section -> Course.get(term, department, courseNumber, (char) section) }.findAll { it }
+    }
+
+    // Fetches all of this course's sibling sections efficiently.
+    List<Course> getSiblings() { findAllSections( term, department, courseNumber ) }
+
+    String generateIdString() { generateIdString(term, department, courseNumber, section) }
 
     String toString() { name }
 
@@ -58,4 +70,6 @@ class Course {
     List<Requirement> getRequirementsFulfilled() { CourseFulfillsRequirement.findAllByCourse(this)*.requirement; }
 
     List<MeetingTime> getMeetingTimes() { CourseMeetingTime.findAllByCourse(this)*.meetingTime }
+
+    String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=${section}&bookstore_id-1=239&term_id-1=${term.id}&div-1=&dept-1=${department.id}&course-1=${courseNumber}"}
 }
