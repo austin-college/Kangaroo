@@ -46,6 +46,9 @@
 <g:if test="${course.hasLabs}">
     <g:render template="hasLab" var="course"/>
 </g:if>
+<g:elseif test="${course.isLab}">
+    <g:render template="isLab" var="course"/>
+</g:elseif>
 
 <div class="details-block span15" style="padding-top: 25px; padding-bottom: 25px">
     <div style="float: left">
