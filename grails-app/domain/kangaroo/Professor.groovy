@@ -35,15 +35,15 @@ class Professor {
 
     static constraints = {
         id(maxSize: 64, blank: false)
-        photoUrl(nullable: true)
-        title(nullable: true)
-        department(nullable: true)
+        photoUrl(nullable: true, maxSize: 128)
+        title(nullable: true, maxSize: 255)
+        department(nullable: true, maxSize: 128)
         firstName(maxSize: 64, blank: false)
         middleName(maxSize: 64, blank: false, nullable: true)
         lastName(maxSize: 64, blank: false)
-        office(nullable: true)
-        phone(nullable: true)
-        email(nullable: true)
+        office(nullable: true, maxSize: 128)
+        phone(nullable: true, maxSize: 128)
+        email(nullable: true, email: true, maxSize: 128)
         privateEditKey(maxSize: 32, blank: false, unique: true)
     }
 

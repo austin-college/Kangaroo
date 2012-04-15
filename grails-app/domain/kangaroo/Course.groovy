@@ -33,11 +33,15 @@ class Course {
     String room;
     String comments;
 
-    boolean textbooksParsed
+    Date dateTextbooksParsed
 
     static constraints = {
         id(size: 10..13) // (dept size) + (course number) + 6
         description(nullable: true)
+        name(maxSize: 64)
+        room(maxSize: 32)
+        comments(maxSize: 512)
+        dateTextbooksParsed(nullable: true)
     }
 
     static mapping = {

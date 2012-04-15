@@ -62,7 +62,8 @@ class TextbookDataService {
                 }
             }
 
-            course.textbooksParsed = !failures;
+            if ( !failures )
+                course.dateTextbooksParsed = new Date()
             course.save(flush: true)
             cleanUpGorm()
         }

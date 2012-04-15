@@ -39,7 +39,7 @@ class BatchControlController {
                     run: { textbookDataService.lookupTextbooksForAllCourses() },
                     status: {
                         if (Course.count() > 0)
-                            "${Textbook.count()} textbooks; ${AppUtils.toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"
+                            "${Textbook.count()} textbooks;"
                         else
                             "No courses so no textbooks"
                     }
@@ -83,7 +83,7 @@ class BatchControlController {
 
     def index = {}
 
-    def getJobs = {
+    def getJobList = {
         def data = [:]
         jobs.each { job -> data[job.key] = jobToJson(job.value) }
         render(data as JSON)

@@ -85,7 +85,7 @@
     <div style="float: left; clear: both; margin-top: 40px">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Textbooks</div>
 
-        <g:if test="${course.textbooksParsed}">
+        <g:if test="${course.dateTextbooksParsed}">
             <g:if test="${course.textbooks.size() > 0}">
                 <g:render collection="${course.textbooks}" var="textbook" template="textbook"/>
 
