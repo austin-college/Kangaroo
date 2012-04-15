@@ -26,7 +26,7 @@ class Course {
     int courseNumber // 652
     char section // A
     boolean isLab = false
-    Course labOf
+    boolean hasLabs = false
 
     BigText description;
     String name;
@@ -37,7 +37,6 @@ class Course {
 
     static constraints = {
         id(size: 10..13) // (dept size) + (course number) + 6
-        labOf(nullable: true)
         description(nullable: true)
     }
 

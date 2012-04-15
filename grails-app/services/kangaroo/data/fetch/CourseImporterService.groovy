@@ -27,11 +27,9 @@ class CourseImporterService {
 
         // Now find which courses are labs of other courses.
         println "Matching labs..."
-        Course.findAllWhere([term: term, isLab: true]).each { course ->
-            def pattern = /\*\* ([A-Z]+)\*(\d+) Lab/;
-            if (course.name =~ pattern) {
-                def matchedLab = ( course.name =~ pattern );
-                course.labOf = Course.findWhere([term: term, isLab: false, department: Department.get(matchedLab[0][1]), courseNumber: Integer.parseInt(matchedLab[0][2])])
+        Course.findAllWhere([term: term, isLab: true]).each { lab ->
+            Course.findAllWhere([term: term, department: lab.department, courseNumber: lab.courseNumber, isLab: false]).each { course ->
+                course.hasLabs = true;
                 course.save();
             }
         }

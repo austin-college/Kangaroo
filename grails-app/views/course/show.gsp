@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.AppUtils; kangaroo.mn.CourseFulfillsRequirement; kangaroo.AppUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Course; kangaroo.AppUtils; kangaroo.mn.CourseFulfillsRequirement; kangaroo.AppUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${course}</title>
@@ -14,17 +14,9 @@
 
 <div class="details-block span15" style="padding-top: 15px">
 
-    <g:if test="${course.labOf}">
-        <h1 style="margin-bottom: 8px">
-            Lab <i>${course.section}</i> of <g:link action="show" id="${course.labOf.id}">${course.labOf}</g:link> <span style="color: #999; font-size: 18px">${course.labOf.department.id} ${course.labOf.courseNumber}</span>
-        </h1>
-        <i>$50 lab fee required. This will be charged to your student account.</i>
-    </g:if>
-    <g:else>
-        <h1 style="margin-bottom: 8px">
-            ${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
-        </h1>
-    </g:else>
+    <h1 style="margin-bottom: 8px">
+    ${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
+    </h1>
 
     <g:if test="${course.description}">
         <blockquote style="margin-bottom: 10px">
@@ -82,6 +74,17 @@
     </div>
 
     <div style="clear: both;"></div>
+
+    <g:if test="${course.hasLabs}">
+        <div style="font-size: 30px; color: #999; font-weight: bold; margin-top: 45px; margin-bottom: 10px">Lab Info</div>
+
+        $50 lab fee required. You will also need to register one of the following lab sections:
+        <ul style="padding: 5px 0">
+        <g:each in="${Course.findAllWhere([term: course.term, department: course.department, courseNumber: course.courseNumber, isLab: true])}" var="lab">
+            <li style="padding: 3px 0"><b><g:link action="show" id="${lab.id}">${lab.sectionString()}</g:link>:</b> ${lab.meetingTimes.join(" and ")}</li>
+        </g:each>
+        </ul>
+    </g:if>
 
     <div style="float: left; clear: both; margin-top: 40px">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Textbooks</div>
