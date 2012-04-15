@@ -9,7 +9,7 @@
 
                 <b>${term.fullDescription}</b>
                 <ul>
-                    <g:each in="${professor.coursesTeaching.findAll {it.term.shortCode == term.shortCode}}" var="course">
+                    <g:each in="${professor.coursesTeaching.findAll {it.term.id == term.id}}" var="course">
                         <li><g:link controller="course" action="show"
                                     id="${course.id}">${course}</g:link> (${course.sectionString()})</li>
                     </g:each>
