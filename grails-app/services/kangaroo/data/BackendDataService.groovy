@@ -1,7 +1,7 @@
 package kangaroo.data
 
-import kangaroo.Professor
 import kangaroo.Term
+import kangaroo.data.prefill.FacultyDataService
 import org.springframework.transaction.annotation.Transactional
 
 class BackendDataService {
@@ -21,9 +21,7 @@ class BackendDataService {
         departmentDataService.upgradeIfNeeded()
         majorDataService.upgradeIfNeeded()
         requirementsDataService.upgradeIfNeeded()
-
-        if (Professor.count() == 0)
-            facultyDataService.fetchAndMatch()
+        facultyDataService.upgradeIfNeeded()
     }
 
     def reset() {
@@ -31,6 +29,7 @@ class BackendDataService {
         DepartmentDataService.lastVersionUsed = 0
         RequirementsDataService.lastVersionUsed = 0
         MajorDataService.lastVersionUsed = 0
+        FacultyDataService.lastVersionUsed = 0
     }
 
     static Term getCurrentTerm() { return Term.findOrCreate(CURRENT_TERM_CODE)}

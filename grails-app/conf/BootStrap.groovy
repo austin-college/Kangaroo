@@ -1,8 +1,6 @@
 import grails.converters.JSON
 import grails.util.Environment
-import kangaroo.AppUtils
 import kangaroo.Course
-import kangaroo.Professor
 import kangaroo.Term
 
 class BootStrap {
@@ -38,27 +36,6 @@ class BootStrap {
             }
             else
                 cacheService.initializeCache()
-        }
-
-        // Give professors random edit tokens.
-        Professor.findAllByPrivateEditKey(null).each {
-            it.privateEditKey = AppUtils.generateRandomToken()
-            it.save()
-            println "${it} now has edit key ${it.privateEditKey}."
-        }
-
-        println "Setting names..."
-        Professor.list().each { professor ->
-
-            if (!professor.firstName)
-                professor.firstName = professor.derivedFirstName
-            if (!professor.lastName)
-                professor.lastName = professor.derivedLastName
-
-            if (professor.dirty) {
-                professor.save(flush: true)
-                println "$professor: $professor.errors"
-            }
         }
 
         println "\n==============================\n"
