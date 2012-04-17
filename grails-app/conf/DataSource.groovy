@@ -1,7 +1,7 @@
 dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
-    username = "coursesearch"
+    username = "kangaroo"
     password = "sz7v8YTVGsV2qvaW"
     loggingSql = false
     validationQuery = "SELECT 1"
@@ -32,7 +32,7 @@ environments {
     production {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost:3306/course_search?useUnicode=true&amp;characterEncoding=utf8"
+            url = "jdbc:mysql://localhost:3306/kangaroo?useUnicode=true&amp;characterEncoding=utf8"
         }
     }
 }
