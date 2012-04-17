@@ -76,7 +76,7 @@ class Professor {
     /**
      * Returns this professor's office hours.
      */
-    List<MeetingTime> getOfficeHours() { return ProfessorOfficeHours.findAllByProfessor(this)*.meetingTime }
+    List<MeetingTime> getOfficeHours(Term term = BackendDataService.currentTerm) { return ProfessorOfficeHours.findAllByProfessorAndTerm(this, term)*.meetingTime }
 
     /**
      * Returns this professor's colleagues (professors who teach in the same departments this guy does).

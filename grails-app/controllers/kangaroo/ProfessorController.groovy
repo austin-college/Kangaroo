@@ -5,6 +5,7 @@ import javax.servlet.http.Cookie
 import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.data.convert.ScheduleProjectService
 import kangaroo.mn.ProfessorOfficeHours
+import kangaroo.data.BackendDataService
 
 class ProfessorController {
 
@@ -104,7 +105,7 @@ class ProfessorController {
             // Add the new ones!
             officeHours.each { meetingTime ->
                 meetingTime = meetingTime.saveOrFind()
-                new ProfessorOfficeHours(professor: professor, meetingTime: meetingTime).save(flush: true)
+                new ProfessorOfficeHours(term: BackendDataService.currentTerm, professor: professor, meetingTime: meetingTime).save(flush: true)
             }
 
             render([success: true] as JSON)
