@@ -26,10 +26,11 @@ class BackendDataService {
 
     def reset() {
         println "\nResetting backend data version..."
-        DepartmentDataService.lastVersionUsed = 0
-        RequirementsDataService.lastVersionUsed = 0
-        MajorDataService.lastVersionUsed = 0
-        FacultyDataService.lastVersionUsed = 0
+        departmentDataService.lastVersionUsed = 0
+        requirementsDataService.lastVersionUsed = 0
+        majorDataService.lastVersionUsed = 0
+        facultyDataService.lastVersionUsed = 0
+        upgradeAllIfNeeded()
     }
 
     static Term getCurrentTerm() { return Term.findOrCreate(CURRENT_TERM_CODE)}

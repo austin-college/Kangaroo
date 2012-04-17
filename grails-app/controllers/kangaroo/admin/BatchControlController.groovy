@@ -3,6 +3,7 @@ package kangaroo.admin
 import grails.converters.JSON
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.*
+import kangaroo.data.BackendDataService
 
 class BatchControlController {
 
@@ -17,6 +18,12 @@ class BatchControlController {
     // Define all the batch jobs here.
     def jobs = [
 
+            "reImport": [
+                    id: "reImport",
+                    name: "Re-Import Data",
+                    run: { backendDataService.reset() },
+                    status: {"Ready"}
+            ],
             "courses": [
                     id: "courses",
                     name: "Courses",
@@ -26,12 +33,6 @@ class BatchControlController {
                         }
                     },
                     status: {"${Course.count()} imported"}
-            ],
-            "faculty": [
-                    id: "faculty",
-                    name: "Faculty",
-                    run: { facultyDataService.fetchAndMatch() },
-                    status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${AppUtils.toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
             ],
             "textbooks": [
                     id: "textbooks",
