@@ -23,7 +23,7 @@ class BootStrap {
 
         // Create terms if we need to.
         if (Term.count() == 0)
-            ["11FA", "12SP"].each { Term.findOrCreate(it) }
+            ["11FA", "12SP", "12SU", "12FA"].each { Term.findOrCreate(it) }
 
         if (Environment.current != Environment.TEST) {
             backendDataService.upgradeAllIfNeeded()
