@@ -13,11 +13,8 @@
     <!-- Random number: ${new Random().nextInt(100)} -->
     <title><g:layoutTitle default="Kangaroo"/></title>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
-    <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'bootstrap.137.min.css')}"/>
-    <script type="text/javascript" src="${resource(dir: 'libraries', file: 'jquery.164.min.js')}"></script>
 
-    <less:stylesheet media="screen, print" name="printCalendar"/>
-    <less:scripts/>
+    <r:require modules="printView"/>
 
     %{-- Set some global javascript variables while we still have access to the grails closures. --}%
     <script type="text/javascript">
@@ -30,14 +27,19 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <g:if test="${Environment.current == Environment.PRODUCTION}">
+        <g:render template="/global/headerScripts"/>
+    </g:if>
 </head>
 
 <body>
 
 <g:layoutBody/>
 
+%{-- Load analytics in production. --}%
 <g:if test="${Environment.current == Environment.PRODUCTION}">
-    <g:render template="/global/analytics"/>
+    <g:render template="/global/footerScripts"/>
 </g:if>
 </body>
 </html>

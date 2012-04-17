@@ -5,10 +5,10 @@ import javax.servlet.http.Cookie
 import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.data.convert.ScheduleProjectService
 import kangaroo.mn.ProfessorOfficeHours
+import kangaroo.data.BackendDataService
 
 class ProfessorController {
 
-    def dataExportService
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
     def index = {
@@ -105,11 +105,8 @@ class ProfessorController {
             // Add the new ones!
             officeHours.each { meetingTime ->
                 meetingTime = meetingTime.saveOrFind()
-                new ProfessorOfficeHours(professor: professor, meetingTime: meetingTime).save(flush: true)
+                new ProfessorOfficeHours(term: BackendDataService.currentTerm, professor: professor, meetingTime: meetingTime).save(flush: true)
             }
-
-            // Export the data so it can be viewed by the iPhone app.
-            dataExportService.exportOfficeHours()
 
             render([success: true] as JSON)
         }

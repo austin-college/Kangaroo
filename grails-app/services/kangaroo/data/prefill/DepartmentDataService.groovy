@@ -21,14 +21,14 @@ class DepartmentDataService extends UpdateableDataService {
         def itemsToKeep = []
         dataFromServer.list.each { data ->
 
-            def existing = Department.findByCode(data.code)
+            def existing = Department.get(data.code)
             if (existing) {
-                existing.code = data.code;
+                existing.id = data.code;
                 existing.name = data.name;
                 itemsToKeep << existing.save();
             }
             else
-                itemsToKeep << new Department(code: data.code, name: data.name).save();
+                itemsToKeep << new Department(id: data.code, name: data.name).save();
         }
 
         // Remove departments that no longer appear in the list.

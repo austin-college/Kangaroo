@@ -1,7 +1,7 @@
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
-grails.project.war.file = "target/kangaroo.war"
+grails.project.war.file = "target/ROOT.war"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -29,6 +29,6 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
         runtime 'org.codehaus.gpars:gpars:0.10'
-        runtime 'org.coconut.forkjoin.jsr166y:jsr166y:070108'
+//        runtime 'org.coconut.forkjoin.jsr166y:jsr166y:070108'
     }
 }

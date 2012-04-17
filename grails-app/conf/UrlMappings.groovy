@@ -22,6 +22,7 @@ class UrlMappings {
         "/majors"(controller: "majors")
         "/error"(controller: "error")
         "/professors"(controller: "professorSearch")
+        "/data"(controller: "data")
 
         // Errors...
         "500"(controller: "error", action: "serverError")

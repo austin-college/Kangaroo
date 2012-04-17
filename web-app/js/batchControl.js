@@ -9,7 +9,7 @@
 $(document).ready(function () {
 
     $.ajax({
-        url:contextPath + "/batchControl/getJobs",
+        url:contextPath + "/batchControl/getJobList",
         success:function (response) {
             $.each(response, function (key, value) {
                 addJob(key, value);

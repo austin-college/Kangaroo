@@ -3,7 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <g:javascript src="searchPage.js"/>
-    <less:stylesheet name="professorSearch"/>
 </head>
 
 <body>

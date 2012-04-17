@@ -1,10 +1,8 @@
-<%@ page import="kangaroo.AppUtils; kangaroo.mn.CourseFulfillsRequirement; kangaroo.AppUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Course; kangaroo.AppUtils; kangaroo.mn.CourseFulfillsRequirement; kangaroo.AppUtils; java.math.MathContext" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>${course}</title>
     <meta name="layout" content="main"/>
-    <less:stylesheet name="profiles"/>
-    <less:stylesheet name="courseView"/>
 </head>
 
 <body>
@@ -16,7 +14,8 @@
 
 <div class="details-block span15" style="padding-top: 15px">
 
-    <h1 style="margin-bottom: 8px">${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
+    <h1 style="margin-bottom: 8px">
+        ${course} <span style="color: #999; font-size: 18px">${course.sectionString()}</span>
     </h1>
 
     <g:if test="${course.description}">
@@ -44,6 +43,13 @@
     </div>
 </div>
 
+<g:if test="${course.hasLabs}">
+    <g:render template="hasLab" var="course"/>
+</g:if>
+<g:elseif test="${course.isLab}">
+    <g:render template="isLab" var="course"/>
+</g:elseif>
+
 <div class="details-block span15" style="padding-top: 25px; padding-bottom: 25px">
     <div style="float: left">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Meets</div>
@@ -63,7 +69,7 @@
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px; margin-right: 30px">Details</div>
 
         <div>
-            <div>zap: <b>${course.id}</b></div>
+            <div>zap: <b>${course.zap}</b></div>
 
             <div>section: <b>${course.sectionString()}</b></div>
             <g:if test="${course.instructorConsentRequired}">
@@ -79,7 +85,7 @@
     <div style="float: left; clear: both; margin-top: 40px">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Textbooks</div>
 
-        <g:if test="${course.textbooksParsed}">
+        <g:if test="${course.dateTextbooksParsed}">
             <g:if test="${course.textbooks.size() > 0}">
                 <g:render collection="${course.textbooks}" var="textbook" template="textbook"/>
 

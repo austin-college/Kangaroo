@@ -2,8 +2,7 @@
 <head>
     <title>Kangaroo Error</title>
     <meta name="layout" content="main"/>
-    <g:javascript src="errorReporting.js"/>
-    <less:stylesheet name="errorPage"/>
+    <r:require modules="error"/>
 
     <script type="text/javascript">
         var sourceUrl = "${request.forwardURI - request.contextPath}";
