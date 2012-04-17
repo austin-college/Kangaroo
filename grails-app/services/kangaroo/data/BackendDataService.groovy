@@ -13,6 +13,7 @@ class BackendDataService {
     def majorDataService
     def requirementsDataService
     def facultyDataService
+    def officeHoursDataService
 
     @Transactional
     def upgradeAllIfNeeded() {
@@ -22,6 +23,7 @@ class BackendDataService {
         majorDataService.upgradeIfNeeded()
         requirementsDataService.upgradeIfNeeded()
         facultyDataService.upgradeIfNeeded()
+        officeHoursDataService.upgradeIfNeeded()
     }
 
     def reset() {
@@ -30,6 +32,7 @@ class BackendDataService {
         requirementsDataService.lastVersionUsed = 0
         majorDataService.lastVersionUsed = 0
         facultyDataService.lastVersionUsed = 0
+        officeHoursDataService.lastVersionUsed = 0
         upgradeAllIfNeeded()
     }
 
