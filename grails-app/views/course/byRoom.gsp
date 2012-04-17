@@ -3,7 +3,6 @@
 <head>
     <title>${room}</title>
     <meta name="layout" content="main"/>
-    <less:stylesheet name="profiles"/>
 </head>
 
 <body>

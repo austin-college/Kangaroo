@@ -1,39 +1,25 @@
 package kangaroo.data
 
 import grails.converters.JSON
-import grails.util.Environment
+import kangaroo.Course
 import kangaroo.Professor
+import kangaroo.Term
 
 class DataExportService {
 
+    static final String formatVersion = "1.0"
+
     static transactional = true
 
-    def exportOfficeHours() {
-
-        def term = BackendDataService.currentTerm;
-
-        def list = []
-
-        Professor.list().each { professor ->
-            if (professor.officeHours)
-                list << [id: professor.id, name: professor.name, hours: professor.officeHours*.toString()]
-        }
+    def export() {
 
         def dataFile = [
-                name: "officeHours.json",
-                description: "Defines professor's office hours for the given term.",
-                term: term.shortCode,
-                version: 1,
-                formatVersion: 1,
-                list: list
+                name: "Kangaroo Export",
+                version: formatVersion,
+                dateRun: new Date(),
+                officeHours: Professor.list().collectEntries { professor -> [professor.id, professor.officeHours*.toString() ] }
         ]
 
-        // Write it to the temporary hosting area.
-        if (Environment == Environment.PRODUCTION) {
-            final String PRODUCTION_FILE_ROOT = "C:\\Web\\nginx\\html\\data"
-
-            new File("$PRODUCTION_FILE_ROOT\\officeHours").mkdir()
-            new File("$PRODUCTION_FILE_ROOT\\officeHours\\${term.shortCode}.json").write((dataFile as JSON).toString(true));
-        }
+        (dataFile as JSON);
     }
 }

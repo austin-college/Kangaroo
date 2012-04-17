@@ -3,7 +3,6 @@
 <head>
     <title>${professor}: Office Hours Set</title>
     <meta name="layout" content="main"/>
-    <less:stylesheet name="profiles"/>
 
     <style type="text/css">
     .profileLink {

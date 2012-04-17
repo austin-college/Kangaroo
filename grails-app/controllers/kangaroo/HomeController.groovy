@@ -15,12 +15,12 @@ class HomeController {
      * Called via AJAX: returns the table data for the given term in JSON form.
      */
     def getData = {
-        render([table: JSON.parse(dataTablesService.getTableCached(Term.findByShortCode(params.term)))] as JSON)
+        render([table: JSON.parse(dataTablesService.getTableCached(Term.findOrCreate(params.term)))] as JSON)
     }
 
     def getDepartmentsMap() {
         def map = [:]
-        Department.list().each { map[it.code] = it.name }
+        Department.list().each { map[it.id] = it.name }
         return map;
     }
 

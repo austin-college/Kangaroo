@@ -1,10 +1,8 @@
 package kangaroo.data.fetch
 
-import groovyx.gpars.GParsPool
-import kangaroo.Course
-
-import kangaroo.Textbook
 import kangaroo.AppUtils
+import kangaroo.Course
+import kangaroo.Textbook
 
 class TextbookDataService {
 
@@ -22,10 +20,8 @@ class TextbookDataService {
         Textbook.list().each { it.delete() };
         cleanUpGorm()
         AppUtils.runAndTime("Textbooks fetched") {
-            GParsPool.withPool(20) {
-                Course.list().eachParallel { course ->
-                    lookupTextbookInfo(course)
-                }
+            Course.list().each { course ->
+                lookupTextbookInfo(course)
             }
         }
         cleanUpGorm()
@@ -66,7 +62,8 @@ class TextbookDataService {
                 }
             }
 
-            course.textbooksParsed = !failures;
+            if ( !failures )
+                course.dateTextbooksParsed = new Date()
             course.save(flush: true)
             cleanUpGorm()
         }

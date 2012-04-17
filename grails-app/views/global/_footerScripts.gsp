@@ -1,24 +1,21 @@
-%{-- Load Analytics (and other async) scripts. --}%
+%{-- Load async scripts that need to appear before the closing </body>. --}%
 
 %{--------------------------
-     GOOGLE ANALYTICS
+        GAUG.ES
 --------------------------}%
 
 <script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-26802912-1']);
-    _gaq.push(['_trackPageview']);
-
+    var _gauges = _gauges || [];
     (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var t = document.createElement('script');
+        t.type = 'text/javascript';
+        t.async = true;
+        t.id = 'gauges-tracker';
+        t.setAttribute('data-site-id', '4f662e5ef5a1f529660001a2');
+        t.src = '//secure.gaug.es/track.js';
         var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
+        s.parentNode.insertBefore(t, s);
     })();
-
 </script>
 
 %{--------------------------

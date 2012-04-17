@@ -8,7 +8,6 @@
     <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
     <g:javascript src="courseDataTable.js"/>
     <g:javascript src="searchPage.js"/>
-    <less:stylesheet name="searchPage2"/>
 </head>
 
 <body>
@@ -47,14 +46,14 @@
 %{-- menus --}%
 <ul id="myMenu" class="contextMenu">
     <g:each in="${Term.list()}" var="term">
-        <li><a href="#${term.shortCode}">${term}</a></li>
+        <li><a href="#${term.id}">${term}</a></li>
     </g:each>
 </ul>
 
 <ul id="departmentMenu" class="contextMenu">
     <li class=""><a href="#any">(any)</a></li>
     <g:each in="${Department.list()}" var="department">
-        <li class="${department.code}"><a href="#${department.code}">${department}</a></li>
+        <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
     </g:each>
 </ul>
 

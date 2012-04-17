@@ -6,12 +6,18 @@ package kangaroo
 class Department {
 
     // The official code for this department (eg, "CS")
-    String code
+    String id
 
     // The full name of this department (eg, "Computer Science")
-    String name
+    String name = id
 
     static constraints = {
+        id(maxSize: 4)
+        name(maxSize: 64)
+    }
+
+    static mapping = {
+        id(column: 'code', generator: 'assigned')
     }
 
     String toString() { name }

@@ -2,6 +2,7 @@ package kangaroo.data.fetch
 
 import grails.test.GrailsUnitTestCase
 import kangaroo.AppUtils
+import kangaroo.data.prefill.FacultyDataService
 
 class FacultyDataUnitTests extends GrailsUnitTestCase {
 

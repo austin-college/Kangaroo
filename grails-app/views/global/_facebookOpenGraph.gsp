@@ -6,7 +6,7 @@
 <meta property="og:url" content="http://kangaroo.austincollege.edu/"/>
 <meta property="og:title" content="Kangaroo"/>
 <meta property="og:type" content="website"/>
-<meta property="og:image" content="http://kangaroo.austincollege.edu/images/app_logo.png"/>
+<meta property="og:image" content="http://i.imgur.com/BKcem.png"/>
 <meta property="og:site_name" content="Kangaroo"/>
 <meta property="og:description" content="Browse Austin College courses in style!"/>
 <meta property="fb:admins" content="789953992"/>

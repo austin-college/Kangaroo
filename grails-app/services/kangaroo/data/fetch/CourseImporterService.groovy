@@ -17,13 +17,30 @@ class CourseImporterService {
     def cacheService
 
     def importCourses(Term term) {
-        importFromJson(term, new URL("https://raw.github.com/austin-college/Data/master/courses/${term.shortCode}.json").text)
+        importFromJson(term, new URL("https://raw.github.com/austin-college/Data/master/courses/${term.id}.json").text)
     }
 
 //    @Transactional
     def importFromJson(Term term, String json) {
         def courses = JSON.parse(json)
         courses.each { saveSingleCourse(term, it)}
+
+        // Now match courses to labs...
+        println "Matching labs..."
+        Course.findAllWhere([term: term, isLab: true]).each { lab ->
+            String courseName;
+
+            // All of its siblings must have labs, too.
+            Course.findAllSections(term, lab.department, lab.courseNumber).findAll { !it.isLab }.each { course ->
+                course.hasLabs = true;
+                courseName = course.name;
+                course.save();
+            }
+
+            // Improve the name presentation.
+            lab.name = "Lab: ${courseName}"
+            lab.save();
+        }
 
         // Naturally we'll want to clear the cache.
         cacheService.clearCache()
@@ -32,14 +49,21 @@ class CourseImporterService {
 
 //    @Transactional
     def saveSingleCourse(Term term, Map data) {
+        def description = data.remove("description")?.replaceAll("Formerly", "<br/>Formerly")
         Course course = (data as Course)
         course.term = term
 
         // Convert zap, department, and description.
-        course.id = data.zap
-        course.description = course.description?.replaceAll("Formerly", "<br/>Formerly");
-        course.department = Department.findByCode(data.departmentCode) ?: new Department(code: data.departmentCode, name: data.departmentCode).save();
+        course.zap = data.zap
+        course.description = BigText.getOrCreate(description);
+        course.department = Department.findOrSaveWhere(id: data.departmentCode);
 
+        if (course.isLab && course.section == 'A') {
+            println "Note: ${course.department} ${course.courseNumber}${course.section} is a lab but not correctly labelled. Fixing..."
+            course.section = 'L';
+        }
+
+        course.id = course.generateIdString()
         def courseRequirements = getRequirements(data.reqCode).collect { new CourseFulfillsRequirement(course: course, requirement: it) }
         def meetingTimes = []
         data.schedules.each {
@@ -52,8 +76,8 @@ class CourseImporterService {
             def prof = findOrCreateProfessor(it.name, it.email)
             if (prof)
                 teachings << new Teaching(professor: prof, course: course)
-            else
-                println "NO PROFESSOR FOR \"${course.name}\": \"${it.name}\" given as a name."
+//            else
+//                println "NO PROFESSOR FOR \"${course.name}\": \"${it.name}\" given as a name."
         }
 
         if (!Course.get(course.id)) {
@@ -66,7 +90,7 @@ class CourseImporterService {
                 println course.errors
         }
         else
-            println "There is already a course with the id ${course.id} (${Course.get(course.id)}"
+            println "There is already a course with the id ${course.id} (${Course.get(course.id)})"
 
     }
 
@@ -74,15 +98,19 @@ class CourseImporterService {
     Professor findOrCreateProfessor(name, email) {
 
         // Check if this isn't a real professor.
-        for (String toAvoid: placeholderProfessorNames)
+        for (String toAvoid : placeholderProfessorNames)
             if (name.equals(toAvoid))
                 return null;
 
         def id = AppUtils.extractProfessorUsername(email, name)
         def professor = Professor.get(id)
         if (!professor && id) {
-            professor = new Professor(name: AppUtils.cleanFacultyName(name), email: email)
+            professor = new Professor(email: email)
             professor.id = id;
+            def splitName = AppUtils.cleanFacultyName(name);
+            professor.firstName = splitName.firstName;
+            professor.lastName = splitName.lastName;
+
             if (!email) {
 //                professor.id = AppUtils.extractProfessorUsernameFromName(name)
                 println "NO EMAIL ====> " + name + "//" + professor.id
@@ -94,6 +122,6 @@ class CourseImporterService {
     }
 
     List<Requirement> getRequirements(String reqCode) {
-        reqCode.split(" ").collect { Requirement.findByCode(it) }
+        reqCode.split(" ").collect { Requirement.get(it) }
     }
 }

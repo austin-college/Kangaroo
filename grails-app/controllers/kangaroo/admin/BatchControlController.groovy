@@ -3,6 +3,7 @@ package kangaroo.admin
 import grails.converters.JSON
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.*
+import kangaroo.data.BackendDataService
 
 class BatchControlController {
 
@@ -17,20 +18,11 @@ class BatchControlController {
     // Define all the batch jobs here.
     def jobs = [
 
-            "dataUpgrade": [
-                    id: "dataUpgrade",
-                    name: "Data Upgrade",
-                    run: { DataFetcherJob.triggerNow() },
-                    status: { "Ready" }
-            ],
-            "dataReset": [
-                    id: "dataReset",
-                    name: "Data Reset",
-                    run: {
-                        backendDataService.reset()
-                        DataFetcherJob.triggerNow()
-                    },
-                    status: { "Ready" }
+            "reImport": [
+                    id: "reImport",
+                    name: "Re-Import Data",
+                    run: { backendDataService.reset() },
+                    status: {"Ready"}
             ],
             "courses": [
                     id: "courses",
@@ -42,19 +34,13 @@ class BatchControlController {
                     },
                     status: {"${Course.count()} imported"}
             ],
-            "faculty": [
-                    id: "faculty",
-                    name: "Faculty",
-                    run: { facultyDataService.fetchAndMatch() },
-                    status: {"${Professor.count()} imported; ${Professor.countByMatched(true)} matched (${AppUtils.toPercent(Professor.countByMatched(true) / Professor.count())}%)"}
-            ],
             "textbooks": [
                     id: "textbooks",
                     name: "Textbooks",
                     run: { textbookDataService.lookupTextbooksForAllCourses() },
                     status: {
                         if (Course.count() > 0)
-                            "${Textbook.count()} textbooks; ${AppUtils.toPercent(Course.countByTextbooksParsed(true) / Course.count())}% of courses have books"
+                            "${Textbook.count()} textbooks;"
                         else
                             "No courses so no textbooks"
                     }
@@ -98,7 +84,7 @@ class BatchControlController {
 
     def index = {}
 
-    def getJobs = {
+    def getJobList = {
         def data = [:]
         jobs.each { job -> data[job.key] = jobToJson(job.value) }
         render(data as JSON)
