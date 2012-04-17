@@ -1,6 +1,7 @@
 package kangaroo.data.prefill
 
 import kangaroo.Professor
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 /**
  * Downloads the faculty page from GitHub.
@@ -40,14 +41,18 @@ class FacultyDataService extends UpdateableDataService {
     }
 
     protected void map(Professor professor, Map details) {
-        professor.firstName = details.firstName;
-        professor.middleName = details.middleName;
-        professor.lastName = details.lastName;
-        professor.photoUrl = details.photoUrl;
-        professor.title = details.title;
-        professor.department = details.departmentGroup;
-        professor.office = details.office
-        professor.phone = details.phone;
-        professor.email = details.email;
+        professor.firstName = checkForNull(details.firstName)
+        professor.middleName = checkForNull(details.middleName)
+        professor.lastName = checkForNull(details.lastName)
+        professor.photoUrl = checkForNull(details.photoUrl)
+        professor.title = checkForNull(details.title)
+        professor.department = checkForNull(details.departmentGroup)
+        professor.office = checkForNull(details.office)
+        professor.phone = checkForNull(details.phone)
+        professor.email = checkForNull(details.email)
+    }
+
+    String checkForNull(value) {
+        return (value.equals(null) ? null : value) // Necessary because JSON nulls are actually parsed as JSONObject.Null; they equals() null but are not null.
     }
 }
