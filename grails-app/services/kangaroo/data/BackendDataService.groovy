@@ -14,6 +14,7 @@ class BackendDataService {
     def requirementsDataService
     def facultyDataService
     def officeHoursDataService
+    def cacheService
 
     @Transactional
     def upgradeAllIfNeeded() {
@@ -24,6 +25,9 @@ class BackendDataService {
         requirementsDataService.upgradeIfNeeded()
         facultyDataService.upgradeIfNeeded()
         officeHoursDataService.upgradeIfNeeded()
+
+        // This modifies the course table.
+        cacheService.initializeCache()
     }
 
     def reset() {

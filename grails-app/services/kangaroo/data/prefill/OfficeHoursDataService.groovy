@@ -9,7 +9,7 @@ import kangaroo.data.convert.ScheduleConvertService
 class OfficeHoursDataService extends UpdateableDataService {
 
     static String name = "Office Hours list"
-    static String url = "${dataRoot}/officeHours/${BackendDataService.currentTerm}.json"
+    static String url = "${dataRoot}/officeHours/${BackendDataService.currentTerm.id}.json"
     static int lastVersionUsed = 0;
 
     @Override
@@ -25,7 +25,7 @@ class OfficeHoursDataService extends UpdateableDataService {
 
             if (prof) {
                 blocks.each { block ->
-                    new ProfessorOfficeHours(professor: prof, meetingTime: ScheduleConvertService.convertMeetingTime(block).saveOrFind()).save()
+                    new ProfessorOfficeHours(professor: prof, term: BackendDataService.currentTerm, meetingTime: ScheduleConvertService.convertMeetingTime(block).saveOrFind()).save()
                     prof.save();
                 }
             }
