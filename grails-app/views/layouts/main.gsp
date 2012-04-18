@@ -12,8 +12,8 @@
 <head>
     <g:render template="/global/commonHead"/>
     <r:require modules="common"/>
-    <r:layoutResources/>
     <g:layoutHead/>
+    <r:layoutResources/>
 </head>
 
 <body>
@@ -38,6 +38,7 @@
     <g:render template="/global/footer"/>
 </div>
 
+<r:layoutResources/>
 %{-- Load analytics in production. --}%
 <g:if test="${Environment.current == Environment.PRODUCTION}">
     <g:render template="/global/footerScripts"/>

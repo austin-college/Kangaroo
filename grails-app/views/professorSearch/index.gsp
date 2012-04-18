@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:javascript src="searchPage.js"/>
 </head>
 
 <body>
