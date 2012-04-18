@@ -65,6 +65,8 @@ environments {
 
 }
 
+grails.converters.default.pretty.print = true
+
 // Disable the database console.
 grails.dbconsole.enabled = false
 

@@ -9,14 +9,15 @@ import kangaroo.mn.Teaching
  */
 class Course {
 
-    String id
-
     static belongsTo = [term: Term]
     static hasMany = [textbooks: Textbook]
-
     def courseDataService
 
+    String id
+    String name;
+    BigText description;
     int zap;
+
     boolean open;
     int capacity;
     int seatsUsed;
@@ -28,8 +29,6 @@ class Course {
     boolean isLab = false
     boolean hasLabs = false
 
-    BigText description;
-    String name;
     String room;
     String comments;
 
@@ -53,15 +52,15 @@ class Course {
     static String generateIdString(Term term, Department department, int courseNumber, char section) { "${department.id}${courseNumber}${section}_${term.id}".toLowerCase() }
 
     // Fetches a specific course efficiently.
-    static Course get(Term term, Department department, int courseNumber, char section ) {  Course.get(generateIdString(term, department, courseNumber, section)); }
+    static Course get(Term term, Department department, int courseNumber, char section) { Course.get(generateIdString(term, department, courseNumber, section)); }
 
     // Fetches all of the sections of a specific course efficiently.
-    static List<Course> findAllSections(Term term, Department department, int courseNumber ) {
+    static List<Course> findAllSections(Term term, Department department, int courseNumber) {
         ('A'..'Z').collect { section -> Course.get(term, department, courseNumber, (char) section) }.findAll { it }
     }
 
     // Fetches all of this course's sibling sections efficiently.
-    List<Course> getSiblings() { findAllSections( term, department, courseNumber ) }
+    List<Course> getSiblings() { findAllSections(term, department, courseNumber) }
 
     String generateIdString() { generateIdString(term, department, courseNumber, section) }
 

@@ -1,6 +1,7 @@
 import grails.converters.JSON
 import grails.util.Environment
 import kangaroo.Course
+import kangaroo.Department
 import kangaroo.Professor
 import kangaroo.Term
 import kangaroo.api.EditKey
@@ -22,12 +23,22 @@ class BootStrap {
             new EditKey().save();
 
         // Customize how objects are formatted to JSON.
-        JSON.registerObjectMarshaller(Course) {
-            return [id: it.id, name: it.name, items: it.items];
+        JSON.registerObjectMarshaller(Course) { Course course ->
+            [id: course.id, name: course.name, description: course.description?.description, zap: course.zap, open: course.open,
+                    capacity: course.capacity, isLab: course.isLab, hasLabs: course.hasLabs, instructorConsentRequired: course.instructorConsentRequired,
+                    department: course.department, courseNumber: course.courseNumber, section: course.section.toString(), room: course.room, meetingTimes: course.meetingTimes*.toString(),
+                    comments: course.comments
+            ];
+        }
+        JSON.registerObjectMarshaller(Department) {
+            [id: it.id, name: it.name]
         }
         JSON.registerObjectMarshaller(Professor) {
             return [id: it.id, firstName: it.firstName, middleName: it.lastName, lastName: it.lastName, title: it.title,
                     departmentGroup: it.department, email: it.email, office: it.office, phone: it.phone, photoURL: it.photoUrl];
+        }
+        JSON.registerObjectMarshaller(Term) {
+            return [id: it.id, description: it.fullDescription, year: it.year, season: it.season, courses: Course.findAllByTerm(it).collectEntries {[it.id, it]}];
         }
 
         // Create terms if we need to.
