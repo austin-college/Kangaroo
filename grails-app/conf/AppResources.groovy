@@ -14,11 +14,20 @@ modules = {
     search {
         dependsOn "common"
 
-        resource url: "js/jquery.dataTables.min.js", bundle: 'bundle_common'
-        resource url: "libraries/contextMenu/jquery.contextMenu.js", bundle: 'bundle_common'
-        resource url: "js/courseDataTable.js", bundle: 'bundle_common'
-        resource url: "js/searchPage.js", bundle: 'bundle_common'
-        resource url: "libraries/contextMenu/jquery.contextMenu.css", bundle: 'bundle_common'
+        resource url: "js/jquery.dataTables.min.js", bundle: 'bundle_search'
+        resource url: "libraries/contextMenu/jquery.contextMenu.js", bundle: 'bundle_search'
+        resource url: "js/courseDataTable.js", bundle: 'bundle_search'
+        resource url: "js/searchPage.js", bundle: 'bundle_search'
+        resource url: "libraries/contextMenu/jquery.contextMenu.css", bundle: 'bundle_search'
+    }
+
+    professor {
+        dependsOn "common"
+
+        resource url:"libraries/fullcalendar/fullcalendar.js", bundle: "bundle_professor"
+        resource url:"libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js", bundle: "bundle_professor"
+        resource url:"libraries/fullcalendar/fullcalendar.css", bundle: "bundle_professor"
+        resource url:"js/professorCalendar.js", bundle: "bundle_professor"
     }
 
     error {

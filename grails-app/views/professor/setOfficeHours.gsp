@@ -3,10 +3,8 @@
 <head>
     <title>${professor}: Set your office hours</title>
     <meta name="layout" content="main"/>
-    <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
-    <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
-    <g:javascript src="../libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js"/>
 
+    <r:require modules="professor" />
     <script type="text/javascript">
 
         var timelineInterval;
