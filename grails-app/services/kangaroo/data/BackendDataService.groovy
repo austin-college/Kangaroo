@@ -6,9 +6,6 @@ import org.springframework.transaction.annotation.Transactional
 
 class BackendDataService {
 
-    // The current term.
-    static final String CURRENT_TERM_CODE = "12SP"
-
     def departmentDataService
     def majorDataService
     def requirementsDataService
@@ -39,6 +36,4 @@ class BackendDataService {
         officeHoursDataService.lastVersionUsed = 0
         upgradeAllIfNeeded()
     }
-
-    static Term getCurrentTerm() { return Term.findOrCreate(CURRENT_TERM_CODE)}
 }
