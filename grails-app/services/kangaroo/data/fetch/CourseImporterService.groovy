@@ -22,6 +22,8 @@ class CourseImporterService {
 
 //    @Transactional
     def importFromJson(Term term, String json) {
+        
+        println "\n==== IMPORTING FOR $term ====\n"
         def courses = JSON.parse(json)
         courses.each { saveSingleCourse(term, it)}
 
@@ -44,7 +46,6 @@ class CourseImporterService {
 
         // Naturally we'll want to clear the cache.
         cacheService.clearCache()
-        cacheService.initializeCache()
     }
 
 //    @Transactional
