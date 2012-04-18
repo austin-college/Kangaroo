@@ -105,7 +105,7 @@ class ProfessorController {
             // Add the new ones!
             officeHours.each { meetingTime ->
                 meetingTime = meetingTime.saveOrFind()
-                new ProfessorOfficeHours(term: BackendDataService.currentTerm, professor: professor, meetingTime: meetingTime).save(flush: true)
+                new ProfessorOfficeHours(term: Term.currentTerm, professor: professor, meetingTime: meetingTime).save(flush: true)
             }
 
             render([success: true] as JSON)

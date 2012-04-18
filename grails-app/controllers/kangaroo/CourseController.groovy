@@ -19,7 +19,7 @@ class CourseController {
             // Find all courses at this time, but segment by department.
             def coursesAtTime = meetingTime.coursesMeeting;
             Department.list().each { dept ->
-                def coursesFound = coursesAtTime.findAll { it.department.id == dept.id && it.term == BackendDataService.currentTerm }
+                def coursesFound = coursesAtTime.findAll { it.department.id == dept.id && it.term == Term.currentTerm }
                 if (coursesFound)
                     courses.put(dept, coursesFound)
             }
@@ -39,7 +39,7 @@ class CourseController {
                 def coursesFound = Course.withCriteria {
                     eq("room", params.id)
                     eq("department", dept)
-                    eq("term", BackendDataService.currentTerm)
+                    eq("term", Term.currentTerm)
                 }
                 if (coursesFound)
                     courses.put(dept, coursesFound)

@@ -71,12 +71,12 @@ class Professor {
     /**
      * Returns all of the courses this professor is teaching in the current term.
      */
-    List<Course> getCurrentCursesTeaching() { coursesTeaching.findAll { it.term == BackendDataService.currentTerm} }
+    List<Course> getCurrentCursesTeaching() { coursesTeaching.findAll { it.term == Term.currentTerm} }
 
     /**
      * Returns this professor's office hours.
      */
-    List<MeetingTime> getOfficeHours(Term term = BackendDataService.currentTerm) { return ProfessorOfficeHours.findAllByProfessorAndTerm(this, term)*.meetingTime }
+    List<MeetingTime> getOfficeHours(Term term = Term.currentTerm) { return ProfessorOfficeHours.findAllByProfessorAndTerm(this, term)*.meetingTime }
 
     /**
      * Returns this professor's colleagues (professors who teach in the same departments this guy does).
