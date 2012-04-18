@@ -12,6 +12,9 @@ class Term implements Serializable {
 
     String id // The registrar short code ("11FA", "12SP", "13JA") - everything is derived from this one field!
 
+    // The current term.
+    static final String CURRENT_TERM_CODE = "12SP"
+
     static constraints = {
         id(maxSize: 4)
     }
@@ -19,6 +22,9 @@ class Term implements Serializable {
     static mapping = {
         id(column: 'code', generator: 'assigned')
     }
+
+    // Returns the current term.
+    static Term getCurrentTerm() { return Term.get(CURRENT_TERM_CODE) }
 
     /**
      * Formats this term nicely (i.e., "Fall 2012").
