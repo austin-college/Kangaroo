@@ -35,6 +35,9 @@ class FacultyDataService extends UpdateableDataService {
 //            if (Course.countByDepartment(toDelete) == 0)
 //                toDelete.delete(flush: true)
 //        }
+
+        // This modifies the course table.
+        cacheService.clearCache()
     }
 
     protected void map(Professor professor, Map details) {
