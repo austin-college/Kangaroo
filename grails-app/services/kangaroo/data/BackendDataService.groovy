@@ -23,8 +23,8 @@ class BackendDataService {
         facultyDataService.upgradeIfNeeded()
         officeHoursDataService.upgradeIfNeeded()
 
-        // This modifies the course table.
-        cacheService.initializeCache()
+        // Any changes?
+        cacheService.initializeCacheIfNeeded()
     }
 
     def reset() {
