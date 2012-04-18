@@ -3,13 +3,12 @@
 <head>
     <title>${professor}</title>
     <meta name="layout" content="main"/>
-    <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
-    <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
 
     <script type="text/javascript">
         var professorId = "${professor.id}";
     </script>
-    <g:javascript src="professorCalendar.js"/>
+
+    <r:require modules="professor" />
 </head>
 
 <body>
