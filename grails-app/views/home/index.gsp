@@ -3,11 +3,7 @@
 <head>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'data_table.css')}"/>
-    <link rel="stylesheet" href="${resource(dir: 'libraries', file: 'contextMenu/jquery.contextMenu.css')}"/>
-    <g:javascript src="jquery.dataTables.js"/>
-    <g:javascript src="../libraries/contextMenu/jquery.contextMenu.js"/>
-    <g:javascript src="courseDataTable.js"/>
-    <g:javascript src="searchPage.js"/>
+    <r:require modules="search" />
 </head>
 
 <body>

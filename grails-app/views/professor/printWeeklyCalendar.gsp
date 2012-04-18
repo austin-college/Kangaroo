@@ -3,8 +3,8 @@
 <head>
     <title>Weekly Calendar: ${professor}</title>
     <meta name="layout" content="print"/>
-    <link rel="stylesheet" href="${resource(dir: 'libraries/fullcalendar', file: 'fullcalendar.css')}"/>
-    <g:javascript src="../libraries/fullcalendar/fullcalendar.js"/>
+
+    <r:require modules="professor" />
     <script type="text/javascript">
         var timelineInterval;
         var calendar;

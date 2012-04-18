@@ -21,8 +21,6 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<g:javascript src="cookies.js"/>
-
 %{-- Load analytics in production. --}%
 <g:if test="${Environment.current == Environment.PRODUCTION}">
     <g:render template="/global/headerScripts"/>

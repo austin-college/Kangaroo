@@ -28,7 +28,7 @@ class CacheService {
         if (isEmpty())
             initializeCache()
         else
-            println "Cache exists; no need to initialize¬"
+            println "Cache exists; no need to initialize..."
     }
 
     boolean isEmpty() {
