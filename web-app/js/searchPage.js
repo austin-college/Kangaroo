@@ -9,7 +9,9 @@
 
 var terms = {
     "11FA":"Fall 2011",
-    "12SP":"Spring 2012"
+    "12SP":"Spring 2012",
+    "12SU":"Summer 2012",
+    "12FA":"Fall 2012"
 };
 
 var departments = {};
