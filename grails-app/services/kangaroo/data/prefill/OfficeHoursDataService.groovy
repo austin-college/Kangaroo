@@ -10,7 +10,7 @@ import kangaroo.Term
 class OfficeHoursDataService extends UpdateableDataService {
 
     static String name = "Office Hours list"
-    static String url = "${dataRoot}/officeHours/${Term.currentTerm.id}.json"
+    static String url = "${dataRoot}/officeHours/${Term.CURRENT_TERM_CODE}.json"
     static int lastVersionUsed = 0;
 
     @Override
