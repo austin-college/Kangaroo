@@ -26,6 +26,7 @@ class UrlMappings {
 
         // API
         "/api/"(controller: "apiHome")
+        "/api/professor/"(controller: "apiProfessor", action: "list")
         "/api/professor/$id?"(controller: "apiProfessor", parseRequest: true) {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
         }

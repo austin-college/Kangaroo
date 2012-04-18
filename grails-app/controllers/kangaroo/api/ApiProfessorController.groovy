@@ -6,6 +6,10 @@ import kangaroo.Professor
 
 class ApiProfessorController extends ApiBaseController {
 
+    def list = {
+        render(Professor.list().collectEntries { [it.id, it] }.sort() as JSON)
+    }
+
     def show = {
         def professor = getSelected()
         if (professor)
