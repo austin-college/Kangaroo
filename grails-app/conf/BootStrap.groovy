@@ -38,7 +38,7 @@ class BootStrap {
                     departmentGroup: it.department, email: it.email, office: it.office, phone: it.phone, photoURL: it.photoUrl];
         }
         JSON.registerObjectMarshaller(Term) {
-            return [id: it.id, description: it.fullDescription, year: it.year, season: it.season, courses: Course.findAllByTerm(it).collectEntries {[it.id, it]}];
+            return [id: it.id, description: it.fullDescription, year: it.year, season: it.season, isActive: it.id == Term.CURRENT_TERM_CODE];
         }
 
         // Create terms if we need to.
