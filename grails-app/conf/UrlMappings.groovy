@@ -26,14 +26,19 @@ class UrlMappings {
 
         // API
         "/api/"(controller: "apiHome")
-        "/api/professor/"(controller: "apiProfessor", action: "list")
-        "/api/professor/$id?"(controller: "apiProfessor", parseRequest: true) {
+        "/api/person/"(controller: "apiPerson", action: "list")
+        "/api/person/$id?"(controller: "apiPerson", parseRequest: true) {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
         }
         "/api/term/"(controller: "apiTerm", action: "list")
         "/api/term/$id?"(controller: "apiTerm", parseRequest: true) {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
         }
+        "/api/course/"(controller: "apiCourse", action: "list")
+        "/api/course/$id?"(controller: "apiCourse", parseRequest: true) {
+            action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
+        }
+
         // Errors...
         "500"(controller: "error", action: "serverError")
         "/robots.txt"(controller: "home", action: "robots")

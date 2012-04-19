@@ -17,10 +17,14 @@ class FacultyDataService extends UpdateableDataService {
 
     @Override
     protected void upgradeAll(dataFromServer) {
+        run(dataFromServer.professors)
+    }
+
+    protected void run(Map collection) {
 
         // Add the new professors.
         def itemsToKeep = []
-        dataFromServer.professors.each { id, details ->
+        collection.each { id, details ->
 
             def professor = Professor.get(id)
             if (!professor)
