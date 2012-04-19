@@ -1,6 +1,5 @@
 package kangaroo
 
-import kangaroo.data.BackendDataService
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.mn.Teaching
 
@@ -32,6 +31,8 @@ class Professor {
     String phone
     String email
     String privateEditKey = AppUtils.generateRandomToken()
+
+    boolean isProfessor = true // True for professors, false for staff.
 
     static constraints = {
         id(maxSize: 64, blank: false)
