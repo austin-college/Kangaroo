@@ -13,6 +13,11 @@ class StaffDataService extends FacultyDataService {
     static int lastVersionUsed = 0;
 
     @Override
+    protected void upgradeAll(dataFromServer) {
+        run(dataFromServer.list);
+    }
+
+    @Override
     protected void map(Professor professor, Map details) {
         super.map(professor, details)
         professor.isProfessor = false;
