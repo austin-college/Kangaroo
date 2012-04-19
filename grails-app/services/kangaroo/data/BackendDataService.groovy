@@ -1,7 +1,5 @@
 package kangaroo.data
 
-import kangaroo.Term
-import kangaroo.data.prefill.FacultyDataService
 import org.springframework.transaction.annotation.Transactional
 
 class BackendDataService {
@@ -11,6 +9,7 @@ class BackendDataService {
     def requirementsDataService
     def facultyDataService
     def officeHoursDataService
+    def staffDataService
     def cacheService
 
     @Transactional
@@ -22,6 +21,7 @@ class BackendDataService {
         requirementsDataService.upgradeIfNeeded()
         facultyDataService.upgradeIfNeeded()
         officeHoursDataService.upgradeIfNeeded()
+        staffDataService.upgradeIfNeeded()
 
         // Any changes?
         cacheService.initializeCacheIfNeeded()
