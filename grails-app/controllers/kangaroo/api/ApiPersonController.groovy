@@ -21,7 +21,6 @@ class ApiPersonController extends ApiBaseController {
     }
 
     def status = {
-        println "hi"
         def professor = getSelected()
         if (professor)
             render(professor.status as JSON)
