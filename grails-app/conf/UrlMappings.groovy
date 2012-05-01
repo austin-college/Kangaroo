@@ -39,6 +39,7 @@ class UrlMappings {
         "/api/course/$id?"(controller: "apiCourse", parseRequest: true) {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
         }
+        "/api/rooRoute"(controller: "apiRooRoute", action: "index")
 
         // Errors...
         "500"(controller: "error", action: "serverError")
