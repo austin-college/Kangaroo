@@ -1,10 +1,7 @@
 import grails.converters.JSON
 import grails.util.Environment
-import kangaroo.Course
-import kangaroo.Department
-import kangaroo.Professor
-import kangaroo.Term
 import kangaroo.api.EditKey
+import kangaroo.*
 
 class BootStrap {
 
@@ -33,9 +30,13 @@ class BootStrap {
         JSON.registerObjectMarshaller(Department) {
             [id: it.id, name: it.name]
         }
-        JSON.registerObjectMarshaller(Professor) {
+        JSON.registerObjectMarshaller(MeetingTime) {
+            it.toString()
+        }
+        JSON.registerObjectMarshaller(Professor) { Professor it ->
             return [id: it.id, firstName: it.firstName, middleName: it.lastName, lastName: it.lastName, title: it.title,
-                    departmentGroup: it.department, email: it.email, office: it.office, phone: it.phone, photoURL: it.photoUrl];
+                    departmentGroup: it.department, email: it.email, office: it.office, phone: it.phone, photoURL: it.photoUrl,
+                    officeHours: it.officeHours];
         }
         JSON.registerObjectMarshaller(Term) {
             return [id: it.id, description: it.fullDescription, year: it.year, season: it.season, isActive: it.id == Term.CURRENT_TERM_CODE];

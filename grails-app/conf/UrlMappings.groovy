@@ -30,6 +30,7 @@ class UrlMappings {
         "/api/person/$id?"(controller: "apiPerson", parseRequest: true) {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
         }
+        "/api/person/$id/status"(controller: "apiPerson", action: "status", parseRequest: true)
         "/api/term/"(controller: "apiTerm", action: "list")
         "/api/term/$id?"(controller: "apiTerm", parseRequest: true) {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
@@ -38,6 +39,7 @@ class UrlMappings {
         "/api/course/$id?"(controller: "apiCourse", parseRequest: true) {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
         }
+        "/api/rooRoute"(controller: "apiRooRoute", action: "index")
 
         // Errors...
         "500"(controller: "error", action: "serverError")

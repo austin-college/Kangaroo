@@ -19,6 +19,14 @@ class ApiPersonController extends ApiBaseController {
         else
             notFoundError()
     }
+
+    def status = {
+        def professor = getSelected()
+        if (professor)
+            render(professor.status as JSON)
+        else
+            notFoundError()
+    }
 //
 //    def update = {
 //
