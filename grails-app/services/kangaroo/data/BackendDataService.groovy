@@ -8,6 +8,7 @@ class BackendDataService {
     def majorDataService
     def requirementsDataService
     def facultyDataService
+    def rooRouteDataService
     def officeHoursDataService
     def staffDataService
     def cacheService
@@ -22,6 +23,7 @@ class BackendDataService {
         facultyDataService.upgradeIfNeeded()
         officeHoursDataService.upgradeIfNeeded()
         staffDataService.upgradeIfNeeded()
+        rooRouteDataService.upgradeIfNeeded()
 
         // Any changes?
         cacheService.initializeCacheIfNeeded()
@@ -34,6 +36,7 @@ class BackendDataService {
         majorDataService.lastVersionUsed = 0
         facultyDataService.lastVersionUsed = 0
         officeHoursDataService.lastVersionUsed = 0
+        rooRouteDataService.lastVersionUsed = 0
         upgradeAllIfNeeded()
     }
 }
