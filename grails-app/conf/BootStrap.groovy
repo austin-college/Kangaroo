@@ -46,9 +46,6 @@ class BootStrap {
         if (Term.count() == 0)
             ["11FA", "12SP", "12SU", "12FA"].each { Term.findOrCreate(it) }
 
-        // Make everyone a professor.
-        Professor.list().each { it.isProfessor = true; it.save() }
-
         if (Environment.current != Environment.TEST) {
             backendDataService.upgradeAllIfNeeded()
 
