@@ -1,17 +1,26 @@
 package kangaroo
 
-import redis.clients.jedis.Jedis
-
 /**
  * Stores information in the super-fast, memory-only redis cache. This is a great way to speed up slow, unchanging queries.
  */
 class CacheService {
 
-    def redisService
-
     def dataTablesService
 
-    static transactional = true
+    static transactional = false
+
+    // Cache table JSON.
+    static cache = [:]
+
+    def memoize(key, Closure closure) {
+        if (cache[key])
+        return cache[key]
+        else {
+            def value = closure();
+            cache[key] = value;
+            return value;
+        }
+    }
 
     def initializeCache() {
         clearCache();
@@ -32,23 +41,11 @@ class CacheService {
     }
 
     boolean isEmpty() {
-        return (redisService.dbSize() > 0);
-    }
-
-    def cacheColleagues() {
-
-        print "Pre-caching colleagues..."
-        def i = 0;
-        Professor.list().each { prof ->
-            prof.getColleagues();
-            if (i++ % 4 == 0)
-                print ".${i}.."
-        }
-        println "...done!"
+        return cache.isEmpty()
     }
 
     def clearCache() {
-        println "Clearing redis cache..."
-        redisService.withRedis { redis -> redis.flushDB() }
+        println "Clearing cache..."
+        cache = [:]
     }
 }

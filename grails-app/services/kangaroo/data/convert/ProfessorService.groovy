@@ -14,7 +14,7 @@ class ProfessorService {
     // List departments that many professors teach in (like Communication/Inquiry), and which are likely to dilute the colleagues list.
     final static def commonDepartments = ["CI"]
 
-    def redisService
+    def cacheService
 
     /**
      * Returns a list of this professor's "colleagues". Since professors are not directly mapped to departments (yet!),
@@ -25,8 +25,8 @@ class ProfessorService {
     @Transactional(readOnly = true)
     List<Professor> getColleaguesForProfessor(Professor professor) {
 
-        // This query is slow, so we cache the results in redis.
-        String ids = redisService.memoize("professor/${professor.id}/colleagues") { def redis ->
+        // This query is slow, so we cache the results in memory.
+        String ids = cacheService.memoize("professor/${professor.id}/colleagues") {
 
             Set<Professor> colleagues = [];
 

@@ -1,7 +1,6 @@
 package kangaroo
 
 import grails.converters.JSON
-import redis.clients.jedis.Jedis
 
 /**
  * Returns data formatted for the client-side DataTables.
@@ -10,20 +9,23 @@ class DataTablesService {
 
     static transactional = false
 
-    def redisService
+    def cacheService
 
     /**
-     * Formats all of the courses into a table.
+     * Formats all of the courses into a table. (SLOW)
+     * @todo speed up
      */
-    def getTable(term) {
+    def getTable(Term term) {
         def rows = Course.findAllByTerm(term).collect { course -> toRow(course) }
         return (["sEcho": 0, "iTotalRecords": rows.size(), "iTotalDisplayRecords": rows.size(), "aaData": rows] as JSON)
     }
 
     /**
-     * Returns a redis-cached version of the table.
+     * Returns a cached version of the table.
      */
-    String getTableCached(term) { redisService.memoize("courses/$term") { Jedis redis -> getTable(term) } }
+    String getTableCached(Term term) {
+        cacheService.memoize("courses/${term.id}") { getTable(term) }
+    }
 
     /**
      * Formats a given course to fit in a table row.
