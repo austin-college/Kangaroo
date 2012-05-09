@@ -1,5 +1,6 @@
 package kangaroo.data
 
+import kangaroo.Professor
 import org.springframework.transaction.annotation.Transactional
 
 class BackendDataService {
@@ -20,7 +21,9 @@ class BackendDataService {
         departmentDataService.upgradeIfNeeded()
         majorDataService.upgradeIfNeeded()
         requirementsDataService.upgradeIfNeeded()
-        facultyDataService.upgradeIfNeeded()
+
+        if (Professor.count() == 0)
+            facultyDataService.upgradeIfNeeded()
         officeHoursDataService.upgradeIfNeeded()
         staffDataService.upgradeIfNeeded()
         rooRouteDataService.upgradeIfNeeded()
