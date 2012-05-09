@@ -27,9 +27,6 @@ class BackendDataService {
         officeHoursDataService.upgradeIfNeeded()
         staffDataService.upgradeIfNeeded()
         rooRouteDataService.upgradeIfNeeded()
-
-        // Any changes?
-        cacheService.initializeCacheIfNeeded()
     }
 
     def reset() {

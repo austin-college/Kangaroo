@@ -55,8 +55,6 @@ class BootStrap {
                 println "Downloading course files..."
                 Term.list().each { courseImporterService.importCourses(it) }
             }
-
-            cacheService.initializeCacheIfNeeded()
         }
 
         println "\n==============================\n"
