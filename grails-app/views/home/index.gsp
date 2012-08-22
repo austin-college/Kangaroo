@@ -20,7 +20,7 @@
 </div>
 
 <div class="otherControls">
-    Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2012</a>
+    Show classes from <a href="#" class="selectable" id="selectTermLink">Fall 2012</a>
 
     in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
 
