@@ -13,7 +13,7 @@ class Term implements Serializable {
     String id // The registrar short code ("11FA", "12SP", "13JA") - everything is derived from this one field!
 
     // The current term.
-    static final String CURRENT_TERM_CODE = "12SP"
+    static final String CURRENT_TERM_CODE = "12FA"
 
     static constraints = {
         id(maxSize: 4)
