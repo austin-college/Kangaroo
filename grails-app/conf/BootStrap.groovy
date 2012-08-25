@@ -16,8 +16,19 @@ class BootStrap {
 
         println "\n\n==============================\n\n    Kangaroo v${grailsApplication.metadata.'app.version'} starting..."
 
+        // Create the default API edit key if none exist.
         if (EditKey.count() == 0)
             new EditKey().save();
+
+        // Create the default roles if none exist.
+        Role.findOrSaveWhere(authority: "ROLE_ADMIN");
+
+        // Create the default admin user if none exist.
+        if (User.count() == 0) {
+            def admin = new User(username: "admin", password: "admin");
+            admin.save();
+            UserRole.create(admin, Role.findByAuthority("ROLE_ADMIN"));
+        }
 
         // Customize how objects are formatted to JSON.
         JSON.registerObjectMarshaller(Course) { Course course ->
