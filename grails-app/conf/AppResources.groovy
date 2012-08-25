@@ -30,6 +30,11 @@ modules = {
         resource url:"js/professorCalendar.js", bundle: "bundle_professor"
     }
 
+    login {
+        dependsOn "common"
+        resource url: "less/login.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_login'
+    }
+
     error {
         resource url: "css/errorPage.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_error'
         resource url: "js/errorReporting.js", bundle: 'bundle_error'

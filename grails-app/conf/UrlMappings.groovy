@@ -23,6 +23,8 @@ class UrlMappings {
         "/error"(controller: "error")
         "/professors"(controller: "professorSearch")
         "/data"(controller: "data")
+        "/login"(controller: "login", action: "auth")
+        "/logout"(controller: "logout")
 
         // API
         "/api/"(controller: "apiHome")
