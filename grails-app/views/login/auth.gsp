@@ -8,7 +8,7 @@
 <body>
 
 <div class="login-header">
-    Please log in to Kangaroo
+    Log in to Kangaroo
 </div>
 
 <div class="dialog">
