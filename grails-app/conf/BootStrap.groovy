@@ -16,6 +16,12 @@ class BootStrap {
 
         println "\n\n==============================\n\n    Kangaroo v${grailsApplication.metadata.'app.version'} starting..."
 
+		// we have 3 types of users.
+		
+		if (AcRole.count() == 0) {
+			["ROLE_FACULTY","ROLE_GUEST","ROLE_ADMIN"].each { new AcRole(authority:it).save(flush:true) }
+		}
+		
         if (EditKey.count() == 0)
             new EditKey().save();
 
@@ -45,7 +51,7 @@ class BootStrap {
         // Create terms if we need to.
         if (Term.count() == 0)
             ["11FA", "12SP", "12SU", "12FA"].each { Term.findOrCreate(it) }
-
+			
         if (Environment.current != Environment.TEST) {
             backendDataService.upgradeAllIfNeeded()
 

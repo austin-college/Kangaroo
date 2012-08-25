@@ -129,3 +129,8 @@ log4j = {
         }
     }
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'kangaroo.AcUser'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'kangaroo.AcUserAcRole'
+grails.plugins.springsecurity.authority.className = 'kangaroo.AcRole'
