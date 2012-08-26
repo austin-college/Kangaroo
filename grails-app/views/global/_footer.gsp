@@ -11,6 +11,6 @@
     </div>
 
     <div class="smaller">
-        With special thanks to <g:link controller="professor" action="show" id="mhiggs">Mike Higgs</g:link> and <g:link controller="professor" action="show" id="bedgette">Bill Edgette</g:link>.
+        With special thanks to <g:link controller="professor" action="show" id="mhiggs">Michael Higgs</g:link> and <g:link controller="professor" action="show" id="bedgette">Bill Edgette</g:link>.
     </div>
 </div>
