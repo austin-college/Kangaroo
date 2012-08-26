@@ -6,6 +6,7 @@ import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.data.convert.ScheduleProjectService
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.data.BackendDataService
+import grails.plugins.springsecurity.Secured
 
 class ProfessorController {
 
@@ -31,6 +32,7 @@ class ProfessorController {
             [professor: professor]
     }
 
+	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
     def setOfficeHours = {
 
         def professor = Professor.get(params.id)
@@ -58,6 +60,7 @@ class ProfessorController {
         c;
     }
 
+	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
     def finishedOfficeHours = {
 		def professor = Professor.get(params.id)
         if (professor)
@@ -65,8 +68,8 @@ class ProfessorController {
     }
 
 
+	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
     def editOfficeHours = {
-		println params
 		
 		def professor = Professor.get(params.id)
         
