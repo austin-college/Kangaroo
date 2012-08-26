@@ -29,6 +29,10 @@
                 <div><b>Phone:</b> ${professor.phone}</div>
             </g:if>
 
+            <g:if test="${professor?.officeNote}">
+                <div><b>Note:</b> ${professor?.officeNote.encodeAsHTML()}</div>
+            </g:if>
+
             <div class="printLink">
                 <img src="${resource(dir: 'images', file: 'printer.png')}" alt="Print" border="0"/>
                 <g:link controller="professor" action="printWeeklyCalendar" id="${professor.id}">Print...</g:link>

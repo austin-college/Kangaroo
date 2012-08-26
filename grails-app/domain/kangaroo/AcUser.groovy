@@ -4,7 +4,7 @@ class AcUser {
 
 	transient springSecurityService
 
-	String username
+	String username			// login id... like mhiggs
 	String password
 	boolean enabled
 	boolean accountExpired

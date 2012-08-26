@@ -31,6 +31,8 @@ class Professor {
     String phone
     String email
     String privateEditKey = AppUtils.generateRandomToken()
+	
+	String officeNote;  // free text field for note 
 
     boolean isProfessor = true // True for professors, false for staff.
 
@@ -45,6 +47,7 @@ class Professor {
         office(nullable: true, maxSize: 128)
         phone(nullable: true, maxSize: 128)
         email(nullable: true, email: true, maxSize: 128)
+		officeNote(nullable:true, maxSize: 255)
         privateEditKey(maxSize: 32, blank: false, unique: true)
     }
 

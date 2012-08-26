@@ -17,7 +17,7 @@ class ProfessorController {
 
     def show = {
         def professor = Professor.get(params.id)
-
+		
         if (professor)
             [professor: professor]
         else
@@ -33,7 +33,8 @@ class ProfessorController {
 
     def setOfficeHours = {
 
-        def professor = Professor.findByPrivateEditKey(params.id);
+        def professor = Professor.get(params.id)
+		
         if (professor) {
 
             // Store the current professor on the session, and send them some cookies too.
@@ -58,16 +59,21 @@ class ProfessorController {
     }
 
     def finishedOfficeHours = {
-        def professor = Professor.findByPrivateEditKey(params.id);
+		def professor = Professor.get(params.id)
         if (professor)
             [professor: professor]
     }
 
 
     def editOfficeHours = {
-
-        def professor = Professor.findByPrivateEditKey(params?.id);
+		println params
+		
+		def professor = Professor.get(params.id)
+        
         if (professor) {
+			
+			professor.officeNote = params.note
+			professor.save(flush:true)
 
             List<MeetingTime> officeHours = [];
 
