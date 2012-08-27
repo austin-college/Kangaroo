@@ -8,8 +8,12 @@ import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.data.BackendDataService
 import grails.plugins.springsecurity.Secured
 
+import org.springframework.security.core.userdetails.User
+
 class ProfessorController {
 
+	def springSecurityService
+	
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
     def index = {
@@ -32,6 +36,26 @@ class ProfessorController {
             [professor: professor]
     }
 
+	
+	private User currentUser() {
+		return springSecurityService.principal
+	}
+	
+	
+	private boolean userIsProfessor(Professor prof) {
+		if (prof == null) return false;
+		
+		def user = currentUser()
+		if (user == null) return false;
+		
+		return prof.id.equals(user.username);
+	}
+	
+	/**
+	 * called to prepare the view to allow a user to edit office hours and office note.  Eventually, this 
+	 * may be expanded to allow the user to edit other things.
+	 * 
+	 */
 	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
     def setOfficeHours = {
 
@@ -39,20 +63,26 @@ class ProfessorController {
 		
         if (professor) {
 
-            // Store the current professor on the session, and send them some cookies too.
+			// the professor must be the authenticated user.			
+			if (!userIsProfessor(professor)) {
+				flash.message = "User not authorized for modifying ${professor} profile."
+				return redirect(controller: "professor", action: "show", id: "${professor.id}")
+		
+			}  
+			
             session.professorId = professor.id;
             response.addCookie(createCookie("prof_id", professor.id, 365))
-//            response.addCookie(createCookie("prof_email", professor.email, 365))
-//            response.addCookie(createCookie("prof_name", professor.name, 365))
 
-            [professor: professor]
+			[professor: professor]
+			
         }
         else {
-            flash.message = "Invalid edit key."
-            redirect(controller: "home")
+			flash.message = "Unknown id."
+			return redirect(controller: "home")
         }
     }
-
+	
+	
     Cookie createCookie(key, value, maxAgeInDays) {
         def c = new Cookie(key, value)
         c.maxAge = maxAgeInDays * 24 * 60 * 60
@@ -60,11 +90,19 @@ class ProfessorController {
         c;
     }
 
+	
 	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
     def finishedOfficeHours = {
 		def professor = Professor.get(params.id)
-        if (professor)
+        if (professor) {
+			
+			if (!userIsProfessor(professor)) {
+				flash.message = "User not authorized for modifying ${professor} profile."
+				return redirect(controller: "professor", action: "show", id: "${professor.id}")
+			}
+
             [professor: professor]
+        }
     }
 
 
@@ -74,7 +112,12 @@ class ProfessorController {
 		def professor = Professor.get(params.id)
         
         if (professor) {
-			
+
+			if (!userIsProfessor(professor)) {
+				flash.message = "User not authorized for modifying ${professor} profile."
+				return redirect(controller: "professor", action: "show", id: "${professor.id}")
+			}
+						
 			professor.officeNote = params.note
 			professor.save(flush:true)
 

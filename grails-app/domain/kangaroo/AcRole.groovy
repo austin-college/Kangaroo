@@ -1,6 +1,8 @@
 package kangaroo
 
-class AcRole {
+import org.springframework.security.core.GrantedAuthority;
+
+class AcRole  implements Serializable, GrantedAuthority  {
 
 	String authority
 

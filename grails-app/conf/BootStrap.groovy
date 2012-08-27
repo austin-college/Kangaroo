@@ -20,6 +20,7 @@ class BootStrap {
 		
 		if (AcRole.count() == 0) {
 			["ROLE_FACULTY","ROLE_GUEST","ROLE_ADMIN"].each { new AcRole(authority:it).save(flush:true) }
+			println "${AcRole.count()} roles created."
 		}
 		
         if (EditKey.count() == 0)
