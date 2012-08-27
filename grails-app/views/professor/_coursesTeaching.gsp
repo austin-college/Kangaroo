@@ -5,7 +5,7 @@
         <div>
             <h3>${professor} is teaching:</h3>
 
-            <g:each in="${Term.list()}" var="term">
+            <g:each in="${Term.list().sort{ it.getYear() }.reverse()}" var="term">
 
                 <b>${term.fullDescription}</b>
                 <ul>
