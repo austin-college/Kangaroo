@@ -4,7 +4,6 @@
     <title>Weekly Calendar: ${professor}</title>
     <meta name="layout" content="print"/>
 
-    <r:require modules="professor" />
     <script type="text/javascript">
         var timelineInterval;
         var calendar;

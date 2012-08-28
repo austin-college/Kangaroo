@@ -2,7 +2,7 @@ modules = {
     common {
         dependsOn "scripts, bootstrap"
 
-        resource url: "css/app2.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
+        resource url: "css/app2.less", attrs: [rel: "stylesheet/less",  type: 'css'], bundle: 'bundle_common'
         resource url: "css/profiles.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
         resource url: "css/professorView.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
         resource url: "css/admin.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
@@ -36,12 +36,15 @@ modules = {
     }
 
     printView {
-        dependsOn "common"
+        dependsOn "scripts, bootstrap"
+        resource url:"libraries/fullcalendar/fullcalendar.js", attrs: [media: 'screen,print'], bundle: "bundle_print"
+        resource url:"libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js",  attrs: [media: 'screen,print'], bundle: "bundle_print"
+        resource url:"libraries/fullcalendar/fullcalendar.css", attrs: [media: 'screen,print'], bundle: "bundle_print"
         resource url: "css/printCalendar.less", attrs: [rel: "stylesheet/less", type: 'css', media: 'screen,print'], bundle: 'bundle_print'
     }
 
     bootstrap {
-        resource url: "libraries/bootstrap.137.min.css"
+        resource url: "libraries/bootstrap.137.min.css", attrs: [media: 'screen,print']
     }
 
     scripts {
