@@ -8,7 +8,7 @@
 
 <%@ page import="grails.util.Environment; kangaroo.Term" %>
 <!DOCTYPE html>
-<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+<html>
 <head>
     <!-- Random number: ${new Random().nextInt(100)} -->
     <title><g:layoutTitle default="Kangaroo"/></title>
@@ -21,6 +21,7 @@
         var contextPath = "${request.contextPath}";
     </script>
 
+    <r:layoutResources/>
     <g:layoutHead/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -36,6 +37,7 @@
 <body>
 
 <g:layoutBody/>
+<r:layoutResources/>
 
 %{-- Load analytics in production. --}%
 <g:if test="${Environment.current == Environment.PRODUCTION}">
