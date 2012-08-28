@@ -2,17 +2,17 @@ package kangaroo
 
 import org.springframework.security.core.GrantedAuthority;
 
-class AcRole  implements Serializable, GrantedAuthority  {
+class AcRole implements Serializable, GrantedAuthority {
 
-	String authority
+    String authority
 
-	static mapping = {
-		cache true
-	}
+    static mapping = {
+        cache true
+    }
 
-	static constraints = {
-		authority blank: false, unique: true
-	}
-	
+    static constraints = {
+        authority blank: false, unique: true
+    }
+
 
 }

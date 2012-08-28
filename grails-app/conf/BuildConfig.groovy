@@ -32,4 +32,25 @@ grails.project.dependency.resolution = {
         runtime 'org.codehaus.gpars:gpars:0.10'
 //        runtime 'org.coconut.forkjoin.jsr166y:jsr166y:070108'
     }
+    plugins {
+        runtime ":hibernate:$grailsVersion"
+        runtime ":jquery:1.7.1"
+        runtime ":jquery-ui:1.8.15"
+        runtime ":quartz:0.4.2"
+
+        // Resources
+        runtime ":resources:1.1.6"
+        runtime ":cache-headers:1.1.5"
+        runtime ":lesscss-resources:1.0.1"
+        runtime ":zipped-resources:1.0"
+        runtime ":cached-resources:1.0"
+
+        runtime ":spring-security-core:1.2.7.3"
+        runtime ":spring-security-ldap:1.0.6"
+
+        build ":tomcat:$grailsVersion"
+        runtime ":database-migration:1.1"
+
+        compile ':cache:1.0.0'
+    }
 }
