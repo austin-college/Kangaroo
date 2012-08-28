@@ -27,4 +27,8 @@ beans = {
         maxIdleTimeExcessConnections = 30 * 60
     }
 
+	
+	ldapUserDetailsMapper(kangaroo.AcUserContextMapper) {}
+
+	
 }

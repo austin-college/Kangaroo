@@ -75,15 +75,10 @@
                 <li><b><g:link action="printWeeklyCalendar" id="${professor.id}">Print a weekly calendar</g:link></b>
                     for your office door.</li>
                 <li>Check out <g:link action="show" id="${professor.id}"
-                                      target="_blank">your shiny Kangaroo page</g:link>.</li>
+                                      target="_blank">your shiny new Kangaroo page</g:link>.</li>
                 <li><g:link action="setOfficeHours"
                             id="${professor.privateEditKey}">Edit your office hours</g:link> again (in case you made a mistake)</li>
             </ul>
-        </div>
-
-        <div>
-            <b>We strongly recommend <a href="#" id="addAsBookmark">bookmarking this page</a>.
-            </b> (So you can easily edit your office hours any time during the semester.)
         </div>
 
         <br/>

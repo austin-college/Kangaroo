@@ -10,3 +10,5 @@ stacktrace.log
 .idea/
 *.iml
 dev_db.trace.db
+
+/target-eclipse/

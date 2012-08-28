@@ -9,6 +9,7 @@
 
         var timelineInterval;
         var calendar;
+        
         $(document).ready(function () {
 
 
@@ -78,6 +79,12 @@
                 }
             });
 
+            $("#finishButton").removeAttr("disabled");
+
+            $("#txtNote").change(noteChanged);
+            $("#txtNote").bind("keypress", noteChanged);
+            
+            
             $("a.startOver").click(function () {
 
                 // Reset the calendar...
@@ -85,12 +92,14 @@
                 calendar.fullCalendar('refetchEvents');
                 $(".finishButtonRight").hide();
 
+                $("#txtNote").val("${professor?.officeNote}");
+
                 return false;
             });
 
             $("#finishButton").click(function () {
 
-                $("#finishButton").attr("disabled", "disabled");
+            	$("#finishButton").attr("disabled", "disabled");
                 $(".finishButtonRight").css({ opacity:0.3 });
 
                 // Extract the office hours...
@@ -101,16 +110,21 @@
                     }
                 });
 
+				// extract the note
+				var note = $("#txtNote").val();
+                
                 // Send to the server.
                 $.ajax({
-                    url:contextPath + "/professor/editOfficeHours/${professor.privateEditKey}",
+                    url:contextPath + "/professor/editOfficeHours/${professor?.id}",
                     dataType:"json",
-                    data:{officeHours:JSON.stringify(items)},
+                    data:{officeHours:JSON.stringify(items), note:note},
                     type:"POST",
                     success:function (response) {
-                        window.location = contextPath + "/professor/finishedOfficeHours/${professor.privateEditKey}";
+                    	$("#finishButton").removeAttr("disabled");
+                        window.location = contextPath + "/professor/finishedOfficeHours/${professor?.id}";
                     },
                     error:function (error) {
+                    	$("#finishButton").removeAttr("disabled");
                         document.write(error.responseText);
                     }
                 });
@@ -118,10 +132,15 @@
         });
 
         function calendarChanged() {
-            $(".finishButtonRight").fadeIn();
+        	$(".finishButtonRight").fadeIn();
         }
 
+		function noteChanged() {
+			$(".finishButtonRight").fadeIn();
+			}
+        
         function setTimeline() {
+
             var parentDiv = $(".fc-agenda-slots:visible").parent();
             var timeline = parentDiv.children(".timeline");
             if (timeline.length == 0) { //if timeline isn't there, add it
@@ -228,11 +247,15 @@
             <h1>Welcome, ${professor.firstName}!</h1>
         </g:else>
 
-        <div>To set your office hours, just <b>click</b> and <b>drag</b> on the calendar.</div>
+        <div>To set your office hours, just <b>click</b> and <b>drag</b> on the calendar.  Drag to resize office hour blocks.  Add optional note to students. </div>
     </div>
 
     <div style="clear: both; margin-top: 140px;"></div>
 
+	<div>
+	Note/Comment: <g:textArea style="width:98%" name="txtNote" id="txtNote" >${professor?.officeNote}</g:textArea>
+	</div>
+	<br/>
     <div>
 
         <div id="calendar"></div>

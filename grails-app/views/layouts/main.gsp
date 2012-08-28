@@ -12,8 +12,10 @@
 <head>
     <g:render template="/global/commonHead"/>
     <r:require modules="common"/>
-    <g:layoutHead/>
+    
     <r:layoutResources/>
+    <g:layoutHead/>
+
 </head>
 
 <body>
