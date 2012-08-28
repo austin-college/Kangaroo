@@ -130,10 +130,14 @@ log4j = {
     }
 }
 
+
+
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'kangaroo.AcUser'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'kangaroo.AcUserAcRole'
 grails.plugins.springsecurity.authority.className = 'kangaroo.AcRole'
+
+grails.plugins.springsecurity.auth.forceHttps = true
 
 grails.plugins.springsecurity.ldap.context.managerDn = 'cn=Chem Tracker,ou=Special accounts,dc=admin, dc=austincollege,dc=edu'
 grails.plugins.springsecurity.ldap.context.managerPassword = 'roos12'
