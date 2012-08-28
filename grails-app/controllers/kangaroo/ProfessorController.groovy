@@ -123,6 +123,7 @@ class ProfessorController {
 
             List<MeetingTime> officeHours = [];
 
+            // TODO Move this stuff to a service
             JSON.parse(params.officeHours).each { data ->
                 Date start = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.start);
                 Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.end);
@@ -136,7 +137,8 @@ class ProfessorController {
                 String composite = days[start[Calendar.DAY_OF_WEEK]] + " " + start.format("hh:mmaa") + " " + end.format("hh:mmaa");
                 MeetingTime meetingTime = ScheduleConvertService.convertMeetingTime(composite);
 
-                // See if there's an existing meetingTime with the same times that we can add to. (So we end up with "MWF 3:00PM 4:00PM" instead of three separate ones.)
+                // See if we can reuse an existing meetingTime that has the same times on other days (and just add our day code).
+                // ie, MW 9-10 + F 9-10 = MWF 9-10
                 boolean matched = false;
                 for (MeetingTime existing: officeHours) {
 
@@ -147,14 +149,16 @@ class ProfessorController {
                     }
                 }
 
+                // TODO: Merge adjacent office hours. Some faculty are simply creating tons of 30-minute zones to create contiguous blocks.
+
                 if (!matched)
                     officeHours << meetingTime
             }
 
-            // Remove existing office hours.
+            // Remove their existing office hours...
             ProfessorOfficeHours.findAllByProfessor(professor).each { it.delete(flush: true)}
 
-            // Add the new ones!
+            // ..and add the new ones!
             officeHours.each { meetingTime ->
                 meetingTime = meetingTime.saveOrFind()
                 new ProfessorOfficeHours(term: Term.currentTerm, professor: professor, meetingTime: meetingTime).save(flush: true)
