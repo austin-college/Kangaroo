@@ -1,24 +1,6 @@
 %{-- Load async scripts that need to appear before the closing </body>. --}%
 
 %{--------------------------
-        GAUG.ES
---------------------------}%
-
-<script type="text/javascript">
-    var _gauges = _gauges || [];
-    (function () {
-        var t = document.createElement('script');
-        t.type = 'text/javascript';
-        t.async = true;
-        t.id = 'gauges-tracker';
-        t.setAttribute('data-site-id', '4f662e5ef5a1f529660001a2');
-        t.src = '//secure.gaug.es/track.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(t, s);
-    })();
-</script>
-
-%{--------------------------
        FACEBOOK
 --------------------------}%
 
@@ -35,4 +17,32 @@
     // just Restore jQuery caching setting
     jQuery.ajaxSettings.cache = cache;
 
+</script>
+
+%{--------------------------
+        CHARTBEAT
+--------------------------}%
+
+<script type="text/javascript">
+    var _sf_async_config = { uid:40341, domain:'kangaroo.austincollege.edu' };
+    (function () {
+        function loadChartbeat() {
+            window._sf_endpt = (new Date()).getTime();
+            var e = document.createElement('script');
+            e.setAttribute('language', 'javascript');
+            e.setAttribute('type', 'text/javascript');
+            e.setAttribute('src',
+                    (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+                            "js/chartbeat.js");
+            document.body.appendChild(e);
+        }
+
+        ;
+        var oldonload = window.onload;
+        window.onload = (typeof window.onload != 'function') ?
+                loadChartbeat : function () {
+            oldonload();
+            loadChartbeat();
+        };
+    })();
 </script>

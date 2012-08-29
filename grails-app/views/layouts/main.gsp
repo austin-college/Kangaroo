@@ -8,11 +8,12 @@
 
 <%@ page import="grails.util.Environment; kangaroo.Term" %>
 <!DOCTYPE html>
-<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+<html>
 <head>
+    <script type="text/javascript">var _sf_startpt = (new Date()).getTime()</script>
     <g:render template="/global/commonHead"/>
     <r:require modules="common"/>
-    
+
     <r:layoutResources/>
     <g:layoutHead/>
 

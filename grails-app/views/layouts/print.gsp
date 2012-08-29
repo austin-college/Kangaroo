@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script type="text/javascript">var _sf_startpt = (new Date()).getTime()</script>
+
     <!-- Random number: ${new Random().nextInt(100)} -->
     <title><g:layoutTitle default="Kangaroo"/></title>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
