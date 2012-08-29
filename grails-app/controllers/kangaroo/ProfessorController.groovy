@@ -64,8 +64,8 @@ class ProfessorController {
 
             // the professor must be the authenticated user.
             if (!userIsProfessor(professor)) {
-                flash.message = "User not authorized for modifying ${professor} profile."
-                return redirect(controller: "professor", action: "show", id: "${professor.id}")
+                flash.error = "Sorry, but only ${professor} can edit their own profile."
+                return redirect(controller: "professor", action: "show", id: professor.id)
 
             }
 

@@ -8,7 +8,7 @@
         var professorId = "${professor.id}";
     </script>
 
-    <r:require modules="professor" />
+    <r:require modules="professor"/>
 </head>
 
 <body>
@@ -17,6 +17,8 @@
     <li><g:link controller="professorSearch">Professors</g:link> <span class="divider">/</span></li>
     <li class="active">${professor}</li>
 </ul>
+
+<bootstrap:flashMessages/>
 
 <g:render template="infoBlock" var="professor"/>
 <g:render template="coursesTeaching" var="professor"/>
