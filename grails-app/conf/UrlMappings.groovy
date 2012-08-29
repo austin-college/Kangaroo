@@ -18,6 +18,7 @@ class UrlMappings {
         "/printCalendar/$id"(controller: "professor", action: "printWeeklyCalendar")
 
         // Manually define other controllers here (otherwise they'll be swallowed by /$id --> professor/show/id!)
+        "/login"(controller: "login", action: "auth")
         "/batchControl"(controller: "batchControl")
         "/majors"(controller: "majors")
         "/error"(controller: "error")
