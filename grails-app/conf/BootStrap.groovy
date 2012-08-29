@@ -16,13 +16,21 @@ class BootStrap {
 
         println "\n\n==============================\n\n    Kangaroo v${grailsApplication.metadata.'app.version'} starting..."
 
-		// we have 3 types of users.
-		
-		if (AcRole.count() == 0) {
-			["ROLE_FACULTY","ROLE_GUEST","ROLE_ADMIN"].each { new AcRole(authority:it).save(flush:true) }
-			println "${AcRole.count()} roles created."
-		}
-		
+        // we have 3 types of users.
+        if (AcRole.count() == 0) {
+            ["ROLE_FACULTY", "ROLE_GUEST", "ROLE_ADMIN"].each { new AcRole(authority: it).save(flush: true) }
+            println "${AcRole.count()} roles created."
+        }
+
+        // Create phil's local account for development since he isn't on LDAP.
+        if (Environment.current == Environment.DEVELOPMENT && !AcUser.findByUsername("pcohen")) {
+            println "Creating pcohen's account..."
+            def phil = new AcUser(username: "pcohen", password: "pcohen").save();
+            AcUserAcRole.create(phil, AcRole.findByAuthority("ROLE_ADMIN"));
+            AcUserAcRole.create(phil, AcRole.findByAuthority("ROLE_FACULTY"));
+            println "...done; ${AcUser.count()} users and ${AcUserAcRole.count()} user-roles"
+        }
+
         if (EditKey.count() == 0)
             new EditKey().save();
 
@@ -52,7 +60,7 @@ class BootStrap {
         // Create terms if we need to.
         if (Term.count() == 0)
             ["11FA", "12SP", "12SU", "12FA"].each { Term.findOrCreate(it) }
-			
+
         if (Environment.current != Environment.TEST) {
             backendDataService.upgradeAllIfNeeded()
 
