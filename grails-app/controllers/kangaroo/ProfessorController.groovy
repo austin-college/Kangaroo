@@ -1,19 +1,18 @@
 package kangaroo
 
 import grails.converters.JSON
-import javax.servlet.http.Cookie
+import grails.plugins.springsecurity.Secured
 import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.data.convert.ScheduleProjectService
 import kangaroo.mn.ProfessorOfficeHours
-import kangaroo.data.BackendDataService
-import grails.plugins.springsecurity.Secured
-
 import org.springframework.security.core.userdetails.User
+
+import javax.servlet.http.Cookie
 
 class ProfessorController {
 
-	def springSecurityService
-	
+    def springSecurityService
+
     static def days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
     def index = {
@@ -22,7 +21,7 @@ class ProfessorController {
 
     def show = {
         def professor = Professor.get(params.id)
-		
+
         if (professor)
             [professor: professor]
         else
@@ -36,53 +35,53 @@ class ProfessorController {
             [professor: professor]
     }
 
-	
-	private User currentUser() {
-		return springSecurityService.principal
-	}
-	
-	
-	private boolean userIsProfessor(Professor prof) {
-		if (prof == null) return false;
-		
-		def user = currentUser()
-		if (user == null) return false;
-		
-		return prof.id.equals(user.username);
-	}
-	
-	/**
-	 * called to prepare the view to allow a user to edit office hours and office note.  Eventually, this 
-	 * may be expanded to allow the user to edit other things.
-	 * 
-	 */
-	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
+
+    private User currentUser() {
+        return springSecurityService.principal
+    }
+
+
+    private boolean userIsProfessor(Professor prof) {
+        if (prof == null) return false;
+
+        def user = currentUser()
+        if (user == null) return false;
+
+        return prof.id.equals(user.username);
+    }
+
+    /**
+     * called to prepare the view to allow a user to edit office hours and office note.  Eventually, this
+     * may be expanded to allow the user to edit other things.
+     *
+     */
+    @Secured(['ROLE_FACULTY', 'IS_AUTHENTICATED_FULLY'])
     def setOfficeHours = {
 
         def professor = Professor.get(params.id)
-		
+
         if (professor) {
 
-			// the professor must be the authenticated user.			
-			if (!userIsProfessor(professor)) {
-				flash.message = "User not authorized for modifying ${professor} profile."
-				return redirect(controller: "professor", action: "show", id: "${professor.id}")
-		
-			}  
-			
+            // the professor must be the authenticated user.
+            if (!userIsProfessor(professor)) {
+                flash.message = "User not authorized for modifying ${professor} profile."
+                return redirect(controller: "professor", action: "show", id: "${professor.id}")
+
+            }
+
             session.professorId = professor.id;
             response.addCookie(createCookie("prof_id", professor.id, 365))
 
-			[professor: professor]
-			
+            [professor: professor]
+
         }
         else {
-			flash.message = "Unknown id."
-			return redirect(controller: "home")
+            flash.message = "Unknown id."
+            return redirect(controller: "home")
         }
     }
-	
-	
+
+
     Cookie createCookie(key, value, maxAgeInDays) {
         def c = new Cookie(key, value)
         c.maxAge = maxAgeInDays * 24 * 60 * 60
@@ -90,36 +89,36 @@ class ProfessorController {
         c;
     }
 
-	
-	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
+
+    @Secured(['ROLE_FACULTY', 'IS_AUTHENTICATED_FULLY'])
     def finishedOfficeHours = {
-		def professor = Professor.get(params.id)
+        def professor = Professor.get(params.id)
         if (professor) {
-			
-			if (!userIsProfessor(professor)) {
-				flash.message = "User not authorized for modifying ${professor} profile."
-				return redirect(controller: "professor", action: "show", id: "${professor.id}")
-			}
+
+            if (!userIsProfessor(professor)) {
+                flash.message = "User not authorized for modifying ${professor} profile."
+                return redirect(controller: "professor", action: "show", id: "${professor.id}")
+            }
 
             [professor: professor]
         }
     }
 
 
-	@Secured(['ROLE_FACULTY','IS_AUTHENTICATED_FULLY'])
+    @Secured(['ROLE_FACULTY', 'IS_AUTHENTICATED_FULLY'])
     def editOfficeHours = {
-		
-		def professor = Professor.get(params.id)
-        
+
+        def professor = Professor.get(params.id)
+
         if (professor) {
 
-			if (!userIsProfessor(professor)) {
-				flash.message = "User not authorized for modifying ${professor} profile."
-				return redirect(controller: "professor", action: "show", id: "${professor.id}")
-			}
-						
-			professor.officeNote = params.note
-			professor.save(flush:true)
+            if (!userIsProfessor(professor)) {
+                flash.message = "User not authorized for modifying ${professor} profile."
+                return redirect(controller: "professor", action: "show", id: "${professor.id}")
+            }
+
+            professor.officeNote = params.note
+            professor.save(flush: true)
 
             List<MeetingTime> officeHours = [];
 
@@ -129,8 +128,8 @@ class ProfessorController {
                 Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.end);
 
                 // Adjust for time zones.
-                start.hours -= 6;
-                end.hours -= 6;
+                start.hours -= 5;
+                end.hours -= 5;
 
                 // Convert to a MeetingTime.
                 final days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]
@@ -140,7 +139,7 @@ class ProfessorController {
                 // See if we can reuse an existing meetingTime that has the same times on other days (and just add our day code).
                 // ie, MW 9-10 + F 9-10 = MWF 9-10
                 boolean matched = false;
-                for (MeetingTime existing: officeHours) {
+                for (MeetingTime existing : officeHours) {
 
                     if (existing.startTime == meetingTime.startTime && existing.endTime == meetingTime.endTime) {
                         ScheduleConvertService.setDayCodes(existing, meetingTime.daysAsString)
