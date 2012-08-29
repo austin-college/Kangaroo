@@ -7,6 +7,15 @@
 
     <display-name>/@grails.project.key@</display-name>
 
+    <security-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+        <web-resource-collection>
+            <url-pattern>/login/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
