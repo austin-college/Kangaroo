@@ -90,7 +90,7 @@
     <h3>Made with:</h3>
     <img src="${resource(dir: 'images', file: 'app_logo.png')}" alt="Kangaroo" height="29px" width="145px" border="0"/>
 
-    <div>www.<b>ackangaroo</b>.com</div>
+    <div><b>kangaroo</b>.austincollege.edu</div>
 </div>
 
 <div id="classLocations">
