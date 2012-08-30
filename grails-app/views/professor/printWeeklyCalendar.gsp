@@ -25,7 +25,7 @@
                 defaultView:'agendaWeek',
                 header:null,
                 ignoreTimezone:false,
-                height:550,
+                height:500,
                 allDaySlot:false,
                 minTime:8,
                 maxTime:18,
@@ -73,6 +73,10 @@
 
             <g:if test="${professor.phone}">
                 <div><b>Phone:</b> ${professor.phone}</div>
+            </g:if>
+
+            <g:if test="${professor.officeNote}">
+                <div><b>Note:</b> ${professor.officeNote}</div>
             </g:if>
 
             <div style="clear: both;"></div>
