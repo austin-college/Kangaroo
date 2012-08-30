@@ -23,7 +23,7 @@ class BatchControlController {
             "12FA": [
                     id: "12FA",
                     name: "Re-Import 12FA",
-                    run: { courseImporterService.importFromJson(Term.get("12FA"), new File("/Users/phillip/Dropbox/Projects/WebHopperDriver/courses_12FA.json").text)},
+                    run: { courseImporterService.importCourses(Term.get("12FA")) },
                     status: {"Ready; ${Course.countByTerm(Term.get("12FA"))} existing courses to scrub"}
             ],
             "reImport": [
