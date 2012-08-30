@@ -14,18 +14,42 @@ class CourseImporterService {
 
     final static placeholderProfessorNames = ["STAFF", "No Information Available"]
 
+    static String lastDepartment
+
     def cacheService
 
     def importCourses(Term term) {
         importFromJson(term, new URL("https://raw.github.com/austin-college/Data/master/courses/${term.id}.json").text)
     }
 
+    def deleteCourses(Term term) {
+
+        println "Deleting ALL courses for term $term..."
+
+        Course.findAllByTerm(term).each { deleteSingleCourse(it) }
+        cacheService.clearCache();
+    }
+
+    def deleteSingleCourse(Course course) {
+
+        println "Deleting $course..."
+        CourseFulfillsRequirement.findAllByCourse(course).each { it.delete() }
+        CourseMeetingTime.findAllByCourse(course).each { it.delete() }
+        Teaching.findAllByCourse(course).each { it.delete() }
+        course.delete(flush: true);
+        if (course.hasErrors())
+            println "ERROR DELETING: " + course.errors.toString()
+    }
+
 //    @Transactional
     def importFromJson(Term term, String json) {
-        
+
+        // First delete all the old courses!
+        deleteCourses(term);
+
         println "\n==== IMPORTING FOR $term ====\n"
         def courses = JSON.parse(json)
-        courses.each { saveSingleCourse(term, it)}
+        courses.each { saveSingleCourse(term, it) }
 
         // Now match courses to labs...
         println "Matching labs..."
@@ -57,7 +81,19 @@ class CourseImporterService {
         // Convert zap, department, and description.
         course.zap = data.zap
         course.description = BigText.getOrCreate(description);
-        course.department = Department.findOrSaveWhere(id: data.departmentCode);
+        course.department = Department.get(data.departmentCode);
+        if (!course.department) {
+            course.department = new Department(id: data.departmentCode, name: data.departmentCode);
+            course.department.id = data.departmentCode // For manually assigned IDs you can't do this in the constructor or you get a Hibernate error
+            course.department.save();
+        }
+
+        course.department.merge(flush: true);
+
+        if (course.department.toString() != lastDepartment) {
+            println "Now loading " + course.department.toString() + " (" + data.departmentCode + ") ...";
+            lastDepartment = course.department.toString();
+        }
 
         if (course.isLab && course.section == 'A') {
             println "Note: ${course.department} ${course.courseNumber}${course.section} is a lab but not correctly labelled. Fixing..."
@@ -82,7 +118,8 @@ class CourseImporterService {
         }
 
         if (!Course.get(course.id)) {
-            if (course.save()) {
+            if (course.validate()) {
+                course.save(flush: true)
                 meetingTimes.each { it.save(); }
                 teachings.each { it.save(); }
                 courseRequirements.each { it.save(); }
@@ -91,7 +128,7 @@ class CourseImporterService {
                 println course.errors
         }
         else
-            println "There is already a course with the id ${course.id} (${Course.get(course.id)})"
+            println "There is already a course with the id ${course.id} (${Course.get(course.id)})" // Shouldn't happen anymore with the new IDs
 
     }
 

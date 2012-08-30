@@ -1,9 +1,11 @@
 package kangaroo.admin
 
 import grails.converters.JSON
+import kangaroo.AppUtils
+import kangaroo.Course
+import kangaroo.Term
+import kangaroo.Textbook
 import kangaroo.mn.ProfessorOfficeHours
-import kangaroo.*
-import kangaroo.data.BackendDataService
 
 class BatchControlController {
 
@@ -18,6 +20,12 @@ class BatchControlController {
     // Define all the batch jobs here.
     def jobs = [
 
+            "12FA": [
+                    id: "12FA",
+                    name: "Re-Import 12FA",
+                    run: { courseImporterService.importFromJson(Term.get("12FA"), new File("/Users/phillip/Dropbox/Projects/WebHopperDriver/courses_12FA.json").text)},
+                    status: {"Ready; ${Course.countByTerm(Term.get("12FA"))} existing courses to scrub"}
+            ],
             "reImport": [
                     id: "reImport",
                     name: "Re-Import Data",
