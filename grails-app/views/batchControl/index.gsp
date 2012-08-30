@@ -3,6 +3,7 @@
 <head>
     <title>Batch Control</title>
     <meta name="layout" content="main"/>
+    <r:require module="common"/>
     <g:javascript src="batchControl.js"/>
 </head>
 
