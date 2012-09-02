@@ -49,7 +49,7 @@ class BootStrap {
             it.toString()
         }
         JSON.registerObjectMarshaller(Professor) { Professor it ->
-            return [id: it.id, firstName: it.firstName, middleName: it.lastName, lastName: it.lastName, title: it.title,
+            return [id: it.id, firstName: it.firstName, middleName: it.middleName, lastName: it.lastName, title: it.title,
                     departmentGroup: it.department, email: it.email, office: it.office, phone: it.phone, photoURL: it.photoUrl,
                     officeHours: it.officeHours];
         }
