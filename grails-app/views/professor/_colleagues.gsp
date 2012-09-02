@@ -1,15 +1,22 @@
 <g:if test="${professor.colleagues.size() > 0}">
-    <div class="details-block courses-block">
+    <div id="relatedProfessors" class="details-block courses-block">
 
         <div>
-            <h3>Colleagues:</h3>
+            <h3>Related professors:</h3>
 
-            <ul>
-                <g:each in="${professor.colleagues}" var="colleague">
-                    <li><g:link controller="professor" action="show"
-                                id="${colleague.id}">${colleague}</g:link> (${colleague.activeDepartments.join(", ")})</li>
-                </g:each>
-            </ul>
+            <g:each in="${professor.colleagues}" var="colleague">
+                <g:link controller="professor" action="show" id="${colleague.id}">
+                    <div class="colleague">
+
+                        <img class="photo" src="${colleague.photoUrl}" alt="${colleague}" title="${colleague}">
+
+                        <h3>${colleague}</h3>
+                        Teaches in ${colleague.activeDepartments.join(", ")}
+
+                        <div style="clear: both"></div>
+                    </div>
+                </g:link>
+            </g:each>
         </div>
     </div>
 </g:if>

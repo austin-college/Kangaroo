@@ -1,6 +1,6 @@
 <%@ page import="kangaroo.Term" %>
 <g:if test="${professor.coursesTeaching.size() > 0}">
-    <div id="coursesTeaching" class="details-block courses-block span5">
+    <div id="coursesTeaching" class="details-block courses-block span6">
 
         <div>
             <h3>${professor} is teaching:</h3>
