@@ -21,11 +21,8 @@
 <bootstrap:flashMessages/>
 
 <g:render template="infoBlock" var="professor"/>
-
-
-<g:render template="coursesTeaching" var="professor"/>
-<g:render template="colleagues" var="professor"/>
 <g:render template="schedule" var="professor"/>
+<g:render template="coursesTeaching" var="professor"/>
 
 </body>
 </html>

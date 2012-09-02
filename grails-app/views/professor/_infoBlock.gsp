@@ -42,12 +42,5 @@
 
     <div style="clear: both"></div>
 
-
-    <g:if test="${professor.officeHours.size() == 0}">
-        <div class="alert-message block-message success" style="width: 500px; margin-top: 20px; clear: both">
-            <b>Are you ${professor}?</b> <g:link controller="professor" action="setOfficeHours"
-                                                 id="${professor.id}">Set your office hours...
-        </g:link>
-        </div>
-    </g:if>
+    <g:render template="pleaseSetOfficeHours" var="professor"/>
 </div>
