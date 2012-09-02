@@ -1,4 +1,4 @@
-<g:if test="${professor.coursesTeaching.size() > 0}">
+<g:if test="${professor.coursesTeaching.size() > 0 || professor.getOfficeHours().size() > 0}">
     <div class="details-block courses-block span14">
 
         <div>
