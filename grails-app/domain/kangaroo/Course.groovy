@@ -59,6 +59,9 @@ class Course {
         ('A'..'Z').collect { section -> Course.get(term, department, courseNumber, (char) section) }.findAll { it }
     }
 
+    // Returns all courses in the current term.
+    static List<Course> getCurrentCourses() { Course.findAllByTerm(Term.currentTerm) }
+
     // Fetches all of this course's sibling sections efficiently.
     List<Course> getSiblings() { findAllSections(term, department, courseNumber) }
 

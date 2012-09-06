@@ -24,7 +24,7 @@ class ProfessorService {
 
     /**
      * Calculates/recalculates the peopleToDepartments and departmentToPeople maps.
-     * This is a slow function generally taking ~10 seconds to run.
+     * This is a slow function generally taking ~2 seconds to run.
      */
     @Transactional(readOnly = true)
     def calculateRelatedProfessors() {
@@ -32,17 +32,17 @@ class ProfessorService {
         peopleToDepartments = [:]
         departmentToPeople = [:]
 
-        Professor.list().each { professor ->
+        Course.currentCourses.each { course ->
 
-            def departments = getDepartmentsForProfessor(professor);
-
-            departments.each { dept ->
-
-                if (!ProfessorService.commonDepartments.contains(dept.id)) {
-                    departmentToPeople[dept.id] = departmentToPeople[dept.id] ?: (Set) []
-                    departmentToPeople[dept.id].add(professor.id);
-                }
+            // Add this department to the professors' list...
+            course.instructors.each {
+                peopleToDepartments[it.id] = peopleToDepartments[it.id] ?: (Set) [] // Create an empty set first if it doesn't exist
+                peopleToDepartments[it.id].add(course.department.id);
             }
+
+            // Add these professors to the department's list...
+            departmentToPeople[course.department.id] = departmentToPeople[course.department.id] ?: (Set) [] // Create an empty set first if it doesn't exist
+            departmentToPeople[course.department.id].addAll(course.instructors*.id);
         }
     }
 
