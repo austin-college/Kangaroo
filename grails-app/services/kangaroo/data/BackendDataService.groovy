@@ -1,5 +1,6 @@
 package kangaroo.data
 
+import kangaroo.AppUtils
 import kangaroo.Professor
 import org.springframework.transaction.annotation.Transactional
 
@@ -12,6 +13,7 @@ class BackendDataService {
     def rooRouteDataService
     def officeHoursDataService
     def staffDataService
+    def professorService
     def cacheService
 
     @Transactional
@@ -27,6 +29,10 @@ class BackendDataService {
         officeHoursDataService.upgradeIfNeeded()
         staffDataService.upgradeIfNeeded()
         rooRouteDataService.upgradeIfNeeded()
+
+        AppUtils.runAndTime("Calculated related professors") {
+            professorService.calculateRelatedProfessors();
+        }
     }
 
     def reset() {

@@ -14,67 +14,87 @@ class ProfessorService {
     // List departments that many professors teach in (like Communication/Inquiry), and which are likely to dilute the colleagues list.
     final static def commonDepartments = ["CI"]
 
+    // Stores/caches which departments a professor teaches in (maps a professor ID to a list of department IDs)
+    static def peopleToDepartments = [:]
+
+    // Stores/caches which professors are in a department (maps a department ID to a list of professor IDs)
+    static def departmentToPeople = [:]
+
     def cacheService
 
     /**
-     * Returns a list of this professor's "colleagues". Since professors are not directly mapped to departments (yet!),
-     * but classes are, we return a list of all professors who teach in the same departments you do. (A set forest)
-     *
-     * Naturally once we parse department strings, this will all be unnecessary.
+     * Calculates/recalculates the peopleToDepartments and departmentToPeople maps.
+     * This is a slow function generally taking ~10 seconds to run.
      */
     @Transactional(readOnly = true)
-    List<Professor> getColleaguesForProfessor(Professor professor) {
+    def calculateRelatedProfessors() {
 
-        // This query is slow, so we cache the results in memory.
-        String ids = cacheService.memoize("professor/${professor.id}/colleagues") {
+        peopleToDepartments = [:]
+        departmentToPeople = [:]
 
-            Set<Professor> colleagues = [];
+        Professor.list().each { professor ->
 
-            // O(n^4) goodness. Good thing we precache...
-            professor.activeDepartments.each { dept ->
-                Course.findAllByDepartment(dept).each { course ->
-                    course.instructors.each { instructor ->
+            def departments = getDepartmentsForProfessor(professor);
 
-                        // Don't include certain staff names as "colleagues".
-                        for (String fakeName: fakeStaffNames) {
-                            if (instructor.name.contains(fakeName))
-                                return;
-                        }
+            departments.each { dept ->
 
-                        colleagues << instructor
-                    }
+                if (!ProfessorService.commonDepartments.contains(dept.id)) {
+                    departmentToPeople[dept.id] = departmentToPeople[dept.id] ?: (Set) []
+                    departmentToPeople[dept.id].add(professor.id);
                 }
             }
-
-            // We are not our own colleague.
-            colleagues.remove(professor);
-
-            // Sort the list.
-            def list = (colleagues as List);
-            list = list.sort({a, b -> return a.name.compareTo(b.name)})
-
-            // Extract and join the IDs together
-            list*.id.join(",")
         }
-
-        // Transform the ID list back into a list of Professors.
-        return ids.split(",").collect { id -> Professor.get(id)}.findAll { it != null }
     }
 
     /**
      * Returns a list of all departments that this professor teaches in.
-     * Eg: if they teach a Chemistry class and a Biology class, it should return (Biology, Chemistry).
+     * Eg: if they teach a Chemistry class and a Biology class, it should return [Biology, Chemistry].
      */
     @Transactional(readOnly = true)
     List<Department> getDepartmentsForProfessor(Professor professor) {
+
+        // Return the pre-calculated version if one exists.
+        if (peopleToDepartments[professor])
+            return peopleToDepartments[professor].collect { Department.get(it) };
 
         def departments = (professor.coursesTeaching*.department as Set);
 
         // Remove common departments (they dilute the colleagues list).
         commonDepartments.each { code -> departments.remove(Department.get(code)); }
 
-        // Sort the list.
-        return (departments as List).sort({a, b -> return a.name.compareTo(b.name)});
+        // Sort the list, and save it.
+        peopleToDepartments[professor] = (departments as List).sort({a, b -> return a.name.compareTo(b.name)})*.id;
+        return peopleToDepartments[professor].collect { Department.get(it) };
+    }
+
+    /**
+     * Returns similar professors to this one, split by department.
+     * Details: for every department this professor teaches in, get all the professors also in that department. No professor will be repeated.
+     *
+     * ex: [Chemistry: [Andrew Carr, Bradley Smucker, ...],
+     *      Biology: [Peter Schulz, George Diggs, ...],
+     *      Math: [J'Lee Bumpus, E'Don Williams, ...]
+     *     ]
+     * for a professor who teaches in Chemistry, Biology, and Math.
+     */
+    @Transactional(readOnly = true)
+    Map<Department, List<Professor>> getRelatedProfessorsForProfessor(Professor professor) {
+
+        def data = [:]
+        def seenIds = [professor.id] // Don't include yourself.
+        professor.activeDepartments.each { dept ->
+
+            def ids = departmentToPeople[dept.id].findAll { !seenIds.contains(it) }
+            def people = ids.collect { Professor.get(it) }
+
+            // Don't repeat professors.
+            seenIds.addAll(ids)
+
+            if (people.size() > 0) // Don't add empty departments.
+                data[dept] = people;
+        }
+
+        return data;
     }
 
     /**
@@ -99,10 +119,10 @@ class ProfessorService {
 
         List<Course> resultList = []
         def usedTimes = [];
-        for (Course c: courses) {
+        for (Course c : courses) {
 
             boolean rejected = false;
-            for (MeetingTime m: c.meetingTimes) {
+            for (MeetingTime m : c.meetingTimes) {
                 if (usedTimes.contains(m)) {
                     rejected = true;
                     break;
@@ -125,7 +145,7 @@ class ProfessorService {
     @Transactional(readOnly = true)
     static boolean isInOfficeHours(Professor professor) {
 
-        for (def time: ScheduleProjectService.projectToWeek(professor.officeHours))
+        for (def time : ScheduleProjectService.projectToWeek(professor.officeHours))
             if (AppUtils.isDateBetween(new Date(), time.startDate, time.endDate))
                 return true;
 
@@ -139,8 +159,8 @@ class ProfessorService {
     @Transactional(readOnly = true)
     static Course getCurrentClass(Professor professor) {
 
-        for (def course: professor.currentCursesTeaching)
-            for (def time: ScheduleProjectService.projectToWeek(course.meetingTimes))
+        for (def course : professor.currentCursesTeaching)
+            for (def time : ScheduleProjectService.projectToWeek(course.meetingTimes))
                 if (AppUtils.isDateBetween(new Date(), time.startDate, time.endDate))
                     return course;
     }

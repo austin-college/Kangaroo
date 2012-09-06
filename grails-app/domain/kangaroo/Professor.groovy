@@ -31,8 +31,8 @@ class Professor {
     String phone
     String email
     String privateEditKey = AppUtils.generateRandomToken()
-	
-	String officeNote;  // free text field for note 
+
+    String officeNote;  // free text field for note
 
     boolean isProfessor = true // True for professors, false for staff.
 
@@ -47,7 +47,7 @@ class Professor {
         office(nullable: true, maxSize: 128)
         phone(nullable: true, maxSize: 128)
         email(nullable: true, email: true, maxSize: 128)
-		officeNote(nullable:true, maxSize: 255)
+        officeNote(nullable: true, maxSize: 255)
         privateEditKey(maxSize: 32, blank: false, unique: true)
     }
 
@@ -83,11 +83,6 @@ class Professor {
     List<MeetingTime> getOfficeHours(Term term = Term.currentTerm) { return ProfessorOfficeHours.findAllByProfessorAndTerm(this, term)*.meetingTime }
 
     /**
-     * Returns this professor's colleagues (professors who teach in the same departments this guy does).
-     */
-    List<Professor> getColleagues() { professorService.getColleaguesForProfessor(this) }
-
-    /**
      * Returns all of the departments this professor teaches classes in (ie, [Biology, Chemistry]).
      */
     List<Department> getActiveDepartments() { professorService.getDepartmentsForProfessor(this) }
@@ -95,7 +90,12 @@ class Professor {
     /**
      * Returns all of the rooms this professor teaches classes in (ie, ["MS128", "MS133"]).
      */
-    List<String> getActiveRooms() { professorService.getRoomsForProfessor(this)}
+    List<String> getActiveRooms() { professorService.getRoomsForProfessor(this) }
+
+    /**
+     * Returns similar professors to this one, split by department. (see getRelatedProfessorsForProfessor for more)
+     */
+    Map<Department, List<Professor>> getRelatedProfessors() { professorService.getRelatedProfessorsForProfessor(this) }
 
     /**
      * Gets the professor's current status (busy? in office hours? teaching?) as of RIGHT NOW.
