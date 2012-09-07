@@ -35,7 +35,7 @@ class Course {
     Date dateTextbooksParsed
 
     static constraints = {
-        id(size: 10..13) // (dept size) + (course number) + 6
+        id(size: 10..17) // (dept size) + (course number) + 6
         description(nullable: true)
         name(maxSize: 64)
         room(maxSize: 32)
