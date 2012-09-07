@@ -12,7 +12,7 @@ class Department {
     String name = id
 
     static constraints = {
-        id(maxSize: 4)
+        id(maxSize: 8)
         name(maxSize: 64)
     }
 
