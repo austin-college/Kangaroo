@@ -24,6 +24,12 @@ class Professor {
      */
     boolean matched = false
 
+    /**
+     * If the professor is currently employed at Austin College.
+     * Can be false for retired, fired, or visiting professors who have left.
+     */
+    boolean isActive = true
+
     String photoUrl
     String title
     String department
