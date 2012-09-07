@@ -4,20 +4,15 @@
        FACEBOOK
 --------------------------}%
 
-<script type="text/javascript">
-
-    // prevent jQuery from appending cache busting string to the end of the FeatureLoader URL
-    var cache = jQuery.ajaxSettings.cache;
-    jQuery.ajaxSettings.cache = true;
-    // Load FeatureLoader asynchronously. Once loaded, we execute Facebook init
-
-    jQuery.getScript('http://connect.facebook.net/en_US/all.js', function () {
-        FB.init({appId:'your_app_id-optional', status:true, cookie:true, xfbml:true});
-    });
-    // just Restore jQuery caching setting
-    jQuery.ajaxSettings.cache = cache;
-
-</script>
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=217547714957832";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 %{--------------------------
         CHARTBEAT

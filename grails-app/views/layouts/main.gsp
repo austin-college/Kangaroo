@@ -42,6 +42,7 @@
 </div>
 
 <r:layoutResources/>
+
 %{-- Load analytics in production. --}%
 <g:if test="${Environment.current == Environment.PRODUCTION}">
     <g:render template="/global/footerScripts"/>
