@@ -101,19 +101,19 @@
 }
 
 .paginate_disabled_previous {
-    background-image: url('dataTables_img/back_disabled.jpg');
+    background-image: url('../css/dataTables_img/back_disabled.jpg');
 }
 
 .paginate_enabled_previous {
-    background-image: url('dataTables_img/back_enabled.jpg');
+    background-image: url('../css/dataTables_img/back_enabled.jpg');
 }
 
 .paginate_disabled_next {
-    background-image: url('dataTables_img/forward_disabled.jpg');
+    background-image: url('../css/dataTables_img/forward_disabled.jpg');
 }
 
 .paginate_enabled_next {
-    background-image: url('dataTables_img/forward_enabled.jpg');
+    background-image: url('../css/dataTables_img/forward_enabled.jpg');
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

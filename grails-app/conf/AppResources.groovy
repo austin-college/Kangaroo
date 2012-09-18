@@ -2,12 +2,12 @@ modules = {
     common {
         dependsOn "scripts, bootstrap"
 
-        resource url: "css/app2.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
-        resource url: "css/profiles.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
-        resource url: "css/professorView.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
-        resource url: "css/admin.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
-        resource url: "css/courseView.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
-        resource url: "css/searchPage2.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
+        resource url: "less/app.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
+        resource url: "less/profiles.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
+        resource url: "less/professorView.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
+        resource url: "less/admin.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
+        resource url: "less/courseView.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
+        resource url: "less/searchPage.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_common'
         resource url: "js/cookies.js", bundle: 'bundle_common'
     }
 
@@ -36,7 +36,7 @@ modules = {
     }
 
     error {
-        resource url: "css/errorPage.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_error'
+        resource url: "less/errorPage.less", attrs: [rel: "stylesheet/less", type: 'css'], bundle: 'bundle_error'
         resource url: "js/errorReporting.js", bundle: 'bundle_error'
     }
 
@@ -45,7 +45,7 @@ modules = {
         resource url: "libraries/fullcalendar/fullcalendar.js", attrs: [media: 'screen,print'], bundle: "bundle_print"
         resource url: "libraries/fullcalendar/jquery-ui-1.8.11.custom.min.js", attrs: [media: 'screen,print'], bundle: "bundle_print"
         resource url: "libraries/fullcalendar/fullcalendar.css", attrs: [media: 'screen,print'], bundle: "bundle_print"
-        resource url: "css/printCalendar.less", attrs: [rel: "stylesheet/less", type: 'css', media: 'screen,print'], bundle: 'bundle_print'
+        resource url: "less/printCalendar.less", attrs: [rel: "stylesheet/less", type: 'css', media: 'screen,print'], bundle: 'bundle_print'
     }
 
     bootstrap {
