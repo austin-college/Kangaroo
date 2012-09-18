@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.data.DataExportService; kangaroo.admin.DataController" %>
+<%@ page import="kangaroo.data.DataExportService; kangaroo.admin.AdminDataController" %>
 <html>
 <head>
     <title>Data Management</title>
@@ -15,7 +15,6 @@
 <h2>Data Export</h2>
 
 <g:link action="runExport">Download all data via JSON</g:link> (v${DataExportService.formatVersion})
-
 
 </body>
 </html>

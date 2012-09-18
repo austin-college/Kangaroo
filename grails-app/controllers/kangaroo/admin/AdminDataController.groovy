@@ -1,6 +1,6 @@
 package kangaroo.admin
 
-class DataController {
+class AdminDataController {
 
     def dataExportService
 

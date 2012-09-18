@@ -2,14 +2,14 @@
 //
 //  batchControl.js
 //
-//  Controls the font-end code for the batch-management control page.
+//  Controls the front-end code for the "batch jobs" admin page.
 //
 //================================================================
 
 $(document).ready(function () {
 
     $.ajax({
-        url:contextPath + "/batchControl/getJobList",
+        url:contextPath + "/admin/jobs/getJobList",
         success:function (response) {
             $.each(response, function (key, value) {
                 addJob(key, value);
@@ -24,7 +24,7 @@ $(document).ready(function () {
         setStatusMessage(dom, "<i>Working...</i>");
 
         $.ajax({
-            url:contextPath + "/batchControl/runJob",
+            url:contextPath + "/admin/jobs/runJob",
             data:{job:job},
             success:function (response) {
                 setStatusMessage(dom, getCompletionStatus(response));

@@ -7,7 +7,7 @@ import kangaroo.Term
 import kangaroo.Textbook
 import kangaroo.mn.ProfessorOfficeHours
 
-class BatchControlController {
+class AdminJobController {
 
     def backendDataService
     def courseImporterService

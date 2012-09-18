@@ -19,11 +19,16 @@ class UrlMappings {
 
         // Manually define other controllers here (otherwise they'll be swallowed by /$id --> professor/show/id!)
         "/login"(controller: "login", action: "auth")
-        "/batchControl"(controller: "batchControl")
         "/majors"(controller: "majors")
         "/error"(controller: "error")
         "/professors"(controller: "professorSearch")
-        "/data"(controller: "data")
+        "/data"(controller: "adminData")
+
+        // Admin...
+        "/admin"(controller: "adminDashboard")
+        "/admin/data"(controller: "adminData")
+        "/admin/jobs/$action?"(controller: "adminJob")
+        "/admin/auth"(controller: "authAdmin")
 
         // API
         "/api/"(controller: "apiHome")

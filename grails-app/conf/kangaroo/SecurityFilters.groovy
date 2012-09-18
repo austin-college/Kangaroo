@@ -23,6 +23,19 @@ class SecurityFilters {
                 return true;
             }
         }
+
+        all(controller: 'admin*', action: '*') {
+            before = {
+
+                // Ensure the user is authenticated as an admin.
+                if (!session.isAdmin) {
+                    redirect(controller: 'authAdmin')
+                    return false;
+                }
+
+                return true;
+            }
+        }
     }
 
     boolean isAuthenticated(request) {
