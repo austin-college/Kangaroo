@@ -36,6 +36,8 @@ class Building {
         type(nullable: true)
         address(maxSize: 256, nullable: true)
         photoUrl(nullable: true)
+        longitude(scale: 16)
+        latitude(scale: 16)
     }
 
     String toString() { name }
