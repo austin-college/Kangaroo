@@ -5,6 +5,6 @@ import kangaroo.Building
 
 class ApiBuildingController {
 
-    def index = { render(Building.list() as JSON) }
+    def index = { render(Building.list().collectEntries { [it.key, it]} as JSON) }
 
 }
