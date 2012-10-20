@@ -46,6 +46,7 @@ class UrlMappings {
             action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
         }
         "/api/rooRoute"(controller: "apiRooRoute", action: "index")
+        "/api/building/"(controller: "apiBuilding", action: "index")
 
         // Errors...
         "500"(controller: "error", action: "serverError")
