@@ -40,6 +40,12 @@ class Building {
         latitude(scale: 16)
     }
 
+    static mapping = {
+        columns {
+            key(column: "outback_key")
+        }
+    }
+
     String toString() { name }
 
     boolean getIsOnOfficialMap() { return numberOnMap > 0 }
