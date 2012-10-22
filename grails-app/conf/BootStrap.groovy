@@ -31,7 +31,7 @@ class BootStrap {
 
         // Create buildings.
         if (Building.count() == 0) {
-            JSON.parse(new URL("https://raw.github.com/austin-college/BootstrapData/master/buildings.json").text).each { data ->
+            JSON.parse(new URL("https://raw.github.com/austin-college/Data/master/buildings.json").text).each { data ->
                 def building = new Building();
                 building.key = data.remove("id")
                 building.properties = data;

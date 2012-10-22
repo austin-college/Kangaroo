@@ -51,7 +51,7 @@ class Building {
     boolean getIsOnOfficialMap() { return numberOnMap > 0 }
 
     def toJson() {
-        def map = [id: key, name: name, description: description, type: type, address: address,
+        def map = [id: key, name: name, description: description, type: type, photoUrl: photoUrl, address: address,
                 longitude: longitude, latitude: latitude, isOnOfficialMap: isOnOfficialMap];
 
         if (isOnOfficialMap)
