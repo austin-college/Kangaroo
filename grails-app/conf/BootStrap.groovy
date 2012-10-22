@@ -39,6 +39,18 @@ class BootStrap {
             }
         }
 
+        // Correct longitude and latitude.
+        JSON.parse(new URL("http://pastebin.com/raw.php?i=VZ95TE9H").text).each { data ->
+            def building = Building.findByNumberOnMap(data.numberOnMap) ?: Building.findByName(data.name);
+            if (building) {
+                building.longitude = new BigDecimal(data.longitude.toString());
+                building.latitude = new BigDecimal(data.latitude.toString());
+                building.save();
+            }
+            else
+                println "Couldn't find building for ${data.name}..."
+        }
+
         // Create user roles.
         if (AcRole.count() == 0) {
             ["ROLE_FACULTY", "ROLE_GUEST", "ROLE_ADMIN"].each { new AcRole(authority: it).save(flush: true) }
