@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'data_table.css')}"/>
-    <r:require modules="search" />
+    <r:require modules="search"/>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 </div>
 
 <div class="otherControls">
-    Show classes from <a href="#" class="selectable" id="selectTermLink">Fall 2012</a>
+    Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2013</a>
 
     in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
 
