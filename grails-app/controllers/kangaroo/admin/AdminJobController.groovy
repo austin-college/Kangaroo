@@ -20,7 +20,7 @@ class AdminJobController {
     // Define all the batch jobs here.
     def jobs = [
 
-            "12SP": [
+            "13SP": [
                     id: "13SP",
                     name: "Import 13SP",
                     run: { courseImporterService.importCourses(Term.get("13SP")) },
