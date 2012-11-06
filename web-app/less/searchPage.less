@@ -6,24 +6,27 @@
 //
 //==========================================================================
 
+#classTable {
+    .section {
+        color: #888888;
+        font-size: 12px;
+        padding-left: 3px;
+    }
+    td {
+        padding: 4px 10px 3px 10px;
+    }
+    tr td {
+        min-height: 44px;
+    }
+}
+
 #termSelector {
     width: 120px;
 }
 
-#classTable .section {
-    color: #888;
-    font-size: 12px;
-    padding-left: 3px;
-}
-
-#classTable td {
-    padding: 4px 10px 3px 10px;
-}
-
-
 #classTable_info {
     font-size: 16px;
-    color: #666;
+    color: #666666;
     padding: 8px 0 0 3px;
     width: auto;
 }
@@ -32,57 +35,42 @@
     padding: 8px 3px 0 0;
 }
 
-#classTable tr td {
-    min-height: 44px;
-}
-
-/**
- * Control term, department, etc.
- */
 .otherControls {
     margin-top: 35px;
     font-size: 14px;
-    color: #666;
+    color: #666666;
     text-align: center;
     margin-bottom: 15px;
+    .selectable {
+        margin-left: 3px;
+        margin-right: 3px;
+        font-weight: bold;
+        padding-bottom: 1px;
+        border-bottom: 1px solid #006ad9;
+    }
+    a.selectable:hover {
+        text-decoration: none;
+    }
+    input {
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    label {
+        width: 40px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #888888;
+        margin-right: 14px;
+        margin-top: -3px;
+    }
 }
 
-.otherControls .selectable {
-    margin-left: 3px;
-    margin-right: 3px;
-    font-weight: bold;
-    padding-bottom: 1px;
-    border-bottom: 1px solid #006ad9;
-}
-
-.otherControls a.selectable:hover {
-    text-decoration: none;
-}
-
-.otherControls input {
-    font-size: 12px;
-    margin-left: 10px;
-}
-
-.otherControls label {
-    width: 40px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #888;
-    margin-right: 14px;
-    margin-top: -3px;
-
-}
-
-/**
- * A big "hey! check this out!" blurb shown over the search page.
- */
 #newStuff {
     font-size: 18px;
     margin: 10px auto 30px auto;
     width: 400px;
     padding: 9px;
     text-align: center;
-    background-color: #dfd;
-    border: 1px solid #ded;
+    background-color: #ddffdd;
+    border: 1px solid #ddeedd;
 }
