@@ -25,9 +25,8 @@ class BootStrap {
 
     private def createDefaultData() {
 
-        // Create terms if we need to.
-        if (Term.count() == 0)
-            ["11FA", "12SP", "12SU", "12FA", "13SP"].each { Term.findOrCreate(it) }
+        // Fill in missing terms.
+        ["11FA", "12SP", "12SU", "12FA", "13SP"].each { Term.findOrCreate(it) }
 
         // Create buildings.
         if (Building.count() == 0) {
