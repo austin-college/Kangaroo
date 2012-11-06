@@ -40,6 +40,9 @@ class Professor {
 
     String officeNote;  // free text field for note
 
+    // Building the professor's office is associated with.
+    Building building;
+
     boolean isProfessor = true // True for professors, false for staff.
 
     static constraints = {
@@ -55,6 +58,7 @@ class Professor {
         email(nullable: true, email: true, maxSize: 128)
         officeNote(nullable: true, maxSize: 255)
         privateEditKey(maxSize: 32, blank: false, unique: true)
+        building(nullable: true)
     }
 
     static mapping = {
