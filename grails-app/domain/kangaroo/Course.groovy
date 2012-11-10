@@ -78,4 +78,12 @@ class Course {
     List<MeetingTime> getMeetingTimes() { CourseMeetingTime.findAllByCourse(this)*.meetingTime }
 
     String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=${section}&bookstore_id-1=239&term_id-1=${term.id}&div-1=&dept-1=${department.id}&course-1=${courseNumber}"}
+
+    def toJson() {
+        [id: this.id, name: this.name, description: this.description?.description, zap: this.zap, open: this.open,
+                capacity: this.capacity, isLab: this.isLab, hasLabs: this.hasLabs, instructorConsentRequired: this.instructorConsentRequired,
+                department: this.department, courseNumber: this.courseNumber, section: this.section.toString(), room: this.room, meetingTimes: this.meetingTimes*.toString(),
+                comments: this.comments
+        ];
+    }
 }

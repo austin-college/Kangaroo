@@ -61,4 +61,6 @@ class Term implements Serializable {
     }
 
     String toString() { return fullDescription; }
+
+    def toJson() { [id: this.id, description: this.fullDescription, year: this.year, season: this.season, isActive: this.id == Term.CURRENT_TERM_CODE] }
 }

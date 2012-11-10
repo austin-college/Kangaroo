@@ -88,26 +88,10 @@ class BootStrap {
     private def registerJsonTypes() {
 
         JSON.registerObjectMarshaller(Building) { it.toJson() }
-        JSON.registerObjectMarshaller(Course) { Course course ->
-            [id: course.id, name: course.name, description: course.description?.description, zap: course.zap, open: course.open,
-                    capacity: course.capacity, isLab: course.isLab, hasLabs: course.hasLabs, instructorConsentRequired: course.instructorConsentRequired,
-                    department: course.department, courseNumber: course.courseNumber, section: course.section.toString(), room: course.room, meetingTimes: course.meetingTimes*.toString(),
-                    comments: course.comments
-            ];
-        }
-        JSON.registerObjectMarshaller(Department) {
-            [id: it.id, name: it.name]
-        }
-        JSON.registerObjectMarshaller(MeetingTime) {
-            it.toString()
-        }
-        JSON.registerObjectMarshaller(Professor) { Professor it ->
-            return [id: it.id, firstName: it.firstName, middleName: it.middleName, lastName: it.lastName, title: it.title,
-                    departmentGroup: it.department, email: it.email, office: it.office, phone: it.phone, photoURL: it.photoUrl,
-                    officeHours: it.officeHours];
-        }
-        JSON.registerObjectMarshaller(Term) {
-            return [id: it.id, description: it.fullDescription, year: it.year, season: it.season, isActive: it.id == Term.CURRENT_TERM_CODE];
-        }
+        JSON.registerObjectMarshaller(Course) { it.toJson() }
+        JSON.registerObjectMarshaller(Department) { it.toJson() }
+        JSON.registerObjectMarshaller(MeetingTime) { it.toJson() }
+        JSON.registerObjectMarshaller(Professor) { it.toJson() }
+        JSON.registerObjectMarshaller(Term) { it.toJson() }
     }
 }

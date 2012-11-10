@@ -65,8 +65,6 @@ class Professor {
         id(column: 'user_id', generator: 'assigned')
     }
 
-    String toString() { name }
-
     /**
      * Returns a string representation of this professor's name.
      */
@@ -116,4 +114,12 @@ class Professor {
      * Returns true if the professor is having office hours RIGHT NOW.
      */
     boolean isInOfficeHours() { professorService.isInOfficeHours(this) }
+
+    String toString() { name }
+
+    def toJson() {
+        [id: this.id, firstName: this.firstName, middleName: this.middleName, lastName: this.lastName, title: this.title,
+                departmentGroup: this.department, email: this.email, office: this.office, phone: this.phone, photoURL: this.photoUrl,
+                officeHours: this.officeHours];
+    }
 }
