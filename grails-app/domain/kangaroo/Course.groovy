@@ -83,7 +83,7 @@ class Course {
         [id: this.id, name: this.name, description: this.description?.description, zap: this.zap, open: this.open,
                 capacity: this.capacity, isLab: this.isLab, hasLabs: this.hasLabs, instructorConsentRequired: this.instructorConsentRequired,
                 department: this.department, courseNumber: this.courseNumber, section: this.section.toString(), room: this.room, meetingTimes: this.meetingTimes*.toString(),
-                comments: this.comments
+                comments: this.comments, instructors: instructors
         ];
     }
 }
