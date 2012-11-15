@@ -20,6 +20,10 @@
 
 <bootstrap:flashMessages/>
 
+<g:if test="${!professor.isActive}">
+    <bootstrap:blockMessage type="warning" message="This professor is no longer teaching at Austin College."/>
+</g:if>
+
 <div id="professor">
     <g:render template="infoBlock" var="professor"/>
     <g:render template="schedule" var="professor"/>
