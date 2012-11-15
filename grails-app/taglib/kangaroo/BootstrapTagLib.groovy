@@ -12,7 +12,7 @@ class BootstrapTagLib {
      */
     def blockMessage = { attrs ->
         def type = attrs?.type ?: "success"
-        out << """<div class="alert-message block-message ${type}"><a class="close" href="#">×</a><p>${attrs.message}</p></div>""";
+        out << """<div class="alert-message block-message ${type}"><p>${attrs.message}</p></div>""";
     }
 
     def flashMessages = {
