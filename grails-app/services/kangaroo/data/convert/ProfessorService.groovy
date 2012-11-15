@@ -1,8 +1,7 @@
 package kangaroo.data.convert
 
-import org.springframework.transaction.annotation.Transactional
 import kangaroo.*
-
+import org.springframework.transaction.annotation.Transactional
 /**
  * Contains utility methods for professors.
  */
@@ -42,7 +41,7 @@ class ProfessorService {
 
             // Add these professors to the department's list...
             departmentToPeople[course.department.id] = departmentToPeople[course.department.id] ?: (Set) [] // Create an empty set first if it doesn't exist
-            departmentToPeople[course.department.id].addAll(course.instructors*.id);
+            departmentToPeople[course.department.id].addAll(course.instructors.findAll { it.isActive }*.id);
         }
     }
 
@@ -63,7 +62,7 @@ class ProfessorService {
         commonDepartments.each { code -> departments.remove(Department.get(code)); }
 
         // Sort the list, and save it.
-        peopleToDepartments[professor] = (departments as List).sort({a, b -> return a.name.compareTo(b.name)})*.id;
+        peopleToDepartments[professor] = (departments as List).sort({ a, b -> return a.name.compareTo(b.name) })*.id;
         return peopleToDepartments[professor].collect { Department.get(it) };
     }
 
@@ -108,7 +107,7 @@ class ProfessorService {
         rooms.remove("");
 
         // Sort the list.
-        return (rooms as List).sort({a, b -> return a.compareTo(b)});
+        return (rooms as List).sort({ a, b -> return a.compareTo(b) });
     }
 
     /**
