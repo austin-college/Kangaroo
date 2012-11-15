@@ -1,7 +1,7 @@
 import grails.converters.JSON
 import grails.util.Environment
-import kangaroo.api.EditKey
 import kangaroo.*
+import kangaroo.api.EditKey
 
 class BootStrap {
 
@@ -36,18 +36,6 @@ class BootStrap {
                 building.properties = data;
                 building.save()
             }
-        }
-
-        // Correct longitude and latitude.
-        JSON.parse(new URL("http://pastebin.com/raw.php?i=VZ95TE9H").text).each { data ->
-            def building = Building.findByNumberOnMap(data.numberOnMap) ?: Building.findByName(data.name);
-            if (building) {
-                building.longitude = new BigDecimal(data.longitude.toString());
-                building.latitude = new BigDecimal(data.latitude.toString());
-                building.save();
-            }
-            else
-                println "Couldn't find building for ${data.name}..."
         }
 
         // Create user roles.
