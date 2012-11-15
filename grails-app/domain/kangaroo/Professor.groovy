@@ -83,7 +83,7 @@ class Professor {
     /**
      * Returns all of the courses this professor is teaching in the current term.
      */
-    List<Course> getCurrentCursesTeaching() { coursesTeaching.findAll { it.term == Term.currentTerm} }
+    List<Course> getCurrentCursesTeaching() { coursesTeaching.findAll { it.term == Term.currentTerm } }
 
     /**
      * Returns this professor's office hours.
@@ -120,6 +120,6 @@ class Professor {
     def toJson() {
         [id: this.id, firstName: this.firstName, middleName: this.middleName, lastName: this.lastName, title: this.title,
                 departmentGroup: this.department, email: this.email, office: this.office, phone: this.phone, photoURL: this.photoUrl,
-                officeHours: this.officeHours];
+                isActive: this.isActive, officeHours: this.officeHours];
     }
 }
