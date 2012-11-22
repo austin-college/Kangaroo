@@ -1,7 +1,7 @@
 import grails.converters.JSON
 import grails.util.Environment
-import kangaroo.*
 import kangaroo.api.EditKey
+import kangaroo.*
 
 class BootStrap {
 
@@ -75,7 +75,7 @@ class BootStrap {
     private def registerJsonTypes() {
 
         // Be sure each type has a toJson() function.
-        [Building, Course, Department, MeetingTime, Professor, Term].each { type ->
+        [Building, Course, Department, Major, MeetingTime, Professor, Requirement, Term].each { type ->
             JSON.registerObjectMarshaller(type) { object -> object.toJson() }
         }
     }

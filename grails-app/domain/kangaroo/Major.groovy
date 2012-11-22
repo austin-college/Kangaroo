@@ -13,6 +13,7 @@ class Major {
     String description
 
     // Is this a major or a minor?
+    // @todo Deprecate in the new schema for a "type" enum.
     boolean isMajor
 
     Department department
@@ -21,4 +22,8 @@ class Major {
         name(maxSize: 128)
         description(maxSize: 8192)
     }
+
+    String toString() { name }
+
+    def toJson() { [name: name, desciption: description, type: isMajor ? "major" : "minor"] }
 }
