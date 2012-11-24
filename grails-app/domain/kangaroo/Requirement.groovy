@@ -27,5 +27,5 @@ class Requirement {
 
     String toString() { name }
 
-    def toJson() { [id: id, name: name, isInterdisciplinaryMajor: isInterdisciplinaryMajor]; }
+    def toJsonObject() { [id: id, name: name, isInterdisciplinaryMajor: isInterdisciplinaryMajor]; }
 }

@@ -22,5 +22,5 @@ class Department {
 
     String toString() { name }
 
-    def toJson() { [id: this.id, name: this.name] }
+    def toJsonObject() { [id: id, name: name] }
 }

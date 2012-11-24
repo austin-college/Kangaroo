@@ -46,11 +46,11 @@ class Building {
         }
     }
 
-    String toString() { name }
-
     boolean getIsOnOfficialMap() { return numberOnMap > 0 }
 
-    def toJson() {
+    String toString() { name }
+
+    def toJsonObject() {
         def map = [id: key, name: name, description: description, type: type, photoUrl: photoUrl, address: address,
                 longitude: longitude, latitude: latitude, isOnOfficialMap: isOnOfficialMap];
 

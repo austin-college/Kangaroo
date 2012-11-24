@@ -70,13 +70,13 @@ class BootStrap {
     }
 
     /**
-     * Customize how objects are formatted to JSON by Grails. Routes them to our "toJson()" functions.
+     * Customize how objects are formatted to JSON by Grails. Routes them to our "toJsonObject()" functions.
      */
     private def registerJsonTypes() {
 
-        // Be sure each type has a toJson() function.
+        // Be sure each type in the list has a toJsonObject() function.
         [Building, Course, Department, Major, MeetingTime, Professor, Requirement, Term].each { type ->
-            JSON.registerObjectMarshaller(type) { object -> object.toJson() }
+            JSON.registerObjectMarshaller(type) { object -> object.toJsonObject() }
         }
     }
 }

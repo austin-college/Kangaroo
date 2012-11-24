@@ -117,9 +117,9 @@ class Professor {
 
     String toString() { name }
 
-    def toJson() {
-        [id: this.id, firstName: this.firstName, middleName: this.middleName, lastName: this.lastName, title: this.title,
-                departmentGroup: this.department, email: this.email, office: this.office, phone: this.phone, photoURL: this.photoUrl,
-                isActive: this.isActive, officeHours: this.officeHours];
+    def toJsonObject() {
+        [id: id, firstName: firstName, middleName: middleName, lastName: lastName, title: title,
+                departmentGroup: department, email: email, office: office, phone: phone, photoURL: photoUrl,
+                isActive: isActive, officeHours: officeHours];
     }
 }

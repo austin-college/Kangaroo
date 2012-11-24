@@ -25,5 +25,5 @@ class Major {
 
     String toString() { name }
 
-    def toJson() { [name: name, desciption: description, type: isMajor ? "major" : "minor"] }
+    def toJsonObject() { [name: name, desciption: description, type: isMajor ? "major" : "minor"] }
 }
