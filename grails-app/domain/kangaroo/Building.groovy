@@ -50,6 +50,11 @@ class Building {
 
     String toString() { name }
 
+    static Building fromJsonObject(object) {
+        return new Building(key: object.id, name: object.name, description: object.description, type: object.type, photoUrl: object.photoUrl, address: object.address,
+                longitude: object.longitude, latitude: object.latitude).save()
+    }
+
     def toJsonObject() {
         def map = [id: key, name: name, description: description, type: type, photoUrl: photoUrl, address: address,
                 longitude: longitude, latitude: latitude, isOnOfficialMap: isOnOfficialMap];

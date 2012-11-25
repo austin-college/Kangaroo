@@ -2,6 +2,7 @@ package kangaroo.setup
 
 import grails.converters.JSON
 import kangaroo.AppUtils
+import kangaroo.Building
 import kangaroo.Professor
 import kangaroo.Term
 import kangaroo.mn.ProfessorOfficeHours
@@ -24,6 +25,7 @@ class SetupService {
         try {
             clearData()
             importTerms()
+            importBuildings()
             importPeople()
 
             setStatus("succeeded", "All done!")
@@ -37,6 +39,7 @@ class SetupService {
 
     def clearData() {
         startStage("Clearing Data")
+        clearTable(Building)
         clearTable(Teaching)
         clearTable(ProfessorOfficeHours)
         clearTable(Professor)
@@ -62,6 +65,14 @@ class SetupService {
         setStageStatus("succeeded", "${Professor.count()} people.")
     }
 
+    def importBuildings() {
+        startStage("Buildings")
+        fetchJson("/building").values().each { building ->
+            AppUtils.ensureNoErrors(Building.fromJsonObject(building))
+        }
+        setStageStatus("succeeded", Building.count + " buidings.")
+    }
+
     /**
      * Helper method for importPeople().
      */
@@ -75,7 +86,7 @@ class SetupService {
     /**
      * Deletes all objects of the given domain class. Throws an exception if unsuccessful.
      *
-     * @example clearTable ( Course )
+     * @example clearTable (Course)
      * @todo Use a TRUNCATE call instead (faster)
      */
     def clearTable(type) {
