@@ -25,13 +25,9 @@ class BootStrap {
 
     private def createDefaultData() {
 
-        // Fill in missing terms.
-        ["11FA", "12SP", "12SU", "12FA", "13SP"].each { Term.findOrCreate(it) }
-
         // Create user roles.
         if (AcRole.count() == 0) {
             ["ROLE_FACULTY", "ROLE_GUEST", "ROLE_ADMIN"].each { new AcRole(authority: it).save(flush: true) }
-            println "${AcRole.count()} roles created."
         }
 
         // Create API key used to edit data.

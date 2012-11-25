@@ -7,8 +7,10 @@ class HomeController {
     def dataTablesService
 
     def index = {
-        if (Course.count() == 0 || Professor.count() == 0)
+        if (Term.count() == 0 || Course.count() == 0 || Professor.count() == 0) {
             redirect(controller: "setup")
+            return;
+        }
 
         [tableJson: dataTablesService.getTableCached(Term.defaultSearchTerm), departmentsJson: (getDepartmentsMap() as JSON)]
     }
