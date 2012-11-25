@@ -22,6 +22,7 @@ class SetupService {
         reset();
         setStatus("running", "Running import...")
         try {
+            clearData()
             importTerms()
             importPeople()
 
@@ -34,12 +35,17 @@ class SetupService {
         }
     }
 
-    def importTerms() {
-        startStage("Terms")
+    def clearData() {
+        startStage("Clearing Data")
         clearTable(Teaching)
         clearTable(ProfessorOfficeHours)
         clearTable(Professor)
-        clearTable(Term);
+        clearTable(Term)
+        setStageStatus("succeeded", "All existing data cleared.")
+    }
+
+    def importTerms() {
+        startStage("Terms")
         fetchJson("/term").values().each { term ->
             AppUtils.ensureNoErrors(Term.fromJsonObject(term));
         }
@@ -48,22 +54,10 @@ class SetupService {
 
     def importPeople() {
         startStage("People")
-        clearTable(Teaching)
-        clearTable(ProfessorOfficeHours)
-        clearTable(Professor)
         def json = fetchJson("/person");
 
         json.faculty.values().each { savePersonFromJson(it, true) }
         json.staff.values().each { savePersonFromJson(it, false) }
-
-//        // Now save the office hours.
-//        json.faculty.values().each { object ->
-//            Professor professor = Professor.get(object.id);
-//            object.officeHours.each { string ->
-//                saveAndVerify(new ProfessorOfficeHours(professor: professor, term: Term.currentTerm, meetingTime: ensureNoErrors(ScheduleConvertService.convertMeetingTime(string).saveOrFind())))
-//            }
-//
-//        }
 
         setStageStatus("succeeded", "${Professor.count()} people.")
     }
@@ -72,7 +66,7 @@ class SetupService {
      * Helper method for importPeople().
      */
     def savePersonFromJson(def object, boolean isProfessor) {
-        logStage("Saving ${object?.id} (${isProfessor ? 'professor' : 'staff member'})")
+        logStage("Saving ${object.firstName} ${object.lastName} (" + (isProfessor ? "Professor" : "Staff Member'") + ")")
         def person = Professor.fromJsonObject(object)
         person.isProfessor = isProfessor;
         AppUtils.ensureNoErrors(person.save())
@@ -85,13 +79,11 @@ class SetupService {
      * @todo Use a TRUNCATE call instead (faster)
      */
     def clearTable(type) {
-        logStage("Clearing $type...");
+        logStage("Clearing ${type}...");
         type.findAll().each { it.delete(flush: true) }
 
         if (type.count() > 0)
             throw new Exception("The table related to $type was not emptied successfully.")
-
-        logStage("Done clearing $type.")
     }
 
     def reset() {
@@ -100,6 +92,8 @@ class SetupService {
                 message: "The state of the import is unknown.",
                 stages: []
         ];
+
+        println "\n** Restarting setup **\n"
     }
 
     /**
