@@ -18,6 +18,6 @@ class SetupController {
         if (SetupService.instance)
             render(SetupService.instance.status as JSON)
         else
-            render([status: "unknown", text: "Waiting for import to begin..."] as JSON)
+            render([status: "unknown", message: "Waiting for import to begin...", stages: []] as JSON)
     }
 }
