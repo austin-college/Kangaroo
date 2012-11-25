@@ -1,5 +1,6 @@
 package kangaroo
 
+import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.mn.Teaching
 
@@ -122,8 +123,16 @@ class Professor {
                 department: object.departmentGroup, email: object.email, office: object.office, phone: object.phone, photoUrl: object.photoURL,
                 isActive: object.isActive);
 
+        // First, save the professor.
         professor.id = object.id;
-        // @todo office hours!
+        AppUtils.ensureNoErrors(professor.save());
+
+        // Now save office hours.
+        object.officeHours.each { block ->
+
+            def meetingTime = ScheduleConvertService.convertMeetingTime(block).saveOrFind();
+            AppUtils.ensureNoErrors(new ProfessorOfficeHours(professor: professor, term: Term.currentTerm, meetingTime: meetingTime).save());
+        }
 
         return professor;
     }

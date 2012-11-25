@@ -2,9 +2,10 @@ package kangaroo
 
 import grails.util.Environment
 import groovy.util.slurpersupport.GPathResult
-import java.security.SecureRandom
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
+
+import java.security.SecureRandom
 
 /**
  * Useful stuff.
@@ -55,6 +56,13 @@ public class AppUtils {
 
     static boolean isDateBetween(Date toTest, Date start, Date end) {
         return (toTest > start) && (toTest < end);
+    }
+
+    static def ensureNoErrors(object) {
+        if (object?.errors?.errorCount == 0)
+            return object
+
+        throw new Exception("$object has validation errors: ${object?.errors}")
     }
 
     // Our cheap&easy way to parse currency.

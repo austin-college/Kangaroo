@@ -1,8 +1,11 @@
 package kangaroo.setup
 
 import grails.converters.JSON
+import kangaroo.AppUtils
 import kangaroo.Professor
 import kangaroo.Term
+import kangaroo.mn.ProfessorOfficeHours
+import kangaroo.mn.Teaching
 
 class SetupService {
 
@@ -27,26 +30,40 @@ class SetupService {
         catch (Exception e) {
             e.printStackTrace()
             setStageStatus("failed", "Exception: " + e.toString())
-            setStatus("failed", "Shoot! We hit a bump while importing ${currentStage().name}...")
+            setStatus("failed", "Shoot! Error while importing ${currentStage().name}...")
         }
     }
 
     def importTerms() {
         startStage("Terms")
+        clearTable(Teaching)
+        clearTable(ProfessorOfficeHours)
+        clearTable(Professor)
         clearTable(Term);
         fetchJson("/term").values().each { term ->
-            Term.fromJsonObject(term).save();
+            AppUtils.ensureNoErrors(Term.fromJsonObject(term));
         }
         setStageStatus("succeeded", "${Term.count()} terms.");
     }
 
     def importPeople() {
         startStage("People")
+        clearTable(Teaching)
+        clearTable(ProfessorOfficeHours)
         clearTable(Professor)
         def json = fetchJson("/person");
 
         json.faculty.values().each { savePersonFromJson(it, true) }
         json.staff.values().each { savePersonFromJson(it, false) }
+
+//        // Now save the office hours.
+//        json.faculty.values().each { object ->
+//            Professor professor = Professor.get(object.id);
+//            object.officeHours.each { string ->
+//                saveAndVerify(new ProfessorOfficeHours(professor: professor, term: Term.currentTerm, meetingTime: ensureNoErrors(ScheduleConvertService.convertMeetingTime(string).saveOrFind())))
+//            }
+//
+//        }
 
         setStageStatus("succeeded", "${Professor.count()} people.")
     }
@@ -55,9 +72,10 @@ class SetupService {
      * Helper method for importPeople().
      */
     def savePersonFromJson(def object, boolean isProfessor) {
+        logStage("Saving ${object?.id} (${isProfessor ? 'professor' : 'staff member'})")
         def person = Professor.fromJsonObject(object)
         person.isProfessor = isProfessor;
-        saveAndVerify(person)
+        AppUtils.ensureNoErrors(person.save())
     }
 
     /**
@@ -74,16 +92,6 @@ class SetupService {
             throw new Exception("The table related to $type was not emptied successfully.")
 
         logStage("Done clearing $type.")
-    }
-
-    /**
-     * Saves the object, throwing an exception if any exceptions occurred.
-     */
-    def saveAndVerify(Professor object) {
-        logStage("Saving $object...")
-        object.save();
-        if (object.errors.errorCount)
-            throw new Exception("$object has validation errors: ${object.errors}")
     }
 
     def reset() {
