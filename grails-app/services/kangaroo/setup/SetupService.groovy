@@ -25,7 +25,8 @@ class SetupService {
             setStatus("succeeded", "All done!")
         }
         catch (Exception e) {
-            setStageStatus("failed", "Exception: " + e.message)
+            e.printStackTrace()
+            setStageStatus("failed", "Exception: " + e.toString())
             setStatus("failed", "Shoot! We hit a bump while importing ${currentStage().name}...")
         }
     }
@@ -42,8 +43,21 @@ class SetupService {
     def importPeople() {
         startStage("People")
         clearTable(Professor)
+        def json = fetchJson("/person");
+
+        json.faculty.values().each { savePersonFromJson(it, true) }
+        json.staff.values().each { savePersonFromJson(it, false) }
 
         setStageStatus("succeeded", "${Professor.count()} people.")
+    }
+
+    /**
+     * Helper method for importPeople().
+     */
+    def savePersonFromJson(def object, boolean isProfessor) {
+        def person = Professor.fromJsonObject(object)
+        person.isProfessor = isProfessor;
+        saveAndVerify(person)
     }
 
     /**
@@ -58,6 +72,18 @@ class SetupService {
 
         if (type.count() > 0)
             throw new Exception("The table related to $type was not emptied successfully.")
+
+        logStage("Done clearing $type.")
+    }
+
+    /**
+     * Saves the object, throwing an exception if any exceptions occurred.
+     */
+    def saveAndVerify(Professor object) {
+        logStage("Saving $object...")
+        object.save();
+        if (object.errors.errorCount)
+            throw new Exception("$object has validation errors: ${object.errors}")
     }
 
     def reset() {

@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
+    <title>Kangaroo Setup</title>
     <style type="text/css">
     .setupBox {
         width: 500px;
@@ -60,7 +61,7 @@
                         refreshStatus()
                     }
                 });
-                setInterval(refreshStatus, 400);
+                window.setupRefreshInterval = setInterval(refreshStatus, 50);
             });
         });
 
@@ -74,6 +75,10 @@
                     $.each(response.stages, function (i, stage) {
                         $("#importProgress .stages").append("<li class='status_" + stage.status + "'><b>" + stage.name + "</b>: " + stage.message + "</li>");
                     });
+
+                    // Stop refreshing when the import ends.
+                    if (response.status != 'running')
+                        clearInterval(window.setupRefreshInterval);
                 }
             });
         }
