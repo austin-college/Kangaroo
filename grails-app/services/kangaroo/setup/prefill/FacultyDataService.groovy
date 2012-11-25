@@ -1,7 +1,6 @@
-package kangaroo.data.prefill
+package kangaroo.setup.prefill
 
 import kangaroo.Professor
-import org.codehaus.groovy.grails.web.json.JSONObject
 
 /**
  * Downloads the faculty page from GitHub.

@@ -1,4 +1,4 @@
-package kangaroo.data.prefill
+package kangaroo.setup.prefill
 
 import grails.converters.JSON
 import kangaroo.Department

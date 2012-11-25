@@ -23,6 +23,7 @@ class UrlMappings {
         "/error"(controller: "error")
         "/professors"(controller: "professorSearch")
         "/data"(controller: "adminData")
+        "/setup"(controller: "setup", action: "index")
 
         // Admin...
         "/admin"(controller: "adminDashboard")

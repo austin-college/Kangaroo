@@ -1,11 +1,9 @@
-package kangaroo.data.prefill
+package kangaroo.setup.prefill
 
-import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.Professor
-import kangaroo.data.BackendDataService
-import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.Term
-
+import kangaroo.data.convert.ScheduleConvertService
+import kangaroo.mn.ProfessorOfficeHours
 
 class OfficeHoursDataService extends UpdateableDataService {
 

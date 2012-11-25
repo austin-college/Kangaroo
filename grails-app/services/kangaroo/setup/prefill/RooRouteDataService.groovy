@@ -1,4 +1,4 @@
-package kangaroo.data.prefill
+package kangaroo.setup.prefill
 
 class RooRouteDataService extends UpdateableDataService {
 

@@ -1,13 +1,15 @@
 package kangaroo
 
 import grails.converters.JSON
-import kangaroo.data.BackendDataService
 
 class HomeController {
 
     def dataTablesService
 
     def index = {
+        if (Course.count() == 0 || Professor.count() == 0)
+            redirect(controller: "setup")
+
         [tableJson: dataTablesService.getTableCached(Term.defaultSearchTerm), departmentsJson: (getDepartmentsMap() as JSON)]
     }
 
