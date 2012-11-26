@@ -1,7 +1,5 @@
 package kangaroo
 
-import kangaroo.data.BackendDataService
-
 class CourseController {
 
     def index = {
