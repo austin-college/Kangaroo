@@ -25,5 +25,9 @@ class Major {
 
     String toString() { name }
 
+    static Major fromJsonObject(object) {
+        return (Major) AppUtils.saveSafely(new Major(name: object.name, description: object.description, department: Department.fromJsonObject(object.department), isMajor: (object.type == "major")));
+    }
+
     def toJsonObject() { [name: name, desciption: description, type: isMajor ? "major" : "minor"] }
 }

@@ -1,12 +1,9 @@
 package kangaroo.setup
 
 import grails.converters.JSON
-import kangaroo.AppUtils
-import kangaroo.Building
-import kangaroo.Professor
-import kangaroo.Term
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.mn.Teaching
+import kangaroo.*
 
 class SetupService {
 
@@ -26,6 +23,7 @@ class SetupService {
             clearData()
             importTerms()
             importBuildings()
+            importMajors()
             importPeople()
 
             setStatus("succeeded", "All done!")
@@ -38,8 +36,9 @@ class SetupService {
     }
 
     def clearData() {
-        startStage("Clearing Data")
+        startStage("Clearing Existing Data")
         clearTable(Building)
+        clearTable(Major)
         clearTable(Teaching)
         clearTable(ProfessorOfficeHours)
         clearTable(Professor)
@@ -71,6 +70,12 @@ class SetupService {
             AppUtils.ensureNoErrors(Building.fromJsonObject(building))
         }
         setStageStatus("succeeded", Building.count + " buidings.")
+    }
+
+    def importMajors() {
+        startStage("Majors")
+        fetchJson("/major").each { Major.fromJsonObject(it) }
+        setStageStatus("succeeded", Major.count + " majors.")
     }
 
     /**

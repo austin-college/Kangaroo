@@ -65,6 +65,15 @@ public class AppUtils {
         throw new Exception("$object has validation errors: ${object?.errors}")
     }
 
+    static def saveSafely(object) {
+        if (object == null)
+            throw new Exception("Object pased to saveSafely() was null.")
+
+        object.save();
+        ensureNoErrors(object)
+        return object;
+    }
+
     // Our cheap&easy way to parse currency.
     static double parseCurrency(amount) {
         Double.parseDouble(amount[1..-1]);
