@@ -72,6 +72,10 @@ public class AppUtils {
         return joinedString[0].toLowerCase() + joinedString[1..-1];
     }
 
+    static def fixFakeNull(object) {
+        return (object.equals(null) ? null : object);
+    }
+
     static boolean isDateBetween(Date toTest, Date start, Date end) {
         return (toTest > start) && (toTest < end);
     }

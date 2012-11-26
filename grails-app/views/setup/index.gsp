@@ -56,6 +56,7 @@
 
                 $.ajax({
                     url:contextPath + "/setup/startImport",
+                    cache:false,
                     success:function (response) {
                         refreshStatus()
                     }, error:function (response) {

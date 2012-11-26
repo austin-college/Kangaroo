@@ -28,6 +28,9 @@ class Requirement {
     String toString() { name }
 
     static Requirement saveFromJsonObject(object) {
+        if (Requirement.get(object.id))
+            return Requirement.get(object.id);
+
         def requirement = new Requirement(name: object.name, isInterdisciplinaryMajor: object.isInterdisciplinaryMajor)
         requirement.id = object.id;
         return (Requirement) AppUtils.saveSafely(requirement);

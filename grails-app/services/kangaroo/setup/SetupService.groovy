@@ -12,6 +12,7 @@ class SetupService {
     public static SetupService instance;
 
     private def outbackRoot;
+    def cacheService
 
     public def status = [:]
 
@@ -30,7 +31,8 @@ class SetupService {
             importDepartments()
             importMajors()
             importPeople()
-
+            importCourses()
+            initCache()
             setStatus("succeeded", "All done!")
         }
         catch (Exception e) {
@@ -56,6 +58,8 @@ class SetupService {
     def clearData() {
         startStage("Clearing Existing Data")
 
+        cacheService.clearCache()
+
         // Remove m-n classes first.
         clearTable(CourseFulfillsRequirement)
         clearTable(CourseMeetingTime)
@@ -66,11 +70,12 @@ class SetupService {
         clearTable(Major)
         clearTable(Professor)
 
-        clearTable(Department)
-        clearTable(Term)
-
         clearTable(RooRouteStop)
         clearTable(Building)
+        clearTable(Course)
+
+        clearTable(Department)
+        clearTable(Term)
         setStageStatus("succeeded", "All existing data cleared.")
     }
 
@@ -118,6 +123,23 @@ class SetupService {
         startStage("Roo Route")
         fetchJson("/rooRoute").values().each { RooRouteStop.saveFromJsonObject(it) }
         setStageStatus("succeeded", RooRouteStop.count + " stops.")
+    }
+
+    def importCourses() {
+        Term.list().each { Term term ->
+            startStage("Courses (${term.id})")
+            fetchJson("/term/" + term.id).courses.values().each {
+                logStage("Saving ${it.name}...")
+                Course.saveFromJsonObject(it, term)
+            }
+            setStageStatus("succeeded", "Some courses in $term.")
+        }
+    }
+
+    def initCache() {
+        startStage("Init Cache")
+        cacheService.initializeCacheIfNeeded()
+        setStageStatus("succeeded", "Cache is ready to go")
     }
 
     /**
