@@ -50,7 +50,7 @@ class Building {
 
     String toString() { name }
 
-    static Building fromJsonObject(object) {
+    static Building saveFromJsonObject(object) {
         return (Building) AppUtils.saveSafely(new Building(key: object.id, name: object.name, description: object.description, type: object.type, photoUrl: object.photoUrl, address: object.address,
                 longitude: object.longitude, latitude: object.latitude));
     }

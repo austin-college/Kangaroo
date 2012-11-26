@@ -68,7 +68,7 @@ class SetupService {
 
     def importTerms() {
         startStage("Terms")
-        fetchJson("/term").values().each {Term.fromJsonObject(it) }
+        fetchJson("/term").values().each {Term.saveFromJsonObject(it) }
         setStageStatus("succeeded", "${Term.count()} terms.");
     }
 
@@ -84,25 +84,25 @@ class SetupService {
 
     def importBuildings() {
         startStage("Buildings")
-        fetchJson("/building").values().each { Building.fromJsonObject(it) }
+        fetchJson("/building").values().each { Building.saveFromJsonObject(it) }
         setStageStatus("succeeded", Building.count + " buidings.")
     }
 
     def importDepartments() {
         startStage("Departments")
-        fetchJson("/department").each { Department.fromJsonObject(it) }
+        fetchJson("/department").each { Department.saveFromJsonObject(it) }
         setStageStatus("succeeded", Department.count + " departments.")
     }
 
     def importMajors() {
         startStage("Majors")
-        fetchJson("/major").each { Major.fromJsonObject(it) }
+        fetchJson("/major").each { Major.saveFromJsonObject(it) }
         setStageStatus("succeeded", Major.count + " majors.")
     }
 
     def importRequirements() {
         startStage("Requirements")
-        fetchJson("/requirement").each { Requirement.fromJsonObject(it) }
+        fetchJson("/requirement").each { Requirement.saveFromJsonObject(it) }
         setStageStatus("succeeded", Requirement.count + " requirements.")
     }
 
@@ -111,7 +111,7 @@ class SetupService {
      */
     def savePersonFromJson(def object, boolean isProfessor) {
         logStage("Saving ${object.firstName} ${object.lastName} (" + (isProfessor ? "Professor" : "Staff Member") + ")")
-        def person = Professor.fromJsonObject(object)
+        def person = Professor.saveFromJsonObject(object)
         person.isProfessor = isProfessor;
         AppUtils.ensureNoErrors(person.save())
     }

@@ -22,7 +22,7 @@ class Department {
 
     String toString() { name }
 
-    static Department fromJsonObject(object) {
+    static Department saveFromJsonObject(object) {
         if (Department.get(object.id))
             return Department.get(object.id)
         else {

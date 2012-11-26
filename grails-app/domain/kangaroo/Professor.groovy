@@ -118,7 +118,7 @@ class Professor {
 
     String toString() { name }
 
-    static Professor fromJsonObject(object) {
+    static Professor saveFromJsonObject(object) {
         def professor = new Professor(firstName: object.firstName, middleName: object.middleName, lastName: object.lastName, title: object.title,
                 department: object.departmentGroup, email: object.email, office: object.office, phone: object.phone, photoUrl: object.photoURL,
                 isActive: object.isActive);
