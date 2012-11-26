@@ -23,7 +23,7 @@
         font-size: 16px;
         line-height: 20px;
         color: #666;
-        font-style: italic;
+        font-weight: bold;
     }
 
     #importProgress .status {
@@ -31,8 +31,8 @@
         margin: 15px 0;
     }
 
-    #importProgress .li {
-        padding: 5px 0;
+    #importProgress .stages li {
+        padding: 4px 0;
     }
 
     .status_succeeded {
@@ -41,6 +41,7 @@
 
     .status_running {
         color: #888235;
+        font-style: italic;
     }
 
     .status_failed {
