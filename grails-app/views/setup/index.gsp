@@ -77,7 +77,7 @@
                     });
 
                     // Stop refreshing when the import ends.
-                    if (response.status != 'running')
+                    if (response.status != 'running' && response.status != 'unknown')
                         clearInterval(window.setupRefreshInterval);
                 }
             });
