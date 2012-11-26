@@ -1,6 +1,8 @@
 package kangaroo.setup
 
 import grails.converters.JSON
+import kangaroo.mn.CourseFulfillsRequirement
+import kangaroo.mn.CourseMeetingTime
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.mn.Teaching
 import kangaroo.*
@@ -52,17 +54,20 @@ class SetupService {
      */
     def clearData() {
         startStage("Clearing Existing Data")
-        clearTable(Building)
-        clearTable(Requirement)
 
-        clearTable(Major)
-        clearTable(Department)
-
-        clearTable(Teaching)
+        // Remove m-n classes first.
+        clearTable(CourseFulfillsRequirement)
+        clearTable(CourseMeetingTime)
         clearTable(ProfessorOfficeHours)
+        clearTable(Teaching)
+
+        clearTable(Requirement)
+        clearTable(Major)
         clearTable(Professor)
 
+        clearTable(Department)
         clearTable(Term)
+        clearTable(Building)
         setStageStatus("succeeded", "All existing data cleared.")
     }
 
