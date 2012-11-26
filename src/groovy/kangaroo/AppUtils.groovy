@@ -54,6 +54,24 @@ public class AppUtils {
         }
     }
 
+    /**
+     * Converts the given string into a safe camelCase version for IDs.
+     * @note This is probably the most poorly-performing function of the type ever written.
+     */
+    static def camelCase(String string) {
+        def filteredString = string.replaceAll("[^A-Za-z0-9 ]", "");
+
+        // Split the string by words, ensuring that each starts with an uppercase character.
+        def words = filteredString.split(" ");
+        def uppercasedWords = words.collect { word ->
+            return word[0].toUpperCase() + word[1..-1]
+        }
+
+        // Join them together and lowercase the first character.
+        def joinedString = uppercasedWords.join("");
+        return joinedString[0].toLowerCase() + joinedString[1..-1];
+    }
+
     static boolean isDateBetween(Date toTest, Date start, Date end) {
         return (toTest > start) && (toTest < end);
     }

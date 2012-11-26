@@ -44,7 +44,7 @@ class SetupService {
      * some tables must be cleared before others. I've grouped these tables with blank lines.
      *
      * Here are the explicit dependencies:
-     * - Department is referred to by Major (clear Major first)
+     * - Department is referred to by Major, Course (clear Major and Course first)
      * - Professor is referred to by Teaching, ProfessorOfficeHours (clear Teaching, ProfessorOfficeHours first...)
      * - Term is referred to by Teaching
      *
