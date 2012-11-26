@@ -23,6 +23,7 @@ class SetupService {
             clearData()
             importTerms()
             importBuildings()
+            importRequirements()
             importDepartments()
             importMajors()
             importPeople()
@@ -52,6 +53,7 @@ class SetupService {
     def clearData() {
         startStage("Clearing Existing Data")
         clearTable(Building)
+        clearTable(Requirement)
 
         clearTable(Major)
         clearTable(Department)
@@ -66,9 +68,7 @@ class SetupService {
 
     def importTerms() {
         startStage("Terms")
-        fetchJson("/term").values().each { term ->
-            AppUtils.ensureNoErrors(Term.fromJsonObject(term));
-        }
+        fetchJson("/term").values().each {Term.fromJsonObject(it) }
         setStageStatus("succeeded", "${Term.count()} terms.");
     }
 
@@ -79,14 +79,12 @@ class SetupService {
         json.faculty.values().each { savePersonFromJson(it, true) }
         json.staff.values().each { savePersonFromJson(it, false) }
 
-        setStageStatus("succeeded", "${Professor.count()} people.")
+        setStageStatus("succeeded", Professor.count() + " people (" + Professor.countByIsProfessor(true) + " faculty and " + Professor.countByIsProfessor(false) + " staff)")
     }
 
     def importBuildings() {
         startStage("Buildings")
-        fetchJson("/building").values().each { building ->
-            AppUtils.ensureNoErrors(Building.fromJsonObject(building))
-        }
+        fetchJson("/building").values().each { Building.fromJsonObject(it) }
         setStageStatus("succeeded", Building.count + " buidings.")
     }
 
@@ -102,11 +100,17 @@ class SetupService {
         setStageStatus("succeeded", Major.count + " majors.")
     }
 
+    def importRequirements() {
+        startStage("Requirements")
+        fetchJson("/requirement").each { Requirement.fromJsonObject(it) }
+        setStageStatus("succeeded", Requirement.count + " requirements.")
+    }
+
     /**
      * Helper method for importPeople().
      */
     def savePersonFromJson(def object, boolean isProfessor) {
-        logStage("Saving ${object.firstName} ${object.lastName} (" + (isProfessor ? "Professor" : "Staff Member'") + ")")
+        logStage("Saving ${object.firstName} ${object.lastName} (" + (isProfessor ? "Professor" : "Staff Member") + ")")
         def person = Professor.fromJsonObject(object)
         person.isProfessor = isProfessor;
         AppUtils.ensureNoErrors(person.save())

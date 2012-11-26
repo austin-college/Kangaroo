@@ -27,5 +27,11 @@ class Requirement {
 
     String toString() { name }
 
+    static Requirement fromJsonObject(object) {
+        def requirement = new Requirement(name: object.name, isInterdisciplinaryMajor: object.isInterdisciplinaryMajor)
+        requirement.id = object.id;
+        return (Requirement) AppUtils.saveSafely(requirement);
+    }
+
     def toJsonObject() { [id: id, name: name, isInterdisciplinaryMajor: isInterdisciplinaryMajor]; }
 }
