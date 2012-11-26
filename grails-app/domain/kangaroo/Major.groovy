@@ -29,5 +29,5 @@ class Major {
         return (Major) AppUtils.saveSafely(new Major(name: object.name, description: object.description, department: Department.fromJsonObject(object.department), isMajor: (object.type == "major")));
     }
 
-    def toJsonObject() { [name: name, desciption: description, type: isMajor ? "major" : "minor"] }
+    def toJsonObject() { [name: name, description: description, department: department, type: isMajor ? "major" : "minor"] }
 }
