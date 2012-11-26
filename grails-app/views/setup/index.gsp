@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Kangaroo Setup</title>
+    <title>Setup Kangaroo</title>
     <style type="text/css">
     .setupBox {
         width: 500px;

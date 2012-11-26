@@ -23,6 +23,7 @@ class SetupService {
             clearData()
             importTerms()
             importBuildings()
+            importDepartments()
             importMajors()
             importPeople()
 
@@ -35,13 +36,30 @@ class SetupService {
         }
     }
 
+    /**
+     * Clears all data from all tables that will be touched by the importer.
+     *
+     * Note that there are some dependencies (foreign key references) between tables, so
+     * some tables must be cleared before others. I've grouped these tables with blank lines.
+     *
+     * Here are the explicit dependencies:
+     * - Department is referred to by Major (clear Major first)
+     * - Professor is referred to by Teaching, ProfessorOfficeHours (clear Teaching, ProfessorOfficeHours first...)
+     * - Term is referred to by Teaching
+     *
+     * http://xkcd.com/754/
+     */
     def clearData() {
         startStage("Clearing Existing Data")
         clearTable(Building)
+
         clearTable(Major)
+        clearTable(Department)
+
         clearTable(Teaching)
         clearTable(ProfessorOfficeHours)
         clearTable(Professor)
+
         clearTable(Term)
         setStageStatus("succeeded", "All existing data cleared.")
     }
@@ -72,6 +90,12 @@ class SetupService {
         setStageStatus("succeeded", Building.count + " buidings.")
     }
 
+    def importDepartments() {
+        startStage("Departments")
+        fetchJson("/department").each { Department.fromJsonObject(it) }
+        setStageStatus("succeeded", Department.count + " departments.")
+    }
+
     def importMajors() {
         startStage("Majors")
         fetchJson("/major").each { Major.fromJsonObject(it) }
@@ -95,7 +119,7 @@ class SetupService {
      * @todo Use a TRUNCATE call instead (faster)
      */
     def clearTable(type) {
-        logStage("Clearing ${type}...");
+        logStage("Clearing data for ${type}...");
         type.findAll().each { it.delete(flush: true) }
 
         if (type.count() > 0)
