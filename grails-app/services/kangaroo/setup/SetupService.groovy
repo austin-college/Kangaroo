@@ -25,6 +25,7 @@ class SetupService {
             clearData()
             importTerms()
             importBuildings()
+            importRooRouteStop()
             importRequirements()
             importDepartments()
             importMajors()
@@ -67,6 +68,8 @@ class SetupService {
 
         clearTable(Department)
         clearTable(Term)
+
+        clearTable(RooRouteStop)
         clearTable(Building)
         setStageStatus("succeeded", "All existing data cleared.")
     }
@@ -90,7 +93,7 @@ class SetupService {
     def importBuildings() {
         startStage("Buildings")
         fetchJson("/building").values().each { Building.saveFromJsonObject(it) }
-        setStageStatus("succeeded", Building.count + " buidings.")
+        setStageStatus("succeeded", Building.count + " buildings.")
     }
 
     def importDepartments() {
@@ -109,6 +112,12 @@ class SetupService {
         startStage("Requirements")
         fetchJson("/requirement").each { Requirement.saveFromJsonObject(it) }
         setStageStatus("succeeded", Requirement.count + " requirements.")
+    }
+
+    def importRooRouteStop() {
+        startStage("Roo Route")
+        fetchJson("/rooRoute").values().each { RooRouteStop.saveFromJsonObject(it) }
+        setStageStatus("succeeded", RooRouteStop.count + " stops.")
     }
 
     /**

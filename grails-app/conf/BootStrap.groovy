@@ -34,7 +34,7 @@ class BootStrap {
         if (EditKey.count() == 0)
             new EditKey().save();
 
-        // Create phil's local account for development since he isn't on LDAP.
+        // Create phil's local account for development since he isn't on LDAP.k
         if (Environment.current == Environment.DEVELOPMENT && !AcUser.findByUsername("pcohen")) {
             println "Creating pcohen's account..."
             def phil = new AcUser(username: "pcohen", password: "pcohen").save();
@@ -50,7 +50,7 @@ class BootStrap {
     private def registerJsonTypes() {
 
         // Be sure each type in the list has a toJsonObject() function.
-        [Building, Course, Department, Major, MeetingTime, Professor, Requirement, Term].each { type ->
+        [Building, Course, Department, Major, MeetingTime, Professor, Requirement, RooRouteStop, Term].each { type ->
             JSON.registerObjectMarshaller(type) { object -> object.toJsonObject() }
         }
     }
