@@ -46,15 +46,6 @@ class BootStrap {
     }
 
     private def oneTimeImport() {
-        PhoneNumber.findAll().each { it.delete(flush: true) }
-        if (PhoneNumber.count == 0) {
-            JSON.parse(new URL("https://raw.github.com/austin-college/Data/master/importantNumbers.json").text).data.each {
-                println "Saving ${it}..."
-                PhoneNumber.saveFromJsonObject(it)
-            }
-
-            println PhoneNumber.count + " phone numbers."
-        }
     }
 
     /**
