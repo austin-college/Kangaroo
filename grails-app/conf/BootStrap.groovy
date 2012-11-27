@@ -46,6 +46,14 @@ class BootStrap {
     }
 
     private def oneTimeImport() {
+
+        // Give majors ids.
+        Major.list().each { major ->
+            if (!major.outbackId) {
+                major.outbackId = AppUtils.camelCase(major.name)
+                AppUtils.saveSafely(major);
+            }
+        }
     }
 
     /**
