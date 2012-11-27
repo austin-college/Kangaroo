@@ -28,8 +28,9 @@ class PhoneNumber {
     }
 
     static PhoneNumber saveFromJsonObject(object) {
-        if (PhoneNumber.get(object.id))
-            return PhoneNumber.get(object.id)
+        if (PhoneNumber.findByOutbackId(object.id)) {
+            return PhoneNumber.findByOutbackId(object.id)
+        }
 
         def id = object.id ?: AppUtils.camelCase(object.name)
         return (PhoneNumber) AppUtils.saveSafely(new PhoneNumber(outbackId: id, name: object.name, phone: object.phone, address: object.address, email: object.email));
