@@ -61,10 +61,15 @@ public class AppUtils {
     static def camelCase(String string) {
         def filteredString = string.replaceAll("[^A-Za-z0-9 ]", "");
 
-        // Split the string by words, ensuring that each starts with an uppercase character.
+        // Split the string by words, ensuring that each word starts with an uppercase character.
         def words = filteredString.split(" ");
         def uppercasedWords = words.collect { word ->
-            return word[0].toUpperCase() + word[1..-1]
+            word = word.trim()
+
+            if (word.length() > 1)
+                return word[0].toUpperCase() + word[1..-1]
+            else
+                return word.toUpperCase()
         }
 
         // Join them together and lowercase the first character.
