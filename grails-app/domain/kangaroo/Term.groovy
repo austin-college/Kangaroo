@@ -63,6 +63,9 @@ class Term implements Serializable {
     String toString() { return fullDescription; }
 
     static def saveFromJsonObject(object) {
+        if (Term.get(object.id))
+            return Term.get(object.id)
+
         def term = new Term()
         term.id = object.id;
         return AppUtils.saveSafely(term.save());

@@ -81,6 +81,9 @@ class Course {
     String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=${section}&bookstore_id-1=239&term_id-1=${term.id}&div-1=&dept-1=${department.id}&course-1=${courseNumber}"}
 
     static Course saveFromJsonObject(object, Term term) { // @todo eliminate reliance on Term here
+        if (Course.get(object.id))
+            return Course.get(object.id)
+
         def course = new Course(name: object.name, description: BigText.getOrCreate(AppUtils.fixFakeNull(object.description)), zap: object.zap, open: object.open,
                 capacity: object.capacity, isLab: object.isLab, hasLabs: object.hasLabs, instructorConsentRequired: object.instructorConsentRequired,
                 department: Department.saveFromJsonObject(object.department), courseNumber: object.courseNumber, section: object.section.toString(),

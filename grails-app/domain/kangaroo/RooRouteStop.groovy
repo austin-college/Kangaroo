@@ -26,6 +26,9 @@ class RooRouteStop {
     String toString() { name }
 
     static RooRouteStop saveFromJsonObject(object) {
+        if (RooRouteStop.findByOutbackId(object.id))
+            return RooRouteStop.findByOutbackId(object.id)
+
         return (RooRouteStop) AppUtils.saveSafely(new RooRouteStop(outbackId: object.id, name: object.name, time: object.time,
                 funnyDescription: object.funnyDescription, longitude: object.longitude, latitude: object.latitude));
     }

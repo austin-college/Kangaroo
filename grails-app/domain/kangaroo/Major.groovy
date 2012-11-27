@@ -30,6 +30,9 @@ class Major {
     String toString() { name }
 
     static Major saveFromJsonObject(object) {
+        if (Major.findByOutbackId(object.id))
+            return Major.findByOutbackId(object.id)
+
         def outbackId = object.id ?: AppUtils.camelCase(object.name + " " + object.type)
         return (Major) AppUtils.saveSafely(new Major(outbackId: outbackId, name: object.name, description: object.description, department: Department.saveFromJsonObject(object.department), isMajor: (object.type == "major")));
     }
