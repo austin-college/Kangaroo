@@ -10,7 +10,7 @@ class SetupController {
     def index = {}
 
     def startImport = {
-        setupService.runSetup("http://localhost:6060/Kangaroo/api");
+        setupService.runSetup();
         render([] as JSON)
     }
 
