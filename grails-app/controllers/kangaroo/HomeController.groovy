@@ -7,7 +7,7 @@ class HomeController {
     def dataTablesService
 
     def index = {
-        if (Term.count() == 0 || Course.count() == 0 || Professor.count() == 0) {
+        if (SetupController.setupRequired()) {
             redirect(controller: "setup")
             return;
         }
