@@ -26,6 +26,7 @@ class SetupService {
             clearData()
             importTerms()
             importBuildings()
+            importPhoneNumbers()
             importRooRouteStop()
             importRequirements()
             importDepartments()
@@ -70,6 +71,7 @@ class SetupService {
         clearTable(Major)
         clearTable(Professor)
 
+        clearTable(PhoneNumber)
         clearTable(RooRouteStop)
         clearTable(Building)
         clearTable(Course)
@@ -134,6 +136,12 @@ class SetupService {
             }
             setStageStatus("succeeded", "Some courses in $term.")
         }
+    }
+
+    def importPhoneNumbers() {
+        startStage("Phone Numbers")
+        fetchJson("/importantNumbers").each { PhoneNumber.saveFromJsonObject(it) }
+        setStageStatus("succeeded", PhoneNumber.count + " numbers.")
     }
 
     def initCache() {
