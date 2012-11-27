@@ -16,6 +16,7 @@ class BootStrap {
 
         registerJsonTypes()
         createDefaultData()
+        oneTimeImport()
 
         println "\n==============================\n"
     }
@@ -44,13 +45,25 @@ class BootStrap {
         }
     }
 
+    private def oneTimeImport() {
+        PhoneNumber.findAll().each { it.delete(flush: true) }
+        if (PhoneNumber.count == 0) {
+            JSON.parse(new URL("https://raw.github.com/austin-college/Data/master/importantNumbers.json").text).data.each {
+                println "Saving ${it}..."
+                PhoneNumber.saveFromJsonObject(it)
+            }
+
+            println PhoneNumber.count + " phone numbers."
+        }
+    }
+
     /**
      * Customize how objects are formatted to JSON by Grails. Routes them to our "toJsonObject()" functions.
      */
     private def registerJsonTypes() {
 
         // Be sure each type in the list has a toJsonObject() function.
-        [Building, Course, Department, Major, MeetingTime, Professor, Requirement, RooRouteStop, Term].each { type ->
+        [Building, Course, Department, Major, MeetingTime, PhoneNumber, Professor, Requirement, RooRouteStop, Term].each { type ->
             JSON.registerObjectMarshaller(type) { object -> object.toJsonObject() }
         }
     }

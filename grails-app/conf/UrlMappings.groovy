@@ -51,6 +51,7 @@ class UrlMappings {
         "/api/requirement/"(controller: "apiRequirement", action: "list")
         "/api/major/"(controller: "apiMajor", action: "list")
         "/api/department/"(controller: "apiDepartment", action: "list")
+        "/api/importantNumbers"(controller: "apiV1", action: "importantNumbers")
 
         // Errors...
         "500"(controller: "error", action: "serverError")
