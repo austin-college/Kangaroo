@@ -1,8 +1,8 @@
-package kangaroo.data.fetch
+package kangaroo.setup.fetch
 
 import grails.test.GrailsUnitTestCase
 import kangaroo.AppUtils
-import kangaroo.data.prefill.FacultyDataService
+import kangaroo.setup.prefill.FacultyDataService
 
 class FacultyDataUnitTests extends GrailsUnitTestCase {
 

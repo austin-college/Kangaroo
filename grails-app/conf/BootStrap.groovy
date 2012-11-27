@@ -16,6 +16,7 @@ class BootStrap {
 
         registerJsonTypes()
         createDefaultData()
+        oneTimeImport()
 
         println "\n==============================\n"
     }
@@ -25,30 +26,16 @@ class BootStrap {
 
     private def createDefaultData() {
 
-        // Fill in missing terms.
-        ["11FA", "12SP", "12SU", "12FA", "13SP"].each { Term.findOrCreate(it) }
-
-        // Create buildings.
-        if (Building.count() == 0) {
-            JSON.parse(new URL("https://raw.github.com/austin-college/Data/master/buildings.json").text).each { data ->
-                def building = new Building();
-                building.key = data.remove("id")
-                building.properties = data;
-                building.save()
-            }
-        }
-
         // Create user roles.
         if (AcRole.count() == 0) {
             ["ROLE_FACULTY", "ROLE_GUEST", "ROLE_ADMIN"].each { new AcRole(authority: it).save(flush: true) }
-            println "${AcRole.count()} roles created."
         }
 
         // Create API key used to edit data.
         if (EditKey.count() == 0)
             new EditKey().save();
 
-        // Create phil's local account for development since he isn't on LDAP.
+        // Create phil's local account for development since he isn't on LDAP.k
         if (Environment.current == Environment.DEVELOPMENT && !AcUser.findByUsername("pcohen")) {
             println "Creating pcohen's account..."
             def phil = new AcUser(username: "pcohen", password: "pcohen").save();
@@ -56,16 +43,17 @@ class BootStrap {
             AcUserAcRole.create(phil, AcRole.findByAuthority("ROLE_FACULTY"));
             println "...done; ${AcUser.count()} users and ${AcUserAcRole.count()} user-roles"
         }
+    }
 
-        if (Environment.current != Environment.TEST) {
-            backendDataService.upgradeAllIfNeeded()
-
-            // Import courses if we need to.
-            if (Course.count() == 0) {
-
-                println "Downloading course files..."
-                Term.list().each { courseImporterService.importCourses(it) }
+    private def oneTimeImport() {
+        PhoneNumber.findAll().each { it.delete(flush: true) }
+        if (PhoneNumber.count == 0) {
+            JSON.parse(new URL("https://raw.github.com/austin-college/Data/master/importantNumbers.json").text).data.each {
+                println "Saving ${it}..."
+                PhoneNumber.saveFromJsonObject(it)
             }
+
+            println PhoneNumber.count + " phone numbers."
         }
     }
 
@@ -75,7 +63,7 @@ class BootStrap {
     private def registerJsonTypes() {
 
         // Be sure each type in the list has a toJsonObject() function.
-        [Building, Course, Department, Major, MeetingTime, Professor, Requirement, Term].each { type ->
+        [Building, Course, Department, Major, MeetingTime, PhoneNumber, Professor, Requirement, RooRouteStop, Term].each { type ->
             JSON.registerObjectMarshaller(type) { object -> object.toJsonObject() }
         }
     }

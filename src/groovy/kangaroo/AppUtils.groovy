@@ -2,9 +2,10 @@ package kangaroo
 
 import grails.util.Environment
 import groovy.util.slurpersupport.GPathResult
-import java.security.SecureRandom
 import org.htmlcleaner.HtmlCleaner
 import org.htmlcleaner.SimpleXmlSerializer
+
+import java.security.SecureRandom
 
 /**
  * Useful stuff.
@@ -53,8 +54,51 @@ public class AppUtils {
         }
     }
 
+    /**
+     * Converts the given string into a safe camelCase version for IDs.
+     * @note This is probably the most poorly-performing function of the type ever written.
+     */
+    static def camelCase(String string) {
+        def filteredString = string.replaceAll("[^A-Za-z0-9 ]", "");
+
+        // Split the string by words, ensuring that each word starts with an uppercase character.
+        def words = filteredString.split(" ");
+        def uppercasedWords = words.collect { word ->
+            word = word.trim()
+
+            if (word.length() > 1)
+                return word[0].toUpperCase() + word[1..-1]
+            else
+                return word.toUpperCase()
+        }
+
+        // Join them together and lowercase the first character.
+        def joinedString = uppercasedWords.join("");
+        return joinedString[0].toLowerCase() + joinedString[1..-1];
+    }
+
+    static def fixFakeNull(object) {
+        return (object.equals(null) ? null : object);
+    }
+
     static boolean isDateBetween(Date toTest, Date start, Date end) {
         return (toTest > start) && (toTest < end);
+    }
+
+    static def ensureNoErrors(object) {
+        if (object?.errors?.errorCount == 0)
+            return object
+
+        throw new Exception("$object has validation errors: ${object?.errors}")
+    }
+
+    static def saveSafely(object) {
+        if (object == null)
+            throw new Exception("Object pased to saveSafely() was null.")
+
+        object.save();
+        ensureNoErrors(object)
+        return object;
     }
 
     // Our cheap&easy way to parse currency.

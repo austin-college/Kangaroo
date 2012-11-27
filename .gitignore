@@ -2,13 +2,11 @@ target/
 out/
 logs/
 
-dev_db.h2.db
-dev_db.lock.db
+*.db
 
 stacktrace.log
 .DS_Store
 .idea/
 *.iml
-dev_db.trace.db
 
 /target-eclipse/

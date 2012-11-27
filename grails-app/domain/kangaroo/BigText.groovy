@@ -1,5 +1,7 @@
 package kangaroo
 
+import org.codehaus.groovy.grails.web.json.JSONObject
+
 class BigText {
 
     String id
@@ -20,6 +22,9 @@ class BigText {
     }
 
     static BigText getOrCreate(String description) {
+        if (!description)
+            return null;
+
         def id = description.encodeAsMD5();
         if (BigText.get(id))
             return BigText.get(id);

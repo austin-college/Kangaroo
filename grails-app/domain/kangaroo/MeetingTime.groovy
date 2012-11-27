@@ -54,7 +54,7 @@ class MeetingTime {
         if (MeetingTime.find(this))
             return MeetingTime.find(this);
         else
-            return save();
+            return AppUtils.ensureNoErrors(save());
     }
 
     boolean equals(Object other) { toString() == other.toString() }

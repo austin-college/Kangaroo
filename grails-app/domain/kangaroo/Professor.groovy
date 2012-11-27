@@ -1,5 +1,6 @@
 package kangaroo
 
+import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.mn.Teaching
 
@@ -116,6 +117,25 @@ class Professor {
     boolean isInOfficeHours() { professorService.isInOfficeHours(this) }
 
     String toString() { name }
+
+    static Professor saveFromJsonObject(object) {
+        def professor = new Professor(firstName: object.firstName, middleName: object.middleName, lastName: object.lastName, title: object.title,
+                department: object.departmentGroup, email: object.email, office: object.office, phone: object.phone, photoUrl: object.photoURL,
+                isActive: object.isActive);
+
+        // First, save the professor.
+        professor.id = object.id;
+        AppUtils.ensureNoErrors(professor.save());
+
+        // Now save office hours.
+        object.officeHours.each { block ->
+
+            def meetingTime = ScheduleConvertService.convertMeetingTime(block).saveOrFind();
+            AppUtils.ensureNoErrors(new ProfessorOfficeHours(professor: professor, term: Term.currentTerm, meetingTime: meetingTime).save());
+        }
+
+        return professor;
+    }
 
     def toJsonObject() {
         [id: id, firstName: firstName, middleName: middleName, lastName: lastName, title: title,

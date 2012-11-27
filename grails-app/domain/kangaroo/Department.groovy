@@ -22,5 +22,15 @@ class Department {
 
     String toString() { name }
 
+    static Department saveFromJsonObject(object) {
+        if (Department.get(object.id))
+            return Department.get(object.id)
+        else {
+            def department = new Department(name: object.name);
+            department.id = object.id;
+            return (Department) AppUtils.saveSafely(department)
+        }
+    }
+
     def toJsonObject() { [id: id, name: name] }
 }
