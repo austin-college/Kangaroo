@@ -40,6 +40,9 @@ class Professor {
 
     String officeNote;  // free text field for note
 
+    // Building the professor's office is associated with.
+    Building building;
+
     boolean isProfessor = true // True for professors, false for staff.
 
     static constraints = {
@@ -55,13 +58,12 @@ class Professor {
         email(nullable: true, email: true, maxSize: 128)
         officeNote(nullable: true, maxSize: 255)
         privateEditKey(maxSize: 32, blank: false, unique: true)
+        building(nullable: true)
     }
 
     static mapping = {
         id(column: 'user_id', generator: 'assigned')
     }
-
-    String toString() { name }
 
     /**
      * Returns a string representation of this professor's name.
@@ -81,7 +83,7 @@ class Professor {
     /**
      * Returns all of the courses this professor is teaching in the current term.
      */
-    List<Course> getCurrentCursesTeaching() { coursesTeaching.findAll { it.term == Term.currentTerm} }
+    List<Course> getCurrentCursesTeaching() { coursesTeaching.findAll { it.term == Term.currentTerm } }
 
     /**
      * Returns this professor's office hours.
@@ -112,4 +114,12 @@ class Professor {
      * Returns true if the professor is having office hours RIGHT NOW.
      */
     boolean isInOfficeHours() { professorService.isInOfficeHours(this) }
+
+    String toString() { name }
+
+    def toJsonObject() {
+        [id: id, firstName: firstName, middleName: middleName, lastName: lastName, title: title,
+                departmentGroup: department, email: email, office: office, phone: phone, photoURL: photoUrl,
+                isActive: isActive, officeHours: officeHours];
+    }
 }

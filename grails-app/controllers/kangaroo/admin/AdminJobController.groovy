@@ -20,11 +20,11 @@ class AdminJobController {
     // Define all the batch jobs here.
     def jobs = [
 
-            "12FA": [
-                    id: "12FA",
-                    name: "Re-Import 12FA",
-                    run: { courseImporterService.importCourses(Term.get("12FA")) },
-                    status: {"Ready; ${Course.countByTerm(Term.get("12FA"))} existing courses to scrub"}
+            "13SP": [
+                    id: "13SP",
+                    name: "Import 13SP",
+                    run: { courseImporterService.importCourses(Term.get("13SP")) },
+                    status: {"Ready; ${Course.countByTerm(Term.get("13SP"))} existing courses to scrub"}
             ],
             "reImport": [
                     id: "reImport",

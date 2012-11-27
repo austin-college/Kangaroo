@@ -47,6 +47,9 @@ class UrlMappings {
         }
         "/api/rooRoute"(controller: "apiRooRoute", action: "index")
         "/api/building/"(controller: "apiBuilding", action: "index")
+        "/api/requirement/"(controller: "apiRequirement", action: "list")
+        "/api/major/"(controller: "apiMajor", action: "list")
+        "/api/department/"(controller: "apiDepartment", action: "list")
 
         // Errors...
         "500"(controller: "error", action: "serverError")

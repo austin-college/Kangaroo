@@ -14,22 +14,25 @@ class BackendDataService {
     def officeHoursDataService
     def staffDataService
     def professorService
-    def cacheService
 
     @Transactional
     def upgradeAllIfNeeded() {
 
         println "\nUpgrading backend data..."
-        departmentDataService.upgradeIfNeeded()
-        majorDataService.upgradeIfNeeded()
-        requirementsDataService.upgradeIfNeeded()
+        try {
+            departmentDataService.upgradeIfNeeded()
+            majorDataService.upgradeIfNeeded()
+            requirementsDataService.upgradeIfNeeded()
 
-        if (Professor.count() == 0)
-            facultyDataService.upgradeIfNeeded()
-        officeHoursDataService.upgradeIfNeeded()
-        staffDataService.upgradeIfNeeded()
-        rooRouteDataService.upgradeIfNeeded()
-
+            if (Professor.count() == 0)
+                facultyDataService.upgradeIfNeeded()
+            officeHoursDataService.upgradeIfNeeded()
+            staffDataService.upgradeIfNeeded()
+            rooRouteDataService.upgradeIfNeeded()
+        }
+        catch (UnknownHostException) {
+            println "Couldn't connect to github data."
+        }
         AppUtils.runAndTime("Calculated related professors") {
             professorService.calculateRelatedProfessors();
         }

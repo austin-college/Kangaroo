@@ -61,4 +61,6 @@ class MeetingTime {
 
     String toString() { "$daysAsString $startTime $endTime" }
 
+    def toJsonObject() { toString() }
+
 }

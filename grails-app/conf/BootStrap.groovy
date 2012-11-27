@@ -25,9 +25,8 @@ class BootStrap {
 
     private def createDefaultData() {
 
-        // Create terms if we need to.
-        if (Term.count() == 0)
-            ["11FA", "12SP", "12SU", "12FA"].each { Term.findOrCreate(it) }
+        // Fill in missing terms.
+        ["11FA", "12SP", "12SU", "12FA", "13SP"].each { Term.findOrCreate(it) }
 
         // Create buildings.
         if (Building.count() == 0) {
@@ -37,18 +36,6 @@ class BootStrap {
                 building.properties = data;
                 building.save()
             }
-        }
-
-        // Correct longitude and latitude.
-        JSON.parse(new URL("http://pastebin.com/raw.php?i=VZ95TE9H").text).each { data ->
-            def building = Building.findByNumberOnMap(data.numberOnMap) ?: Building.findByName(data.name);
-            if (building) {
-                building.longitude = new BigDecimal(data.longitude.toString());
-                building.latitude = new BigDecimal(data.latitude.toString());
-                building.save();
-            }
-            else
-                println "Couldn't find building for ${data.name}..."
         }
 
         // Create user roles.
@@ -83,32 +70,13 @@ class BootStrap {
     }
 
     /**
-     * Customize how objects are formatted to JSON by Grails.
-     * It's silly that we have to do this via explicit commands.
+     * Customize how objects are formatted to JSON by Grails. Routes them to our "toJsonObject()" functions.
      */
     private def registerJsonTypes() {
 
-        JSON.registerObjectMarshaller(Building) { it.toJson() }
-        JSON.registerObjectMarshaller(Course) { Course course ->
-            [id: course.id, name: course.name, description: course.description?.description, zap: course.zap, open: course.open,
-                    capacity: course.capacity, isLab: course.isLab, hasLabs: course.hasLabs, instructorConsentRequired: course.instructorConsentRequired,
-                    department: course.department, courseNumber: course.courseNumber, section: course.section.toString(), room: course.room, meetingTimes: course.meetingTimes*.toString(),
-                    comments: course.comments
-            ];
-        }
-        JSON.registerObjectMarshaller(Department) {
-            [id: it.id, name: it.name]
-        }
-        JSON.registerObjectMarshaller(MeetingTime) {
-            it.toString()
-        }
-        JSON.registerObjectMarshaller(Professor) { Professor it ->
-            return [id: it.id, firstName: it.firstName, middleName: it.middleName, lastName: it.lastName, title: it.title,
-                    departmentGroup: it.department, email: it.email, office: it.office, phone: it.phone, photoURL: it.photoUrl,
-                    officeHours: it.officeHours];
-        }
-        JSON.registerObjectMarshaller(Term) {
-            return [id: it.id, description: it.fullDescription, year: it.year, season: it.season, isActive: it.id == Term.CURRENT_TERM_CODE];
+        // Be sure each type in the list has a toJsonObject() function.
+        [Building, Course, Department, Major, MeetingTime, Professor, Requirement, Term].each { type ->
+            JSON.registerObjectMarshaller(type) { object -> object.toJsonObject() }
         }
     }
 }

@@ -26,4 +26,6 @@ class Requirement {
     List<Course> getCoursesThatFulfill() { CourseFulfillsRequirement.findAllByRequirement(this)*.course; }
 
     String toString() { name }
+
+    def toJsonObject() { [id: id, name: name, isInterdisciplinaryMajor: isInterdisciplinaryMajor]; }
 }

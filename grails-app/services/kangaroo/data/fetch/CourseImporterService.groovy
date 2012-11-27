@@ -25,7 +25,6 @@ class CourseImporterService {
     def deleteCourses(Term term) {
 
         println "Deleting ALL courses for term $term..."
-
         Course.findAllByTerm(term).each { deleteSingleCourse(it) }
         cacheService.clearCache();
     }
@@ -70,10 +69,13 @@ class CourseImporterService {
 
         // Naturally we'll want to clear the cache.
         cacheService.clearCache()
+
+        println "\n=== DONE IMPORTING $term ===\n"
     }
 
 //    @Transactional
     def saveSingleCourse(Term term, Map data) {
+//        println "Processing ${data['name']}..."
         def description = data.remove("description")?.replaceAll("Formerly", "<br/>Formerly")
         Course course = (data as Course)
         course.term = term
@@ -103,7 +105,8 @@ class CourseImporterService {
         course.id = course.generateIdString()
         def courseRequirements = getRequirements(data.reqCode).collect { new CourseFulfillsRequirement(course: course, requirement: it) }
         def meetingTimes = []
-        data.schedules.each {
+        Set<String> schedules = new HashSet<String>(data.schedules);
+        schedules.each { it ->
             def time = ScheduleConvertService.convertMeetingTime(it)?.saveOrFind()
             if (time)
                 meetingTimes << new CourseMeetingTime(course: course, meetingTime: time)
