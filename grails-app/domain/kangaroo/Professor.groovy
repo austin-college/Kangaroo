@@ -44,6 +44,7 @@ class Professor {
     // Building the professor's office is associated with.
     Building building;
 
+    // @todo deprecate for "type" enum
     boolean isProfessor = true // True for professors, false for staff.
 
     static constraints = {
@@ -118,12 +119,12 @@ class Professor {
 
     String toString() { name }
 
-    static Professor saveFromJsonObject(object) {
+    static Professor saveFromJsonObject(object, boolean isProfessor) { // @todo deprecate reliance on isProfessor here
         if (Professor.get(object.id))
             return Professor.get(object.id)
 
         def professor = new Professor(firstName: object.firstName, middleName: object.middleName, lastName: object.lastName, title: object.title,
-                department: object.departmentGroup, email: object.email, office: object.office, phone: object.phone, photoUrl: object.photoURL,
+                department: object.departmentGroup, isProfessor: isProfessor, email: object.email, office: object.office, phone: object.phone, photoUrl: object.photoURL,
                 isActive: object.isActive);
 
         // First, save the professor.
@@ -141,7 +142,7 @@ class Professor {
     }
 
     def toJsonObject() {
-        [id: id, firstName: firstName, middleName: middleName, lastName: lastName, title: title,
+        [id: id, firstName: firstName, middleName: middleName, lastName: lastName, type: (isProfessor ? "faculty" : "staff"), title: title,
                 departmentGroup: department, email: email, office: office, phone: phone, photoURL: photoUrl,
                 isActive: isActive, officeHours: officeHours];
     }

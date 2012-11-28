@@ -155,8 +155,7 @@ class SetupService {
      */
     def savePersonFromJson(def object, boolean isProfessor) {
         logStage("Saving ${object.firstName} ${object.lastName} (" + (isProfessor ? "Professor" : "Staff Member") + ")")
-        def person = Professor.saveFromJsonObject(object)
-        person.isProfessor = isProfessor;
+        def person = Professor.saveFromJsonObject(object, isProfessor)
         AppUtils.ensureNoErrors(person.save())
     }
 
