@@ -34,8 +34,8 @@ class Major {
             return Major.findByOutbackId(object.id)
 
         def outbackId = object.id ?: AppUtils.camelCase(object.name + " " + object.type)
-        return (Major) AppUtils.saveSafely(new Major(outbackId: outbackId, name: object.name, description: object.description, department: Department.saveFromJsonObject(object.department), isMajor: (object.type == "major")));
+        return (Major) AppUtils.saveSafely(new Major(outbackId: outbackId, name: object.name, description: object.htmlDescription, department: Department.saveFromJsonObject(object.department), isMajor: (object.type == "major")));
     }
 
-    def toJsonObject() { [id: outbackId, name: name, description: description, department: department, type: isMajor ? "major" : "minor"] }
+    def toJsonObject() { [id: outbackId, name: name, htmlDescription: description, department: department, type: isMajor ? "major" : "minor"] }
 }
