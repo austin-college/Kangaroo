@@ -24,10 +24,10 @@ class Term implements Serializable {
     }
 
     // Returns the current term.
-    static Term getCurrentTerm() { return Term.get(CURRENT_TERM_CODE) }
+    static Term getCurrentTerm() { return Term.get(Setting.getSetting("currentTermCode")) }
 
     // Returns the current term.
-    static Term getDefaultSearchTerm() { return Term.get(DEFAULT_SEARCH_TERM_CODE) }
+    static Term getDefaultSearchTerm() { return Term.get(Setting.getSetting("defaultSearchTermCode")) }
 
     /**
      * Formats this term nicely (i.e., "Fall 2012").

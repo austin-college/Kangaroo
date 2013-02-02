@@ -6,8 +6,6 @@ import kangaroo.*
 class BootStrap {
 
     // Services to initialize our data.
-    def backendDataService
-    def courseImporterService
     def grailsApplication
 
     def init = { servletContext ->
@@ -31,11 +29,19 @@ class BootStrap {
             ["ROLE_FACULTY", "ROLE_GUEST", "ROLE_ADMIN"].each { new AcRole(authority: it).save(flush: true) }
         }
 
+        // Create default settings.
+        if (!Setting.findByName("currentTermCode")) {
+            Setting.put("currentTermCode", "13SP")
+        }
+        if (!Setting.findByName("defaultSearchTermCode")) {
+            Setting.put("defaultSearchTermCode", "13SP")
+        }
+
         // Create API key used to edit data.
         if (EditKey.count() == 0)
             new EditKey().save();
 
-        // Create phil's local account for development since he isn't on LDAP.k
+        // Create phil's local account for development since he isn't on LDAP.
         if (Environment.current == Environment.DEVELOPMENT && !AcUser.findByUsername("pcohen")) {
             println "Creating pcohen's account..."
             def phil = new AcUser(username: "pcohen", password: "pcohen").save();
