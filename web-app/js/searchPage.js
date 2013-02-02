@@ -30,7 +30,7 @@ $(document).ready(function () {
  */
 function getTableData(term) {
     $.ajax({
-        url:document.Kangaroo.contextPath + "/home/getData",
+        url:document.Kangaroo.url("/home/getData"),
         data:{term:term},
         success:function (response) {
             setupTable({aaData:response.table.aaData}, originalTableHtml);

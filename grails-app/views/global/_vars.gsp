@@ -8,6 +8,9 @@
         "defaultSearchTerm":"${Setting.getSetting("defaultSearchTermCode").encodeAsJavaScript()}",
         "terms":{
             ${kangaroo.Term.list().collect { term -> "\"${term.id}\": \"${term.fullDescription}\"" }.join(", ") }
+        },
+        "url":function (path) {
+            return document.Kangaroo.contextPath + path;
         }
     };
 

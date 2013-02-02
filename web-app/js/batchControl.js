@@ -7,9 +7,8 @@
 //================================================================
 
 $(document).ready(function () {
-
     $.ajax({
-        url:document.Kangaroo.contextPath + "/admin/jobs/getJobList",
+        url:document.Kangaroo.url("/admin/jobs/getJobList"),
         success:function (response) {
             $.each(response, function (key, value) {
                 addJob(key, value);
@@ -17,14 +16,13 @@ $(document).ready(function () {
         }
     });
 
-
     $("a.runLink").live('click', function () {
         var job = $(this).attr('rel');
         var dom = $(this).parent().parent();
         setStatusMessage(dom, "<i>Working...</i>");
 
         $.ajax({
-            url:document.Kangaroo.contextPath + "/admin/jobs/runJob",
+            url:document.Kangaroo.url("/admin/jobs/runJob"),
             data:{job:job},
             success:function (response) {
                 setStatusMessage(dom, getCompletionStatus(response));
