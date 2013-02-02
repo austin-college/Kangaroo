@@ -30,7 +30,7 @@ $(document).ready(function () {
 
     // Set up the table!
     $("#tableSearch").focus();
-    setupTable(tableRaw);
+    getTableData("13SP");
 });
 
 /**

@@ -12,7 +12,7 @@ class HomeController {
             return;
         }
 
-        [tableJson: dataTablesService.getTableCached(Term.defaultSearchTerm), departmentsJson: (getDepartmentsMap() as JSON)]
+        [departmentsJson: (getDepartmentsMap() as JSON)]
     }
 
     /**

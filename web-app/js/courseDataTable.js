@@ -18,7 +18,7 @@ $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
  */
 function setupTable(data, originalHtml) {
 
-    // If the table already exists on the page, drop it first before recreasing. [PC] @todo This is a bit sloppy.
+    // If the table already exists on the page, drop it first before recreating. [PC] @todo This is a bit sloppy.
     if (objTable)
         destroyTable(originalHtml);
 
