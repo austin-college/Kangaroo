@@ -13,7 +13,7 @@ class Term implements Serializable {
     String id // The registrar short code ("11FA", "12SP", "13JA") - everything is derived from this one field!
 
     // Define the current term (for calendars) and default search term (for the search table).
-    static final String CURRENT_TERM_CODE = "12FA", DEFAULT_SEARCH_TERM_CODE = "13SP"
+    static final String CURRENT_TERM_CODE = "13SP", DEFAULT_SEARCH_TERM_CODE = "13SP"
 
     static constraints = {
         id(maxSize: 4)
