@@ -7,14 +7,6 @@
 //
 //==========================================================================
 
-var terms = {
-    "11FA":"Fall 2011",
-    "12SP":"Spring 2012",
-    "12SU":"Summer 2012",
-    "12FA":"Fall 2012",
-    "13SP":"Spring 2013"
-};
-
 var departments = {};
 var originalTableHtml;
 
@@ -30,7 +22,7 @@ $(document).ready(function () {
 
     // Set up the table!
     $("#tableSearch").focus();
-    getTableData("13SP");
+    getTableData(document.Kangaroo.defaultSearchTerm);
 });
 
 /**
@@ -38,7 +30,7 @@ $(document).ready(function () {
  */
 function getTableData(term) {
     $.ajax({
-        url:contextPath + "/home/getData",
+        url:document.Kangaroo.contextPath + "/home/getData",
         data:{term:term},
         success:function (response) {
             setupTable({aaData:response.table.aaData}, originalTableHtml);
@@ -54,7 +46,7 @@ function contextMenuClicked(action, el, pos) {
     if ($(el).attr('id') == "selectTermLink") {
 
         // Fetch data for this term and reload the table.
-        $("#selectTermLink").text(terms[action]);
+        $("#selectTermLink").text(document.Kangaroo.terms[action]);
         getTableData(action);
     }
     else if ($(el).attr('id') == "selectDepartmentLink") {

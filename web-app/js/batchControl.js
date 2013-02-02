@@ -9,7 +9,7 @@
 $(document).ready(function () {
 
     $.ajax({
-        url:contextPath + "/admin/jobs/getJobList",
+        url:document.Kangaroo.contextPath + "/admin/jobs/getJobList",
         success:function (response) {
             $.each(response, function (key, value) {
                 addJob(key, value);
@@ -24,7 +24,7 @@ $(document).ready(function () {
         setStatusMessage(dom, "<i>Working...</i>");
 
         $.ajax({
-            url:contextPath + "/admin/jobs/runJob",
+            url:document.Kangaroo.contextPath + "/admin/jobs/runJob",
             data:{job:job},
             success:function (response) {
                 setStatusMessage(dom, getCompletionStatus(response));

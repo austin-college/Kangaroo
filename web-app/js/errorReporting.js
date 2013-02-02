@@ -68,7 +68,7 @@ function submitBugReport() {
         cache:false,
         dataType:'json',
         type:'POST',
-        url:contextPath + '/error/reportBug',
+        url:document.Kangaroo.contextPath + '/error/reportBug',
         data:{"sourceUri":sourceUrl, "browser":getBrowserInfo() },
         error:function (response) {
             $("#submitStatus").text("Kangaroo failed to submit the bug report.");
@@ -97,7 +97,7 @@ function submitFollowup() {
     $("#extraInfo").css({ opacity:0.7 });
 
     // In development, this is our first report, not our followup.
-    var url = contextPath + '/error/' + (isInProduction ? 'addBugDetails' : 'reportBug');
+    var url = document.Kangaroo.contextPath + '/error/' + (isInProduction ? 'addBugDetails' : 'reportBug');
     var data = {"email":$("#userEmail").val(), "reportDetails":$("#reportDetails").val() };
 
     if (!isInProduction) { // So add more data in development too.

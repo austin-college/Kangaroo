@@ -52,9 +52,5 @@
         <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
     </g:each>
 </ul>
-
-<script type="text/javascript">
-    var tableRaw = ${tableJson};
-</script>
 </body>
 </html>

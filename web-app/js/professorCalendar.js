@@ -18,11 +18,11 @@ $(document).ready(function () {
         eventSources:[
 
             {
-                url:contextPath + "/professor/getSchedule/" + professorId
+                url:document.Kangaroo.contextPath + "/professor/getSchedule/" + professorId
             },
 
             {
-                url:contextPath + "/professor/getOfficeHours/" + professorId,
+                url:document.Kangaroo.contextPath + "/professor/getOfficeHours/" + professorId,
                 color:'green'
             }
         ],
@@ -45,7 +45,7 @@ $(document).ready(function () {
 
 function loadProfessorStatus() {
     $.ajax({
-        url:contextPath + "/professor/getStatus/" + professorId + "?time=" + new Date().getTime(),
+        url:document.Kangaroo.contextPath + "/professor/getStatus/" + professorId + "?time=" + new Date().getTime(),
         success:function (response) {
             $("#statusHolder").html(response.html);
             $("#statusHolder").hide();
