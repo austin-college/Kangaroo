@@ -33,19 +33,20 @@
     <g:render template="emptyTable"/>
 </div>
 
-%{-- menus --}%
-<ul id="myMenu" class="contextMenu">
-    <g:each in="${Term.list()}" var="term">
-        <li><a href="#${term.id}">${term}</a></li>
-    </g:each>
-</ul>
+<div id="menus">
+    <ul id="termMenu" class="contextMenu">
+        <g:each in="${Term.list()}" var="term">
+            <li><a href="#${term.id}">${term}</a></li>
+        </g:each>
+    </ul>
 
-<ul id="departmentMenu" class="contextMenu">
-    <li class=""><a href="#any">(any)</a></li>
-    <g:each in="${Department.list()}" var="department">
-        <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
-    </g:each>
-</ul>
+    <ul id="departmentMenu" class="contextMenu">
+        <li class=""><a href="#any">(any)</a></li>
+        <g:each in="${Department.list()}" var="department">
+            <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
+        </g:each>
+    </ul>
+</div>
 
 </body>
 </html>

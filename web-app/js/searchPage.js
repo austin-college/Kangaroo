@@ -16,7 +16,7 @@ $(document).ready(function () {
     originalTableHtml = $("#tableHolder").html();
 
     // Create context menus for the term and department links.
-    $("#selectTermLink").contextMenu({ menu:'myMenu', leftButton:true }, contextMenuClicked);
+    $("#selectTermLink").contextMenu({ menu:'termMenu', leftButton:true }, contextMenuClicked);
     $("#selectDepartmentLink").contextMenu({ menu:'departmentMenu', leftButton:true }, contextMenuClicked);
 
     // Set up the table!
