@@ -9,8 +9,6 @@
 <body>
 
 <div id="loading">
-    <img src="http://i.imgur.com/RPfXl.gif"/>
-
     Loading courses...
 </div>
 
