@@ -12,7 +12,7 @@ class HomeController {
             return;
         }
 
-        [departmentsJson: (getDepartmentsMap() as JSON)]
+        []
     }
 
     /**
@@ -20,12 +20,6 @@ class HomeController {
      */
     def getData = {
         render([table: JSON.parse(dataTablesService.getTableCached(Term.findOrCreate(params.term)))] as JSON)
-    }
-
-    def getDepartmentsMap() {
-        def map = [:]
-        Department.list().each { map[it.id] = it.name }
-        return map;
     }
 
     def robots = {

@@ -33,12 +33,6 @@
     <g:render template="emptyTable"/>
 </div>
 
-
-%{-- CACHED DATA --}%
-<div style="display: none">
-    <div id="departmentsJson">${departmentsJson.encodeAsHTML()}</div>
-</div>
-
 %{-- menus --}%
 <ul id="myMenu" class="contextMenu">
     <g:each in="${Term.list()}" var="term">
@@ -52,5 +46,11 @@
         <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
     </g:each>
 </ul>
+
+<script type="text/javascript">
+    document.Kangaroo["departments"] = {
+        ${Department.list().collect { department -> "\"${department.id}\": \"${department.name}\""}.join(", ") }
+    };
+</script>
 </body>
 </html>
