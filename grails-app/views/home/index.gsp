@@ -8,29 +8,38 @@
 
 <body>
 
-<div id="searchControls">
-    <div id="bigFilterBar">
-        <label for="tableSearch">Search for classes:</label>
-        <g:textField name="tableSearch"/>
-    </div>
+<div id="loading">
+    <img src="http://i.imgur.com/RPfXl.gif"/>
 
-    <div id="searchDescription">
-        (or professors, majors, meeting times...)
-    </div>
+    Loading courses...
 </div>
 
-<div class="otherControls">
-    Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2013</a>
+<div id="searchArea" class="disabled">
 
-    in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
+    <div id="searchControls">
+        <div id="bigFilterBar">
+            <label for="tableSearch">Search for classes:</label>
+            <g:textField name="tableSearch"/>
+        </div>
 
-    %{--that meet at <a href="#" class="selectable">any time</a>--}%
-    %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
+        <div id="searchDescription">
+            (or professors, majors, meeting times...)
+        </div>
+    </div>
 
-</div>
+    <div class="otherControls">
+        Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2013</a>
 
-<div id="tableHolder">
-    <g:render template="emptyTable"/>
+        in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
+
+        %{--that meet at <a href="#" class="selectable">any time</a>--}%
+        %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
+
+    </div>
+
+    <div id="tableHolder">
+        <g:render template="emptyTable"/>
+    </div>
 </div>
 
 <div id="menus">

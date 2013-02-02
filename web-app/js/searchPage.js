@@ -24,14 +24,26 @@ $(document).ready(function () {
     getTableData(document.Kangaroo.defaultSearchTerm);
 });
 
+function setLoadingState(isLoading) {
+    if (isLoading) {
+        $("#loading").show();
+        $("#searchArea").addClass("disabled");
+    } else {
+        $("#loading").fadeOut();
+        $("#searchArea").removeClass("disabled");
+    }
+}
+
 /**
  * Fetches the table data for the given term.
  */
 function getTableData(term) {
+    setLoadingState(true);
     $.ajax({
         url:document.Kangaroo.url("/home/getData"),
         data:{term:term},
         success:function (response) {
+            setLoadingState(false);
             data = response.table;
             setupTable({aaData:data.aaData}, originalTableHtml);
         }
