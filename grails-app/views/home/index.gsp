@@ -47,10 +47,5 @@
     </g:each>
 </ul>
 
-<script type="text/javascript">
-    document.Kangaroo["departments"] = {
-        ${Department.list().collect { department -> "\"${department.id}\": \"${department.name}\""}.join(", ") }
-    };
-</script>
 </body>
 </html>
