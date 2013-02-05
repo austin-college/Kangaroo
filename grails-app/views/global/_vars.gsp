@@ -16,5 +16,9 @@
             return document.Kangaroo.contextPath + path;
         }
     };
+</script>
 
+%{-- Set some global javascript variables while we still have access to the grails closures. --}%
+<script type="text/javascript">
+    var contextPath = "${request.contextPath}";
 </script>
