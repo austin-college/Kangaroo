@@ -52,21 +52,6 @@ class BootStrap {
     }
 
     private def oneTimeImport() {
-
-        // Give majors Outback IDs.
-        Major.list().each { major ->
-            major.outbackId = AppUtils.camelCase(major.name + " " + (major.isMajor ? "major" : "minor"))
-            AppUtils.saveSafely(major);
-        }
-
-        // Import Roo Route.
-        if (RooRouteStop.count() == 0) {
-            JSON.parse(new URL("https://raw.github.com/austin-college/Data/master/rooRoute.json").text).data.values().each {
-                RooRouteStop.saveFromJsonObject(it)
-            }
-
-            println RooRouteStop.count() + " stops."
-        }
     }
 
     /**
