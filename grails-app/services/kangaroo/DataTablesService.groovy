@@ -1,7 +1,4 @@
 package kangaroo
-
-import grails.converters.JSON
-
 /**
  * Returns data formatted for the client-side DataTables.
  */
@@ -11,28 +8,40 @@ class DataTablesService {
 
     def cacheService
 
-    /**
-     * Formats all of the courses into a table. (slowish)
-     */
-    def getTable(Term term) {
-        def ids = Course.executeQuery("select c.id from Course c, Term t where c.term = t and t.id = :termId", [termId: term.id]);
-        def rows = ids.collect { id -> cacheService.memoize("course/${id}/asRow") { toRow(Course.get(id)) } }
-        return (["sEcho": 0, "iTotalRecords": rows.size(), "iTotalDisplayRecords": rows.size(), "aaData": rows] as JSON)
+    def generateTableData(Term term, Requirement requirementToFulfill = null) {
+        return AppUtils.runAndTime("Fetching table for $term...") {
+            // Fetch the course IDs that will be in the table.
+            Set<String> ids = fetchIdsForTable(term, requirementToFulfill);
+
+            // Take the IDs and augment them into table rows.
+            def rows = ids.collect { id ->
+                cacheService.memoize("course/${id}/asRow") { formatIntoTableRow(Course.get(id)) }
+            }
+
+            return formatIntoTable(rows);
+        }
     }
 
     /**
-     * Returns a cached version of the table.
+     * Fetches the IDs that will be in the table.
      */
-    String getTableCached(Term term) {
-        def courses = []
-        AppUtils.runAndTime("Fetching table for $term...") { courses = getTable(term) }
-        return courses
+    Set<String> fetchIdsForTable(Term term, Requirement requirementToFulfill = null) {
+        return Course.executeQuery("select c.id from Course c, \
+                            Term t where c.term = t and t.id = :termId", [termId: term.id])
+    }
+
+    /**
+     * Formats the list of rows into a DataTables table.
+     */
+    def formatIntoTable(List courseRows) {
+        return ["aaData": courseRows, "iTotalRecords": courseRows.size(), "iTotalDisplayRecords": courseRows.size(),
+                "sEcho": 0];
     }
 
     /**
      * Formats a given course to fit in a table row.
      */
-    def toRow(Course course) {
+    def formatIntoTableRow(Course course) {
 
         def row = []
 

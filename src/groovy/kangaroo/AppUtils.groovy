@@ -111,13 +111,14 @@ public class AppUtils {
         (int) ((100.0 * (double) value).round())
     }
 
-    static void runAndTime(String log, Closure toRun) {
+    static def runAndTime(String log, Closure toRun) {
         def startTime = System.currentTimeMillis()
-        toRun();
+        def result = toRun();
         def elapsedTime = (System.currentTimeMillis() - startTime)
         def timeInSeconds = ((double) (elapsedTime / 1000.0)).round(6);
 
         println "${log}\t in ${timeInSeconds} seconds."
+        return result;
     }
 
     static double time(Closure toRun) {
