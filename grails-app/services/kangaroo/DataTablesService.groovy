@@ -12,11 +12,11 @@ class DataTablesService {
     def cacheService
 
     /**
-     * Formats all of the courses into a table. (SLOW)
-     * @todo speed up
+     * Formats all of the courses into a table. (slowish)
      */
     def getTable(Term term) {
-        def rows = Course.findAllByTerm(term).collect { course -> toRow(course) }
+        def ids = Course.executeQuery("select c.id from Course c, Term t where c.term = t and t.id = :termId", [termId: term.id]);
+        def rows = ids.collect { id -> cacheService.memoize("course/${id}/asRow") { toRow(Course.get(id)) } }
         return (["sEcho": 0, "iTotalRecords": rows.size(), "iTotalDisplayRecords": rows.size(), "aaData": rows] as JSON)
     }
 
@@ -24,7 +24,9 @@ class DataTablesService {
      * Returns a cached version of the table.
      */
     String getTableCached(Term term) {
-        cacheService.memoize("courses/${term.id}") { getTable(term) }
+        def courses = []
+        AppUtils.runAndTime("Fetching table for $term...") { courses = getTable(term) }
+        return courses
     }
 
     /**

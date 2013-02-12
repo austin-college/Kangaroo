@@ -1,7 +1,9 @@
 package kangaroo
 
 /**
- * Stores information in the super-fast, memory-only redis cache. This is a great way to speed up slow, unchanging queries.
+ * Caches information in-memory.
+ *
+ * Note: Editing this file while in development mode erases the cache.
  */
 class CacheService {
 
@@ -9,35 +11,34 @@ class CacheService {
 
     static transactional = false
 
-    // Cache table JSON.
-    static cache = [:]
+    private static cache = [:]
 
     def memoize(key, Closure closure) {
         if (cache[key])
-        return cache[key]
+            return cache[key]
         else {
+            println "Cache miss for ${key}"
             def value = closure();
             cache[key] = value;
             return value;
         }
     }
 
-    def initializeCache() {
-        clearCache();
-
-        Term.list().each { term ->
-            println "Pre-caching table for ${term.fullDescription}..."
-            dataTablesService.getTableCached(term)
-        }
-
-        println "CACHED!"
-    }
-
     def initializeCacheIfNeeded() {
         if (isEmpty())
             initializeCache()
         else
-            println "Cache exists; no need to initialize..."
+            println "Cache already exists; no need to initialize."
+    }
+
+    private def initializeCache() {
+        println "Memoizing courses..."
+        Course.list().each { course ->
+            memoize("course/${course.id}/asRow") { dataTablesService.toRow(course) }
+        }
+
+        println "Cache warmed up!"
+        println cache.keySet()
     }
 
     boolean isEmpty() {

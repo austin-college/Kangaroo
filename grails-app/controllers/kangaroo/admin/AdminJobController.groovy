@@ -72,8 +72,8 @@ class AdminJobController {
             ],
             "initializeCache": [
                     id: "initializeCache",
-                    name: "Initialize Cache",
-                    run: { cacheService.initializeCache() },
+                    name: "Drop & Re-Initialize Cache",
+                    run: { cacheService.clearCache(); cacheService.initializeCacheIfNeeded() },
                     status: { "Ready" }
             ],
             "cacheColleagues": [

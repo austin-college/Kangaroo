@@ -7,6 +7,7 @@ class BootStrap {
 
     // Services to initialize our data.
     def grailsApplication
+    def cacheService
 
     def init = { servletContext ->
 
@@ -15,6 +16,7 @@ class BootStrap {
         registerJsonTypes()
         createDefaultData()
         oneTimeImport()
+        cacheService.initializeCacheIfNeeded()
 
         println "\n==============================\n"
     }

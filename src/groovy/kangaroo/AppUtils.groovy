@@ -9,6 +9,7 @@ import java.security.SecureRandom
 
 /**
  * Useful stuff.
+ * @todo Rename, update.
  */
 public class AppUtils {
 
