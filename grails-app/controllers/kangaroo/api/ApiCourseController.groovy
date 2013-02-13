@@ -7,7 +7,7 @@ import kangaroo.Term
 class ApiCourseController extends ApiBaseController {
 
     def list = {
-        def map = Term.list().collectEntries { term -> [term.id, Course.findAllByTerm(term).collectEntries {[it.id, it]}] }
+        def map = Term.list().collectEntries { term -> [term.id, Course.findAllByTerm(term).collectEntries { [it.id, it] }] }
         render(map as JSON)
     }
 

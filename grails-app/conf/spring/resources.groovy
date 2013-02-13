@@ -1,6 +1,5 @@
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
-
 import com.mchange.v2.c3p0.ComboPooledDataSource
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 
 // Place your Spring DSL code here
 beans = {
@@ -27,8 +26,8 @@ beans = {
         maxIdleTimeExcessConnections = 30 * 60
     }
 
-	
-	ldapUserDetailsMapper(kangaroo.AcUserContextMapper) {}
 
-	
+    ldapUserDetailsMapper(kangaroo.AcUserContextMapper) {}
+
+
 }

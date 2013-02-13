@@ -19,7 +19,7 @@
 --------------------------}%
 
 <script type="text/javascript">
-    var _sf_async_config = { uid:40341, domain:'kangaroo.austincollege.edu' };
+    var _sf_async_config = { uid: 40341, domain: 'kangaroo.austincollege.edu' };
     (function () {
         function loadChartbeat() {
             window._sf_endpt = (new Date()).getTime();

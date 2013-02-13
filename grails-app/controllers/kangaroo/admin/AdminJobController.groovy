@@ -24,13 +24,13 @@ class AdminJobController {
                     id: "13SP",
                     name: "Import 13SP",
                     run: { courseImporterService.importCourses(Term.get("13SP")) },
-                    status: {"Ready; ${Course.countByTerm(Term.get("13SP"))} existing courses to scrub"}
+                    status: { "Ready; ${Course.countByTerm(Term.get("13SP"))} existing courses to scrub" }
             ],
             "reImport": [
                     id: "reImport",
                     name: "Re-Import Data",
                     run: { backendDataService.reset() },
-                    status: {"Ready"}
+                    status: { "Ready" }
             ],
             "courses": [
                     id: "courses",
@@ -40,7 +40,7 @@ class AdminJobController {
                             courseImporterService.importFromJson(term)
                         }
                     },
-                    status: {"${Course.count()} imported"}
+                    status: { "${Course.count()} imported" }
             ],
             "textbooks": [
                     id: "textbooks",
@@ -104,8 +104,7 @@ class AdminJobController {
             def results
             def time = AppUtils.time { results = job.run(); }
             render([success: true, time: time, details: jobToJson(job)] as JSON)
-        }
-        else
+        } else
             render([error: "InvalidJob"] as JSON)
     }
 

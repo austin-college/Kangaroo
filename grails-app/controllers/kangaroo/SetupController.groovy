@@ -1,8 +1,8 @@
 package kangaroo
 
 import grails.converters.JSON
-import kangaroo.setup.SetupService
 import grails.util.Environment
+import kangaroo.setup.SetupService
 
 class SetupController {
 

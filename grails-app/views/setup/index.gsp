@@ -55,11 +55,11 @@
                 $("#importProgress").fadeIn();
 
                 $.ajax({
-                    url:contextPath + "/setup/startImport",
-                    cache:false,
-                    success:function (response) {
+                    url: contextPath + "/setup/startImport",
+                    cache: false,
+                    success: function (response) {
                         refreshStatus()
-                    }, error:function (response) {
+                    }, error: function (response) {
                         refreshStatus()
                     }
                 });
@@ -69,9 +69,9 @@
 
         function refreshStatus() {
             $.ajax({
-                url:contextPath + "/setup/getStatus",
-                cache:false,
-                success:function (response) {
+                url: contextPath + "/setup/getStatus",
+                cache: false,
+                success: function (response) {
                     $("#importProgress .status").html("<div class='status_" + response.status + "'>" + response.message + "</div>");
                     $("#importProgress .stages").empty();
                     $.each(response.stages, function (i, stage) {

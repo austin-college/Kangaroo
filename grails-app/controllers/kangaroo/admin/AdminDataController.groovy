@@ -4,7 +4,7 @@ class AdminDataController {
 
     def dataExportService
 
-    def index = { }
+    def index = {}
 
     def runExport = {
 

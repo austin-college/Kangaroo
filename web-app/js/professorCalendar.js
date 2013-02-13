@@ -14,25 +14,25 @@ $(document).ready(function () {
     loadProfessorStatus();
 
     calendar = $('#calendar').fullCalendar({
-        weekends:false,
-        eventSources:[
+        weekends: false,
+        eventSources: [
             {
-                url:document.Kangaroo.url("/professor/getSchedule/" + professorId)
+                url: document.Kangaroo.url("/professor/getSchedule/" + professorId)
             },
             {
-                url:document.Kangaroo.url("/professor/getOfficeHours/" + professorId),
-                color:'green'
+                url: document.Kangaroo.url("/professor/getOfficeHours/" + professorId),
+                color: 'green'
             }
         ],
-        defaultView:'agendaWeek',
-        header:null,
-        ignoreTimezone:false,
-        height:350,
-        allDaySlot:false,
-        minTime:8,
-        maxTime:18,
-        timeFormat:'',
-        viewDisplay:function (view) {
+        defaultView: 'agendaWeek',
+        header: null,
+        ignoreTimezone: false,
+        height: 350,
+        allDaySlot: false,
+        minTime: 8,
+        maxTime: 18,
+        timeFormat: '',
+        viewDisplay: function (view) {
 
             window.clearInterval(timelineInterval);
             timelineInterval = window.setInterval(setTimeline, 10000);
@@ -43,8 +43,8 @@ $(document).ready(function () {
 
 function loadProfessorStatus() {
     $.ajax({
-        url:document.Kangaroo.url("/professor/getStatus/" + professorId + "?time=" + new Date().getTime()),
-        success:function (response) {
+        url: document.Kangaroo.url("/professor/getStatus/" + professorId + "?time=" + new Date().getTime()),
+        success: function (response) {
             $("#statusHolder").html(response.html);
             $("#statusHolder").hide();
             $("#statusHolder").fadeIn();
@@ -80,8 +80,8 @@ function setTimeline() {
         var left = dayCol.position().left + 1;
         var width = dayCol.width();
         timeline.css({
-            left:left + "px",
-            width:width + "px"
+            left: left + "px",
+            width: width + "px"
         });
     }
 }

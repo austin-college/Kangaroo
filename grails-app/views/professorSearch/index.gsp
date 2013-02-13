@@ -7,7 +7,6 @@
 
 <body>
 
-
 <div id="professorList">
 
     <g:each in="${'A'..'Z'}" var="letter">

@@ -9,26 +9,26 @@
         var calendar;
         $(document).ready(function () {
             calendar = $('#calendar').fullCalendar({
-                weekends:false,
-                eventSources:[
+                weekends: false,
+                eventSources: [
                     {
-                        url:contextPath + "/professor/getSchedule/${professor.id}"
+                        url: contextPath + "/professor/getSchedule/${professor.id}"
                     },
                     {
-                        url:contextPath + "/professor/getOfficeHours/${professor.id}",
-                        color:'green'
+                        url: contextPath + "/professor/getOfficeHours/${professor.id}",
+                        color: 'green'
                     }
                 ],
-                columnFormat:{ week:"dddd's'" /* "Mondays" */ },
-                defaultView:'agendaWeek',
-                header:null,
-                ignoreTimezone:false,
-                height:500,
-                allDaySlot:false,
-                minTime:8,
-                maxTime:18,
-                timeFormat:'',
-                loading:function (isLoading, view) {
+                columnFormat: { week: "dddd's'" /* "Mondays" */ },
+                defaultView: 'agendaWeek',
+                header: null,
+                ignoreTimezone: false,
+                height: 500,
+                allDaySlot: false,
+                minTime: 8,
+                maxTime: 18,
+                timeFormat: '',
+                loading: function (isLoading, view) {
 
                     if (!isLoading) {
                         $('.fc-view-agendaWeek > div > div').css('overflow-y', 'hidden');

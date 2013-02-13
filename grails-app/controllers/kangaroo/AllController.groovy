@@ -2,5 +2,5 @@ package kangaroo
 
 class AllController {
 
-    def index = { }
+    def index = {}
 }

@@ -1,13 +1,12 @@
 package kangaroo
 
-import org.springframework.security.core.context.SecurityContextHolder as SCH
-
 import grails.converters.JSON
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.LockedException
+import org.springframework.security.core.context.SecurityContextHolder as SCH
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
@@ -31,8 +30,7 @@ class LoginController {
     def index = {
         if (springSecurityService.isLoggedIn()) {
             redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
-        }
-        else {
+        } else {
             redirect action: 'auth', params: params
         }
     }
@@ -95,25 +93,20 @@ class LoginController {
         if (exception) {
             if (exception instanceof AccountExpiredException) {
                 msg = g.message(code: "springSecurity.errors.login.expired")
-            }
-            else if (exception instanceof CredentialsExpiredException) {
+            } else if (exception instanceof CredentialsExpiredException) {
                 msg = g.message(code: "springSecurity.errors.login.passwordExpired")
-            }
-            else if (exception instanceof DisabledException) {
+            } else if (exception instanceof DisabledException) {
                 msg = g.message(code: "springSecurity.errors.login.disabled")
-            }
-            else if (exception instanceof LockedException) {
+            } else if (exception instanceof LockedException) {
                 msg = g.message(code: "springSecurity.errors.login.locked")
-            }
-            else {
+            } else {
                 msg = g.message(code: "springSecurity.errors.login.fail")
             }
         }
 
         if (springSecurityService.isAjax(request)) {
             render([error: msg] as JSON)
-        }
-        else {
+        } else {
             flash.message = msg
             redirect action: 'auth', params: params
         }

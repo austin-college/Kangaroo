@@ -12,8 +12,7 @@ class AuthAdminController {
             flash.success = "Welcome!";
             session.isAdmin = true;
             redirect(controller: "adminJob");
-        }
-        else {
+        } else {
             flash.message = "Invalid authentication key. Please try again.";
             redirect(action: "index")
         }

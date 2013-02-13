@@ -1,7 +1,7 @@
 import grails.converters.JSON
 import grails.util.Environment
-import kangaroo.api.EditKey
 import kangaroo.*
+import kangaroo.api.EditKey
 
 class BootStrap {
 

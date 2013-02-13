@@ -54,8 +54,7 @@ class BugReportService {
             def specializedMessage = !response.equals(DEFAULT_SCOUT_MESSAGE);
 
             return [message: specializedMessage ? response : "", specializedMessage: specializedMessage];
-        }
-        else {
+        } else {
             log.info "...BugReportService.reportBug FAILED"
             return null;
         }

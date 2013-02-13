@@ -1,7 +1,5 @@
 package kangaroo
 
-import org.codehaus.groovy.grails.web.json.JSONObject
-
 class BigText {
 
     String id

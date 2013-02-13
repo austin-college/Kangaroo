@@ -74,8 +74,7 @@ class ProfessorController {
 
             [professor: professor]
 
-        }
-        else {
+        } else {
             flash.message = "Unknown id."
             return redirect(controller: "home")
         }
@@ -155,7 +154,7 @@ class ProfessorController {
             }
 
             // Remove their existing office hours...
-            ProfessorOfficeHours.findAllByProfessor(professor).each { it.delete(flush: true)}
+            ProfessorOfficeHours.findAllByProfessor(professor).each { it.delete(flush: true) }
 
             // ..and add the new ones!
             officeHours.each { meetingTime ->
@@ -164,8 +163,7 @@ class ProfessorController {
             }
 
             render([success: true] as JSON)
-        }
-        else
+        } else
             render([error: "InvalidProfessor"] as JSON)
     }
 

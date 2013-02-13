@@ -2,6 +2,7 @@ package kangaroo.data.convert
 
 import kangaroo.*
 import org.springframework.transaction.annotation.Transactional
+
 /**
  * Contains utility methods for professors.
  */
@@ -125,8 +126,7 @@ class ProfessorService {
                 if (usedTimes.contains(m)) {
                     rejected = true;
                     break;
-                }
-                else
+                } else
                     usedTimes << m;
             }
 

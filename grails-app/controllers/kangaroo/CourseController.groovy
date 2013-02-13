@@ -52,8 +52,7 @@ class CourseController {
         if (course) {
             def profImage = course.instructors[0]?.photoUrl
             [course: course, profImage: profImage]
-        }
-        else
+        } else
             redirect(controller: "home")
     }
 }

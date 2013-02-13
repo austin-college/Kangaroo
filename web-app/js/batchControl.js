@@ -8,8 +8,8 @@
 
 $(document).ready(function () {
     $.ajax({
-        url:document.Kangaroo.url("/admin/jobs/getJobList"),
-        success:function (response) {
+        url: document.Kangaroo.url("/admin/jobs/getJobList"),
+        success: function (response) {
             $.each(response, function (key, value) {
                 addJob(key, value);
             });
@@ -22,9 +22,9 @@ $(document).ready(function () {
         setStatusMessage(dom, "<i>Working...</i>");
 
         $.ajax({
-            url:document.Kangaroo.url("/admin/jobs/runJob"),
-            data:{job:job},
-            success:function (response) {
+            url: document.Kangaroo.url("/admin/jobs/runJob"),
+            data: {job: job},
+            success: function (response) {
                 setStatusMessage(dom, getCompletionStatus(response));
             }
         });

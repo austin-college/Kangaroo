@@ -130,8 +130,6 @@ log4j = {
     }
 }
 
-
-
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'kangaroo.AcUser'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'kangaroo.AcUserAcRole'
@@ -142,10 +140,10 @@ grails.plugins.springsecurity.auth.forceHttps = true
 grails.plugins.springsecurity.ldap.context.managerDn = 'cn=Chem Tracker,ou=Special accounts,dc=admin, dc=austincollege,dc=edu'
 grails.plugins.springsecurity.ldap.context.managerPassword = 'roos12'
 grails.plugins.springsecurity.ldap.context.server = 'ldap://adm01.admin.austincollege.edu:389'
-grails.plugins.springsecurity.ldap.authorities.groupSearchBase ='dc=admin, dc=austincollege,dc=edu'
+grails.plugins.springsecurity.ldap.authorities.groupSearchBase = 'dc=admin, dc=austincollege,dc=edu'
 grails.plugins.springsecurity.ldap.authorities.retrieveGroupRoles = false
 grails.plugins.springsecurity.ldap.search.base = 'dc=admin,dc=austincollege,dc=edu'
-grails.plugins.springsecurity.ldap.search.filter="sAMAccountName={0}"
+grails.plugins.springsecurity.ldap.search.filter = "sAMAccountName={0}"
 grails.plugins.springsecurity.ldap.authorities.retrieveDatabaseRoles = false
 grails.plugins.springsecurity.ldap.search.searchSubtree = true
 grails.plugins.springsecurity.providerNames = ['ldapAuthProvider']
@@ -153,7 +151,7 @@ grails.plugins.springsecurity.ldap.search.attributesToReturn = ['extensionAttrib
 
 
 grails.plugins.springsecurity.secureChannel.definition = [
-	'/**':  'ANY_CHANNEL',
-	'/login/**': 'REQUIRES_SECURE_CHANNEL',
-	'/j_spring_security_check': 'REQUIRES_SECURE_CHANNEL'
+        '/**': 'ANY_CHANNEL',
+        '/login/**': 'REQUIRES_SECURE_CHANNEL',
+        '/j_spring_security_check': 'REQUIRES_SECURE_CHANNEL'
 ]

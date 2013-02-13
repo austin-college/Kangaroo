@@ -25,31 +25,31 @@ function setupTable(data, originalHtml) {
     objTable = $('#classTable').dataTable({
 
         // Use the given dataset locally.
-        "bProcessing":true,
-        "aaData":data.aaData,
-        "aaSorting":[
+        "bProcessing": true,
+        "aaData": data.aaData,
+        "aaSorting": [
             [1, 'asc'] // Sort by department, initially.
         ],
 
         // Show real pagination buttons.
-        "sPaginationType":"full_numbers",
+        "sPaginationType": "full_numbers",
 
         // Remove DataTable's default search box.
-        "sDom":'<"H"r>t<"F"ip>',
-        "bStateSave":true,
+        "sDom": '<"H"r>t<"F"ip>',
+        "bStateSave": true,
 
         // Customize language strings.
-        "oLanguage":{
-            "sLengthMenu":"Show _MENU_ classes",
-            "sZeroRecords":"<i>Sorry, no courses like that were found.</i>",
-            "sInfo":"Showing _START_ to _END_ of _TOTAL_ classes",
-            "sInfoEmpty":"",
-            "sInfoFiltered":"(instantly filtered from _MAX_)",
-            "sSearch":"Search for anything:"
+        "oLanguage": {
+            "sLengthMenu": "Show _MENU_ classes",
+            "sZeroRecords": "<i>Sorry, no courses like that were found.</i>",
+            "sInfo": "Showing _START_ to _END_ of _TOTAL_ classes",
+            "sInfoEmpty": "",
+            "sInfoFiltered": "(instantly filtered from _MAX_)",
+            "sSearch": "Search for anything:"
         },
-        "iDisplayLength":25,
-        "iDisplayStart":parseInt(getPaginationStatus()),
-        "fnInitComplete":function (oSettings, json) {
+        "iDisplayLength": 25,
+        "iDisplayStart": parseInt(getPaginationStatus()),
+        "fnInitComplete": function (oSettings, json) {
 
             $('#classTable').show();
 

@@ -47,14 +47,14 @@ function toggleDetailsPanel() {
         $("#showDetails").html("show details &raquo;");
         $("#errorDetailsContainer").slideUp(900);
 
-        $('html, body').animate({scrollTop:0}, 950);
+        $('html, body').animate({scrollTop: 0}, 950);
     }
     else {
         $("#showDetails").html("&laquo; Hide details");
         $("#errorDetailsContainer").slideDown(900);
 
         // Scroll to the details.
-        $('html, body').animate({scrollTop:$("#errorDetailsContainer").position().top}, 950);
+        $('html, body').animate({scrollTop: $("#errorDetailsContainer").position().top}, 950);
     }
     return false;
 }
@@ -65,15 +65,15 @@ function toggleDetailsPanel() {
 function submitBugReport() {
 
     $.ajax({
-        cache:false,
-        dataType:'json',
-        type:'POST',
-        url:document.Kangaroo.url('/error/reportBug'),
-        data:{"sourceUri":sourceUrl, "browser":getBrowserInfo() },
-        error:function (response) {
+        cache: false,
+        dataType: 'json',
+        type: 'POST',
+        url: document.Kangaroo.url('/error/reportBug'),
+        data: {"sourceUri": sourceUrl, "browser": getBrowserInfo() },
+        error: function (response) {
             $("#submitStatus").text("Kangaroo failed to submit the bug report.");
         },
-        success:function (response) {
+        success: function (response) {
             $("#submitStatus #progress").slideUp();
             $("#submitStatus .header").html("<b>Have no fear!</b> Our development team has been notified.");
 
@@ -93,12 +93,12 @@ function submitBugReport() {
 function submitFollowup() {
 
     $("#submitExtraInformation").attr("disabled", "disabled");
-    $("#submitExtraInformation").css({ opacity:0.5 });
-    $("#extraInfo").css({ opacity:0.7 });
+    $("#submitExtraInformation").css({ opacity: 0.5 });
+    $("#extraInfo").css({ opacity: 0.7 });
 
     // In development, this is our first report, not our followup.
     var url = document.Kangaroo.url('/error/' + (isInProduction ? 'addBugDetails' : 'reportBug'));
-    var data = {"email":$("#userEmail").val(), "reportDetails":$("#reportDetails").val() };
+    var data = {"email": $("#userEmail").val(), "reportDetails": $("#reportDetails").val() };
 
     if (!isInProduction) { // So add more data in development too.
         data["reportDetails"] = $("#reportDetails").val();
@@ -108,13 +108,13 @@ function submitFollowup() {
 
     // Send the request.
     $.ajax({
-        cache:false,
-        dataType:'json',
-        type:'POST',
-        url:url,
-        data:data,
-        error:followupFailed,
-        success:followupSucceeded
+        cache: false,
+        dataType: 'json',
+        type: 'POST',
+        url: url,
+        data: data,
+        error: followupFailed,
+        success: followupSucceeded
     });
 }
 
@@ -124,7 +124,7 @@ function submitFollowup() {
 function followupSucceeded() {
     $("#extraInfo h3").text("Thanks, we've received your details.");
     $("#addDetailFields").slideUp();
-    $("#extraInfo").animate({ opacity:1.0 }, 200);
+    $("#extraInfo").animate({ opacity: 1.0 }, 200);
     $("#addReportSubheader").fadeOut();
 }
 
@@ -133,8 +133,8 @@ function followupSucceeded() {
  */
 function followupFailed() {
     $("#extraInfo h3").text("Sending failed; please try again.");
-    $("#extraInfo").animate({ opacity:1.0 }, 200);
-    $("#submitExtraInformation").animate({ opacity:1.0 }, 200);
+    $("#extraInfo").animate({ opacity: 1.0 }, 200);
+    $("#submitExtraInformation").animate({ opacity: 1.0 }, 200);
     $("#submitExtraInformation").attr("disabled", false);
 }
 

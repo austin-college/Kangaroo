@@ -78,7 +78,7 @@ class Course {
 
     List<MeetingTime> getMeetingTimes() { CourseMeetingTime.findAllByCourse(this)*.meetingTime }
 
-    String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=${section}&bookstore_id-1=239&term_id-1=${term.id}&div-1=&dept-1=${department.id}&course-1=${courseNumber}"}
+    String textbookPageUrl() { "http://www.bkstr.com/webapp/wcs/stores/servlet/booklookServlet?sect-1=${section}&bookstore_id-1=239&term_id-1=${term.id}&div-1=&dept-1=${department.id}&course-1=${courseNumber}" }
 
     static Course saveFromJsonObject(object, Term term) { // @todo eliminate reliance on Term here
         if (Course.get(object.id))

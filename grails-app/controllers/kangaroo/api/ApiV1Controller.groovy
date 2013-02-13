@@ -1,7 +1,7 @@
 package kangaroo.api
 
-import kangaroo.PhoneNumber
 import grails.converters.JSON
+import kangaroo.PhoneNumber
 
 class ApiV1Controller {
 

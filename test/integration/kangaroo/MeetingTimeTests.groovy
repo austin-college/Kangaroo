@@ -11,7 +11,7 @@ class MeetingTimeTests extends GrailsUnitTestCase {
         def negatives = ["9:00AM", "9pm", "10:0AM"];
 
         positives.each { assert new MeetingTime(startTime: it, endTime: "11:50PM").validate() }
-        negatives.each { assert !new MeetingTime(startTime: it, endTime: "11:50PM").validate()}
+        negatives.each { assert !new MeetingTime(startTime: it, endTime: "11:50PM").validate() }
     }
 
     void testSaveOrFind() {

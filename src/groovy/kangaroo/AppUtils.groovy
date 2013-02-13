@@ -9,7 +9,7 @@ import java.security.SecureRandom
 
 /**
  * Useful stuff.
- * @todo Rename, update.
+ * @todo Rename , update.
  */
 public class AppUtils {
 
@@ -188,9 +188,9 @@ public class AppUtils {
         }
     }
 
-    static def findInNode(node, c) { node.depthFirst().collect { it }.find(c)}
+    static def findInNode(node, c) { node.depthFirst().collect { it }.find(c) }
 
-    static def findAllInNode(node, c) { node.depthFirst().collect { it }.findAll(c)}
+    static def findAllInNode(node, c) { node.depthFirst().collect { it }.findAll(c) }
 
     static String getProfessorLinksForClass(Course course, boolean includeImages, String connector = ' & ') {
         course.instructors.collect { it ->
@@ -206,11 +206,11 @@ public class AppUtils {
     }
 
     static String getScheduleLinksForClass(Course course, String connector = ' & ') {
-        course.meetingTimes.collect { "<a href='${createLink('course', 'bySchedule', it.id)}'>${it}</a>"}.join(connector)
+        course.meetingTimes.collect { "<a href='${createLink('course', 'bySchedule', it.id)}'>${it}</a>" }.join(connector)
     }
 
     static String getRoomLinksForProfessor(Professor professor, String connector = ', ') {
-        professor.activeRooms.collect { room -> "<a href='${createLink('course', 'byRoom', room)}'>${room.trim()}</a>"}.join(connector)
+        professor.activeRooms.collect { room -> "<a href='${createLink('course', 'byRoom', room)}'>${room.trim()}</a>" }.join(connector)
     }
 
     /*===================================================

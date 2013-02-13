@@ -14,10 +14,9 @@ class ApiTermController {
         def term = getSelected()
         if (term) {
 
-            def map = [id: term.id, description: term.fullDescription, year: term.year, season: term.season, isActive: term.id == Term.CURRENT_TERM_CODE, courses: Course.findAllByTerm(term).collectEntries {[it.id, it] }];
+            def map = [id: term.id, description: term.fullDescription, year: term.year, season: term.season, isActive: term.id == Term.CURRENT_TERM_CODE, courses: Course.findAllByTerm(term).collectEntries { [it.id, it] }];
             render(map as JSON)
-        }
-        else
+        } else
             notFoundError()
     }
 

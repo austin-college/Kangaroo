@@ -1,9 +1,7 @@
 package kangaroo.data
 
 import grails.converters.JSON
-import kangaroo.Course
 import kangaroo.Professor
-import kangaroo.Term
 
 class DataExportService {
 
@@ -17,7 +15,7 @@ class DataExportService {
                 name: "Kangaroo Export",
                 version: formatVersion,
                 dateRun: new Date(),
-                officeHours: Professor.list().collectEntries { professor -> [professor.id, professor.officeHours*.toString() ] }
+                officeHours: Professor.list().collectEntries { professor -> [professor.id, professor.officeHours*.toString()] }
         ]
 
         (dataFile as JSON);

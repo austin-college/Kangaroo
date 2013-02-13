@@ -5,5 +5,5 @@ import kangaroo.RooRouteStop
 
 class ApiRooRouteController {
 
-    def index = { render(RooRouteStop.list().collectEntries { [it.outbackId, it]} as JSON) }
+    def index = { render(RooRouteStop.list().collectEntries { [it.outbackId, it] } as JSON) }
 }

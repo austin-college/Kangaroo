@@ -1,11 +1,11 @@
 package kangaroo.setup
 
 import grails.converters.JSON
+import kangaroo.*
 import kangaroo.mn.CourseFulfillsRequirement
 import kangaroo.mn.CourseMeetingTime
 import kangaroo.mn.ProfessorOfficeHours
 import kangaroo.mn.Teaching
-import kangaroo.*
 
 class SetupService {
 
@@ -83,7 +83,7 @@ class SetupService {
 
     def importTerms() {
         startStage("Terms")
-        fetchJson("/term").values().each {Term.saveFromJsonObject(it) }
+        fetchJson("/term").values().each { Term.saveFromJsonObject(it) }
         setStageStatus("succeeded", "${Term.count()} terms.");
     }
 

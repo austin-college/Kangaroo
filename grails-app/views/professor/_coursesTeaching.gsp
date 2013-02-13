@@ -7,7 +7,7 @@
 
             <g:each in="${Term.list().sort { it.getYear() }.reverse()}" var="term">
 
-                <g:set var="courses" value="${professor.coursesTeaching.findAll {it.term.id == term.id}}"/>
+                <g:set var="courses" value="${professor.coursesTeaching.findAll { it.term.id == term.id }}"/>
                 <g:if test="${courses.size() > 0}">
                     <div class="term">
                         <b>${term.fullDescription}</b>

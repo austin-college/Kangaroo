@@ -1,13 +1,11 @@
 package kangaroo
 
-import java.util.Collection;
-
-import org.springframework.ldap.core.DirContextAdapter;
-import org.springframework.ldap.core.DirContextOperations;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
+import org.springframework.ldap.core.DirContextAdapter
+import org.springframework.ldap.core.DirContextOperations
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.ldap.userdetails.UserDetailsContextMapper
 
 /**
  * An instance of this class is used by the system when the LDAP authentication is successful.   The purpose

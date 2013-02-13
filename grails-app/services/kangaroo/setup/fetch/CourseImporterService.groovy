@@ -1,11 +1,11 @@
 package kangaroo.setup.fetch
 
 import grails.converters.JSON
+import kangaroo.*
 import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.mn.CourseFulfillsRequirement
 import kangaroo.mn.CourseMeetingTime
 import kangaroo.mn.Teaching
-import kangaroo.*
 
 /**
  * Imports course data from the new format -- a JSON dump created by WebhopperDriver.
@@ -126,11 +126,9 @@ class CourseImporterService {
                 meetingTimes.each { it.save(); }
                 teachings.each { it.save(); }
                 courseRequirements.each { it.save(); }
-            }
-            else
+            } else
                 println course.errors
-        }
-        else
+        } else
             println "There is already a course with the id ${course.id} (${Course.get(course.id)})" // Shouldn't happen anymore with the new IDs
 
     }
