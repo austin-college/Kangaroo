@@ -1,4 +1,4 @@
-package kangaroo.data.fetch
+package kangaroo.setup.fetch
 
 import kangaroo.AppUtils
 import kangaroo.Course
@@ -62,7 +62,7 @@ class TextbookDataService {
                 }
             }
 
-            if ( !failures )
+            if (!failures)
                 course.dateTextbooksParsed = new Date()
             course.save(flush: true)
             cleanUpGorm()

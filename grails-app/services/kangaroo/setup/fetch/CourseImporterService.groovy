@@ -1,4 +1,4 @@
-package kangaroo.data.fetch
+package kangaroo.setup.fetch
 
 import grails.converters.JSON
 import kangaroo.data.convert.ScheduleConvertService

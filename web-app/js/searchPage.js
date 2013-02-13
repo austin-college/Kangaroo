@@ -7,41 +7,45 @@
 //
 //==========================================================================
 
-var terms = {
-    "11FA":"Fall 2011",
-    "12SP":"Spring 2012",
-    "12SU":"Summer 2012",
-    "12FA":"Fall 2012",
-    "13SP":"Spring 2013"
-};
-
-var departments = {};
+var data;
 var originalTableHtml;
 
 $(document).ready(function () {
 
     // Read in the data stored in the page.
     originalTableHtml = $("#tableHolder").html();
-    departments = $.parseJSON($("#departmentsJson").text());
 
     // Create context menus for the term and department links.
-    $("#selectTermLink").contextMenu({ menu:'myMenu', leftButton:true }, contextMenuClicked);
+    $("#selectTermLink").contextMenu({ menu:'termMenu', leftButton:true }, contextMenuClicked);
     $("#selectDepartmentLink").contextMenu({ menu:'departmentMenu', leftButton:true }, contextMenuClicked);
 
     // Set up the table!
     $("#tableSearch").focus();
-    setupTable(tableRaw);
+    getTableData(document.Kangaroo.defaultSearchTerm);
 });
+
+function setLoadingState(isLoading) {
+    if (isLoading) {
+        $("#loading").show();
+        $("#searchArea").addClass("disabled");
+    } else {
+        $("#loading").fadeOut();
+        $("#searchArea").removeClass("disabled");
+    }
+}
 
 /**
  * Fetches the table data for the given term.
  */
 function getTableData(term) {
+    setLoadingState(true);
     $.ajax({
-        url:contextPath + "/home/getData",
+        url:document.Kangaroo.url("/home/getData"),
         data:{term:term},
         success:function (response) {
-            setupTable({aaData:response.table.aaData}, originalTableHtml);
+            setLoadingState(false);
+            data = response.table;
+            setupTable({aaData:data.aaData}, originalTableHtml);
         }
     });
 }
@@ -54,7 +58,7 @@ function contextMenuClicked(action, el, pos) {
     if ($(el).attr('id') == "selectTermLink") {
 
         // Fetch data for this term and reload the table.
-        $("#selectTermLink").text(terms[action]);
+        $("#selectTermLink").text(document.Kangaroo.terms[action]);
         getTableData(action);
     }
     else if ($(el).attr('id') == "selectDepartmentLink") {
@@ -62,16 +66,16 @@ function contextMenuClicked(action, el, pos) {
         // If they selected "any department", show them all.
         if (action == "any") {
             $("#selectDepartmentLink").text("any department");
-            setupTable(tableRaw, originalTableHtml);
+            setupTable(data, originalTableHtml);
         }
         else {
-            $("#selectDepartmentLink").text(departments[action]);
+            $("#selectDepartmentLink").text(document.Kangaroo.departments[action]);
 
             // Filter the list by this department.
             var newTable = [];
-            $.each(tableRaw.aaData, function (i, row) {
+            $.each(data.aaData, function (i, row) {
 
-                if (row[1] == departments[action])
+                if (row[1] == document.Kangaroo.departments[action])
                     newTable.push(row);
             });
 

@@ -6,6 +6,9 @@ package kangaroo
  */
 class Major {
 
+    // A safe, Outback-assigned key for URLs and JSON ("physicsMajor").
+    String outbackId
+
     // The name of this major (often just the name of the department, i.e. "Mathematics").
     String name
 
@@ -19,11 +22,20 @@ class Major {
     Department department
 
     static constraints = {
+        outbackId(maxSize: 128, unique: true)
         name(maxSize: 128)
         description(maxSize: 8192)
     }
 
     String toString() { name }
 
-    def toJsonObject() { [name: name, description: description, department: department, type: isMajor ? "major" : "minor"] }
+    static Major saveFromJsonObject(object) {
+        if (Major.findByOutbackId(object.id))
+            return Major.findByOutbackId(object.id)
+
+        def outbackId = object.id ?: AppUtils.camelCase(object.name + " " + object.type)
+        return (Major) AppUtils.saveSafely(new Major(outbackId: outbackId, name: object.name, description: object.htmlDescription, department: Department.saveFromJsonObject(object.department), isMajor: (object.type == "major")));
+    }
+
+    def toJsonObject() { [id: outbackId, name: name, htmlDescription: description, department: department, type: isMajor ? "major" : "minor"] }
 }

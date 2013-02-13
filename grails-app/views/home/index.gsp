@@ -8,53 +8,52 @@
 
 <body>
 
-<div id="searchControls">
-    <div id="bigFilterBar">
-        <label for="tableSearch">Search for classes:</label>
-        <g:textField name="tableSearch"/>
+<div id="loading">
+    Loading courses...
+</div>
+
+<div id="searchArea" class="disabled">
+
+    <div id="searchControls">
+        <div id="bigFilterBar">
+            <label for="tableSearch">Search for classes:</label>
+            <g:textField name="tableSearch"/>
+        </div>
+
+        <div id="searchDescription">
+            (or professors, majors, meeting times...)
+        </div>
     </div>
 
-    <div id="searchDescription">
-        (or professors, majors, meeting times...)
+    <div class="otherControls">
+        Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2013</a>
+
+        in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
+
+        %{--that meet at <a href="#" class="selectable">any time</a>--}%
+        %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
+
+    </div>
+
+    <div id="tableHolder">
+        <g:render template="emptyTable"/>
     </div>
 </div>
 
-<div class="otherControls">
-    Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2013</a>
+<div id="menus">
+    <ul id="termMenu" class="contextMenu">
+        <g:each in="${Term.list()}" var="term">
+            <li><a href="#${term.id}">${term}</a></li>
+        </g:each>
+    </ul>
 
-    in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
-
-    %{--that meet at <a href="#" class="selectable">any time</a>--}%
-    %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
-
+    <ul id="departmentMenu" class="contextMenu">
+        <li class=""><a href="#any">(any)</a></li>
+        <g:each in="${Department.list()}" var="department">
+            <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
+        </g:each>
+    </ul>
 </div>
 
-<div id="tableHolder">
-    <g:render template="emptyTable"/>
-</div>
-
-
-%{-- CACHED DATA --}%
-<div style="display: none">
-    <div id="departmentsJson">${departmentsJson.encodeAsHTML()}</div>
-</div>
-
-%{-- menus --}%
-<ul id="myMenu" class="contextMenu">
-    <g:each in="${Term.list()}" var="term">
-        <li><a href="#${term.id}">${term}</a></li>
-    </g:each>
-</ul>
-
-<ul id="departmentMenu" class="contextMenu">
-    <li class=""><a href="#any">(any)</a></li>
-    <g:each in="${Department.list()}" var="department">
-        <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
-    </g:each>
-</ul>
-
-<script type="text/javascript">
-    var tableRaw = ${tableJson};
-</script>
 </body>
 </html>

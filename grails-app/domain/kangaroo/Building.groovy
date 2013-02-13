@@ -9,6 +9,7 @@ class Building {
     String name
 
     // A safe, Outback-assigned key for URLs and JSON ("moodyScience").
+    // @todo rename to outbackId
     String key
 
     // Optional description.
@@ -49,6 +50,14 @@ class Building {
     boolean getIsOnOfficialMap() { return numberOnMap > 0 }
 
     String toString() { name }
+
+    static Building saveFromJsonObject(object) {
+        if (Building.findByKey(object.id))
+            return Building.findByKey(object.id)
+
+        return (Building) AppUtils.saveSafely(new Building(key: object.id, name: object.name, description: object.description, type: object.type, photoUrl: object.photoUrl, address: object.address,
+                longitude: object.longitude, latitude: object.latitude));
+    }
 
     def toJsonObject() {
         def map = [id: key, name: name, description: description, type: type, photoUrl: photoUrl, address: address,

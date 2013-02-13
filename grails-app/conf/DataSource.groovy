@@ -16,7 +16,7 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:h2:dev_db;MVCC=TRUE"
+            url = "jdbc:h2:dev_db_2;MVCC=TRUE"
             driverClassName = "org.h2.Driver"
             username = "sa"
             password = ""

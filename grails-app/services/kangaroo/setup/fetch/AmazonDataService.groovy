@@ -1,4 +1,4 @@
-package kangaroo.data.fetch
+package kangaroo.setup.fetch
 
 import groovyx.gpars.GParsPool
 import kangaroo.AppUtils

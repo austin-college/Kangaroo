@@ -23,6 +23,7 @@ class UrlMappings {
         "/error"(controller: "error")
         "/professors"(controller: "professorSearch")
         "/data"(controller: "adminData")
+        "/setup"(controller: "setup", action: "index")
 
         // Admin...
         "/admin"(controller: "adminDashboard")
@@ -50,6 +51,7 @@ class UrlMappings {
         "/api/requirement/"(controller: "apiRequirement", action: "list")
         "/api/major/"(controller: "apiMajor", action: "list")
         "/api/department/"(controller: "apiDepartment", action: "list")
+        "/api/importantNumbers"(controller: "apiV1", action: "importantNumbers")
 
         // Errors...
         "500"(controller: "error", action: "serverError")

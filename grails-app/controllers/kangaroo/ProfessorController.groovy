@@ -128,8 +128,8 @@ class ProfessorController {
                 Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.end);
 
                 // Adjust for time zones.
-                start.hours -= 5;
-                end.hours -= 5;
+                start.hours -= 6;
+                end.hours -= 6;
 
                 // Convert to a MeetingTime.
                 final days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]

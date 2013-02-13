@@ -13,7 +13,7 @@ class Term implements Serializable {
     String id // The registrar short code ("11FA", "12SP", "13JA") - everything is derived from this one field!
 
     // Define the current term (for calendars) and default search term (for the search table).
-    static final String CURRENT_TERM_CODE = "12FA", DEFAULT_SEARCH_TERM_CODE = "13SP"
+    static final String CURRENT_TERM_CODE = "13SP", DEFAULT_SEARCH_TERM_CODE = "13SP"
 
     static constraints = {
         id(maxSize: 4)
@@ -24,10 +24,10 @@ class Term implements Serializable {
     }
 
     // Returns the current term.
-    static Term getCurrentTerm() { return Term.get(CURRENT_TERM_CODE) }
+    static Term getCurrentTerm() { return Term.get(Setting.getSetting("currentTermCode")) }
 
     // Returns the current term.
-    static Term getDefaultSearchTerm() { return Term.get(DEFAULT_SEARCH_TERM_CODE) }
+    static Term getDefaultSearchTerm() { return Term.get(Setting.getSetting("defaultSearchTermCode")) }
 
     /**
      * Formats this term nicely (i.e., "Fall 2012").
@@ -61,6 +61,15 @@ class Term implements Serializable {
     }
 
     String toString() { return fullDescription; }
+
+    static def saveFromJsonObject(object) {
+        if (Term.get(object.id))
+            return Term.get(object.id)
+
+        def term = new Term()
+        term.id = object.id;
+        return AppUtils.saveSafely(term.save());
+    }
 
     def toJsonObject() { [id: id, description: fullDescription, year: year, season: season, isActive: id == Term.CURRENT_TERM_CODE] }
 }

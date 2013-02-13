@@ -8,18 +8,16 @@
         var timelineInterval;
         var calendar;
         $(document).ready(function () {
-
             calendar = $('#calendar').fullCalendar({
                 weekends:false,
                 eventSources:[
-
-                    { url:contextPath + "/professor/getSchedule/${professor.id}" },
-
+                    {
+                        url:contextPath + "/professor/getSchedule/${professor.id}"
+                    },
                     {
                         url:contextPath + "/professor/getOfficeHours/${professor.id}",
                         color:'green'
                     }
-
                 ],
                 columnFormat:{ week:"dddd's'" /* "Mondays" */ },
                 defaultView:'agendaWeek',

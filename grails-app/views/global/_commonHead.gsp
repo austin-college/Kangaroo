@@ -1,16 +1,10 @@
 <%@ page import="grails.util.Environment" %>
 %{-- Render the common <head> elements. --}%
 
-<!-- Random number (caching test): ${new Random().nextInt(100)} -->
 <title><g:layoutTitle default="Kangaroo"/></title>
 <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
 
-%{-- Set some global javascript variables while we still have access to the grails closures. --}%
-<script type="text/javascript">
-    var contextPath = "${request.contextPath}";
-</script>
-
-%{-- Set Facebook details (affects the Like button) --}%
+<g:render template="/global/vars"/>
 <g:render template="/global/facebookOpenGraph"/>
 
 %{-- Set canonical URLs to prevent duplicate content. --}%
