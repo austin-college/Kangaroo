@@ -5,47 +5,56 @@ package kangaroo
 class DataTablesService {
 
     static transactional = false
-
     def cacheService
 
-    def generateTableData(Term term, Requirement requirementToFulfill = null) {
-        return AppUtils.runAndTime("Fetching table for $term...") {
-            // Fetch the course IDs that will be in the table.
-            Set<String> ids = fetchIdsForTable(term, requirementToFulfill);
+    // Queries that are used to fetch tables.
+    static class Query {
+        Term term;
+        Requirement requirementToFulfill; // (optional)
 
-            // Take the IDs and augment them into table rows.
-            def rows = ids.collect { id ->
-                cacheService.memoize("course/${id}/asRow") { formatIntoTableRow(Course.get(id)) }
-            }
+        String toString() { "$term" }
+    }
 
-            return formatIntoTable(rows);
+    def generateTableData(Query query) {
+        return AppUtils.runAndTime("Fetching table for $query...") {
+            List<String> ids = fetchIdsForQuery(query);
+            return expandIntoTable(ids);
         }
     }
 
     /**
-     * Fetches the IDs that will be in the table.
+     * Runs the query and returns the course IDs that will be in the table.
      */
-    Set<String> fetchIdsForTable(Term term, Requirement requirementToFulfill = null) {
-        return Course.executeQuery("select c.id from Course c, \
-                            Term t where c.term = t and t.id = :termId", [termId: term.id])
+    List<String> fetchIdsForQuery(Query query) {
+        return Course.executeQuery("select c.id from Course c, Term t \
+                 where c.term = t and t.id = :termId", [termId: query.term.id])
     }
 
     /**
-     * Formats the list of rows into a DataTables table.
+     * Creates a full DataTables table from a list of course IDs.
      */
-    def formatIntoTable(List courseRows) {
-        return ["aaData": courseRows, "iTotalRecords": courseRows.size(), "iTotalDisplayRecords": courseRows.size(),
+    def expandIntoTable(List<String> courseIds) {
+        // Turn each ID into a table row.
+        def tableRows = courseIds.collect { id ->
+            cacheService.memoize("course/${id}/asRow") {
+                formatIntoTableRow(Course.get(id))
+            }
+        }
+
+        return ["aaData": tableRows,
+                "iTotalRecords": tableRows.size(),
+                "iTotalDisplayRecords": tableRows.size(),
                 "sEcho": 0];
     }
 
     /**
-     * Formats a given course to fit in a table row.
+     * Formats a course into a table row.
      */
     def formatIntoTableRow(Course course) {
-
         def row = []
 
-        row << "<a href='${AppUtils.createLink('course', course.id)}'>${course}</a> <span class='section'>${course.sectionString()}</span>"
+        row << "<a href='${AppUtils.createLink('course', course.id)}'>${course}</a>" +
+                "<span class='section'>${course.sectionString()}</span>"
         row << course.department.name
         if (course.instructors)
             row << AppUtils.getProfessorLinksForClass(course, false, "<br/>");

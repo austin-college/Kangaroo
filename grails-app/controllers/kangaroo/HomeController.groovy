@@ -19,7 +19,8 @@ class HomeController {
      * Called via AJAX: returns the table data for the given term in JSON form.
      */
     def getData = {
-        render([table: dataTablesService.generateTableData(Term.get(params.term))] as JSON)
+        def query = new DataTablesService.Query(term: Term.get(params.term))
+        render([table: dataTablesService.generateTableData(query)] as JSON)
     }
 
     def robots = {
