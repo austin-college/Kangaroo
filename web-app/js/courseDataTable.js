@@ -16,11 +16,11 @@ $.fn.dataTableExt.oStdClasses.sSortDesc = "headerSortUp";
 /**
  * Sets up the table to use the given set of courses. (Re-creates it if it already exists)
  */
-function setupTable(data, originalHtml) {
+function setupTable(data) {
 
     // If the table already exists on the page, drop it first before recreating. [PC] @todo This is a bit sloppy.
     if (objTable)
-        destroyTable(originalHtml);
+        destroyTable();
 
     objTable = $('#classTable').dataTable({
 
@@ -79,10 +79,10 @@ function setupTable(data, originalHtml) {
 /**
  * Completely resets the table.
  */
-function destroyTable(html) {
+function destroyTable() {
     objTable.fnDestroy();
     $('#classTable').remove();
-    $('#tableHolder').html(html)
+    $('#tableHolder').html(document.Kangaroo.searchPage.emptyTableHtml)
 }
 
 

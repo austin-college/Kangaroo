@@ -7,13 +7,14 @@
 //
 //==========================================================================
 
-var data;
-var originalTableHtml;
+document.Kangaroo.searchPage = {
+    emptyTableHtml: "",
+    data: {}
+};
 
 $(document).ready(function () {
-
-    // Read in the data stored in the page.
-    originalTableHtml = $("#tableHolder").html();
+    // Store the empty table HTML so we can recreate it later.
+    document.Kangaroo.searchPage.emptyTableHtml = $("#tableHolder").html();
 
     $("#terms").change(refetchTable);
     $("#departments").change(filterByDepartment);
@@ -43,8 +44,8 @@ function getTableData(term) {
         data: {term: term},
         success: function (response) {
             setLoadingState(false);
-            data = response.table;
-            setupTable({aaData: data.aaData}, originalTableHtml);
+            document.Kangaroo.searchPage.data = response.table;
+            setupTable(document.Kangaroo.searchPage.data);
         }
     });
 }
@@ -64,18 +65,18 @@ function filterByDepartment() {
 
     // If they selected "any department", show them all.
     if (department == "ANY") {
-        setupTable(data, originalTableHtml);
+        setupTable(document.Kangaroo.searchPage.data);
     }
     else {
         // Filter the list by this department.
         var newTable = [];
-        $.each(data.aaData, function (i, row) {
+        $.each(document.Kangaroo.searchPage.data.aaData, function (i, row) {
 
             if (row[1] == document.Kangaroo.departments[department])
                 newTable.push(row);
         });
 
-        setupTable({aaData: newTable}, originalTableHtml);
+        setupTable({aaData: newTable});
     }
 }
 
