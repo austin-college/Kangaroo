@@ -26,9 +26,10 @@
     </div>
 
     <div class="otherControls">
-        Show classes from <a href="#" class="selectable" id="selectTermLink">Spring 2013</a>
+        Show classes from <g:select name="terms" from="${Term.list()}" optionKey="id" style="width: 120px"/>
 
-        in <a href="#" class="selectable" id="selectDepartmentLink">any department</a>
+        in <g:select name="departments" from="${[[id:"ANY", name: "Any Department"]] + Department.list()}"
+                     optionKey="id" optionValue="name" style="width: 140px"/>
 
         %{--that meet at <a href="#" class="selectable">any time</a>--}%
         %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
@@ -38,21 +39,6 @@
     <div id="tableHolder">
         <g:render template="emptyTable"/>
     </div>
-</div>
-
-<div id="menus">
-    <ul id="termMenu" class="contextMenu">
-        <g:each in="${Term.list()}" var="term">
-            <li><a href="#${term.id}">${term}</a></li>
-        </g:each>
-    </ul>
-
-    <ul id="departmentMenu" class="contextMenu">
-        <li class=""><a href="#any">(any)</a></li>
-        <g:each in="${Department.list()}" var="department">
-            <li class="${department.id}"><a href="#${department.id}">${department}</a></li>
-        </g:each>
-    </ul>
 </div>
 
 </body>

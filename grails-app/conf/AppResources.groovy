@@ -15,10 +15,8 @@ modules = {
         dependsOn "common"
 
         resource url: "js/jquery.dataTables.min.js", bundle: 'bundle_search'
-        resource url: "libraries/contextMenu/jquery.contextMenu.js", bundle: 'bundle_search'
         resource url: "js/courseDataTable.js", bundle: 'bundle_search'
         resource url: "js/searchPage.js", bundle: 'bundle_search'
-        resource url: "libraries/contextMenu/jquery.contextMenu.css", bundle: 'bundle_search'
     }
 
     professor {

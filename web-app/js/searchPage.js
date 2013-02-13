@@ -15,9 +15,8 @@ $(document).ready(function () {
     // Read in the data stored in the page.
     originalTableHtml = $("#tableHolder").html();
 
-    // Create context menus for the term and department links.
-    $("#selectTermLink").contextMenu({ menu:'termMenu', leftButton:true }, contextMenuClicked);
-    $("#selectDepartmentLink").contextMenu({ menu:'departmentMenu', leftButton:true }, contextMenuClicked);
+    $("#terms").change(refetchTable);
+    $("#departments").change(filterByDepartment);
 
     // Set up the table!
     $("#tableSearch").focus();
@@ -40,47 +39,44 @@ function setLoadingState(isLoading) {
 function getTableData(term) {
     setLoadingState(true);
     $.ajax({
-        url:document.Kangaroo.url("/home/getData"),
-        data:{term:term},
-        success:function (response) {
+        url: document.Kangaroo.url("/home/getData"),
+        data: {term: term},
+        success: function (response) {
             setLoadingState(false);
             data = response.table;
-            setupTable({aaData:data.aaData}, originalTableHtml);
+            setupTable({aaData: data.aaData}, originalTableHtml);
         }
     });
 }
 
 /**
- * Run when an item is clicked in the context menu.
+ * Re-fetches the table using the current on-page settings.
  */
-function contextMenuClicked(action, el, pos) {
+function refetchTable() {
+    getTableData($("#terms").val());
+}
 
-    if ($(el).attr('id') == "selectTermLink") {
+/**
+ * Re-filters the table using the current on-page settings.
+ */
+function filterByDepartment() {
+    var department = $("#departments").val();
 
-        // Fetch data for this term and reload the table.
-        $("#selectTermLink").text(document.Kangaroo.terms[action]);
-        getTableData(action);
+    // If they selected "any department", show them all.
+    if (department == "ANY") {
+        setupTable(data, originalTableHtml);
     }
-    else if ($(el).attr('id') == "selectDepartmentLink") {
+    else {
+        // Filter the list by this department.
+        var newTable = [];
+        $.each(data.aaData, function (i, row) {
 
-        // If they selected "any department", show them all.
-        if (action == "any") {
-            $("#selectDepartmentLink").text("any department");
-            setupTable(data, originalTableHtml);
-        }
-        else {
-            $("#selectDepartmentLink").text(document.Kangaroo.departments[action]);
+            if (row[1] == document.Kangaroo.departments[department])
+                newTable.push(row);
+        });
 
-            // Filter the list by this department.
-            var newTable = [];
-            $.each(data.aaData, function (i, row) {
-
-                if (row[1] == document.Kangaroo.departments[action])
-                    newTable.push(row);
-            });
-
-            setupTable({aaData:newTable}, originalTableHtml);
-        }
+        setupTable({aaData: newTable}, originalTableHtml);
     }
 }
+
 
