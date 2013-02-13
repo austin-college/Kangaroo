@@ -17,4 +17,5 @@
             <div>
                 %{--<g:render template="/professor/shortStatus" model="['status':professor.status]"/>--}%
             </div>
-        </div></div></g:link>
+        </div></div>
+</g:link>
