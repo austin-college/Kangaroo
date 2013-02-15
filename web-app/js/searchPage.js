@@ -45,46 +45,48 @@ function getTableData(term) {
         data: {term: term},
         success: function (response) {
             setLoadingState(false);
-            document.Kangaroo.searchPage.data = response.courses;
-            document.Kangaroo.searchPage.table = convertToTable(response.courses);
+
+            // Expand the received data into true JSON objects.
+            var courses = $.map(response.courses, function (array) {
+                return  {
+                    id: array[0],
+                    name: array[1],
+                    department: array[2],
+                    professors: $.map(array[3], function (array) {
+                        return { id: array[0], name: array[1] };
+                    }),
+                    meetingTimes: $.map(array[4], function (array) {
+                        return { id: array[0], name: array[1] };
+                    })
+                };
+            });
+
+            var tableRows = $.map(courses, function (course) {
+                return [tableRowFromCourse(course)];
+            });
+
+            document.Kangaroo.searchPage.data = courses;
+            document.Kangaroo.searchPage.table = {
+                "aaData": tableRows,
+                "iTotalRecords": tableRows.length,
+                "iTotalDisplayRecords": tableRows.length
+            };
             setupTable(document.Kangaroo.searchPage.table);
         }
     });
 }
 
-function convertToTable(rowObjs) {
-    var rows = [];
-    $.each(rowObjs, function (i, rowObj) {
-        rows.push(convertToRow(rowObj));
-    });
-
-    return {
-        "aaData": rows,
-        "iTotalRecords": rows.length,
-        "iTotalDisplayRecords": rows.length
-    };
-}
-
-function convertToRow(courseArray) {
-    var course = {
-        id: courseArray[0],
-        name: courseArray[1],
-        department: courseArray[2],
-        professors: $.map(courseArray[3], function (array) {
-            return { id: array[0], name: array[1] };
-        }),
-        meetingTimes: $.map(courseArray[4], function (array) {
-            return { id: array[0], name: array[1] };
-        })
-    };
-
+/**
+ * Given a course object, turns it into a table row.
+ */
+function tableRowFromCourse(course) {
     var courseName = "<a href='" + document.Kangaroo.url("/course/" + course.id) + "'>" + course.name + "</a>";
-    var professorLinks = $.map(course.professors, function (obj) {
+    var professorLinks = $.map(course.professors,function (obj) {
         return "<a href='" + document.Kangaroo.url("/" + obj.id) + "'>" + obj.name + "</a>";
-    });
-    var meetingTimeLinks = $.map(course.meetingTimes, function (obj) {
+    }).join("<br >/>");
+    var meetingTimeLinks = $.map(course.meetingTimes,function (obj) {
         return "<a href='" + document.Kangaroo.url("/course/bySchedule/" + obj.id) + "'>" + obj.name + "</a>";
-    });
+    }).join("<br />");
 
     if (!course.professors.length) {
         professorLinks = "<i>Unknown</i>";

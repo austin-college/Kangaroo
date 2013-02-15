@@ -5,6 +5,8 @@ dataSource {
     password = "sz7v8YTVGsV2qvaW"
     loggingSql = false
     validationQuery = "SELECT 1"
+    dbCreate = "update" // one of 'create', 'create-drop','update'
+    url = "jdbc:mysql://localhost:3306/kangaroo?useUnicode=true&amp;characterEncoding=utf8"
 }
 hibernate {
     cache.use_second_level_cache = true
