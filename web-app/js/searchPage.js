@@ -51,15 +51,16 @@ function getTableData(term) {
             var courses = $.map(response.courses, function (array) {
                 return  {
                     id: array[0],
-                    name: array[1],
-                    department: { id: array[2][0], name: array[2][1] },
-                    professors: $.map(array[3], function (array) {
+                    section: array[1],
+                    name: array[2],
+                    department: { id: array[3][0], name: array[3][1] },
+                    professors: $.map(array[4], function (array) {
                         return { id: array[0], name: array[1] };
                     }),
-                    meetingTimes: $.map(array[4], function (array) {
+                    meetingTimes: $.map(array[5], function (array) {
                         return { id: array[0], name: array[1] };
                     }),
-                    requirementsFulfilled: array[5]
+                    requirementsFulfilled: array[6]
                 };
             });
             document.Kangaroo.searchPage.courses = courses;
@@ -74,7 +75,8 @@ function getTableData(term) {
  * Given a course object, turns it into a table row.
  */
 function tableRowFromCourse(course) {
-    var courseName = "<a href='" + document.Kangaroo.url("/course/" + course.id) + "'>" + course.name + "</a>";
+    var courseName = "<a href='" + document.Kangaroo.url("/course/" + course.id) + "'>" + course.name + "</a>"
+        + "<span class='section'>" + course.section + "</span>";
     var professorLinks = $.map(course.professors,function (obj) {
         return "<a href='" + document.Kangaroo.url("/" + obj.id) + "'>" + obj.name + "</a>";
     }).join("<br />");

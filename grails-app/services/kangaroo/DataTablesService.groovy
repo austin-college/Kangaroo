@@ -48,6 +48,7 @@ class DataTablesService {
     def formatIntoTableRow(Course course) {
         return [
                 course.id,
+                course.sectionString(),
                 course.name,
                 [course.department.id, course.department.name],
                 course.instructors.collect { [it.id, it.name] },
