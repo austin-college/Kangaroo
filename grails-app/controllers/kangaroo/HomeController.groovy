@@ -20,7 +20,7 @@ class HomeController {
      */
     def getData = {
         def query = new DataTablesService.Query(term: Term.get(params.term))
-        render([table: dataTablesService.generateTableData(query)] as JSON)
+        render([courses: dataTablesService.generateTableData(query)] as JSON)
     }
 
     def robots = {
