@@ -35,37 +35,27 @@ class DataTablesService {
      */
     def expandIntoTable(List<String> courseIds) {
         // Turn each ID into a table row.
-        def tableRows = courseIds.collect { id ->
-            cacheService.memoize("course/${id}/asRow") {
+        return courseIds.collect { id ->
+            cacheService.memoize("course/${id}/asRowObj") {
                 formatIntoTableRow(Course.get(id))
             }
         }
-
-        return ["aaData": tableRows,
-                "iTotalRecords": tableRows.size(),
-                "iTotalDisplayRecords": tableRows.size(),
-                "sEcho": 0];
+//        return ["aaData": tableRows,
+//                "iTotalRecords": tableRows.size(),
+//                "iTotalDisplayRecords": tableRows.size(),
+//                "sEcho": 0];
     }
 
     /**
      * Formats a course into a table row.
      */
     def formatIntoTableRow(Course course) {
-        def row = []
-
-        row << "<a href='${AppUtils.createLink('course', course.id)}'>${course}</a>" +
-                "<span class='section'>${course.sectionString()}</span>"
-        row << course.department.name
-        if (course.instructors)
-            row << AppUtils.getProfessorLinksForClass(course, false, "<br/>");
-        else
-            row << "<i>Unknown<i/>"
-
-        if (course.meetingTimes)
-            row << AppUtils.getScheduleLinksForClass(course)
-        else
-            row << "<i>Unknown<i/>"
-
-        return row;
+        return [
+                course.id,
+                course.name,
+                course.department.name.toString(),
+                course.instructors.collect { [it.id, it.name] },
+                course.meetingTimes.collect { [it.id, it.toString()] }
+        ];
     }
 }

@@ -7,13 +7,15 @@
 //
 //==========================================================================
 
-var data;
-var originalTableHtml;
+document.Kangaroo.searchPage = {
+    emptyTableHtml: "",
+    data: {},
+    rows: {}
+};
 
 $(document).ready(function () {
-
-    // Read in the data stored in the page.
-    originalTableHtml = $("#tableHolder").html();
+    // Store the empty table HTML so we can recreate it later.
+    document.Kangaroo.searchPage.emptyTableHtml = $("#tableHolder").html();
 
     $("#terms").change(refetchTable);
     $("#departments").change(filterByDepartment);
@@ -43,10 +45,55 @@ function getTableData(term) {
         data: {term: term},
         success: function (response) {
             setLoadingState(false);
-            data = response.table;
-            setupTable({aaData: data.aaData}, originalTableHtml);
+            document.Kangaroo.searchPage.data = response.courses;
+            document.Kangaroo.searchPage.table = convertToTable(response.courses);
+            setupTable(document.Kangaroo.searchPage.table);
         }
     });
+}
+
+function convertToTable(rowObjs) {
+    var rows = [];
+    $.each(rowObjs, function (i, rowObj) {
+        rows.push(convertToRow(rowObj));
+    });
+
+    return {
+        "aaData": rows,
+        "iTotalRecords": rows.length,
+        "iTotalDisplayRecords": rows.length
+    };
+}
+
+function convertToRow(courseArray) {
+    var course = {
+        id: courseArray[0],
+        name: courseArray[1],
+        department: courseArray[2],
+        professors: $.map(courseArray[3], function (array) {
+            return { id: array[0], name: array[1] };
+        }),
+        meetingTimes: $.map(courseArray[4], function (array) {
+            return { id: array[0], name: array[1] };
+        })
+    };
+
+    var courseName = "<a href='" + document.Kangaroo.url("/course/" + course.id) + "'>" + course.name + "</a>";
+    var professorLinks = $.map(course.professors, function (obj) {
+        return "<a href='" + document.Kangaroo.url("/" + obj.id) + "'>" + obj.name + "</a>";
+    });
+    var meetingTimeLinks = $.map(course.meetingTimes, function (obj) {
+        return "<a href='" + document.Kangaroo.url("/course/bySchedule/" + obj.id) + "'>" + obj.name + "</a>";
+    });
+
+    if (!course.professors.length) {
+        professorLinks = "<i>Unknown</i>";
+    }
+    if (!course.meetingTimes.length) {
+        meetingTimeLinks = "<i>Unknown</i>";
+    }
+
+    return [courseName, course.department, professorLinks, meetingTimeLinks];
 }
 
 /**
@@ -64,18 +111,18 @@ function filterByDepartment() {
 
     // If they selected "any department", show them all.
     if (department == "ANY") {
-        setupTable(data, originalTableHtml);
+        setupTable(document.Kangaroo.searchPage.table);
     }
     else {
         // Filter the list by this department.
         var newTable = [];
-        $.each(data.aaData, function (i, row) {
+        $.each(document.Kangaroo.searchPage.table, function (i, row) {
 
             if (row[1] == document.Kangaroo.departments[department])
                 newTable.push(row);
         });
 
-        setupTable({aaData: newTable}, originalTableHtml);
+        setupTable({aaData: newTable});
     }
 }
 
