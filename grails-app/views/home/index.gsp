@@ -30,6 +30,7 @@
         <g:select name="terms"
                   from="${Term.list()}"
                   optionKey="id"
+                  value="${Term.defaultSearchTerm?.id}"
                   style="width: 120px"/>
 
         in
