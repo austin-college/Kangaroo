@@ -9,7 +9,7 @@
 
 document.Kangaroo.searchPage = {
     emptyTableHtml: "",
-    data: {},
+    courses: {},
     rows: {}
 };
 
@@ -18,7 +18,8 @@ $(document).ready(function () {
     document.Kangaroo.searchPage.emptyTableHtml = $("#tableHolder").html();
 
     $("#terms").change(refetchTable);
-    $("#departments").change(filterByDepartment);
+    $("#departments").change(refilterTable);
+    $("#requirements").change(refilterTable);
 
     // Set up the table!
     $("#tableSearch").focus();
@@ -51,27 +52,20 @@ function getTableData(term) {
                 return  {
                     id: array[0],
                     name: array[1],
-                    department: array[2],
+                    department: { id: array[2][0], name: array[2][1] },
                     professors: $.map(array[3], function (array) {
                         return { id: array[0], name: array[1] };
                     }),
                     meetingTimes: $.map(array[4], function (array) {
                         return { id: array[0], name: array[1] };
-                    })
+                    }),
+                    requirementsFulfilled: array[5]
                 };
             });
+            document.Kangaroo.searchPage.courses = courses;
 
-            var tableRows = $.map(courses, function (course) {
-                return [tableRowFromCourse(course)];
-            });
-
-            document.Kangaroo.searchPage.data = courses;
-            document.Kangaroo.searchPage.table = {
-                "aaData": tableRows,
-                "iTotalRecords": tableRows.length,
-                "iTotalDisplayRecords": tableRows.length
-            };
-            setupTable(document.Kangaroo.searchPage.table);
+            // Now build the table!
+            refilterTable();
         }
     });
 }
@@ -83,7 +77,7 @@ function tableRowFromCourse(course) {
     var courseName = "<a href='" + document.Kangaroo.url("/course/" + course.id) + "'>" + course.name + "</a>";
     var professorLinks = $.map(course.professors,function (obj) {
         return "<a href='" + document.Kangaroo.url("/" + obj.id) + "'>" + obj.name + "</a>";
-    }).join("<br >/>");
+    }).join("<br />");
     var meetingTimeLinks = $.map(course.meetingTimes,function (obj) {
         return "<a href='" + document.Kangaroo.url("/course/bySchedule/" + obj.id) + "'>" + obj.name + "</a>";
     }).join("<br />");
@@ -95,7 +89,7 @@ function tableRowFromCourse(course) {
         meetingTimeLinks = "<i>Unknown</i>";
     }
 
-    return [courseName, course.department, professorLinks, meetingTimeLinks];
+    return [courseName, course.department.name, professorLinks, meetingTimeLinks];
 }
 
 /**
@@ -106,26 +100,25 @@ function refetchTable() {
 }
 
 /**
- * Re-filters the table using the current on-page settings.
+ * Re-filters and builds the table using the current on-page settings.
  */
-function filterByDepartment() {
-    var department = $("#departments").val();
+function refilterTable() {
+    var departmentID = $("#departments").val();
+    var requirementID = $("#requirements").val();
 
-    // If they selected "any department", show them all.
-    if (department == "ANY") {
-        setupTable(document.Kangaroo.searchPage.table);
-    }
-    else {
-        // Filter the list by this department.
-        var newTable = [];
-        $.each(document.Kangaroo.searchPage.table, function (i, row) {
+    var tableRows = $.map(document.Kangaroo.searchPage.courses, function (course) {
+        if ((departmentID != course.department.id) && (departmentID != "ANY"))
+            return null;
+        if ((requirementID != "ANY") && $.inArray(requirementID, course.requirementsFulfilled) == -1)
+            return null;
 
-            if (row[1] == document.Kangaroo.departments[department])
-                newTable.push(row);
-        });
-
-        setupTable({aaData: newTable});
-    }
+        return [tableRowFromCourse(course)];
+    });
+    var table = {
+        "aaData": tableRows,
+        "iTotalRecords": tableRows.length,
+        "iTotalDisplayRecords": tableRows.length
+    };
+    setupTable(table);
 }
-
 

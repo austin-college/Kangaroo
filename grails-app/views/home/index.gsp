@@ -1,4 +1,4 @@
-<%@ page import="kangaroo.Department; kangaroo.Term" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kangaroo.Requirement; kangaroo.Department; kangaroo.Term" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -26,13 +26,25 @@
     </div>
 
     <div class="otherControls">
-        Show classes from <g:select name="terms" from="${Term.list()}" optionKey="id" style="width: 120px"/>
+        Show classes from
+        <g:select name="terms"
+                  from="${Term.list()}"
+                  optionKey="id"
+                  style="width: 120px"/>
 
-        in <g:select name="departments" from="${[[id: "ANY", name: "Any Department"]] + Department.list()}"
-                     optionKey="id" optionValue="name" style="width: 140px"/>
+        in
+        <g:select name="departments"
+                  from="${[[id: "ANY", name: "Any Department"]] + Department.list()}"
+                  optionKey="id"
+                  optionValue="name"
+                  style="width: 150px"/>
 
-        %{--that meet at <a href="#" class="selectable">any time</a>--}%
-        %{--and that satisfy <a href="#" class="selectable">any requirement</a>.--}%
+        and that satisfy
+        <g:select name="requirements"
+                  from="${[[id: "ANY", name: "Any Requirement"]] + Requirement.findAllWhere(isInterdisciplinaryMajor: false)}"
+                  optionKey="id"
+                  optionValue="name"
+                  style="width: 160px"/>
 
     </div>
 

@@ -40,10 +40,6 @@ class DataTablesService {
                 formatIntoTableRow(Course.get(id))
             }
         }
-//        return ["aaData": tableRows,
-//                "iTotalRecords": tableRows.size(),
-//                "iTotalDisplayRecords": tableRows.size(),
-//                "sEcho": 0];
     }
 
     /**
@@ -53,9 +49,10 @@ class DataTablesService {
         return [
                 course.id,
                 course.name,
-                course.department.name.toString(),
+                [course.department.id, course.department.name],
                 course.instructors.collect { [it.id, it.name] },
-                course.meetingTimes.collect { [it.id, it.toString()] }
+                course.meetingTimes.collect { [it.id, it.toString()] },
+                course.requirementsFulfilled*.id
         ];
     }
 }
