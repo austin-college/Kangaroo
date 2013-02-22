@@ -2,13 +2,12 @@ package kangaroo.data
 
 import kangaroo.AppUtils
 import kangaroo.Course
+import kangaroo.Term
 import kangaroo.Textbook
 
 class TextbookFetchService {
 
     static transactional = false
-
-    def amazonFetchService
 
     def sessionFactory
     def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
@@ -16,13 +15,10 @@ class TextbookFetchService {
     def lookupTextbooksForAllCourses() {
 
         println "Fetching detailed textbook data from bkstr.com..."
-
-        Textbook.list().each { it.delete() };
+        Textbook.list().each { it.delete(flush: true) };
         cleanUpGorm()
         AppUtils.runAndTime("Textbooks fetched") {
-            Course.list().each { course ->
-                lookupTextbookInfo(course)
-            }
+            Term.currentTerm.courses.each { course -> lookupTextbookInfo(course) }
         }
         cleanUpGorm()
     }
@@ -33,7 +29,6 @@ class TextbookFetchService {
         Course.withTransaction {
 
             course = course.merge()
-
             def page = AppUtils.cleanAndConvertToXml(new URL(course.textbookPageUrl()).text);
             def list = page.depthFirst().collect { it }.find { it.name() == "div" && it.@class.toString().contains("results") }
 
@@ -43,7 +38,6 @@ class TextbookFetchService {
                 def textbook = new Textbook(course: course);
 
                 it.li.each { detail ->
-
                     def line = detail.toString().trim();
 
                     // Information about the textbooks is presented as "TYPE:<data>".
@@ -65,6 +59,7 @@ class TextbookFetchService {
             if (!failures)
                 course.dateTextbooksParsed = new Date()
             course.save(flush: true)
+            println "| - ${course.id} has ${course.textbooks.size()} books"
             cleanUpGorm()
         }
     }

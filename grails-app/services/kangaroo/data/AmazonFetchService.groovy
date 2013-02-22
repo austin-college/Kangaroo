@@ -1,6 +1,5 @@
 package kangaroo.data
 
-import groovyx.gpars.GParsPool
 import kangaroo.AppUtils
 import kangaroo.Textbook
 
@@ -17,10 +16,8 @@ class AmazonFetchService {
         println "Fetching detailed textbook data from amazon.com..."
         AppUtils.runAndTime("Amazon details fetched") {
             cleanUpGorm()
-            GParsPool.withPool(20) {
-                Textbook.findAllByMatchedOnAmazon(false).eachParallel { textbook ->
-                    lookupTextbookInfo(textbook)
-                }
+            Textbook.findAllByMatchedOnAmazon(false).each { textbook ->
+                lookupTextbookInfo(textbook)
             }
         }
     }
@@ -39,6 +36,7 @@ class AmazonFetchService {
                 if (!textbook.imageUrl)
                     textbook.imageUrl = AppUtils.findInNode(page) { node -> node.@id == "prodImageCell" }.img.@src;
                 textbook.save(flush: true);
+                println "| - \"${textbook.title}\" is ${textbook.matchedOnAmazon ? "" : "NOT"} matched"
                 cleanUpGorm()
             }
             catch (Exception e) { println "Failed (${e})" }

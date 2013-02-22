@@ -46,6 +46,11 @@ class Term implements Serializable, Comparable<Term> {
     String getSeasonCode() { return id[2..-1]; }
 
     /**
+     * All courses in this term.
+     */
+    List<Course> getCourses() { return Course.findAllByTerm(this) }
+
+    /**
      * The term's calendar year (e.g., 2011).
      */
     int getYear() { return 2000 + Integer.parseInt(id[0..1]); }
