@@ -34,7 +34,7 @@ class CacheService {
     private def initializeCache() {
         println "Memoizing courses..."
         Course.list().each { course ->
-            memoize("course/${course.id}/asRowObj") { dataTablesService.formatIntoTableRow(course) }
+            memoize("course/${course.id}/asRowObj") { dataTablesService.formatIntoTableRowObject(course) }
         }
 
         println "Cache warmed up!"

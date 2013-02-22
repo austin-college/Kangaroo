@@ -1,6 +1,7 @@
 package kangaroo
+
 /**
- * Returns data formatted for the client-side DataTables.
+ * Calculates data for the course table.
  */
 class DataTablesService {
 
@@ -10,11 +11,13 @@ class DataTablesService {
     // Queries that are used to fetch tables.
     static class Query {
         Term term;
-        Requirement requirementToFulfill; // (optional)
 
         String toString() { "$term" }
     }
 
+    /**
+     * Returns the table for the given query.
+     */
     def generateTableData(Query query) {
         return AppUtils.runAndTime("Fetching table for $query...") {
             List<String> ids = fetchIdsForQuery(query);
@@ -23,7 +26,7 @@ class DataTablesService {
     }
 
     /**
-     * Runs the query and returns the course IDs that will be in the table.
+     * Returns the course IDs that will be in the table for the given query.
      */
     List<String> fetchIdsForQuery(Query query) {
         return Course.executeQuery("select c.id from Course c, Term t \
@@ -31,21 +34,24 @@ class DataTablesService {
     }
 
     /**
-     * Creates a full DataTables table from a list of course IDs.
+     * Turns a list of course IDs into a list of row objects.
      */
     def expandIntoTable(List<String> courseIds) {
-        // Turn each ID into a table row.
         return courseIds.collect { id ->
             cacheService.memoize("course/${id}/asRowObj") {
-                formatIntoTableRow(Course.get(id))
+                formatIntoTableRowObject(Course.get(id))
             }
         }
     }
 
     /**
-     * Formats a course into a table row.
+     * Formats a course into a row object.
      */
-    def formatIntoTableRow(Course course) {
+    def formatIntoTableRowObject(Course course) {
+        /*
+         NOTE: These used to be full-fledged JSON objects, but it's significantly more compact to send them as arrays,
+         then re-inflate them into objects on the client side. So, the index of each element is important.
+         */
         return [
                 course.id,
                 course.sectionString(),
