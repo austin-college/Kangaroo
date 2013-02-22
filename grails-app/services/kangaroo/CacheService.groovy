@@ -17,7 +17,7 @@ class CacheService {
         if (cache[key])
             return cache[key]
         else {
-            println "Cache miss for ${key}"
+            println "|- Cache miss for ${key}"
             def value = closure();
             cache[key] = value;
             return value;
