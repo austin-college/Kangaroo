@@ -14,4 +14,6 @@ class EditKey {
         id(column: 'edit_key', generator: 'assigned')
         version(false)
     }
+
+    String toString() { id }
 }
