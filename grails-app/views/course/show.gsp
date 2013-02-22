@@ -85,24 +85,24 @@
     <div style="float: left; clear: both; margin-top: 40px">
         <div style="font-size: 30px; color: #999; font-weight: bold; margin-bottom: 10px">Textbooks</div>
 
-        <g:if test="${course.dateTextbooksParsed}">
-            <g:if test="${course.textbooks.size() > 0}">
-                <g:render collection="${course.textbooks}" var="textbook" template="textbook"/>
+        %{--<g:if test="${course.dateTextbooksParsed}">--}%
+        %{--<g:if test="${course.textbooks.size() > 0}">--}%
+        %{--<g:render collection="${course.textbooks}" var="textbook" template="textbook"/>--}%
 
-                <div style="clear: both; padding-top: 10px">
-                    <b>Total: $${(course.textbooks*.bookstoreNewPrice.sum() as Double).round(2)}</b> &middot;
-                    <a href="${course.textbookPageUrl()}">see all</a>
-                </div>
-            </g:if>
-            <g:else>
+        %{--<div style="clear: both; padding-top: 10px">--}%
+        %{--<b>Total: $${(course.textbooks*.bookstoreNewPrice.sum() as Double).round(2)}</b> &middot;--}%
+        %{--<a href="${course.textbookPageUrl()}">see all</a>--}%
+        %{--</div>--}%
+        %{--</g:if>--}%
+        %{--<g:else>--}%
 
-                No textbooks have been posted.
+        %{--No textbooks have been posted.--}%
 
-            </g:else>
-        </g:if>
-        <g:else>
-            <a href="${course.textbookPageUrl()}">View this course's textbooks</a>
-        </g:else>
+        %{--</g:else>--}%
+        %{--</g:if>--}%
+        %{--<g:else>--}%
+        <a href="${course.textbookPageUrl()}">View this course's textbooks</a>
+        %{--</g:else>--}%
     </div>
 
     <g:if test="${course.requirementsFulfilled}">
