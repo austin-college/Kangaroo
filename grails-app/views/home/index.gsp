@@ -28,7 +28,7 @@
     <div class="otherControls">
         Show classes from
         <g:select name="terms"
-                  from="${Term.list()}"
+                  from="${Term.list().sort().reverse()}"
                   optionKey="id"
                   value="${Term.defaultSearchTerm?.id}"
                   style="width: 120px"/>
