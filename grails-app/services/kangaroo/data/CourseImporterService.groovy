@@ -1,4 +1,4 @@
-package kangaroo.setup.fetch
+package kangaroo.data
 
 import grails.converters.JSON
 import kangaroo.*

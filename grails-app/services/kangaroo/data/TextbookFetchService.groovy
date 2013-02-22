@@ -1,14 +1,14 @@
-package kangaroo.setup.fetch
+package kangaroo.data
 
 import kangaroo.AppUtils
 import kangaroo.Course
 import kangaroo.Textbook
 
-class TextbookDataService {
+class TextbookFetchService {
 
     static transactional = false
 
-    def amazonDataService
+    def amazonFetchService
 
     def sessionFactory
     def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP

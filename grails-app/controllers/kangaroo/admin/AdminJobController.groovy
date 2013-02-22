@@ -12,8 +12,8 @@ class AdminJobController {
     def backendDataService
     def courseImporterService
     def facultyDataService
-    def textbookDataService
-    def amazonDataService
+    def textbookFetchService
+    def amazonFetchService
     def majorDataService
     def cacheService
 
@@ -45,7 +45,7 @@ class AdminJobController {
             "textbooks": [
                     id: "textbooks",
                     name: "Textbooks",
-                    run: { textbookDataService.lookupTextbooksForAllCourses() },
+                    run: { textbookFetchService.lookupTextbooksForAllCourses() },
                     status: {
                         if (Course.count() > 0)
                             "${Textbook.count()} textbooks;"
@@ -56,7 +56,7 @@ class AdminJobController {
             "amazon": [
                     id: "amazon",
                     name: "Amazon",
-                    run: { amazonDataService.lookupAllTextbooks() },
+                    run: { amazonFetchService.lookupAllTextbooks() },
                     status: {
                         if (Textbook.count() > 0)
                             "${Textbook.countByMatchedOnAmazon(true)} textbooks have Amazon details (${AppUtils.toPercent(Textbook.countByMatchedOnAmazon(true) / Textbook.count())}%)"

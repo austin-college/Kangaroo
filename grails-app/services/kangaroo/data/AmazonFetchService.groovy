@@ -1,4 +1,4 @@
-package kangaroo.setup.fetch
+package kangaroo.data
 
 import groovyx.gpars.GParsPool
 import kangaroo.AppUtils
@@ -7,7 +7,7 @@ import kangaroo.Textbook
 /**
  * Pulls in data from Amazon.com about textbooks.
  */
-class AmazonDataService {
+class AmazonFetchService {
 
     def sessionFactory
     def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
