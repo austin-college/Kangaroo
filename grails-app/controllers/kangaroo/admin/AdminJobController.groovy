@@ -26,6 +26,12 @@ class AdminJobController {
                     run: { courseImporterService.importCourses(Term.get("13SP")) },
                     status: { "Ready; ${Course.countByTerm(Term.get("13SP"))} existing courses to scrub" }
             ],
+            "13FA": [
+                    id: "13FA",
+                    name: "Import 13FA",
+                    run: { courseImporterService.importFromJson(Term.findOrCreate("13FA"), new URL("http://pastebin.com/raw.php?i=SMdr98NH").text) },
+                    status: { "Ready; ${Course.countByTerm(Term.findOrCreate("13FA"))} existing courses to scrub" }
+            ],
             "reImport": [
                     id: "reImport",
                     name: "Re-Import Data",

@@ -95,7 +95,7 @@ public class AppUtils {
 
     static def saveSafely(object) {
         if (object == null)
-            throw new Exception("Object pased to saveSafely() was null.")
+            throw new Exception("Object passed to saveSafely() was null.")
 
         object.save();
         ensureNoErrors(object)
