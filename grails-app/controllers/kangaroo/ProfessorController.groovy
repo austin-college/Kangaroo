@@ -6,6 +6,8 @@ import kangaroo.data.convert.ScheduleConvertService
 import kangaroo.data.convert.ScheduleProjectService
 import kangaroo.mn.ProfessorOfficeHours
 import org.springframework.security.core.userdetails.User
+import java.util.Date
+import java.util.TimeZone
 
 import javax.servlet.http.Cookie
 
@@ -127,8 +129,13 @@ class ProfessorController {
                 Date end = Date.parse("yyyy-MM-dd'T'HH:mm:ss", data.end);
 
                 // Adjust for time zones.
-                start.hours -= 6;
-                end.hours -= 6;
+		TimeZone tz = TimeZone.getDefault();
+		boolean inDaylightTime = tz.inDaylightTime( newDate() );
+		int hoursOffset = tz.getRawOffset()/1000/60/60;
+		
+		if (inDaylightTime) hoursOffset++;
+                start.hours -= hoursOffset;
+                end.hours -= hoursOffset;
 
                 // Convert to a MeetingTime.
                 final days = ["", "SU", "M", "T", "W", "TH", "F", "SA"]
